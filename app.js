@@ -1,20 +1,23 @@
-const movies=[
- {title:"Filmes",img:"https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80"},
- {title:"Novidades",img:"https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80"},
- {title:"Ação",img:"https://images.unsplash.com/photo-1512070679279-8988d32161be?auto=format&fit=crop&w=600&q=80"},
- {title:"Documentários",img:"https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=600&q=80"}
+const catalog=[
+{title:"Aventura VIP",category:"Filme",type:"movies",description:"Título de demonstração. Substitua por conteúdo autorizado.",featured:true},
+{title:"Noite de Cinema",category:"Filme",type:"movies",description:"Exemplo de conteúdo para o catálogo."},
+{title:"Horizonte",category:"Filme",type:"movies",description:"Exemplo de conteúdo para o catálogo."},
+{title:"Código Final",category:"Filme",type:"movies",description:"Exemplo de conteúdo para o catálogo."},
+{title:"Missão Oculta",category:"Filme",type:"movies",description:"Exemplo de conteúdo para o catálogo."},
+{title:"Além do Tempo",category:"Série",type:"series",description:"Série de demonstração.",featured:true},
+{title:"Cidade VIP",category:"Série",type:"series",description:"Exemplo de série."},
+{title:"O Último Caminho",category:"Série",type:"series",description:"Exemplo de série."},
+{title:"Pequenos Heróis",category:"Infantil",type:"kids",description:"Conteúdo infantil de demonstração.",featured:true},
+{title:"Mundo dos Amigos",category:"Infantil",type:"kids",description:"Exemplo de conteúdo infantil."},
+{title:"Planeta Azul",category:"Documentário",type:"docs",description:"Documentário de demonstração.",featured:true},
+{title:"Histórias Reais",category:"Documentário",type:"docs",description:"Exemplo de documentário."}
 ];
-document.getElementById("catalog").innerHTML=movies.map(m=>`<div class="card"><img src="${m.img}"><b>${m.title}</b></div>`).join("");
-function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
-function openLogin(){document.getElementById("modal").style.display="flex"}
-function closeLogin(){document.getElementById("modal").style.display="none"}
-function login(){
- const name=document.getElementById("name").value,email=document.getElementById("email").value,password=document.getElementById("password").value;
- if(!name||!email||!password){document.getElementById("msg").textContent="Preencha todos os campos.";return}
- localStorage.setItem("vip_user",JSON.stringify({name,email}));
- document.getElementById("msg").textContent="Conta de demonstração criada.";
-}
-function choose(plan){
- if(!localStorage.getItem("vip_user")){openLogin();document.getElementById("msg").textContent="Crie uma conta primeiro.";return}
- alert("Plano "+plan+" selecionado. O pagamento real será conectado no backend.");
-}
+const grids={movies:moviesGrid,series:seriesGrid,kids:kidsGrid,docs:docsGrid,featured:featuredGrid};
+function makeCard(x){const e=document.createElement("article");e.className="card";e.innerHTML=`<div class="poster"><div class="poster-text">${x.title}</div></div><div class="card-info"><h3>${x.title}</h3><div class="meta">${x.category} • VIP</div></div>`;e.onclick=()=>openModal(x);return e}
+function render(list=catalog){Object.values(grids).forEach(g=>g.innerHTML="");list.filter(x=>x.featured).forEach(x=>featuredGrid.appendChild(makeCard(x)));list.filter(x=>x.type==="movies").forEach(x=>moviesGrid.appendChild(makeCard(x)));list.filter(x=>x.type==="series").forEach(x=>seriesGrid.appendChild(makeCard(x)));list.filter(x=>x.type==="kids").forEach(x=>kidsGrid.appendChild(makeCard(x)));list.filter(x=>x.type==="docs").forEach(x=>docsGrid.appendChild(makeCard(x)))}render();
+const modal=document.getElementById("contentModal");
+function openModal(x){modalTitle.textContent=x.title;modalCategory.textContent=x.category;modalDescription.textContent=x.description;modalPoster.textContent=x.title;modal.classList.add("open")}
+closeModal.onclick=()=>modal.classList.remove("open");modal.onclick=e=>{if(e.target===modal)modal.classList.remove("open")};
+loginBtn.onclick=()=>alert("Área de login — podemos criar esta função na próxima etapa.");
+watchBtn.onclick=()=>alert("Aqui entra o link/player do seu conteúdo autorizado.");
+searchInput.oninput=e=>{const q=e.target.value.toLowerCase();render(q?catalog.filter(x=>(x.title+" "+x.category).toLowerCase().includes(q)):catalog)};
