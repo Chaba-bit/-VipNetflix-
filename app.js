@@ -506,8 +506,30 @@ Wonderman
 `.trim().split("\n").map(title => ({
   title: title.trim(),
   category: "Série",
-  type: "series"
+  type: "series",
+  image: "",
+  seasons: []
 }));
+
+const seriesData = {
+  "1923": {
+    image: "COLE_AQUI_A_URL_DA_CAPA"
+  },
+
+  "1992": {
+    image: "COLE_AQUI_A_URL_DA_CAPA"
+  },
+
+  "30 Moedas de Judas": {
+    image: "COLE_AQUI_A_URL_DA_CAPA"
+  }
+};
+
+catalog.forEach(item => {
+  if (seriesData[item.title]) {
+    Object.assign(item, seriesData[item.title]);
+  }
+});
 const grids={movies:moviesGrid,series:seriesGrid,kids:kidsGrid,docs:docsGrid,featured:featuredGrid};
 function makeCard(x){const e=document.createElement("article");e.className="card";e.innerHTML=`<div class="poster"><div class="poster-text">${x.title}</div></div><div class="card-info"><h3>${x.title}</h3><div class="meta">${x.category} • VIP</div></div>`;e.onclick=()=>openModal(x);return e}
 function render(list=catalog){Object.values(grids).forEach(g=>g.innerHTML="");list.filter(x=>x.featured).forEach(x=>featuredGrid.appendChild(makeCard(x)));list.filter(x=>x.type==="movies").forEach(x=>moviesGrid.appendChild(makeCard(x)));list.filter(x=>x.type==="series").forEach(x=>seriesGrid.appendChild(makeCard(x)));list.filter(x=>x.type==="kids").forEach(x=>kidsGrid.appendChild(makeCard(x)));list.filter(x=>x.type==="docs").forEach(x=>docsGrid.appendChild(makeCard(x)))}render();
