@@ -513,18 +513,36 @@ Wonderman
 
 const seriesData = {};
 
-catalog.forEach(item => {
-  const fileName = item.title
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-zA-Z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-    .toLowerCase();
+async function carregarCapaTeste() {
+  const titulo = "O Conde de Monte Cristo";
 
-  seriesData[item.title] = {
-    image: `imagens/${fileName}.jpg`
-  };
-});
+  try {
+    const resposta = await fetch(
+      `https://api.tvmaze.com/singlesearch/shows?q=${encodeURIComponent(titulo)}`
+    );
+
+    if (!resposta.ok) return;
+
+    const serie = await resposta.json();
+
+    if (serie.image?.medium) {
+      const item = catalog.find(x => x.title === titulo);
+
+      if (item) {
+        item.image = serie.image.medium;
+        seriesData[titulo] = {
+          image: serie.image.medium
+        };
+
+        render(catalog);
+      }
+    }
+  } catch (erro) {
+    console.log("Erro ao buscar capa:", erro);
+  }
+}
+
+carregarCapaTeste();
 
 catalog.forEach(item => {
   if (seriesData[item.title]) {
