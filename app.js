@@ -511,19 +511,20 @@ Wonderman
   seasons: []
 }));
 
-const seriesData = {
-  "1923": {
-    image: "COLE_AQUI_A_URL_DA_CAPA"
-  },
+const seriesData = {};
 
-  "1992": {
-    image: "COLE_AQUI_A_URL_DA_CAPA"
-  },
+catalog.forEach(item => {
+  const fileName = item.title
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase();
 
-  "30 Moedas de Judas": {
-    image: "COLE_AQUI_A_URL_DA_CAPA"
-  }
-};
+  seriesData[item.title] = {
+    image: `imagens/${fileName}.jpg`
+  };
+});
 
 catalog.forEach(item => {
   if (seriesData[item.title]) {
