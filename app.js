@@ -1,784 +1,319 @@
-/* =========================================
-   VIPNETFLIX - APP.JS
-========================================= */
+const app = document.getElementById("app");
 
-let parteAtual = 1;
-let episodioAtual = 1;
-let minhaLista = false;
+let parte = 1;
+let episodio = 1;
 
 
-/* =========================================
-   NAVEGAÇÃO
-========================================= */
+/* =========================
+   INÍCIO
+========================= */
 
-function showPage(id) {
+function home() {
 
-    document.querySelectorAll(".page").forEach(page => {
-        page.classList.remove("active");
-    });
+    app.innerHTML = `
 
-    const page = document.getElementById(id);
+        <header class="top">
 
-    if (page) {
-        page.classList.add("active");
-    }
-
-    window.scrollTo(0, 0);
-}
-
-
-/* =========================================
-   MENU INFERIOR
-========================================= */
-
-function bottom(menu) {
-
-    document.querySelectorAll(".bottom-item")
-        .forEach(item => item.classList.remove("active"));
-
-    if (menu === "home") {
-
-        showPage("homePage");
-
-    }
-
-    if (menu === "explore") {
-
-        showPage("explorePage");
-
-    }
-
-    if (menu === "list") {
-
-        showPage("listPage");
-
-    }
-
-    if (menu === "downloads") {
-
-        alert("Seus downloads aparecerão aqui.");
-
-    }
-
-}
-
-
-/* =========================================
-   LA CASA DE PAPEL
-========================================= */
-
-function openLaCasa() {
-
-    showPage("detailPage");
-
-}
-
-
-/* =========================================
-   ASSISTIR
-========================================= */
-
-function assistir() {
-
-    showPage("playerPage");
-
-}
-
-
-/* =========================================
-   VOLTAR DO PLAYER
-========================================= */
-
-function voltarPlayer() {
-
-    showPage("detailPage");
-
-}
-
-
-/* =========================================
-   ESCOLHER PARTE
-========================================= */
-
-function escolherParte(parte) {
-
-    parteAtual = parte;
-
-    episodioAtual = 1;
-
-    document.querySelectorAll(".season")
-        .forEach(item => {
-            item.classList.remove("active");
-        });
-
-    const partes =
-        document.querySelectorAll(".season");
-
-    if (partes[parte - 1]) {
-        partes[parte - 1].classList.add("active");
-    }
-
-    carregarEpisodios();
-
-}
-
-
-/* =========================================
-   EPISÓDIOS
-========================================= */
-
-function carregarEpisodios() {
-
-    const lista =
-        document.getElementById("episodes");
-
-    if (!lista) return;
-
-    lista.innerHTML = "";
-
-    const quantidade = [
-        9,
-        6,
-        8,
-        8,
-        10
-    ][parteAtual - 1];
-
-
-    for (let i = 1; i <= quantidade; i++) {
-
-        lista.innerHTML += `
-
-            <div
-                class="episode"
-                onclick="abrirEpisodio(${i})"
-            >
-
-                <img
-                    src="images/lacasadepapel.jpg"
-                >
-
-                <div class="episode-info">
-
-                    <div class="episode-title">
-
-                        ${i}. Episódio ${i}
-
-                    </div>
-
-                    <div class="episode-description">
-
-                        La Casa de Papel
-                        • Parte ${parteAtual}
-
-                    </div>
-
-                </div>
-
-                <div
-                    class="download"
-                    onclick="
-                        event.stopPropagation();
-                        baixarEpisodio(${i});
-                    "
-                >
-                    ↓
-                </div>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =========================================
-   ABRIR EPISÓDIO
-========================================= */
-
-function abrirEpisodio(numero) {
-
-    episodioAtual = numero;
-
-    showPage("playerPage");
-
-    const video =
-        document.getElementById("videoPlayer");
-
-    if (video) {
-
-        video.src =
-            `videos/lacasa-p${parteAtual}-e${episodioAtual}.mp4`;
-
-        video.load();
-
-        video.play().catch(() => {});
-
-    }
-
-}
-
-
-/* =========================================
-   PLAYER
-========================================= */
-
-function continuar() {
-
-    const video =
-        document.getElementById("videoPlayer");
-
-    if (video) {
-        video.play().catch(() => {});
-    }
-
-}
-
-
-/* =========================================
-   DOWNLOAD
-========================================= */
-
-function baixarEpisodio(numero) {
-
-    alert(
-        `Parte ${parteAtual}, episódio ${numero} adicionado aos Downloads.`
-    );
-
-}
-
-
-/* =========================================
-   MINHA LISTA
-========================================= */
-
-function toggleList() {
-
-    minhaLista = !minhaLista;
-
-    if (minhaLista) {
-
-        alert(
-            "La Casa de Papel foi adicionada à Minha Lista."
-        );
-
-    } else {
-
-        alert(
-            "La Casa de Papel foi removida da Minha Lista."
-        );
-
-    }
-
-}
-
-
-/* =========================================
-   MODAL
-========================================= */
-
-function showInfo() {
-
-    const modal =
-        document.getElementById("modal");
-
-    if (modal) {
-        modal.classList.add("active");
-    }
-
-}
-
-
-function closeModal() {
-
-    const modal =
-        document.getElementById("modal");
-
-    if (modal) {
-        modal.classList.remove("active");
-    }
-
-}
-
-
-/* =========================================
-   CATEGORIAS
-========================================= */
-
-document.querySelectorAll(".category")
-.forEach(item => {
-
-    item.addEventListener("click", () => {
-
-        document.querySelectorAll(".category")
-        .forEach(x => x.classList.remove("active"));
-
-        item.classList.add("active");
-
-    });
-
-});
-
-
-/* =========================================
-   GÊNEROS
-========================================= */
-
-document.querySelectorAll(".genre")
-.forEach(item => {
-
-    item.addEventListener("click", () => {
-
-        document.querySelectorAll(".genre")
-        .forEach(x => x.classList.remove("active"));
-
-        item.classList.add("active");
-
-    });
-
-});
-
-
-/* =========================================
-   INICIAR
-========================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    carregarEpisodios();
-
-    showPage("homePage");
-
-});            episodes: 9
-        },
-
-        2: {
-            name: "Parte 2",
-            episodes: 6
-        },
-
-        3: {
-            name: "Parte 3",
-            episodes: 8
-        },
-
-        4: {
-            name: "Parte 4",
-            episodes: 8
-        },
-
-        5: {
-            name: "Parte 5",
-            episodes: 10
-        }
-
-    }
-
-};
-
-
-/* =========================================================
-   STRANGER THINGS
-========================================================= */
-
-const strangerThings = {
-
-    id: "stranger",
-
-    title: "Stranger Things",
-
-    year: "2016",
-
-    parts: 4,
-
-    age: "16",
-
-    rating: "8.7",
-
-    genre: "Sci-Fi · Terror · Mistério",
-
-    description:
-        "Quando um menino desaparece, uma pequena cidade se vê no centro de um mistério sobrenatural. Amigos, família e uma jovem com poderes especiais precisam enfrentar forças perigosas.",
-
-    poster: "images/stranger-things.jpg",
-
-    backdrop: "images/stranger-things-backdrop.jpg"
-
-};
-
-
-/* =========================================================
-   PEGAR PÁGINA
-========================================================= */
-
-function getPage(id) {
-
-    return document.getElementById(id);
-
-}
-
-
-/* =========================================================
-   NAVEGAÇÃO
-========================================================= */
-
-function showPage(pageId, clicked = null) {
-
-    document
-        .querySelectorAll(".page")
-        .forEach(page => {
-
-            page.classList.remove("active");
-
-        });
-
-
-    const page = getPage(pageId);
-
-    if (!page) {
-
-        console.log(
-            "Página não encontrada:",
-            pageId
-        );
-
-        return;
-
-    }
-
-
-    page.classList.add("active");
-
-    currentPage = pageId;
-
-
-    if (clicked) {
-
-        document
-            .querySelectorAll(".nav-item")
-            .forEach(item => {
-
-                item.classList.remove("active");
-
-            });
-
-        clicked.classList.add("active");
-
-    }
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-}
-
-
-/* =========================================================
-   MENU INFERIOR
-========================================================= */
-
-function bottom(active) {
-
-    const items =
-        document.querySelectorAll(".bottom-item");
-
-
-    items.forEach(item => {
-
-        item.classList.remove("active");
-
-    });
-
-
-    if (active === "home") {
-
-        if (items[0])
-            items[0].classList.add("active");
-
-        showPage("homePage");
-
-        return;
-
-    }
-
-
-    if (active === "explore") {
-
-        if (items[1])
-            items[1].classList.add("active");
-
-        showPage("explorePage");
-
-        return;
-
-    }
-
-
-    if (active === "downloads") {
-
-        if (items[2])
-            items[2].classList.add("active");
-
-        showDownloads();
-
-        return;
-
-    }
-
-
-    if (active === "list") {
-
-        if (items[3])
-            items[3].classList.add("active");
-
-        showPage("listPage");
-
-        updateMyList();
-
-        return;
-
-    }
-
-
-    if (active === "more") {
-
-        if (items[4])
-            items[4].classList.add("active");
-
-        showInfo();
-
-    }
-
-}
-
-
-/* =========================================================
-   ABRIR LA CASA DE PAPEL
-========================================================= */
-
-function openLaCasaDePapel() {
-
-    currentShow = "lacasa";
-
-    currentPart = 1;
-
-    currentEpisode = 1;
-
-    buildLaCasaDetail();
-
-    showPage("detailPage");
-
-}
-
-
-/* =========================================================
-   ABRIR STRANGER THINGS
-========================================================= */
-
-function openDetail() {
-
-    currentShow = "stranger";
-
-    buildStrangerDetail();
-
-    showPage("detailPage");
-
-}
-
-
-/* =========================================================
-   CRIAR DETALHES DA LA CASA DE PAPEL
-========================================================= */
-
-function buildLaCasaDetail() {
-
-    const page =
-        getPage("detailPage");
-
-    if (!page) return;
-
-
-    let castHTML = "";
-
-
-    laCasaDePapel.cast.forEach(person => {
-
-        castHTML += `
-
-            <div class="cast">
-
-                <img
-                    src="${person.image}"
-                    onerror="this.style.background='#222'"
-                >
-
-                <div class="cast-name">
-                    ${person.name}
-                </div>
-
-                <div class="cast-role">
-                    ${person.role}
-                </div>
-
-            </div>
-
-        `;
-
-    });
-
-
-    let partsHTML = "";
-
-
-    for (
-        let i = 1;
-        i <= laCasaDePapel.parts;
-        i++
-    ) {
-
-        partsHTML += `
-
-            <div
-                class="season ${i === currentPart ? "active" : ""}"
-                onclick="selectLaCasaPart(${i})"
-            >
-                Parte ${i}
-            </div>
-
-        `;
-
-    }
-
-
-    page.innerHTML = `
-
-        <div
-            class="detail-header"
-            style="
-                background:
-                linear-gradient(
-                    0deg,
-                    #000 3%,
-                    transparent 70%
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(0,0,0,.8),
-                    transparent
-                ),
-                url('${laCasaDePapel.backdrop}')
-                center/cover;
-            "
-        >
-
-            <div
-                class="back-button"
-                onclick="showPage('homePage')"
-            >
-                ←
-            </div>
-
-
-            <div
-                class="logo"
-                style="
-                    position:absolute;
-                    top:20px;
-                    left:80px;
-                "
-            >
+            <div class="logo">
                 <span>Vip</span>Netflix
             </div>
 
+            <div class="top-actions">
 
-            <div
-                class="detail-logo"
-                style="
-                    color:#e50914;
-                    font-size:48px;
-                "
-            >
-                LA CASA<br>
-                DE PAPEL
-            </div>
+                <button class="icon">⌕</button>
 
-        </div>
-
-
-        <div class="detail-content">
-
-            <div class="meta">
-
-                <span>
-                    ${laCasaDePapel.year}
-                </span>
-
-                <span class="age">
-                    ${laCasaDePapel.age}
-                </span>
-
-                <span>
-                    ${laCasaDePapel.parts} Partes
-                </span>
-
-                <span>
-                    ${laCasaDePapel.genre}
-                </span>
+                <div class="avatar">👤</div>
 
             </div>
 
+        </header>
 
-            <div class="buttons">
+
+        <nav class="nav">
+
+            <button class="active">Início</button>
+            <button onclick="explorar()">Filmes</button>
+            <button onclick="explorar()">Séries</button>
+            <button onclick="explorar()">Novidades</button>
+
+        </nav>
+
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    EM DESTAQUE
+                </div>
+
+                <h1>
+                    LA CASA<br>DE PAPEL
+                </h1>
+
+                <p>
+                    O Professor reúne uma equipe
+                    para realizar o maior assalto
+                    da história.
+                </p>
 
                 <button
-                    class="btn btn-red"
-                    onclick="openLaCasaPlayer()"
+                    class="btn red"
+                    onclick="abrirLaCasa()"
                 >
                     ▶ Assistir
                 </button>
 
-
                 <button
-                    class="btn btn-secondary"
-                    onclick="toggleLaCasaList()"
-                >
-                    ＋ Minha Lista
-                </button>
-
-
-                <button
-                    class="btn btn-secondary"
-                    onclick="showInfo()"
+                    class="btn dark"
+                    onclick="abrirLaCasa()"
                 >
                     ⓘ Mais informações
                 </button>
 
             </div>
 
-
-            <p class="description">
-                ${laCasaDePapel.description}
-            </p>
+        </section>
 
 
-            <h2>
-                Elenco
-            </h2>
+        <section class="section">
 
+            <div class="section-head">
 
-            <div
-                class="cast-row"
-                style="margin:15px 0 30px"
-            >
-
-                ${castHTML}
+                <h2>
+                    La Casa de Papel
+                </h2>
 
             </div>
 
+
+            <div class="row">
+
+                <div
+                    class="card"
+                    onclick="abrirLaCasa()"
+                >
+
+                    <div class="poster">
+
+                        <img
+                            class="poster-image"
+                            src="images/lacasadepapel.jpg"
+                            onerror="
+                            this.src='images/impacto.jpg'
+                            "
+                        >
+
+                        <div class="poster-gradient"></div>
+
+                        <div class="play-circle">
+                            ▶
+                        </div>
+
+                        <div class="poster-title">
+                            La Casa de Papel
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-info">
+
+                        <h3>
+                            La Casa de Papel
+                        </h3>
+
+                        <div class="muted">
+                            5 Partes • 16+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <h2>
+                Categorias
+            </h2>
+
+            <div class="chips">
+
+                <button class="chip active">
+                    Todos
+                </button>
+
+                <button class="chip">
+                    Ação
+                </button>
+
+                <button class="chip">
+                    Drama
+                </button>
+
+                <button class="chip">
+                    Crime
+                </button>
+
+                <button class="chip">
+                    Suspense
+                </button>
+
+            </div>
+
+        </section>
+
+
+        ${menuInferior()}
+
+    `;
+
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+function menuInferior() {
+
+    return `
+
+        <div class="bottom">
+
+            <button
+                class="active"
+                onclick="home()"
+            >
+                <b>⌂</b>
+                Início
+            </button>
+
+
+            <button
+                onclick="explorar()"
+            >
+                <b>⌕</b>
+                Explorar
+            </button>
+
+
+            <button
+                onclick="downloads()"
+            >
+                <b>↓</b>
+                Downloads
+            </button>
+
+
+            <button
+                onclick="minhaLista()"
+            >
+                <b>＋</b>
+                Minha Lista
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================
+   LA CASA DE PAPEL
+========================= */
+
+function abrirLaCasa() {
+
+    app.innerHTML = `
+
+        <header class="top">
+
+            <div class="logo">
+                <span>Vip</span>Netflix
+            </div>
+
+            <button
+                class="icon"
+                onclick="home()"
+            >
+                ←
+            </button>
+
+        </header>
+
+
+        <section
+            class="detail-hero"
+            style="
+            background:
+            linear-gradient(
+                90deg,
+                #000,
+                rgba(0,0,0,.7),
+                rgba(0,0,0,.1)
+            ),
+            url('images/lacasadepapel.jpg')
+            center/cover no-repeat;
+            "
+        >
+
+            <div>
+
+                <div class="eyebrow">
+                    NETFLIX ORIGINAL
+                </div>
+
+
+                <h1>
+                    LA CASA<br>
+                    DE PAPEL
+                </h1>
+
+
+                <div class="detail-meta">
+                    2017 • 5 Partes • 16+ • Crime • Suspense
+                </div>
+
+
+                <button
+                    class="btn red"
+                    onclick="abrirPlayer()"
+                >
+                    ▶ Assistir
+                </button>
+
+
+                <button
+                    class="btn dark"
+                    onclick="adicionarLista()"
+                >
+                    ＋ Minha Lista
+                </button>
+
+
+                <p class="detail-desc">
+
+                    O Professor reúne oito criminosos
+                    para realizar um assalto à Casa da
+                    Moeda da Espanha. Enquanto o grupo
+                    enfrenta a polícia, o plano começa
+                    a ser colocado à prova.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
 
             <h2>
                 Partes
@@ -787,94 +322,134 @@ function buildLaCasaDetail() {
 
             <div class="seasons">
 
-                ${partsHTML}
+                <button
+                    class="season ${parte === 1 ? "active" : ""}"
+                    onclick="selecionarParte(1)"
+                >
+                    Parte 1
+                </button>
+
+
+                <button
+                    class="season ${parte === 2 ? "active" : ""}"
+                    onclick="selecionarParte(2)"
+                >
+                    Parte 2
+                </button>
+
+
+                <button
+                    class="season ${parte === 3 ? "active" : ""}"
+                    onclick="selecionarParte(3)"
+                >
+                    Parte 3
+                </button>
+
+
+                <button
+                    class="season ${parte === 4 ? "active" : ""}"
+                    onclick="selecionarParte(4)"
+                >
+                    Parte 4
+                </button>
+
+
+                <button
+                    class="season ${parte === 5 ? "active" : ""}"
+                    onclick="selecionarParte(5)"
+                >
+                    Parte 5
+                </button>
 
             </div>
 
 
-            <div id="laCasaEpisodes">
+            <div id="episodios">
+
+                ${listaEpisodios()}
 
             </div>
 
-        </div>
+        </section>
+
+
+        ${menuInferior()}
 
     `;
-
-
-    renderLaCasaEpisodes();
 
 }
 
 
-/* =========================================================
-   EPISÓDIOS LA CASA
-========================================================= */
+/* =========================
+   PARTES
+========================= */
 
-function createLaCasaEpisodes(part) {
+function selecionarParte(numero) {
 
-    const total =
-        laCasaDePapel.partsData[part].episodes;
+    parte = numero;
+
+    episodio = 1;
+
+    abrirLaCasa();
+
+}
 
 
-    let episodes = "";
+/* =========================
+   EPISÓDIOS
+========================= */
+
+function listaEpisodios() {
+
+    const quantidade = [
+        9,
+        6,
+        8,
+        8,
+        10
+    ][parte - 1];
+
+
+    let html = "";
 
 
     for (
         let i = 1;
-        i <= total;
+        i <= quantidade;
         i++
     ) {
 
-        const minutes =
-            42 + ((i * 3 + part * 2) % 17);
-
-
-        episodes += `
+        html += `
 
             <div
                 class="episode"
-                onclick="playLaCasaEpisode(${part},${i})"
+                onclick="abrirEpisodio(${i})"
             >
 
-                <img
-                    src="images/lacasa-ep${part}-${i}.jpg"
-                    onerror="
-                        this.src='images/lacasadepapel.jpg'
-                    "
-                >
+                <div class="ep-thumb">
 
-
-                <div class="episode-info">
-
-                    <div class="episode-title">
-
-                        ${i}.
-                        ${getLaCasaEpisodeTitle(part,i)}
-
-                    </div>
-
-
-                    <div class="episode-description">
-
-                        Episódio ${i} da
-                        ${laCasaDePapel.partsData[part].name}.
-                        A equipe precisa continuar
-                        o plano enquanto enfrenta novos
-                        obstáculos.
-
-                    </div>
+                    ▶
 
                 </div>
 
 
-                <div
-                    class="download"
-                    onclick="
-                        event.stopPropagation();
-                        downloadLaCasaEpisode(${part},${i});
-                    "
-                >
-                    ↓
+                <div>
+
+                    <strong>
+                        ${i}. Episódio ${i}
+                    </strong>
+
+
+                    <p
+                        class="muted"
+                        style="margin-top:8px"
+                    >
+
+                        La Casa de Papel
+                        • Parte ${parte}
+
+                    </p>
+
                 </div>
 
             </div>
@@ -884,1066 +459,208 @@ function createLaCasaEpisodes(part) {
     }
 
 
-    return episodes;
+    return html;
 
 }
 
 
-/* =========================================================
-   TÍTULOS DOS EPISÓDIOS
-========================================================= */
+/* =========================
+   PLAYER
+========================= */
 
-function getLaCasaEpisodeTitle(part, episode) {
+function abrirPlayer() {
 
-    const titles = {
-
-        1: [
-            "O Plano",
-            "A Negociação",
-            "O Primeiro Obstáculo",
-            "Dentro da Casa da Moeda",
-            "A Polícia se Aproxima",
-            "O Contra-Ataque",
-            "O Erro",
-            "A Fuga",
-            "O Último Passo"
-        ],
-
-        2: [
-            "O Cerco",
-            "O Plano Continua",
-            "Uma Nova Estratégia",
-            "O Confronto",
-            "A Decisão",
-            "A Fuga"
-        ],
-
-        3: [
-            "Um Novo Assalto",
-            "O Reencontro",
-            "O Banco",
-            "O Plano de Resgate",
-            "A Resistência",
-            "O Contra-Ataque",
-            "A Armadilha",
-            "O Limite"
-        ],
-
-        4: [
-            "O Ataque",
-            "O Professor",
-            "A Resistência",
-            "A Estratégia",
-            "O Perigo",
-            "A Virada",
-            "A Última Chance",
-            "O Confronto"
-        ],
-
-        5: [
-            "O Começo do Fim",
-            "A Guerra",
-            "O Plano",
-            "O Sacrifício",
-            "O Último Golpe",
-            "A Resistência",
-            "O Segredo",
-            "O Professor",
-            "A Decisão",
-            "O Fim"
-        ]
-
-    };
-
-
-    if (
-        titles[part] &&
-        titles[part][episode - 1]
-    ) {
-
-        return titles[part][episode - 1];
-
-    }
-
-
-    return `Episódio ${episode}`;
+    abrirEpisodio(1);
 
 }
 
 
-/* =========================================================
-   SELECIONAR PARTE
-========================================================= */
+function abrirEpisodio(numero) {
 
-function selectLaCasaPart(part) {
-
-    currentPart = part;
-
-    currentEpisode = 1;
-
-    renderLaCasaEpisodes();
-
-}
+    episodio = numero;
 
 
-/* =========================================================
-   MOSTRAR EPISÓDIOS
-========================================================= */
+    app.innerHTML = `
 
-function renderLaCasaEpisodes() {
-
-    const container =
-        getPage("detailPage")
-            ?.querySelector("#laCasaEpisodes");
+        <div class="player">
 
 
-    if (!container) return;
-
-
-    container.innerHTML = `
-
-        <h2 style="margin-top:25px">
-            ${laCasaDePapel.partsData[currentPart].name}
-        </h2>
-
-        <div style="height:10px"></div>
-
-        ${createLaCasaEpisodes(currentPart)}
-
-    `;
-
-
-    document
-        .querySelectorAll(".season")
-        .forEach((item,index) => {
-
-            if (
-                item.textContent
-                    .includes(`Parte ${currentPart}`)
-            ) {
-
-                item.classList.add("active");
-
-            }
-
-        });
-
-}
-
-
-/* =========================================================
-   PLAYER LA CASA DE PAPEL
-========================================================= */
-
-function openLaCasaPlayer() {
-
-    currentShow = "lacasa";
-
-    currentPart = currentPart || 1;
-
-    currentEpisode = currentEpisode || 1;
-
-    buildLaCasaPlayer();
-
-    showPage("playerPage");
-
-}
-
-
-/* =========================================================
-   PLAYER DE EPISÓDIO
-========================================================= */
-
-function playLaCasaEpisode(part, episode) {
-
-    currentShow = "lacasa";
-
-    currentPart = part;
-
-    currentEpisode = episode;
-
-    buildLaCasaPlayer();
-
-    showPage("playerPage");
-
-}
-
-
-/* =========================================================
-   CRIAR PLAYER
-========================================================= */
-
-function buildLaCasaPlayer() {
-
-    const page =
-        getPage("playerPage");
-
-    if (!page) return;
-
-
-    const title =
-        getLaCasaEpisodeTitle(
-            currentPart,
-            currentEpisode
-        );
-
-
-    page.innerHTML = `
-
-        <div class="video-area">
-
-            <video
-                id="videoPlayer"
-                controls
-                poster="${laCasaDePapel.backdrop}"
+            <div
+                class="video"
+                style="
+                background:
+                linear-gradient(
+                    rgba(0,0,0,.2),
+                    #000
+                ),
+                url('images/lacasadepapel.jpg')
+                center/cover;
+                "
             >
 
-                <source
-                    src="
-                    videos/lacasa-p${currentPart}-e${currentEpisode}.mp4
+                <button
+                    class="icon"
+                    onclick="abrirLaCasa()"
+                    style="
+                    position:absolute;
+                    top:20px;
+                    left:20px;
+                    z-index:5;
                     "
-                    type="video/mp4"
-                >
-
-                Seu navegador não suporta vídeo.
-
-            </video>
-
-
-            <div class="player-top">
-
-                <span
-                    onclick="closePlayer()"
                 >
                     ←
-                </span>
+                </button>
 
 
-                <div
-                    style="
-                        display:flex;
-                        gap:25px;
-                    "
-                >
+                <div class="video-center">
 
-                    <span>📺</span>
-                    <span>⚙</span>
-                    <span>⛶</span>
+                    ▶
+
+                </div>
+
+
+                <div class="controls">
+
+                    <div class="timeline">
+
+                        <i></i>
+
+                    </div>
+
+
+                    <div class="control-line">
+
+                        <span>
+                            ▶
+                        </span>
+
+                        <span>
+                            ⚙
+                        </span>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
-
-
-        <div class="player-layout">
 
             <div class="player-info">
 
                 <div class="logo">
-
                     <span>Vip</span>Netflix
-
                 </div>
 
 
-                <div class="current-title">
+                <h2 style="margin-top:20px">
 
                     La Casa de Papel
 
-                </div>
-
-
-                <div class="meta">
-
-                    ${laCasaDePapel.year}
-                    |
-                    ${laCasaDePapel.parts} Partes
-                    |
-                    ${laCasaDePapel.genre}
-
-                </div>
-
-
-                <div class="rating">
-
-                    <span>★</span>
-                    ${laCasaDePapel.rating}/10
-
-                </div>
-
-
-                <h2
-                    style="margin-top:20px"
-                >
-
-                    P${currentPart}:E${currentEpisode}
-                    —
-                    ${title}
-
                 </h2>
 
 
-                <p class="player-description">
+                <p
+                    class="muted"
+                    style="margin-top:10px"
+                >
 
-                    A equipe continua enfrentando
-                    obstáculos enquanto tenta levar
-                    o plano até o fim.
+                    Parte ${parte}
+                    • Episódio ${episodio}
 
                 </p>
 
 
-                <div
-                    class="buttons"
-                    style="margin-top:25px"
-                >
+                <h3 style="margin-top:20px">
 
-                    <button
-                        class="btn btn-red"
-                        onclick="continueVideo()"
-                    >
-                        ▶ Continuar Assistindo
-                    </button>
+                    Episódio ${episodio}
 
-
-                    <button
-                        class="btn btn-secondary"
-                        onclick="toggleLaCasaList()"
-                    >
-                        ＋ Minha Lista
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div class="player-episodes">
-
-                <h2>
-                    Partes
-                </h2>
-
-
-                <div class="seasons">
-
-                    ${createPlayerParts()}
-
-                </div>
-
-
-                <h3>
-                    Episódios
                 </h3>
 
 
-                <div id="playerEpisodeList">
-
-                    ${createPlayerEpisodes()}
-
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    setTimeout(() => {
-
-        const video =
-            getPage("playerPage")
-                ?.querySelector("#videoPlayer");
-
-
-        if (video) {
-
-            video.play()
-                .catch(() => {});
-
-        }
-
-    },300);
-
-}
-
-
-/* =========================================================
-   PARTES NO PLAYER
-========================================================= */
-
-function createPlayerParts() {
-
-    let html = "";
-
-
-    for (
-        let i = 1;
-        i <= 5;
-        i++
-    ) {
-
-        html += `
-
-            <div
-                class="season ${
-                    i === currentPart
-                    ? "active"
-                    : ""
-                }"
-                onclick="changePlayerPart(${i})"
-            >
-
-                P${i}
-
-            </div>
-
-        `;
-
-    }
-
-
-    return html;
-
-}
-
-
-/* =========================================================
-   EPISÓDIOS NO PLAYER
-========================================================= */
-
-function createPlayerEpisodes() {
-
-    const total =
-        laCasaDePapel
-            .partsData[currentPart]
-            .episodes;
-
-
-    let html = "";
-
-
-    for (
-        let i = 1;
-        i <= total;
-        i++
-    ) {
-
-        html += `
-
-            <div
-                class="
-                    mini-episode
-                    ${
-                        i === currentEpisode
-                        ? "active"
-                        : ""
-                    }
-                "
-                onclick="
-                    playLaCasaEpisode(
-                        ${currentPart},
-                        ${i}
-                    )
-                "
-            >
-
-                <img
-                    src="
-                    images/lacasa-ep${currentPart}-${i}.jpg
-                    "
-                    onerror="
-                        this.src='images/lacasadepapel.jpg'
-                    "
-                >
-
-
-                <div class="mini-info">
-
-                    <strong>
-
-                        ${i}.
-                        ${getLaCasaEpisodeTitle(
-                            currentPart,
-                            i
-                        )}
-
-                    </strong>
-
-
-                    <span>
-                        Episódio ${i}
-                    </span>
-
-                </div>
-
-            </div>
-
-        `;
-
-    }
-
-
-    return html;
-
-}
-
-
-/* =========================================================
-   MUDAR PARTE NO PLAYER
-========================================================= */
-
-function changePlayerPart(part) {
-
-    currentPart = part;
-
-    currentEpisode = 1;
-
-    buildLaCasaPlayer();
-
-}
-
-
-/* =========================================================
-   FECHAR PLAYER
-========================================================= */
-
-function closePlayer() {
-
-    const video =
-        document.getElementById("videoPlayer");
-
-
-    if (video) {
-
-        video.pause();
-
-    }
-
-
-    if (currentShow === "lacasa") {
-
-        buildLaCasaDetail();
-
-        showPage("detailPage");
-
-    } else {
-
-        buildStrangerDetail();
-
-        showPage("detailPage");
-
-    }
-
-}
-
-
-/* =========================================================
-   CONTINUAR VÍDEO
-========================================================= */
-
-function continueVideo() {
-
-    const video =
-        document.getElementById("videoPlayer");
-
-
-    if (!video) return;
-
-
-    video.play()
-        .catch(() => {});
-
-}
-
-
-/* =========================================================
-   DOWNLOAD LA CASA
-========================================================= */
-
-function downloadLaCasaEpisode(part, episode) {
-
-    const id =
-        `La Casa de Papel P${part}:E${episode}`;
-
-
-    if (
-        !downloadedEpisodes.includes(id)
-    ) {
-
-        downloadedEpisodes.push(id);
-
-    }
-
-
-    alert(
-        `${id} adicionado aos Downloads.`
-    );
-
-}
-
-
-/* =========================================================
-   MINHA LISTA - LA CASA
-========================================================= */
-
-function toggleLaCasaList() {
-
-    const id = "La Casa de Papel";
-
-
-    const index =
-        downloadedEpisodes.indexOf(
-            "LIST:" + id
-        );
-
-
-    if (index === -1) {
-
-        downloadedEpisodes.push(
-            "LIST:" + id
-        );
-
-        inMyList = true;
-
-        alert(
-            "La Casa de Papel foi adicionada à Minha Lista."
-        );
-
-    } else {
-
-        downloadedEpisodes.splice(
-            index,
-            1
-        );
-
-        inMyList = false;
-
-        alert(
-            "La Casa de Papel foi removida da Minha Lista."
-        );
-
-    }
-
-
-    updateMyList();
-
-}
-
-
-/* =========================================================
-   MINHA LISTA
-========================================================= */
-
-function updateMyList() {
-
-    const list =
-        getPage("listPage")
-            ?.querySelector("#myList");
-
-
-    if (!list) return;
-
-
-    const hasLaCasa =
-        downloadedEpisodes.includes(
-            "LIST:La Casa de Papel"
-        );
-
-
-    if (!hasLaCasa) {
-
-        list.innerHTML = `
-
-            <div
-                style="
-                    color:#777;
-                    text-align:center;
-                    padding:60px 20px;
-                "
-            >
-
-                Sua lista está vazia.
-
-                <br><br>
-
-                Adicione filmes e séries
-                usando o botão
-                "Minha Lista".
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    list.innerHTML = `
-
-        <div
-            class="card"
-            onclick="openLaCasaDePapel()"
-            style="width:145px"
-        >
-
-            <img
-                class="poster"
-                src="images/lacasadepapel.jpg"
-            >
-
-
-            <div class="card-title">
-
-                La Casa de Papel
-
-            </div>
-
-
-            <div class="card-info">
-
-                Série · 5 Partes
-
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   DOWNLOADS
-========================================================= */
-
-function showDownloads() {
-
-    const downloads =
-        downloadedEpisodes
-            .filter(item =>
-                !item.startsWith("LIST:")
-            );
-
-
-    if (downloads.length === 0) {
-
-        showModal(
-            "Downloads",
-            `
                 <p
-                    style="
-                        color:#aaa;
-                        line-height:1.5;
-                    "
+                    class="detail-desc"
+                    style="font-size:15px"
                 >
-                    Você ainda não possui
-                    episódios baixados.
+
+                    Você está assistindo
+                    La Casa de Papel.
+
                 </p>
-            `
-        );
-
-        return;
-
-    }
 
 
-    let html = "";
-
-
-    downloads.forEach(item => {
-
-        html += `
-
-            <div
-                style="
-                    padding:14px;
-                    background:#222;
-                    border-radius:10px;
-                    margin-top:10px;
-                "
-            >
-
-                📥 ${item}
+                <button
+                    class="btn red"
+                    style="margin-top:20px"
+                    onclick="abrirEpisodio(${episodio})"
+                >
+                    ▶ Continuar
+                </button>
 
             </div>
 
-        `;
-
-    });
-
-
-    showModal(
-        "Downloads",
-        html
-    );
-
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-function showModal(title, content) {
-
-    const modal =
-        getPage("modal");
-
-
-    if (!modal) return;
-
-
-    const box =
-        modal.querySelector(".modal-box");
-
-
-    if (!box) return;
-
-
-    box.innerHTML = `
-
-        <span
-            class="close"
-            onclick="closeModal()"
-        >
-            ×
-        </span>
-
-
-        <h2>
-            ${title}
-        </h2>
-
-
-        ${content}
+        </div>
 
     `;
 
-
-    modal.classList.add("active");
-
 }
 
 
-function showInfo() {
+/* =========================
+   EXPLORAR
+========================= */
 
-    showModal(
-        "VipNetflix",
-        `
-            <p
-                style="
-                    color:#aaa;
-                    line-height:1.6;
-                "
-            >
+function explorar() {
 
-                Bem-vindo à VipNetflix.
+    app.innerHTML = `
 
-                <br><br>
+        <header class="top">
 
-                Explore filmes e séries,
-                abra os detalhes,
-                selecione episódios,
-                assista e adicione seus
-                títulos favoritos à sua lista.
-
-            </p>
-        `
-    );
-
-}
-
-
-function closeModal() {
-
-    const modal =
-        getPage("modal");
-
-
-    if (!modal) return;
-
-
-    modal.classList.remove("active");
-
-}
-
-
-/* =========================================================
-   STRANGER THINGS
-========================================================= */
-
-function buildStrangerDetail() {
-
-    const page =
-        getPage("detailPage");
-
-
-    if (!page) return;
-
-
-    page.innerHTML = `
-
-        <div
-            class="detail-header"
-            style="
-                background:
-                linear-gradient(
-                    0deg,
-                    #000 3%,
-                    transparent 70%
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(0,0,0,.8),
-                    transparent
-                ),
-                url(
-                    '${strangerThings.backdrop}'
-                )
-                center/cover;
-            "
-        >
-
-            <div
-                class="back-button"
-                onclick="showPage('homePage')"
-            >
-                ←
-            </div>
-
-
-            <div
-                class="logo"
-                style="
-                    position:absolute;
-                    top:20px;
-                    left:80px;
-                "
-            >
+            <div class="logo">
                 <span>Vip</span>Netflix
             </div>
 
-
-            <div
-                class="detail-logo"
-                style="
-                    color:#e50914;
-                "
+            <button
+                class="icon"
+                onclick="home()"
             >
-                STRANGER<br>
-                THINGS
-            </div>
+                ←
+            </button>
 
-        </div>
-
-
-        <div class="detail-content">
-
-            <div class="meta">
-
-                <span>2016</span>
-
-                <span class="age">
-                    16
-                </span>
-
-                <span>
-                    4 Temporadas
-                </span>
-
-                <span>
-                    Sci-Fi · Terror · Mistério
-                </span>
-
-            </div>
+        </header>
 
 
-            <div class="buttons">
-
-                <button
-                    class="btn btn-red"
-                    onclick="openPlayer()"
-                >
-                    ▶ Assistir
-                </button>
-
-
-                <button
-                    class="btn btn-secondary"
-                    onclick="toggleList()"
-                >
-                    ＋ Minha Lista
-                </button>
-
-
-                <button
-                    class="btn btn-secondary"
-                    onclick="showInfo()"
-                >
-                    ⓘ Mais informações
-                </button>
-
-            </div>
-
-
-            <p class="description">
-
-                ${strangerThings.description}
-
-            </p>
-
+        <section class="section">
 
             <h2>
-                Temporadas
+                Explorar
             </h2>
 
 
-            <div class="seasons">
-
-                <div class="season active">
-                    Temporada 1
-                </div>
-
-                <div class="season">
-                    Temporada 2
-                </div>
-
-                <div class="season">
-                    Temporada 3
-                </div>
-
-                <div class="season">
-                    Temporada 4
-                </div>
-
-            </div>
+            <input
+                class="search"
+                placeholder="Pesquisar filmes e séries..."
+            >
 
 
-            <div class="episode">
+            <div class="grid">
 
-                <img
-                    src="images/episode1.jpg"
+                <div
+                    class="card"
+                    onclick="abrirLaCasa()"
                 >
 
+                    <div class="poster">
 
-                <div class="episode-info">
+                        <img
+                            class="poster-image"
+                            src="images/lacasadepapel.jpg"
+                        >
 
-                    <div class="episode-title">
+                        <div class="poster-gradient"></div>
 
-                        1. O Desaparecimento
-
-                    </div>
-
-
-                    <div class="episode-description">
-
-                        Um garoto desaparece
-                        misteriosamente e seus amigos
-                        começam uma busca desesperada.
+                        <div class="poster-title">
+                            La Casa de Papel
+                        </div>
 
                     </div>
 
@@ -1951,170 +668,100 @@ function buildStrangerDetail() {
 
             </div>
 
-        </div>
+        </section>
+
+
+        ${menuInferior()}
 
     `;
 
 }
 
 
-/* =========================================================
-   MINHA LISTA GENÉRICA
-========================================================= */
+/* =========================
+   DOWNLOADS
+========================= */
 
-function toggleList() {
+function downloads() {
 
-    inMyList = !inMyList;
-
-
-    if (inMyList) {
-
-        alert(
-            "Stranger Things foi adicionada à Minha Lista."
-        );
-
-    } else {
-
-        alert(
-            "Stranger Things foi removida da Minha Lista."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CATEGORIAS
-========================================================= */
-
-document
-    .querySelectorAll(".category")
-    .forEach(category => {
-
-        category.addEventListener(
-            "click",
-            () => {
-
-                document
-                    .querySelectorAll(".category")
-                    .forEach(item => {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    });
-
-
-                category.classList.add(
-                    "active"
-                );
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
-   GÊNEROS
-========================================================= */
-
-document
-    .querySelectorAll(".genre")
-    .forEach(genre => {
-
-        genre.addEventListener(
-            "click",
-            () => {
-
-                document
-                    .querySelectorAll(".genre")
-                    .forEach(item => {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    });
-
-
-                genre.classList.add(
-                    "active"
-                );
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-const modal =
-    getPage("modal");
-
-
-if (modal) {
-
-    modal.addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target === modal
-            ) {
-
-                closeModal();
-
-            }
-
-        }
+    alert(
+        "Ainda não existem downloads."
     );
 
 }
 
 
-/* =========================================================
-   TECLA ESC
-========================================================= */
+/* =========================
+   MINHA LISTA
+========================= */
 
-document.addEventListener(
-    "keydown",
-    event => {
+function minhaLista() {
 
-        if (
-            event.key === "Escape"
-        ) {
+    app.innerHTML = `
 
-            closeModal();
+        <header class="top">
 
-        }
+            <div class="logo">
+                <span>Vip</span>Netflix
+            </div>
 
-    }
-);
+        </header>
 
 
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
+        <section class="section">
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+            <h2>
+                Minha Lista
+            </h2>
 
-        updateMyList();
 
-        console.log(
-            "VipNetflix iniciado."
-        );
+            <div
+                class="card"
+                onclick="abrirLaCasa()"
+            >
 
-        console.log(
-            "La Casa de Papel carregada."
-        );
+                <div class="poster">
 
-    }
-);
+                    <img
+                        class="poster-image"
+                        src="images/lacasadepapel.jpg"
+                    >
+
+                    <div class="poster-gradient"></div>
+
+                    <div class="poster-title">
+                        La Casa de Papel
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        ${menuInferior()}
+
+    `;
+
+}
+
+
+/* =========================
+   LISTA
+========================= */
+
+function adicionarLista() {
+
+    alert(
+        "La Casa de Papel foi adicionada à Minha Lista."
+    );
+
+}
+
+
+/* =========================
+   INICIAR APP
+========================= */
+
+home();
