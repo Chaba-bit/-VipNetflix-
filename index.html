@@ -2,13 +2,565 @@
 <html lang="pt">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#000">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>VipNetflix</title>
-<link rel="stylesheet" href="style.css">
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
+
+body{
+background:#000;
+color:#fff;
+font-family:Arial,sans-serif;
+min-height:100vh
+}
+
+button{
+font:inherit;
+border:0;
+cursor:pointer
+}
+
+.top{
+height:70px;
+background:#050505;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 25px
+}
+
+.logo{
+font-size:30px;
+font-weight:bold
+}
+
+.logo span{
+color:#e50914
+}
+
+.top-actions{
+display:flex;
+align-items:center;
+gap:10px
+}
+
+.icon{
+background:transparent;
+color:#fff;
+font-size:28px;
+padding:8px
+}
+
+.avatar{
+width:42px;
+height:42px;
+border-radius:50%;
+background:#292929;
+display:grid;
+place-items:center;
+font-size:22px
+}
+
+.nav{
+height:52px;
+background:#050505;
+display:flex;
+align-items:center;
+gap:28px;
+padding:0 25px;
+overflow-x:auto
+}
+
+.nav button{
+background:none;
+color:#aaa;
+white-space:nowrap;
+padding:15px 0
+}
+
+.nav button.active{
+color:#fff;
+border-bottom:3px solid #e50914
+}
+
+.hero{
+min-height:520px;
+display:flex;
+align-items:flex-end;
+padding:50px 35px;
+background:
+linear-gradient(90deg,#000 0%,rgba(0,0,0,.75) 45%,rgba(0,0,0,.1)),
+url("images/impacto.jpg") center/cover no-repeat
+}
+
+.hero-content{
+max-width:600px
+}
+
+.eyebrow{
+letter-spacing:5px;
+color:#ddd;
+margin-bottom:15px
+}
+
+.hero h1{
+font-size:70px;
+margin-bottom:15px
+}
+
+.hero p{
+font-size:20px;
+line-height:1.5;
+color:#ddd;
+margin-bottom:25px
+}
+
+.btn{
+padding:14px 23px;
+border-radius:8px;
+font-weight:bold;
+margin-right:8px
+}
+
+.btn.primary{
+background:#fff;
+color:#000
+}
+
+.btn.dark{
+background:#292929;
+color:#fff
+}
+
+.btn.red{
+background:#e50914;
+color:#fff
+}
+
+.section{
+padding:28px 25px
+}
+
+.section-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px
+}
+
+.section h2{
+margin-bottom:18px
+}
+
+.see{
+background:none;
+color:#e50914
+}
+
+.row{
+display:flex;
+gap:14px;
+overflow-x:auto
+}
+
+.card{
+min-width:155px;
+width:155px;
+background:#111;
+border-radius:9px;
+overflow:hidden
+}
+
+.poster{
+height:225px;
+position:relative;
+overflow:hidden;
+background:#181818
+}
+
+.poster-image{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.poster-gradient{
+position:absolute;
+inset:0;
+background:linear-gradient(transparent 40%,rgba(0,0,0,.9))
+}
+
+.poster-title{
+position:absolute;
+left:9px;
+bottom:10px;
+font-weight:bold;
+z-index:2
+}
+
+.play-circle{
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+width:45px;
+height:45px;
+border:2px solid #fff;
+border-radius:50%;
+display:grid;
+place-items:center;
+z-index:3
+}
+
+.badge{
+position:absolute;
+top:8px;
+left:8px;
+background:#e50914;
+padding:5px 8px;
+border-radius:4px;
+font-size:11px;
+z-index:3
+}
+
+.card-info{
+padding:10px
+}
+
+.card-info h3{
+font-size:14px;
+margin-bottom:6px
+}
+
+.muted{
+color:#999;
+font-size:13px
+}
+
+.progress{
+height:4px;
+background:#555
+}
+
+.progress i{
+display:block;
+height:100%;
+width:55%;
+background:#e50914
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+gap:18px
+}
+
+.chips{
+display:flex;
+flex-wrap:wrap;
+gap:10px
+}
+
+.chip{
+background:#1c1c1c;
+color:#fff;
+padding:12px 16px;
+border-radius:9px
+}
+
+.chip.active{
+background:#e50914
+}
+
+.search{
+width:100%;
+padding:15px;
+border-radius:8px;
+border:1px solid #333;
+background:#171717;
+color:#fff;
+margin-bottom:20px
+}
+
+.detail-hero{
+min-height:520px;
+padding:50px 35px;
+display:flex;
+align-items:flex-end;
+background:
+linear-gradient(90deg,#000,rgba(0,0,0,.7),rgba(0,0,0,.1)),
+url("images/stranger-things.jpg") center/cover no-repeat
+}
+
+.detail-hero>div{
+max-width:700px
+}
+
+.detail-hero h1{
+font-size:60px;
+margin:15px 0
+}
+
+.detail-meta{
+color:#bbb;
+margin-bottom:20px
+}
+
+.detail-desc{
+font-size:18px;
+line-height:1.6;
+color:#ddd;
+margin-top:20px
+}
+
+.cast{
+display:flex;
+gap:18px;
+overflow-x:auto
+}
+
+.person{
+min-width:110px;
+text-align:center
+}
+
+.person-img{
+width:100px;
+height:100px;
+background:#222;
+border-radius:8px;
+display:grid;
+place-items:center;
+font-size:40px;
+margin-bottom:8px
+}
+
+.seasons{
+display:flex;
+gap:10px;
+overflow-x:auto;
+margin-bottom:20px
+}
+
+.season{
+background:#222;
+color:#fff;
+padding:12px 18px;
+border-radius:7px
+}
+
+.season.active{
+background:#e50914
+}
+
+.episode{
+display:flex;
+gap:15px;
+padding:15px;
+border-bottom:1px solid #333
+}
+
+.ep-thumb{
+min-width:150px;
+height:85px;
+background:#222;
+display:grid;
+place-items:center;
+border-radius:7px
+}
+
+.box{
+background:#151515;
+border:1px solid #292929;
+border-radius:12px;
+padding:25px;
+margin-bottom:20px
+}
+
+.plans,.profile{
+padding:35px 25px;
+max-width:700px;
+margin:auto
+}
+
+.plan{
+background:#171717;
+padding:25px;
+border-radius:12px;
+margin:20px 0;
+border:1px solid #333
+}
+
+.plan.featured{
+border:2px solid #e50914
+}
+
+.price{
+font-size:28px;
+font-weight:bold;
+margin:20px 0
+}
+
+.bottom{
+display:none
+}
+
+.player{
+background:#000;
+min-height:100vh
+}
+
+.video{
+height:70vh;
+min-height:400px;
+position:relative;
+background:url("images/stranger-things.jpg") center/cover no-repeat
+}
+
+.video-center{
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+font-size:70px
+}
+
+.controls{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+padding:25px;
+background:linear-gradient(transparent,#000)
+}
+
+.timeline{
+height:5px;
+background:#555;
+margin-bottom:15px
+}
+
+.timeline i{
+display:block;
+height:100%;
+width:52%;
+background:#e50914
+}
+
+.control-line{
+display:flex;
+justify-content:space-between
+}
+
+.player-info{
+padding:30px
+}
+
+@media(max-width:700px){
+
+.top{
+padding:0 15px
+}
+
+.logo{
+font-size:25px
+}
+
+.nav{
+padding:0 15px;
+gap:22px
+}
+
+.hero{
+min-height:550px;
+padding:35px 25px
+}
+
+.hero h1{
+font-size:50px
+}
+
+.hero p{
+font-size:17px
+}
+
+.section{
+padding:22px 18px
+}
+
+.card{
+min-width:145px;
+width:145px
+}
+
+.poster{
+height:205px
+}
+
+.bottom{
+position:fixed;
+display:flex;
+left:0;
+right:0;
+bottom:0;
+height:70px;
+background:#101010;
+border-top:1px solid #292929;
+justify-content:space-around;
+z-index:100
+}
+
+.bottom button{
+background:none;
+color:#999;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+font-size:11px
+}
+
+.bottom b{
+font-size:24px
+}
+
+.bottom button.active{
+color:#e50914
+}
+
+.detail-hero{
+min-height:520px;
+padding:30px 20px
+}
+
+.detail-hero h1{
+font-size:45px
+}
+
+.btn{
+margin-bottom:10px
+}
+
+.video{
+height:55vh
+}
+
+}
+</style>
 </head>
+
 <body>
+
 <div id="app"></div>
+
 <script src="app.js"></script>
+
 </body>
 </html>
