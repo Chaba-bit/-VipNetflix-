@@ -1,66 +1,760 @@
-const A=document.getElementById("app");
-const data=[
-{id:1,title:"Impacto",type:"Série",genre:"Ação",year:2026,rating:"8.8",desc:"Quando o sistema falha, justiça se torna escolha."},
-{id:2,title:"Stranger Things",type:"Série",genre:"Sci-Fi · Terror · Mistério",year:2016,rating:"8.7",desc:"Um desaparecimento coloca uma pequena cidade no centro de um mistério sobrenatural."},
-{id:3,title:"Lupin",type:"Série",genre:"Policial",year:2021,rating:"7.5",desc:"Um ladrão elegante prepara golpes impossíveis."},
-{id:4,title:"La Casa de Papel",type:"Série",genre:"Crime",year:2017,rating:"8.3",desc:"Um grupo executa um plano ousado."},
-{id:5,title:"The Witcher",type:"Série",genre:"Fantasia",year:2019,rating:"8.2",desc:"Um caçador de monstros percorre um mundo perigoso."},
-{id:6,title:"Wednesday",type:"Série",genre:"Terror",year:2022,rating:"8.2",desc:"Uma estudante excêntrica investiga mistérios."},
-{id:7,title:"One Piece",type:"Série",genre:"Aventura",year:2023,rating:"8.6",desc:"Uma tripulação parte em busca de um grande tesouro."},
-{id:8,title:"O Guardião da Noite",type:"Filme",genre:"Ação",year:2026,rating:"8.0",desc:"Uma noite muda tudo."},
-{id:9,title:"Entre Dois Mundos",type:"Filme",genre:"Drama",year:2026,rating:"8.1",desc:"Duas realidades encontram-se."},
-{id:10,title:"O Legado Escondido",type:"Filme",genre:"Aventura",year:2026,rating:"8.4",desc:"Um segredo antigo é descoberto."}
+constconst A = document.getElementById("app");
+
+/* =========================================================
+   VIPNETFLIX — DADOS
+   ========================================================= */
+
+const data = [
+  {
+    id: 1,
+    title: "Impacto",
+    type: "Série",
+    genre: "Ação",
+    year: 2026,
+    rating: "8.8",
+    desc: "Quando o sistema falha, justiça se torna escolha.",
+    image: "images/impacto.jpg",
+    banner: "images/impacto-banner.jpg"
+  },
+  {
+    id: 2,
+    title: "Stranger Things",
+    type: "Série",
+    genre: "Sci-Fi · Terror · Mistério",
+    year: 2016,
+    rating: "8.7",
+    desc: "Um desaparecimento coloca uma pequena cidade no centro de um mistério sobrenatural.",
+    image: "images/stranger-things.jpg"
+  },
+  {
+    id: 3,
+    title: "Lupin",
+    type: "Série",
+    genre: "Policial",
+    year: 2021,
+    rating: "7.5",
+    desc: "Um ladrão elegante prepara golpes impossíveis.",
+    image: "images/lupin.jpg"
+  },
+  {
+    id: 4,
+    title: "La Casa de Papel",
+    type: "Série",
+    genre: "Crime",
+    year: 2017,
+    rating: "8.3",
+    desc: "Um grupo executa um plano ousado.",
+    image: "images/la-casa-de-papel.jpg"
+  },
+  {
+    id: 5,
+    title: "The Witcher",
+    type: "Série",
+    genre: "Fantasia",
+    year: 2019,
+    rating: "8.2",
+    desc: "Um caçador de monstros percorre um mundo perigoso.",
+    image: "images/the-witcher.jpg"
+  },
+  {
+    id: 6,
+    title: "Wednesday",
+    type: "Série",
+    genre: "Terror",
+    year: 2022,
+    rating: "8.2",
+    desc: "Uma estudante excêntrica investiga mistérios.",
+    image: "images/wednesday.jpg"
+  },
+  {
+    id: 7,
+    title: "One Piece",
+    type: "Série",
+    genre: "Aventura",
+    year: 2023,
+    rating: "8.6",
+    desc: "Uma tripulação parte em busca de um grande tesouro.",
+    image: "images/one-piece.jpg"
+  },
+  {
+    id: 8,
+    title: "O Guardião da Noite",
+    type: "Filme",
+    genre: "Ação",
+    year: 2026,
+    rating: "8.0",
+    desc: "Uma noite muda tudo.",
+    image: "images/guardiao-da-noite.jpg"
+  },
+  {
+    id: 9,
+    title: "Entre Dois Mundos",
+    type: "Filme",
+    genre: "Drama",
+    year: 2026,
+    rating: "8.1",
+    desc: "Duas realidades encontram-se.",
+    image: "images/entre-dois-mundos.jpg"
+  },
+  {
+    id: 10,
+    title: "O Legado Escondido",
+    type: "Filme",
+    genre: "Aventura",
+    year: 2026,
+    rating: "8.4",
+    desc: "Um segredo antigo é descoberto.",
+    image: "images/legado-escondido.jpg"
+  }
 ];
-let list=JSON.parse(localStorage.getItem("vip_list")||"[]");
-function save(){localStorage.setItem("vip_list",JSON.stringify(list))}
-function poster(m) {
-    return `
-        <div class="poster">
 
-            <img
-                src="${m.image}"
-                alt="${m.title}"
-                class="poster-image"
-                onerror="this.style.display='none'"
-            >
 
-            <div class="poster-gradient"></div>
+/* =========================================================
+   DADOS LOCAIS
+   ========================================================= */
 
-            <span class="poster-title">
-                ${m.title}
-            </span>
+let list = JSON.parse(localStorage.getItem("vip_list") || "[]");
 
-            ${
-                m.id < 8
-                ? `<span class="play-circle">▶</span>`
-                : ""
-            }
+let user = JSON.parse(localStorage.getItem("vip_user") || "null");
 
-            ${
-                m.id > 7
-                ? `<span class="badge">Novo</span>`
-                : ""
-            }
+let selectedPlan =
+  localStorage.getItem("vip_plan") || "";
 
-        </div>
-    `;
+
+function saveList() {
+  localStorage.setItem("vip_list", JSON.stringify(list));
 }
-function card(m,progress=false){return `<article class="card" onclick="detail(${m.id})">${poster(m)}${progress?'<div class="progress"><i></i></div>':''}<div class="card-info"><h3>${m.title}</h3><div class="muted">⭐ ${m.rating} · ${m.year}</div></div></article>`}
-function nav(active){return `<div class="nav">${["Início","Explorar","Filmes","Séries","Novidades","Minha Lista"].map(x=>`<button class="${active===x?'active':''}" onclick="${x==="Início"?"home()":x==="Explorar"?"explore()":x==="Minha Lista"?"favorites()":"explore()"}">${x}</button>`).join("")}</div>`}
-function header(){return `<header class="top"><div class="logo"><span>Vip</span>Netflix</div><div class="top-actions"><button class="icon" onclick="explore()">⌕</button><button class="icon">◉</button><div class="avatar">👤</div></div></header>`}
-function bottom(active){return `<nav class="bottom"><button class="${active==="home"?"active":""}" onclick="home()"><b>⌂</b>Início</button><button class="${active==="explore"?"active":""}" onclick="explore()"><b>▦</b>Explorar</button><button onclick="downloads()"><b>⇩</b>Downloads</button><button class="${active==="fav"?"active":""}" onclick="favorites()"><b>＋</b>Minha Lista</button><button onclick="profile()"><b>☰</b>Mais</button></nav>`}
-function shell(content,active="home",n="Início"){A.innerHTML=header()+nav(n)+content+bottom(active)}
-function home(){shell(`<section class="hero"><div class="hero-content"><div class="eyebrow">N  S É R I E</div><h1>IMPACTO</h1><p>Quando o sistema falha, justiça se torna escolha.</p><button class="btn primary" onclick="watch(1)">▶ Assistir</button><button class="btn dark" onclick="detail(1)">ⓘ Mais informações</button></div></section>
-<section class="section"><div class="section-head"><h2>Continuar assistindo</h2><button class="see">Ver tudo</button></div><div class="row">${data.slice(2,6).map(x=>card(x,true)).join("")}</div></section>
-<section class="section"><div class="section-head"><h2>Populares na VipNetflix</h2><button class="see">Ver tudo</button></div><div class="row">${data.slice(1,7).map(card).join("")}</div></section>
-<section class="section"><div class="section-head"><h2>Lançamentos</h2><button class="see">Ver tudo</button></div><div class="row">${data.slice(7).map(card).join("")}</div></section>`)}
-function explore(){shell(`<section class="section"><h2>Explorar por categorias</h2><div class="chips">${["🎬 Ação","🎭 Drama","😂 Comédia","💀 Suspense","♥ Romance","👻 Terror","📷 Documentários","🙂 Animação"].map((x,i)=>`<button class="chip ${i===0?'active':''}" onclick="explore()">${x}</button>`).join("")}</div><h2 style="margin-top:24px">Géneros</h2><div class="chips">${["Todos","Aventura","Policial","Ficção científica","Fantasia","Histórico","Musical","Guerra","Mistério","Crime","Esporte","Família","Anime"].map((x,i)=>`<button class="chip ${i===0?'active':''}">${x}</button>`).join("")}</div><h2 style="margin-top:24px">Pesquisar</h2><input id="q" class="search" placeholder="Procurar filmes e séries..." oninput="search(this.value)"><div id="results" class="grid">${data.slice(1,7).map(card).join("")}</div></section>`,"explore","Explorar")}
-function search(q){document.getElementById("results").innerHTML=data.filter(m=>(m.title+" "+m.genre).toLowerCase().includes(q.toLowerCase())).map(card).join("")||"<p class='muted'>Nenhum conteúdo encontrado.</p>"}
-function detail(id){let m=data.find(x=>x.id===id),inList=list.includes(id);A.innerHTML=header()+`<main><section class="detail-hero"><div><div class="eyebrow">${m.type.toUpperCase()}</div><h1>${m.title}</h1><div class="detail-meta">${m.year}　 🔞 16　 ${m.genre}</div><button class="btn red" onclick="watch(${m.id})">▶ Assistir</button><button class="btn dark" onclick="toggleList(${m.id})">${inList?"♥ Na Minha Lista":"＋ Minha Lista"}</button><button class="btn dark">ⓘ Mais informações</button><p class="detail-desc">${m.desc}</p></div></section><section class="section"><h2>Elenco</h2><div class="cast">${["🎭","👤","🧔","👩","🧢"].map((e,i)=>`<div class="person"><div class="person-img">${e}</div><b>${["Personagem 1","Personagem 2","Personagem 3","Personagem 4","Personagem 5"][i]}</b></div>`).join("")}</div><h2 style="margin-top:25px">Temporadas</h2><div class="seasons"><button class="season active">Temporada 1</button><button class="season">Temporada 2</button><button class="season">Temporada 3</button><button class="season">Temporada 4</button></div>${[1,2,3].map(i=>`<div class="episode"><div class="ep-thumb">▶</div><div><h3>${i}. ${["O Desaparecimento","A Estranha","A Casa na Floresta"][i-1]}</h3><div class="muted">Episódio · ${46+i} min</div><p class="muted">Uma nova parte da história começa.</p></div></div>`).join("")}</section></main>`+bottom("home")}
-function toggleList(id){list.includes(id)?list=list.filter(x=>x!==id):list.push(id);save();detail(id)}
-function favorites(){let x=data.filter(m=>list.includes(m.id));shell(`<section class="section"><h1>Minha Lista</h1>${x.length?`<div class="grid">${x.map(card).join("")}</div>`:"<p class='muted'>A tua lista está vazia.</p>"}`,"fav","Minha Lista")}
-function downloads(){shell(`<section class="section"><h1>Downloads</h1><div class="box center"><div style="font-size:45px">⇩</div><h2>Nenhum download</h2><p class="muted">Os conteúdos disponíveis offline aparecerão aqui.</p></div></section>`)}
-function plans(){A.innerHTML=header()+`<section class="plans"><h1>Planos VipNetflix</h1><div class="plan"><h2>Básico</h2><p>HD · 1 tela</p><div class="price">99 MT/mês</div><button class="btn red" onclick="alert('Plano selecionado. Pagamento será integrado.')">Assinar</button></div><div class="plan featured"><h2>Premium</h2><p>4K · 4 telas · melhor qualidade</p><div class="price">299 MT/mês</div><button class="btn red" onclick="alert('Plano selecionado. Pagamento será integrado.')">Assinar</button></div></section>`+bottom("")}
-function profile(){A.innerHTML=header()+`<section class="profile"><h1>Mais</h1><div class="box"><div class="avatar" style="width:60px;height:60px;font-size:28px">👤</div><h2>Utilizador VipNetflix</h2><p class="muted">Conta de demonstração</p><button class="btn red" onclick="plans()">Planos</button></div><div class="box"><h3>Configurações</h3><p>Qualidade de vídeo　›</p><p>Idioma　Português　›</p><p>Notificações　›</p></div></section>`+bottom("")}
-function watch(id){let m=data.find(x=>x.id===id);A.innerHTML=`<main class="player"><div class="video"><button class="icon" style="position:absolute;left:16px;top:15px;z-index:2" onclick="detail(${id})">←</button><div class="video-center">▶</div><div class="controls"><div class="timeline"><i></i></div><div class="control-line"><span>▶　↶10　↷10　🔊</span><span>24:32 / 47:20　⚙　⛶</span></div></div></div><div class="player-info"><h1>${m.title}</h1><p class="muted">${m.year} · ${m.genre}</p><h2>T1:E8 — O Mundo Virou de Cabeça para Baixo</h2><p class="detail-desc">${m.desc}</p></div></main>`}
-home();
+
+
+/* =========================================================
+   IMAGENS
+   ========================================================= */
+
+function poster(m) {
+
+  return `
+    <div class="poster"
+         style="
+           background-image:
+           linear-gradient(to top,
+           rgba(0,0,0,.85),
+           rgba(0,0,0,.05)),
+           url('${m.image}');
+         ">
+
+      <span class="poster-title">
+        ${m.title}
+      </span>
+
+      ${
+        m.id < 8
+          ? `<span class="play-circle">▶</span>`
+          : `<span class="badge">Novo</span>`
+      }
+
+    </div>
+  `;
+}
+
+
+function card(m, progress = false) {
+
+  return `
+    <article
+      class="card"
+      onclick="detail(${m.id})"
+    >
+
+      ${poster(m)}
+
+      ${
+        progress
+          ? `
+            <div class="progress">
+              <i></i>
+            </div>
+          `
+          : ""
+      }
+
+      <div class="card-info">
+
+        <h3>${m.title}</h3>
+
+        <div class="muted">
+          ⭐ ${m.rating} · ${m.year}
+        </div>
+
+      </div>
+
+    </article>
+  `;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+function header() {
+
+  return `
+    <header class="top">
+
+      <div
+        class="logo"
+        onclick="home()"
+        style="cursor:pointer"
+      >
+        <span>Vip</span>Netflix
+      </div>
+
+      <div class="top-actions">
+
+        <button
+          class="icon"
+          onclick="explore()"
+          aria-label="Pesquisar"
+        >
+          ⌕
+        </button>
+
+        <button
+          class="icon"
+          onclick="profile()"
+          aria-label="Conta"
+        >
+          ◉
+        </button>
+
+        <div
+          class="avatar"
+          onclick="profile()"
+        >
+          👤
+        </div>
+
+      </div>
+
+    </header>
+  `;
+}
+
+
+/* =========================================================
+   MENU SUPERIOR
+   ========================================================= */
+
+function nav(active) {
+
+  const items = [
+    "Início",
+    "Explorar",
+    "Filmes",
+    "Séries",
+    "Novidades",
+    "Minha Lista"
+  ];
+
+  return `
+    <div class="nav">
+
+      ${items.map(x => {
+
+        let action = "explore()";
+
+        if (x === "Início") {
+          action = "home()";
+        }
+
+        if (x === "Minha Lista") {
+          action = "favorites()";
+        }
+
+        if (x === "Filmes") {
+          action = "filterType('Filme')";
+        }
+
+        if (x === "Séries") {
+          action = "filterType('Série')";
+        }
+
+        if (x === "Novidades") {
+          action = "newReleases()";
+        }
+
+        return `
+          <button
+            class="${active === x ? "active" : ""}"
+            onclick="${action}"
+          >
+            ${x}
+          </button>
+        `;
+
+      }).join("")}
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   MENU INFERIOR
+   ========================================================= */
+
+function bottom(active) {
+
+  return `
+    <nav class="bottom">
+
+      <button
+        class="${active === "home" ? "active" : ""}"
+        onclick="home()"
+      >
+        <b>⌂</b>
+        Início
+      </button>
+
+      <button
+        class="${active === "explore" ? "active" : ""}"
+        onclick="explore()"
+      >
+        <b>▦</b>
+        Explorar
+      </button>
+
+      <button
+        onclick="downloads()"
+      >
+        <b>⇩</b>
+        Downloads
+      </button>
+
+      <button
+        class="${active === "fav" ? "active" : ""}"
+        onclick="favorites()"
+      >
+        <b>＋</b>
+        Minha Lista
+      </button>
+
+      <button
+        onclick="profile()"
+      >
+        <b>☰</b>
+        Mais
+      </button>
+
+    </nav>
+  `;
+}
+
+
+/* =========================================================
+   ESTRUTURA
+   ========================================================= */
+
+function shell(content, active = "home", n = "Início") {
+
+  A.innerHTML =
+    header() +
+    nav(n) +
+    content +
+    bottom(active);
+}
+
+
+/* =========================================================
+   PÁGINA INICIAL
+   ========================================================= */
+
+function home() {
+
+  const impacto = data[0];
+
+  A.innerHTML = `
+    ${header()}
+    ${nav("Início")}
+
+    <section
+      class="hero"
+      style="
+        background-image:
+        linear-gradient(
+          to right,
+          rgba(0,0,0,.95) 0%,
+          rgba(0,0,0,.65) 45%,
+          rgba(0,0,0,.15) 100%
+        ),
+        linear-gradient(
+          to top,
+          #050505 0%,
+          transparent 60%
+        ),
+        url('${impacto.banner || impacto.image}');
+      "
+    >
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          N  S É R I E
+        </div>
+
+        <h1>
+          IMPACTO
+        </h1>
+
+        <p>
+          ${impacto.desc}
+        </p>
+
+        <button
+          class="btn primary"
+          onclick="watch(1)"
+        >
+          ▶ Assistir
+        </button>
+
+        <button
+          class="btn dark"
+          onclick="detail(1)"
+        >
+          ⓘ Mais informações
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <div class="section-head">
+
+        <h2>
+          Continuar assistindo
+        </h2>
+
+        <button
+          class="see"
+          onclick="explore()"
+        >
+          Ver tudo
+        </button>
+
+      </div>
+
+      <div class="row">
+        ${data.slice(1, 5).map(x => card(x, true)).join("")}
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <div class="section-head">
+
+        <h2>
+          Populares na VipNetflix
+        </h2>
+
+        <button
+          class="see"
+          onclick="explore()"
+        >
+          Ver tudo
+        </button>
+
+      </div>
+
+      <div class="row">
+        ${data.slice(1, 7).map(card).join("")}
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <div class="section-head">
+
+        <h2>
+          Lançamentos
+        </h2>
+
+        <button
+          class="see"
+          onclick="newReleases()"
+        >
+          Ver tudo
+        </button>
+
+      </div>
+
+      <div class="row">
+        ${data.slice(7).map(card).join("")}
+      </div>
+
+    </section>
+
+    ${bottom("home")}
+  `;
+}
+
+
+/* =========================================================
+   EXPLORAR
+   ========================================================= */
+
+function explore() {
+
+  shell(`
+    <section class="section">
+
+      <h1>
+        Explorar
+      </h1>
+
+      <h2 style="margin-top:24px">
+        Categorias
+      </h2>
+
+      <div class="chips">
+
+        ${[
+          "🎬 Ação",
+          "🎭 Drama",
+          "😂 Comédia",
+          "💀 Suspense",
+          "♥ Romance",
+          "👻 Terror",
+          "📷 Documentários",
+          "🙂 Animação"
+        ].map(x => `
+          <button
+            class="chip"
+            onclick="categorySearch('${x.replace(/^[^ ]+ /, "")}')"
+          >
+            ${x}
+          </button>
+        `).join("")}
+
+      </div>
+
+
+      <h2 style="margin-top:24px">
+        Géneros
+      </h2>
+
+      <div class="chips">
+
+        ${
+          [
+            "Todos",
+            "Aventura",
+            "Policial",
+            "Ficção científica",
+            "Fantasia",
+            "Histórico",
+            "Musical",
+            "Guerra",
+            "Mistério",
+            "Crime",
+            "Esporte",
+            "Família",
+            "Anime"
+          ].map((x, i) => `
+            <button
+              class="chip ${i === 0 ? "active" : ""}"
+              onclick="
+                ${x === "Todos"
+                  ? "showResults(data)"
+                  : `categorySearch('${x}')`
+                }
+              "
+            >
+              ${x}
+            </button>
+          `).join("")
+        }
+
+      </div>
+
+
+      <h2 style="margin-top:24px">
+        Pesquisar
+      </h2>
+
+      <input
+        id="q"
+        class="search"
+        placeholder="Procurar filmes e séries..."
+        oninput="search(this.value)"
+      >
+
+
+      <div
+        id="results"
+        class="grid"
+      >
+        ${data.slice(1, 7).map(card).join("")}
+      </div>
+
+    </section>
+  `, "explore", "Explorar");
+}
+
+
+function showResults(items) {
+
+  const results = document.getElementById("results");
+
+  if (!results) return;
+
+  results.innerHTML =
+    items.length
+      ? items.map(card).join("")
+      : `<p class="muted">Nenhum conteúdo encontrado.</p>`;
+}
+
+
+function search(q) {
+
+  const text = q.toLowerCase().trim();
+
+  const results = data.filter(m =>
+    (
+      m.title +
+      " " +
+      m.genre +
+      " " +
+      m.type
+    ).toLowerCase().includes(text)
+  );
+
+  showResults(results);
+}
+
+
+function categorySearch(category) {
+
+  const results = data.filter(m =>
+    m.genre.toLowerCase().includes(category.toLowerCase())
+  );
+
+  if (document.getElementById("results")) {
+    showResults(results);
+  } else {
+
+    shell(`
+      <section class="section">
+
+        <h1>
+          ${category}
+        </h1>
+
+        <div class="grid">
+          ${
+            results.length
+              ? results.map(card).join("")
+              : `<p class="muted">Nenhum conteúdo encontrado.</p>`
+          }
+        </div>
+
+      </section>
+    `, "explore", "Explorar");
+
+  }
+}
+
+
+/* =========================================================
+   FILMES / SÉRIES
+   ========================================================= */
+
+function filterType(type) {
+
+  const results = data.filter(m => m.type === type);
+
+  shell(`
+    <section class="section">
+
+      <h1>
+        ${type}s
+      </h1>
+
+      <div class="grid">
+        ${results.map(card).join("")}
+      </div>
+
+    </section>
+  `, "explore", type === "Filme" ? "Filmes" : "Séries");
+}
+
+
+function newReleases() {
+
+  const results = data.filter(m => m.year >= 2026);
+
+  shell(`
+    <section class="section">
+
+      <h1>
+        Novidades
+      </h1>
+
+      <div class="grid">
+        ${results.map(card).join("")}
+      </div>
+
+    </section>
+  `, "explore", "Novidades");
+}
+
+
+/* =========================================================
+   DETALHES
+   ========================================================= */
+
+function detail(id) {
+
+  const m = data.find(x => x.id === id);
+
+  if (!m) return;
+
+  const inList = list.includes(id);
+
+  A.innerHTML = `
+    ${header()}
+
+    <main>
+
+      <section
+        class="detail-hero"
+        style="
+          background-image:
+          linear-gradient(
+            to right,
+            rgba(0,0,0,.95),
+            rgba(0,0,0,.45)
+          ),
+          url('${m.banner || m.image}');
+        "
+      >
+
+        <div>
+
+          <div class="eyebrow">
+            ${m.type.toUpperCase()}
+          </div>
+
+          <h1>
+            ${m.title}
+          </h1>
+
+          <div class="detail-meta">
+            ${m.year}
+           
