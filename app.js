@@ -538,7 +538,6 @@ function downloadPage(id) {
 function menu() {
 
   app.innerHTML = `
-
     ${header()}
 
     <main>
@@ -556,8 +555,8 @@ function menu() {
         </button>
 
         <button onclick="adminPanel()">
-  ⚙️ Painel Admin
-</button>
+          ⚙️ Painel Admin
+        </button>
 
         <button onclick="login()">
           👤 Conta
@@ -572,11 +571,11 @@ function menu() {
     </main>
 
     ${bottom("menu")}
-
   `;
 
 }
 
+window.menu = menu;
 /* =========================================================
    MINHA LISTA
    ========================================================= */
