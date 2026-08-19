@@ -13,7 +13,38 @@ const data=[
 ];
 let list=JSON.parse(localStorage.getItem("vip_list")||"[]");
 function save(){localStorage.setItem("vip_list",JSON.stringify(list))}
-function poster(m){return `<div class="poster"><span class="poster-title">${m.title}</span>${m.id<8?'<span class="play-circle">▶</span>':''}${m.id>7?'<span class="badge">Novo</span>':''}</div>`}
+function poster(m) {
+    return `
+        <div class="poster">
+
+            <img
+                src="${m.image}"
+                alt="${m.title}"
+                class="poster-image"
+                onerror="this.style.display='none'"
+            >
+
+            <div class="poster-gradient"></div>
+
+            <span class="poster-title">
+                ${m.title}
+            </span>
+
+            ${
+                m.id < 8
+                ? `<span class="play-circle">▶</span>`
+                : ""
+            }
+
+            ${
+                m.id > 7
+                ? `<span class="badge">Novo</span>`
+                : ""
+            }
+
+        </div>
+    `;
+}
 function card(m,progress=false){return `<article class="card" onclick="detail(${m.id})">${poster(m)}${progress?'<div class="progress"><i></i></div>':''}<div class="card-info"><h3>${m.title}</h3><div class="muted">⭐ ${m.rating} · ${m.year}</div></div></article>`}
 function nav(active){return `<div class="nav">${["Início","Explorar","Filmes","Séries","Novidades","Minha Lista"].map(x=>`<button class="${active===x?'active':''}" onclick="${x==="Início"?"home()":x==="Explorar"?"explore()":x==="Minha Lista"?"favorites()":"explore()"}">${x}</button>`).join("")}</div>`}
 function header(){return `<header class="top"><div class="logo"><span>Vip</span>Netflix</div><div class="top-actions"><button class="icon" onclick="explore()">⌕</button><button class="icon">◉</button><div class="avatar">👤</div></div></header>`}
