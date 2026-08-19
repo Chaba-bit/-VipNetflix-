@@ -555,6 +555,10 @@ function menu() {
           💳 Planos
         </button>
 
+        <button onclick="adminPanel()">
+  ⚙️ Painel Admin
+</button>
+
         <button onclick="login()">
           👤 Conta
         </button>
@@ -864,3 +868,257 @@ function doRegister() {
    ========================================================= */
 
 home();
+
+/* =========================================================
+   VIPNETFLIX - PAINEL ADMIN
+   ========================================================= */
+
+function adminPanel() {
+
+  const contents = getContents();
+
+  app.innerHTML = `
+    <div class="admin">
+
+      <header class="admin-header">
+        <h1>⚙️ Painel Admin</h1>
+
+        <button class="btn gray" onclick="home()">
+          ← Voltar
+        </button>
+      </header>
+
+      <main class="admin-content">
+
+        <h2>🎬 Gerenciar conteúdos</h2>
+
+        <button class="btn red" onclick="adminAddContent()">
+          ➕ Adicionar conteúdo
+        </button>
+
+        <div class="admin-list">
+
+          ${
+            contents.length
+              ? contents.map((m) => `
+                  <div class="admin-card">
+
+                    <div>
+                      <h3>${m.title || "Sem título"}</h3>
+
+                      <p>
+                        ${m.genre || "Sem categoria"}
+                        ${m.year ? " • " + m.year : ""}
+                      </p>
+                    </div>
+
+                    <button
+                      class="btn gray"
+                      onclick="adminDeleteContent('${m.id}')">
+                      🗑️ Excluir
+                    </button>
+
+                  </div>
+                `).join("")
+              : `
+                <p class="admin-empty">
+                  Nenhum conteúdo cadastrado.
+                </p>
+              `
+          }
+
+        </div>
+
+      </main>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   ADICIONAR CONTEÚDO
+   ========================================================= */
+
+function adminAddContent() {
+
+  app.innerHTML = `
+    <div class="admin">
+
+      <header class="admin-header">
+
+        <h1>➕ Novo conteúdo</h1>
+
+        <button
+          class="btn gray"
+          onclick="adminPanel()">
+          ← Voltar
+        </button>
+
+      </header>
+
+      <main class="admin-content">
+
+        <input
+          id="adminTitle"
+          class="input"
+          placeholder="Título">
+
+        <input
+          id="adminGenre"
+          class="input"
+          placeholder="Categoria / Gênero">
+
+        <input
+          id="adminYear"
+          class="input"
+          type="number"
+          placeholder="Ano">
+
+        <input
+          id="adminRating"
+          class="input"
+          placeholder="Classificação">
+
+        <input
+          id="adminCover"
+          class="input"
+          placeholder="URL da capa">
+
+        <input
+          id="adminVideo"
+          class="input"
+          placeholder="URL do vídeo">
+
+        <textarea
+          id="adminDesc"
+          class="input"
+          placeholder="Descrição"></textarea>
+
+        <select id="adminPlan" class="input">
+
+          <option value="free">
+            Gratuito
+          </option>
+
+          <option value="basic">
+            Básico
+          </option>
+
+          <option value="premium">
+            Premium
+          </option>
+
+        </select>
+
+        <button
+          class="btn red"
+          onclick="adminSaveContent()">
+          💾 Salvar conteúdo
+        </button>
+
+      </main>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   SALVAR CONTEÚDO
+   ========================================================= */
+
+function adminSaveContent() {
+
+  const title =
+    document.getElementById("adminTitle").value.trim();
+
+  const genre =
+    document.getElementById("adminGenre").value.trim();
+
+  const year =
+    document.getElementById("adminYear").value.trim();
+
+  const rating =
+    document.getElementById("adminRating").value.trim();
+
+  const cover =
+    document.getElementById("adminCover").value.trim();
+
+  const video =
+    document.getElementById("adminVideo").value.trim();
+
+  const desc =
+    document.getElementById("adminDesc").value.trim();
+
+  const plan =
+    document.getElementById("adminPlan").value;
+
+  if (!title) {
+
+    alert("Digite o título do conteúdo.");
+
+    return;
+  }
+
+  const contents = getContents();
+
+  const newContent = {
+
+    id: Date.now(),
+
+    title: title,
+
+    genre: genre,
+
+    year: year,
+
+    rating: rating,
+
+    cover: cover,
+
+    videoUrl: video,
+
+    videoURL: video,
+
+    video: video,
+
+    desc: desc,
+
+    plan: plan
+
+  };
+
+  contents.push(newContent);
+
+  localStorage.setItem(
+    "vip_contents",
+    JSON.stringify(contents)
+  );
+
+  alert("Conteúdo adicionado com sucesso!");
+
+  adminPanel();
+}
+
+
+/* =========================================================
+   EXCLUIR CONTEÚDO
+   ========================================================= */
+
+function adminDeleteContent(id) {
+
+  const contents = getContents();
+
+  const filtered =
+    contents.filter(
+      x => String(x.id) !== String(id)
+    );
+
+  localStorage.setItem(
+    "vip_contents",
+    JSON.stringify(filtered)
+  );
+
+  adminPanel();
+}
