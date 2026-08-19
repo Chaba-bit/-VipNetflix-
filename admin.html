@@ -7,203 +7,279 @@
 <title>VipNetflix - Admin</title>
 
 <style>
-
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 body{
-    background:#07090d;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
+  background:#07090d;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
 }
 
 .header{
-    height:70px;
-    background:#0d1118;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 20px;
-    border-bottom:1px solid #252b35;
+  height:70px;
+  background:#0d1118;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  border-bottom:1px solid #252b35;
 }
 
 .logo{
-    font-size:24px;
-    font-weight:900;
+  font-size:24px;
+  font-weight:900;
 }
 
 .logo span{
-    color:#e50914;
+  color:#e50914;
 }
 
 .admin{
-    color:#aaa;
-    font-size:14px;
+  color:#aaa;
+  font-size:14px;
 }
 
 .container{
-    padding:25px;
-    max-width:1100px;
-    margin:auto;
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  padding:25px;
 }
 
 h1{
-    font-size:28px;
-    margin-bottom:25px;
+  font-size:28px;
+  margin-bottom:25px;
 }
 
 .cards{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    margin-bottom:30px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:30px;
 }
 
-.stat{
-    background:#111720;
-    border:1px solid #242c38;
-    border-radius:12px;
-    padding:20px;
+.card{
+  background:#111720;
+  border:1px solid #242c38;
+  border-radius:12px;
+  padding:20px;
 }
 
-.stat strong{
-    display:block;
-    font-size:28px;
-    margin-top:8px;
+.card span{
+  color:#9da5b1;
+  font-size:14px;
 }
 
-.stat span{
-    color:#9da5b1;
-    font-size:13px;
-}
-
-.menu{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:25px;
-}
-
-.menu button{
-    border:0;
-    background:#171e28;
-    color:#ddd;
-    padding:12px 18px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.menu button.active{
-    background:#e50914;
-    color:white;
+.card strong{
+  display:block;
+  font-size:28px;
+  margin-top:8px;
 }
 
 .panel{
-    background:#111720;
-    border:1px solid #242c38;
-    border-radius:14px;
-    padding:22px;
+  background:#111720;
+  border:1px solid #242c38;
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:25px;
 }
 
 .panel h2{
-    margin-bottom:20px;
+  margin-bottom:20px;
+  font-size:21px;
 }
 
 .form{
-    display:grid;
-    gap:14px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+label{
+  color:#bfc5ce;
+  font-size:14px;
 }
 
 input,
 select,
 textarea{
-    width:100%;
-    background:#080b10;
-    border:1px solid #303846;
-    color:white;
-    padding:13px;
-    border-radius:8px;
-    outline:none;
+  width:100%;
+  padding:13px;
+  border-radius:8px;
+  border:1px solid #303846;
+  background:#080b10;
+  color:#fff;
+  outline:none;
 }
 
 textarea{
-    min-height:100px;
-    resize:vertical;
+  min-height:100px;
+  resize:vertical;
 }
 
-label{
-    font-size:13px;
-    color:#aeb5c0;
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#e50914;
 }
 
-.btn{
-    border:0;
-    padding:13px 20px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
+.buttons{
+  display:flex;
+  gap:10px;
+  margin-top:5px;
 }
 
-.btn-red{
-    background:#e50914;
-    color:white;
+button{
+  border:0;
+  border-radius:8px;
+  padding:12px 18px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-.btn-gray{
-    background:#242b36;
-    color:white;
+.btn-save{
+  background:#e50914;
+  color:#fff;
 }
 
-.content-list{
-    margin-top:25px;
-    display:grid;
-    gap:10px;
+.btn-clear{
+  background:#292f38;
+  color:#fff;
 }
 
-.content-item{
-    background:#181f29;
-    padding:15px;
-    border-radius:9px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
-.content-item small{
-    color:#999;
+.item{
+  background:#181f29;
+  border-radius:10px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.poster{
+  width:60px;
+  height:80px;
+  border-radius:6px;
+  object-fit:cover;
+  background:#252c36;
+}
+
+.info{
+  flex:1;
+}
+
+.info strong{
+  display:block;
+  font-size:17px;
+  margin-bottom:5px;
+}
+
+.info small{
+  color:#9da5b1;
 }
 
 .actions{
-    display:flex;
-    gap:8px;
+  display:flex;
+  gap:8px;
+}
+
+.edit{
+  background:#303844;
+  color:#fff;
+}
+
+.delete{
+  background:#b00009;
+  color:#fff;
 }
 
 .empty{
-    color:#888;
-    padding:20px 0;
+  color:#89919d;
+  text-align:center;
+  padding:25px;
 }
 
 @media(max-width:700px){
 
-    .cards{
-        grid-template-columns:repeat(2,1fr);
-    }
+  .cards{
+    grid-template-columns:1fr 1fr;
+  }
 
-    .container{
-        padding:18px;
-    }
+  .form{
+    grid-template-columns:1fr;
+  }
 
-    .content-item{
-        flex-direction:column;
-        align-items:flex-start;
-    }
+  .field.full{
+    grid-column:auto;
+  }
 
+  .container{
+    padding:15px;
+  }
+
+  .item{
+    align-items:flex-start;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .actions button{
+    padding:9px 12px;
+  }
 }
 
+@media(max-width:420px){
+
+  .cards{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .card{
+    padding:14px;
+  }
+
+  .card strong{
+    font-size:22px;
+  }
+
+  .header{
+    padding:0 12px;
+  }
+
+  .admin{
+    display:none;
+  }
+}
 </style>
 </head>
 
@@ -211,486 +287,733 @@ label{
 
 <header class="header">
 
-    <div class="logo">
-        Vip<span>Netflix</span>
-    </div>
+  <div class="logo">
+    Vip<span>Netflix</span>
+  </div>
 
-    <div class="admin">
-        Painel Administrativo
-    </div>
+  <div class="admin">
+    PAINEL ADMINISTRATIVO
+  </div>
 
 </header>
 
-
 <main class="container">
 
-    <h1>
-        Dashboard
-    </h1>
+  <h1>🎬 Gerenciamento de Conteúdo</h1>
 
+  <section class="cards">
 
-    <div class="cards">
-
-        <div class="stat">
-            <span>Filmes</span>
-            <strong id="totalMovies">0</strong>
-        </div>
-
-        <div class="stat">
-            <span>Séries</span>
-            <strong id="totalSeries">0</strong>
-        </div>
-
-        <div class="stat">
-            <span>Episódios</span>
-            <strong id="totalEpisodes">0</strong>
-        </div>
-
-        <div class="stat">
-            <span>Usuários</span>
-            <strong>0</strong>
-        </div>
-
+    <div class="card">
+      <span>Filmes</span>
+      <strong id="totalMovies">0</strong>
     </div>
 
-
-    <div class="menu">
-
-        <button
-            class="active"
-            onclick="showPanel('contents',this)"
-        >
-            🎬 Conteúdos
-        </button>
-
-        <button
-            onclick="showPanel('add',this)"
-        >
-            ➕ Adicionar
-        </button>
-
-        <button
-            onclick="showPanel('users',this)"
-        >
-            👥 Usuários
-        </button>
-
-        <button
-            onclick="showPanel('plans',this)"
-        >
-            💳 Planos
-        </button>
-
+    <div class="card">
+      <span>Séries</span>
+      <strong id="totalSeries">0</strong>
     </div>
 
+    <div class="card">
+      <span>Episódios</span>
+      <strong id="totalEpisodes">0</strong>
+    </div>
 
-    <section
-        class="panel"
-        id="contents"
-    >
+    <div class="card">
+      <span>Total</span>
+      <strong id="totalContents">0</strong>
+    </div>
 
-        <h2>
-            Conteúdos cadastrados
-        </h2>
-
-        <div
-            id="contentList"
-            class="content-list"
-        ></div>
-
-    </section>
+  </section>
 
 
-    <section
-        class="panel"
-        id="add"
-        style="display:none"
-    >
+  <section class="panel">
 
-        <h2>
-            Adicionar conteúdo
-        </h2>
+    <h2 id="formTitle">➕ Adicionar conteúdo</h2>
 
-        <div class="form">
+    <form id="contentForm">
 
-            <label>Nome</label>
+      <div class="form">
 
-            <input
-                id="contentName"
-                placeholder="Ex: A Última Fronteira"
-            >
+        <div class="field">
+          <label>Nome do conteúdo</label>
 
-
-            <label>Tipo</label>
-
-            <select id="contentType">
-
-                <option value="filme">
-                    Filme
-                </option>
-
-                <option value="serie">
-                    Série
-                </option>
-
-            </select>
+          <input
+            id="title"
+            type="text"
+            placeholder="Ex.: A Última Fronteira"
+            required
+          >
+        </div>
 
 
-            <label>Categoria</label>
+        <div class="field">
 
-            <select id="contentCategory">
+          <label>Tipo</label>
 
-                <option>Ação</option>
-                <option>Drama</option>
-                <option>Comédia</option>
-                <option>Suspense</option>
-                <option>Ficção</option>
-                <option>Romance</option>
+          <select id="type">
 
-            </select>
+            <option value="filme">
+              Filme
+            </option>
 
+            <option value="serie">
+              Série
+            </option>
 
-            <label>Descrição</label>
+          </select>
 
-            <textarea
-                id="contentDescription"
-                placeholder="Descrição do filme ou série"
-            ></textarea>
+        </div>
 
 
-            <label>URL da capa</label>
+        <div class="field">
 
-            <input
-                id="contentPoster"
-                placeholder="https://..."
-            >
+          <label>Categoria</label>
+
+          <input
+            id="category"
+            type="text"
+            placeholder="Ação, Drama, Comédia..."
+          >
+
+        </div>
 
 
-            <label>URL do vídeo autorizado</label>
+        <div class="field">
 
-            <input
-                id="contentVideo"
-                placeholder="https://..."
-            >
+          <label>Ano</label>
 
+          <input
+            id="year"
+            type="number"
+            placeholder="2026"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>Descrição</label>
+
+          <textarea
+            id="description"
+            placeholder="Descrição do filme ou série..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>URL da capa</label>
+
+          <input
+            id="cover"
+            type="url"
+            placeholder="https://..."
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>URL do vídeo autorizado</label>
+
+          <input
+            id="video"
+            type="url"
+            placeholder="https://..."
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>Temporada</label>
+
+          <input
+            id="season"
+            type="number"
+            min="1"
+            value="1"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>Número de episódios</label>
+
+          <input
+            id="episodes"
+            type="number"
+            min="0"
+            value="0"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <div class="buttons">
 
             <button
-                class="btn btn-red"
-                onclick="addContent()"
+              type="submit"
+              class="btn-save"
             >
-                Salvar conteúdo
+              💾 Salvar conteúdo
             </button>
+
+            <button
+              type="button"
+              class="btn-clear"
+              onclick="clearForm()"
+            >
+              Limpar
+            </button>
+
+          </div>
 
         </div>
 
-    </section>
+      </div>
+
+    </form>
+
+  </section>
 
 
-    <section
-        class="panel"
-        id="users"
-        style="display:none"
-    >
+  <section class="panel">
 
-        <h2>
-            Usuários
-        </h2>
+    <h2>📚 Conteúdos cadastrados</h2>
 
-        <p class="empty">
-            O sistema de cadastro e login será conectado
-            na próxima etapa.
-        </p>
+    <div
+      id="contentList"
+      class="list"
+    ></div>
 
-    </section>
-
-
-    <section
-        class="panel"
-        id="plans"
-        style="display:none"
-    >
-
-        <h2>
-            Planos de assinatura
-        </h2>
-
-        <p class="empty">
-            Aqui vamos criar os planos Básico,
-            Standard e Premium.
-        </p>
-
-    </section>
+  </section>
 
 </main>
 
 
 <script>
 
-let contents =
-    JSON.parse(
-        localStorage.getItem("vipContents") || "[]"
-    );
+const STORAGE_KEY = "vipnetflix_contents";
+
+let contents = [];
+
+let editingId = null;
 
 
-function showPanel(id,button){
+/* =========================
+   CARREGAR
+========================= */
 
-    document
-    .querySelectorAll(".panel")
-    .forEach(panel => {
+function loadContents(){
 
-        panel.style.display = "none";
+  try{
 
-    });
+    const saved =
+      localStorage.getItem(STORAGE_KEY);
 
-    document
-    .getElementById(id)
-    .style.display = "block";
+    contents =
+      saved ? JSON.parse(saved) : [];
 
+  }catch(error){
 
-    document
-    .querySelectorAll(".menu button")
-    .forEach(btn => {
+    contents = [];
 
-        btn.classList.remove("active");
+  }
 
-    });
-
-    button.classList.add("active");
+  renderContents();
 
 }
 
 
-function addContent(){
+/* =========================
+   SALVAR
+========================= */
 
-    const name =
-        document
-        .getElementById("contentName")
-        .value
-        .trim();
+function saveContents(){
 
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(contents)
+  );
 
-    const type =
-        document
-        .getElementById("contentType")
-        .value;
-
-
-    const category =
-        document
-        .getElementById("contentCategory")
-        .value;
+}
 
 
-    const description =
-        document
-        .getElementById("contentDescription")
-        .value
-        .trim();
+/* =========================
+   FORMULÁRIO
+========================= */
+
+document
+.getElementById("contentForm")
+.addEventListener("submit", function(event){
+
+  event.preventDefault();
+
+  const title =
+    document.getElementById("title").value.trim();
+
+  const type =
+    document.getElementById("type").value;
+
+  const category =
+    document.getElementById("category").value.trim();
+
+  const year =
+    document.getElementById("year").value;
+
+  const description =
+    document.getElementById("description").value.trim();
+
+  const cover =
+    document.getElementById("cover").value.trim();
+
+  const video =
+    document.getElementById("video").value.trim();
+
+  const season =
+    Number(
+      document.getElementById("season").value
+    ) || 1;
+
+  const episodes =
+    Number(
+      document.getElementById("episodes").value
+    ) || 0;
 
 
-    const poster =
-        document
-        .getElementById("contentPoster")
-        .value
-        .trim();
+  const data = {
+
+    title,
+    type,
+    category,
+    year,
+    description,
+    cover,
+    video,
+    season,
+    episodes
+
+  };
 
 
-    const video =
-        document
-        .getElementById("contentVideo")
-        .value
-        .trim();
+  if(editingId){
 
+    const index =
+      contents.findIndex(
+        item => item.id === editingId
+      );
 
-    if(!name){
+    if(index !== -1){
 
-        alert("Digite o nome do conteúdo.");
+      contents[index] = {
 
-        return;
+        ...contents[index],
+        ...data
+
+      };
 
     }
 
+  }else{
 
-    const item = {
+    contents.push({
 
-        id:Date.now(),
+      id:
+        Date.now().toString(),
 
-        name:name,
+      ...data
 
-        type:type,
+    });
 
-        category:category,
+  }
 
-        description:description,
 
-        poster:poster,
+  saveContents();
 
-        video:video
+  clearForm();
+
+  renderContents();
+
+});
+
+
+/* =========================
+   MOSTRAR CONTEÚDOS
+========================= */
+
+function renderContents(){
+
+  const list =
+    document.getElementById("contentList");
+
+  list.innerHTML = "";
+
+
+  if(contents.length === 0){
+
+    list.innerHTML =
+      '<div class="empty">' +
+      'Nenhum conteúdo cadastrado ainda.' +
+      '</div>';
+
+    updateStats();
+
+    return;
+
+  }
+
+
+  contents.forEach(item => {
+
+    const div =
+      document.createElement("div");
+
+    div.className = "item";
+
+
+    const poster =
+      document.createElement("img");
+
+    poster.className = "poster";
+
+    poster.src =
+      item.cover || "";
+
+    poster.alt =
+      item.title;
+
+    poster.onerror = function(){
+
+      this.style.display = "none";
 
     };
 
 
-    contents.push(item);
+    const info =
+      document.createElement("div");
+
+    info.className = "info";
 
 
-    localStorage.setItem(
-        "vipContents",
-        JSON.stringify(contents)
-    );
+    const strong =
+      document.createElement("strong");
+
+    strong.textContent =
+      item.title;
 
 
-    document
-    .getElementById("contentName")
-    .value = "";
+    const small =
+      document.createElement("small");
+
+    small.textContent =
+      (
+        item.type === "serie"
+          ? "Série"
+          : "Filme"
+      ) +
+      " • " +
+      (item.category || "Sem categoria") +
+      (item.year ? " • " + item.year : "");
 
 
-    document
-    .getElementById("contentDescription")
-    .value = "";
+    info.appendChild(strong);
+
+    info.appendChild(small);
 
 
-    document
-    .getElementById("contentPoster")
-    .value = "";
+    const actions =
+      document.createElement("div");
+
+    actions.className = "actions";
 
 
-    document
-    .getElementById("contentVideo")
-    .value = "";
+    const editButton =
+      document.createElement("button");
+
+    editButton.className = "edit";
+
+    editButton.textContent =
+      "✏️ Editar";
+
+    editButton.onclick =
+      function(){
+
+        editContent(item.id);
+
+      };
 
 
-    renderContents();
+    const deleteButton =
+      document.createElement("button");
+
+    deleteButton.className = "delete";
+
+    deleteButton.textContent =
+      "🗑️ Apagar";
+
+    deleteButton.onclick =
+      function(){
+
+        deleteContent(item.id);
+
+      };
 
 
-    alert(
-        "Conteúdo cadastrado com sucesso!"
-    );
+    actions.appendChild(editButton);
+
+    actions.appendChild(deleteButton);
+
+
+    div.appendChild(poster);
+
+    div.appendChild(info);
+
+    div.appendChild(actions);
+
+
+    list.appendChild(div);
+
+  });
+
+
+  updateStats();
 
 }
 
+
+/* =========================
+   EDITAR
+========================= */
+
+function editContent(id){
+
+  const item =
+    contents.find(
+      content => content.id === id
+    );
+
+  if(!item) return;
+
+
+  editingId = id;
+
+
+  document
+  .getElementById("title")
+  .value =
+    item.title || "";
+
+
+  document
+  .getElementById("type")
+  .value =
+    item.type || "filme";
+
+
+  document
+  .getElementById("category")
+  .value =
+    item.category || "";
+
+
+  document
+  .getElementById("year")
+  .value =
+    item.year || "";
+
+
+  document
+  .getElementById("description")
+  .value =
+    item.description || "";
+
+
+  document
+  .getElementById("cover")
+  .value =
+    item.cover || "";
+
+
+  document
+  .getElementById("video")
+  .value =
+    item.video || "";
+
+
+  document
+  .getElementById("season")
+  .value =
+    item.season || 1;
+
+
+  document
+  .getElementById("episodes")
+  .value =
+    item.episodes || 0;
+
+
+  document
+  .getElementById("formTitle")
+  .textContent =
+    "✏️ Editar conteúdo";
+
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:"smooth"
+
+  });
+
+}
+
+
+/* =========================
+   APAGAR
+========================= */
 
 function deleteContent(id){
 
-    contents =
-        contents.filter(
-            item => item.id !== id
-        );
-
-
-    localStorage.setItem(
-        "vipContents",
-        JSON.stringify(contents)
+  const item =
+    contents.find(
+      content => content.id === id
     );
 
 
-    renderContents();
+  if(!item) return;
+
+
+  const confirmed =
+    confirm(
+      "Apagar \"" +
+      item.title +
+      "\"?"
+    );
+
+
+  if(!confirmed) return;
+
+
+  contents =
+    contents.filter(
+      content => content.id !== id
+    );
+
+
+  saveContents();
+
+  renderContents();
 
 }
 
 
-function renderContents(){
+/* =========================
+   LIMPAR
+========================= */
 
-    const list =
-        document.getElementById("contentList");
+function clearForm(){
 
-
-    list.innerHTML = "";
-
-
-    if(contents.length === 0){
-
-        list.innerHTML =
-            '<div class="empty">Nenhum conteúdo cadastrado.</div>';
-
-    }
+  document
+  .getElementById("contentForm")
+  .reset();
 
 
-    contents.forEach(item => {
-
-        const div =
-            document.createElement("div");
-
-        div.className =
-            "content-item";
+  document
+  .getElementById("season")
+  .value = 1;
 
 
-        div.innerHTML = `
-
-            <div>
-
-                <strong>
-                    ${item.name}
-                </strong>
-
-                <br>
-
-                <small>
-                    ${item.type.toUpperCase()}
-                    •
-                    ${item.category}
-                </small>
-
-            </div>
+  document
+  .getElementById("episodes")
+  .value = 0;
 
 
-            <div class="actions">
-
-                <button
-                    class="btn btn-gray"
-                    onclick="deleteContent(${item.id})"
-                >
-                    Excluir
-                </button>
-
-            </div>
-
-        `;
+  editingId = null;
 
 
-        list.appendChild(div);
-
-    });
-
-
-    updateStats();
+  document
+  .getElementById("formTitle")
+  .textContent =
+    "➕ Adicionar conteúdo";
 
 }
 
+
+/* =========================
+   ESTATÍSTICAS
+========================= */
 
 function updateStats(){
 
-    const movies =
-        contents.filter(
-            item => item.type === "filme"
-        ).length;
+  const movies =
+    contents.filter(
+      item =>
+        item.type === "filme"
+    ).length;
 
 
-    const series =
-        contents.filter(
-            item => item.type === "serie"
-        ).length;
+  const series =
+    contents.filter(
+      item =>
+        item.type === "serie"
+    ).length;
 
 
-    document
-    .getElementById("totalMovies")
-    .textContent = movies;
+  const episodes =
+    contents.reduce(
+      (total,item) =>
+        total +
+        (
+          Number(item.episodes) || 0
+        ),
+      0
+    );
 
 
-    document
-    .getElementById("totalSeries")
-    .textContent = series;
+  document
+  .getElementById("totalMovies")
+  .textContent =
+    movies;
 
 
-    document
-    .getElementById("totalEpisodes")
-    .textContent = 0;
+  document
+  .getElementById("totalSeries")
+  .textContent =
+    series;
+
+
+  document
+  .getElementById("totalEpisodes")
+  .textContent =
+    episodes;
+
+
+  document
+  .getElementById("totalContents")
+  .textContent =
+    contents.length;
 
 }
 
 
-renderContents();
+/* =========================
+   INICIAR
+========================= */
+
+loadContents();
 
 </script>
 
 </body>
-  </html>
+    </html>
