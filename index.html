@@ -1115,7 +1115,6 @@ let selectedMovie = "";
 /* =========================
    ABRIR FILME
 ========================= */
-
 function openMovie(title){
 
     selectedMovie = title;
@@ -1148,9 +1147,226 @@ function openMovie(title){
         descriptions[title] ||
         "Conteúdo disponível no VipNetflix.";
 
-    document.getElementById("movieModal").classList.add("show");
+
+    /* =========================
+       REMOVER EPISÓDIOS ANTIGOS
+    ========================= */
+
+    const oldEpisodes =
+        document.getElementById("episodesArea");
+
+    if(oldEpisodes){
+        oldEpisodes.remove();
+    }
+
+
+    /* =========================
+       VERIFICAR SE É SÉRIE
+    ========================= */
+
+    const series = [
+        "A Última Fronteira",
+        "Zona Sombria"
+    ];
+
+
+    if(series.includes(title)){
+
+        const episodesArea =
+            document.createElement("div");
+
+        episodesArea.id = "episodesArea";
+
+        episodesArea.style.cssText = `
+            margin-top:20px;
+        `;
+
+
+        episodesArea.innerHTML = `
+
+            <h3 style="
+                margin-bottom:12px;
+                font-size:18px;
+            ">
+                Temporada 1
+            </h3>
+
+
+            <div style="
+                display:flex;
+                flex-direction:column;
+                gap:10px;
+            ">
+
+
+                <button
+                    onclick="playEpisode('${title}','Episódio 1 — A Travessia')"
+                    style="
+                        width:100%;
+                        padding:15px;
+                        border:0;
+                        border-radius:8px;
+                        background:#202732;
+                        color:white;
+                        text-align:left;
+                        font-size:14px;
+                        cursor:pointer;
+                    "
+                >
+                    ▶ Episódio 1 — A Travessia
+                </button>
+
+
+                <button
+                    onclick="playEpisode('${title}','Episódio 2 — O Sinal')"
+                    style="
+                        width:100%;
+                        padding:15px;
+                        border:0;
+                        border-radius:8px;
+                        background:#202732;
+                        color:white;
+                        text-align:left;
+                        font-size:14px;
+                        cursor:pointer;
+                    "
+                >
+                    ▶ Episódio 2 — O Sinal
+                </button>
+
+
+                <button
+                    onclick="playEpisode('${title}','Episódio 3 — A Descoberta')"
+                    style="
+                        width:100%;
+                        padding:15px;
+                        border:0;
+                        border-radius:8px;
+                        background:#202732;
+                        color:white;
+                        text-align:left;
+                        font-size:14px;
+                        cursor:pointer;
+                    "
+                >
+                    ▶ Episódio 3 — A Descoberta
+                </button>
+
+            </div>
+
+
+            <h3 style="
+                margin-top:25px;
+                margin-bottom:12px;
+                font-size:18px;
+            ">
+                Temporada 2
+            </h3>
+
+
+            <div style="
+                display:flex;
+                flex-direction:column;
+                gap:10px;
+            ">
+
+
+                <button
+                    onclick="playEpisode('${title}','Temporada 2 — Episódio 1')"
+                    style="
+                        width:100%;
+                        padding:15px;
+                        border:0;
+                        border-radius:8px;
+                        background:#202732;
+                        color:white;
+                        text-align:left;
+                        font-size:14px;
+                        cursor:pointer;
+                    "
+                >
+                    ▶ Episódio 1 — O Retorno
+                </button>
+
+
+                <button
+                    onclick="playEpisode('${title}','Temporada 2 — Episódio 2')"
+                    style="
+                        width:100%;
+                        padding:15px;
+                        border:0;
+                        border-radius:8px;
+                        background:#202732;
+                        color:white;
+                        text-align:left;
+                        font-size:14px;
+                        cursor:pointer;
+                    "
+                >
+                    ▶ Episódio 2 — A Verdade
+                </button>
+
+
+                <button
+                    onclick="playEpisode('${title}','Temporada 2 — Episódio 3')"
+                    style="
+                        width:100%;
+                        padding:15px;
+                        border:0;
+                        border-radius:8px;
+                        background:#202732;
+                        color:white;
+                        text-align:left;
+                        font-size:14px;
+                        cursor:pointer;
+                    "
+                >
+                    ▶ Episódio 3 — A Última Missão
+                </button>
+
+            </div>
+
+        `;
+
+
+        document
+            .querySelector(".modal-body")
+            .appendChild(episodesArea);
+
+
+        document.querySelector(".watch").style.display =
+            "none";
+
+
+    }else{
+
+        document.querySelector(".watch").style.display =
+            "block";
+
+    }
+
+
+    document
+        .getElementById("movieModal")
+        .classList.add("show");
+
 }
 
+
+/* =========================
+   REPRODUZIR EPISÓDIO
+========================= */
+
+function playEpisode(seriesTitle, episodeTitle){
+
+    selectedMovie =
+        seriesTitle + " — " + episodeTitle;
+
+    closeMovie();
+
+    playSelected();
+
+}
 
 /* =========================
    FECHAR FILME
