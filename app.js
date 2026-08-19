@@ -16,7 +16,39 @@ function shell(content,active='home'){app.innerHTML=`<header class="top"><div cl
 function home(){const m=movies[0];shell(`<section class="hero"><div><span class="small">SÉRIE ORIGINAL</span><h1>${m.title}</h1><p>${m.desc}</p><button class="btn primary" onclick="watch(${m.id})">▶ Assistir</button><button class="btn gray" onclick="details(${m.id})">ⓘ Detalhes</button></div></section><section class="section"><h2>Continuar assistindo</h2><div class="row">${movies.slice(0,3).map(card).join('')}</div></section><section class="section"><h2>Populares no VipNetflix</h2><div class="row">${movies.map(card).join('')}</div></section>`)}
 function explore(){shell(`<section class="section"><h1>Explorar</h1><input class="search" id="q" placeholder="Pesquisar filmes e séries..." oninput="filter(this.value)"><div id="results" class="grid"></div></section>`,'explore');filter('')}
 function filter(q){document.getElementById('results').innerHTML=movies.filter(m=>(m.title+' '+m.genre).toLowerCase().includes(q.toLowerCase())).map(card).join('')||'<div class="empty">Nenhum conteúdo encontrado.</div>'}
-function details(id){const m=movies.find(x=>x.id===id);const is=fav.includes(id);shell(`<section class="hero"><div><span class="small">${m.genre} · ${m.year} · ⭐ ${m.rating}</span><h1>${m.title}</h1><p>${m.desc}</p><button class="btn red" onclick="watch(${m.id})">▶ Assistir</button><button class="btn gray" onclick="toggleFav(${m.id})">${is?'♥ Remover':'♡ Minha Lista'}</button></div></section><section class="section"><h2>Informações</h2><p class="small">Conteúdo de demonstração do projeto VipNetflix.</p></section>`)}
+function details(id){
+  const m=movies.find(x=>x.id===id);
+  const is=fav.includes(id);
+
+  shell(`
+    <section class="hero">
+      <div>
+        <span class="small">${m.genre} · ${m.year} · ⭐ ${m.rating}</span>
+        <h1>${m.title}</h1>
+        <p>${m.desc}</p>
+
+        <button class="btn red" onclick="watch(${m.id})">
+          ▶ Assistir
+        </button>
+
+        <button class="btn gray" onclick="downloadPage(${m.id})">
+          ⬇ Baixar
+        </button>
+
+        <button class="btn gray" onclick="toggleFav(${m.id})">
+          ${is?'♥ Remover':'♡ Minha Lista'}
+        </button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Informações</h2>
+      <p class="small">
+        Conteúdo de demonstração do projeto VipNetflix.
+      </p>
+    </section>
+  `);
+}
 function watch(id){const m=movies.find(x=>x.id===id);app.innerHTML=`<main style="min-height:100vh;background:#000;text-align:center;padding-top:80px"><div style="font-size:100px">▶️</div><h2>${m.title}</h2><p class="small">Player de demonstração. Para uso real, ligue um vídeo autorizado.</p><button class="btn red" onclick="home()">Voltar</button></main>`}
 function toggleFav(id){fav.includes(id)?fav=fav.filter(x=>x!==id):fav.push(id);save();details(id)}
 function favorites(){const list=movies.filter(m=>fav.includes(m.id));shell(`<section class="section"><h1>Minha Lista</h1>${list.length?`<div class="grid">${list.map(card).join('')}</div>`:'<div class="empty">Ainda não adicionaste conteúdos.</div>'}`,'fav')}
