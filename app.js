@@ -60,8 +60,8 @@ const data = [
     year: 2017,
     rating: "8.3",
     age: "16",
-    image: "images/la-casa-de-papel.jpg",
-    backdrop: "images/la-casa-de-papel.jpg",
+    image: "images/762016.jpeg",
+    backdrop: "images/762016.jpeg",
     desc: "Um grupo executa um plano ousado que pode mudar suas vidas."
   },
 
