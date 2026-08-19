@@ -1,1 +1,696 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>VipNetflix - Admin</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#07090d;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.header{
+    height:70px;
+    background:#0d1118;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    border-bottom:1px solid #252b35;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+}
+
+.logo span{
+    color:#e50914;
+}
+
+.admin{
+    color:#aaa;
+    font-size:14px;
+}
+
+.container{
+    padding:25px;
+    max-width:1100px;
+    margin:auto;
+}
+
+h1{
+    font-size:28px;
+    margin-bottom:25px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.stat{
+    background:#111720;
+    border:1px solid #242c38;
+    border-radius:12px;
+    padding:20px;
+}
+
+.stat strong{
+    display:block;
+    font-size:28px;
+    margin-top:8px;
+}
+
+.stat span{
+    color:#9da5b1;
+    font-size:13px;
+}
+
+.menu{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.menu button{
+    border:0;
+    background:#171e28;
+    color:#ddd;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.menu button.active{
+    background:#e50914;
+    color:white;
+}
+
+.panel{
+    background:#111720;
+    border:1px solid #242c38;
+    border-radius:14px;
+    padding:22px;
+}
+
+.panel h2{
+    margin-bottom:20px;
+}
+
+.form{
+    display:grid;
+    gap:14px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    background:#080b10;
+    border:1px solid #303846;
+    color:white;
+    padding:13px;
+    border-radius:8px;
+    outline:none;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+label{
+    font-size:13px;
+    color:#aeb5c0;
+}
+
+.btn{
+    border:0;
+    padding:13px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn-red{
+    background:#e50914;
+    color:white;
+}
+
+.btn-gray{
+    background:#242b36;
+    color:white;
+}
+
+.content-list{
+    margin-top:25px;
+    display:grid;
+    gap:10px;
+}
+
+.content-item{
+    background:#181f29;
+    padding:15px;
+    border-radius:9px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.content-item small{
+    color:#999;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+}
+
+.empty{
+    color:#888;
+    padding:20px 0;
+}
+
+@media(max-width:700px){
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .container{
+        padding:18px;
+    }
+
+    .content-item{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        Vip<span>Netflix</span>
+    </div>
+
+    <div class="admin">
+        Painel Administrativo
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <h1>
+        Dashboard
+    </h1>
+
+
+    <div class="cards">
+
+        <div class="stat">
+            <span>Filmes</span>
+            <strong id="totalMovies">0</strong>
+        </div>
+
+        <div class="stat">
+            <span>Séries</span>
+            <strong id="totalSeries">0</strong>
+        </div>
+
+        <div class="stat">
+            <span>Episódios</span>
+            <strong id="totalEpisodes">0</strong>
+        </div>
+
+        <div class="stat">
+            <span>Usuários</span>
+            <strong>0</strong>
+        </div>
+
+    </div>
+
+
+    <div class="menu">
+
+        <button
+            class="active"
+            onclick="showPanel('contents',this)"
+        >
+            🎬 Conteúdos
+        </button>
+
+        <button
+            onclick="showPanel('add',this)"
+        >
+            ➕ Adicionar
+        </button>
+
+        <button
+            onclick="showPanel('users',this)"
+        >
+            👥 Usuários
+        </button>
+
+        <button
+            onclick="showPanel('plans',this)"
+        >
+            💳 Planos
+        </button>
+
+    </div>
+
+
+    <section
+        class="panel"
+        id="contents"
+    >
+
+        <h2>
+            Conteúdos cadastrados
+        </h2>
+
+        <div
+            id="contentList"
+            class="content-list"
+        ></div>
+
+    </section>
+
+
+    <section
+        class="panel"
+        id="add"
+        style="display:none"
+    >
+
+        <h2>
+            Adicionar conteúdo
+        </h2>
+
+        <div class="form">
+
+            <label>Nome</label>
+
+            <input
+                id="contentName"
+                placeholder="Ex: A Última Fronteira"
+            >
+
+
+            <label>Tipo</label>
+
+            <select id="contentType">
+
+                <option value="filme">
+                    Filme
+                </option>
+
+                <option value="serie">
+                    Série
+                </option>
+
+            </select>
+
+
+            <label>Categoria</label>
+
+            <select id="contentCategory">
+
+                <option>Ação</option>
+                <option>Drama</option>
+                <option>Comédia</option>
+                <option>Suspense</option>
+                <option>Ficção</option>
+                <option>Romance</option>
+
+            </select>
+
+
+            <label>Descrição</label>
+
+            <textarea
+                id="contentDescription"
+                placeholder="Descrição do filme ou série"
+            ></textarea>
+
+
+            <label>URL da capa</label>
+
+            <input
+                id="contentPoster"
+                placeholder="https://..."
+            >
+
+
+            <label>URL do vídeo autorizado</label>
+
+            <input
+                id="contentVideo"
+                placeholder="https://..."
+            >
+
+
+            <button
+                class="btn btn-red"
+                onclick="addContent()"
+            >
+                Salvar conteúdo
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="panel"
+        id="users"
+        style="display:none"
+    >
+
+        <h2>
+            Usuários
+        </h2>
+
+        <p class="empty">
+            O sistema de cadastro e login será conectado
+            na próxima etapa.
+        </p>
+
+    </section>
+
+
+    <section
+        class="panel"
+        id="plans"
+        style="display:none"
+    >
+
+        <h2>
+            Planos de assinatura
+        </h2>
+
+        <p class="empty">
+            Aqui vamos criar os planos Básico,
+            Standard e Premium.
+        </p>
+
+    </section>
+
+</main>
+
+
+<script>
+
+let contents =
+    JSON.parse(
+        localStorage.getItem("vipContents") || "[]"
+    );
+
+
+function showPanel(id,button){
+
+    document
+    .querySelectorAll(".panel")
+    .forEach(panel => {
+
+        panel.style.display = "none";
+
+    });
+
+    document
+    .getElementById(id)
+    .style.display = "block";
+
+
+    document
+    .querySelectorAll(".menu button")
+    .forEach(btn => {
+
+        btn.classList.remove("active");
+
+    });
+
+    button.classList.add("active");
+
+}
+
+
+function addContent(){
+
+    const name =
+        document
+        .getElementById("contentName")
+        .value
+        .trim();
+
+
+    const type =
+        document
+        .getElementById("contentType")
+        .value;
+
+
+    const category =
+        document
+        .getElementById("contentCategory")
+        .value;
+
+
+    const description =
+        document
+        .getElementById("contentDescription")
+        .value
+        .trim();
+
+
+    const poster =
+        document
+        .getElementById("contentPoster")
+        .value
+        .trim();
+
+
+    const video =
+        document
+        .getElementById("contentVideo")
+        .value
+        .trim();
+
+
+    if(!name){
+
+        alert("Digite o nome do conteúdo.");
+
+        return;
+
+    }
+
+
+    const item = {
+
+        id:Date.now(),
+
+        name:name,
+
+        type:type,
+
+        category:category,
+
+        description:description,
+
+        poster:poster,
+
+        video:video
+
+    };
+
+
+    contents.push(item);
+
+
+    localStorage.setItem(
+        "vipContents",
+        JSON.stringify(contents)
+    );
+
+
+    document
+    .getElementById("contentName")
+    .value = "";
+
+
+    document
+    .getElementById("contentDescription")
+    .value = "";
+
+
+    document
+    .getElementById("contentPoster")
+    .value = "";
+
+
+    document
+    .getElementById("contentVideo")
+    .value = "";
+
+
+    renderContents();
+
+
+    alert(
+        "Conteúdo cadastrado com sucesso!"
+    );
+
+}
+
+
+function deleteContent(id){
+
+    contents =
+        contents.filter(
+            item => item.id !== id
+        );
+
+
+    localStorage.setItem(
+        "vipContents",
+        JSON.stringify(contents)
+    );
+
+
+    renderContents();
+
+}
+
+
+function renderContents(){
+
+    const list =
+        document.getElementById("contentList");
+
+
+    list.innerHTML = "";
+
+
+    if(contents.length === 0){
+
+        list.innerHTML =
+            '<div class="empty">Nenhum conteúdo cadastrado.</div>';
+
+    }
+
+
+    contents.forEach(item => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "content-item";
+
+
+        div.innerHTML = `
+
+            <div>
+
+                <strong>
+                    ${item.name}
+                </strong>
+
+                <br>
+
+                <small>
+                    ${item.type.toUpperCase()}
+                    •
+                    ${item.category}
+                </small>
+
+            </div>
+
+
+            <div class="actions">
+
+                <button
+                    class="btn btn-gray"
+                    onclick="deleteContent(${item.id})"
+                >
+                    Excluir
+                </button>
+
+            </div>
+
+        `;
+
+
+        list.appendChild(div);
+
+    });
+
+
+    updateStats();
+
+}
+
+
+function updateStats(){
+
+    const movies =
+        contents.filter(
+            item => item.type === "filme"
+        ).length;
+
+
+    const series =
+        contents.filter(
+            item => item.type === "serie"
+        ).length;
+
+
+    document
+    .getElementById("totalMovies")
+    .textContent = movies;
+
+
+    document
+    .getElementById("totalSeries")
+    .textContent = series;
+
+
+    document
+    .getElementById("totalEpisodes")
+    .textContent = 0;
+
+}
+
+
+renderContents();
+
+</script>
+
+</body>
+  </html>
