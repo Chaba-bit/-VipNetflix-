@@ -384,9 +384,13 @@ function details(id) {
 /* =========================================================
    PLAYER
    ========================================================= */
-function watch(id) {
+/* =========================================================
+   PLAYER
+   ========================================================= */
 
-  const m = getContents().find(x => x.id == id);
+function watch(id) {
+  const contents = getContents();
+  const m = contents.find(x => String(x.id) === String(id));
 
   if (!m) {
     alert("Conteúdo não encontrado.");
@@ -406,39 +410,30 @@ function watch(id) {
 
       ${
         video
-        ? `
-          <video
-            controls
-            autoplay
-            playsinline
-            class="video">
+          ? `
+            <video
+              controls
+              autoplay
+              playsinline
+              class="video"
+            >
+              <source src="${video}" type="video/mp4">
+              Seu navegador não suporta vídeo.
+            </video>
+          `
+          : `
+            <div class="video-empty">
+              <div style="font-size:50px;">🎬</div>
 
-            <source src="${video}" type="video/mp4">
+              <h2>Vídeo ainda não configurado</h2>
 
-            Seu navegador não suporta vídeo.
-
-          </video>
-        `
-        : `
-          <div class="video-empty">
-
-            <div style="font-size:50px;">
-              🎬
+              <p>
+                Este conteúdo ainda não possui um link de vídeo.
+              </p>
             </div>
-
-            <h2>Vídeo ainda não configurado</h2>
-
-            <p>
-              Este conteúdo ainda não possui um link de vídeo.
-            </p>
-
-          </div>
-        `
+          `
       }
 
-    </div>
-  `;
-}
     </div>
   `;
 }
