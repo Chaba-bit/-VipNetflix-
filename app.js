@@ -1,4 +1,59 @@
 const app=document.getElementById('app');
+const series = [
+  {
+    id: 100,
+    title: "La Casa de Papel",
+    genre: "Suspense",
+    year: 2021,
+    rating: 8.2,
+    image: "images/la-casa-de-papel.jpg",
+    desc: "Uma equipa de assaltantes executa um plano cuidadosamente preparado.",
+
+    seasons: [
+      {
+        season: 1,
+        title: "Parte 1",
+        episodes: [
+          {
+            episode: 1,
+            title: "Episódio 1",
+            duration: "48 min",
+            videoUrl: "",
+            downloadUrl: ""
+          },
+          {
+            episode: 2,
+            title: "Episódio 2",
+            duration: "42 min",
+            videoUrl: "",
+            downloadUrl: ""
+          },
+          {
+            episode: 3,
+            title: "Episódio 3",
+            duration: "51 min",
+            videoUrl: "",
+            downloadUrl: ""
+          }
+        ]
+      },
+
+      {
+        season: 2,
+        title: "Parte 2",
+        episodes: [
+          {
+            episode: 1,
+            title: "Episódio 1",
+            duration: "",
+            videoUrl: "",
+            downloadUrl: ""
+          }
+        ]
+      }
+    ]
+  }
+];
 const movies=[
 {id:1,title:'Impacto',genre:'Ação',year:2026,rating:8.8,emoji:'🔥',desc:'Uma equipa enfrenta uma ameaça que pode mudar o futuro.'},
 {id:2,title:'Além do Espaço',genre:'Ficção científica',year:2026,rating:8.2,emoji:'🚀',desc:'Uma missão espacial revela um segredo inesperado.'},
