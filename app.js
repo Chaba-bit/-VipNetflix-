@@ -1,8 +1,8 @@
 const A = document.getElementById("app");
 
-/* =========================================================
-   01 - FILMES E SÉRIES
-   ========================================================= */
+/* =====================================================
+   FILMES E SÉRIES
+===================================================== */
 
 const data = [
   {
@@ -12,10 +12,9 @@ const data = [
     genre: "Ação",
     year: 2026,
     rating: "8.8",
-    age: "16",
     image: "images/impacto.jpg",
-    backdrop: "images/impacto-bg.jpg",
-    desc: "Quando o sistema falha, justiça se torna escolha."
+    background: "images/impacto-bg.jpg",
+    description: "Quando o sistema falha, justiça se torna escolha."
   },
 
   {
@@ -25,10 +24,9 @@ const data = [
     genre: "Ficção científica",
     year: 2016,
     rating: "8.7",
-    age: "16",
     image: "images/stranger-things.jpg",
-    backdrop: "images/stranger-things-bg.jpg",
-    desc: "Um desaparecimento coloca uma pequena cidade no centro de um mistério sobrenatural."
+    background: "images/stranger-things-bg.jpg",
+    description: "Um desaparecimento coloca uma pequena cidade no centro de um mistério sobrenatural."
   },
 
   {
@@ -38,10 +36,9 @@ const data = [
     genre: "Policial",
     year: 2021,
     rating: "7.5",
-    age: "16",
     image: "images/lupin.jpg",
-    backdrop: "images/lupin-bg.jpg",
-    desc: "Um ladrão elegante prepara golpes impossíveis."
+    background: "images/lupin-bg.jpg",
+    description: "Um ladrão elegante prepara golpes impossíveis."
   },
 
   {
@@ -51,10 +48,9 @@ const data = [
     genre: "Crime",
     year: 2017,
     rating: "8.3",
-    age: "16",
     image: "images/casa-de-papel.jpg",
-    backdrop: "images/casa-de-papel-bg.jpg",
-    desc: "Um grupo executa um plano ousado."
+    background: "images/casa-de-papel-bg.jpg",
+    description: "Um grupo executa um plano ousado."
   },
 
   {
@@ -64,10 +60,9 @@ const data = [
     genre: "Fantasia",
     year: 2019,
     rating: "8.2",
-    age: "16",
     image: "images/witcher.jpg",
-    backdrop: "images/witcher-bg.jpg",
-    desc: "Um caçador de monstros percorre um mundo perigoso."
+    background: "images/witcher-bg.jpg",
+    description: "Um caçador de monstros percorre um mundo perigoso."
   },
 
   {
@@ -77,10 +72,9 @@ const data = [
     genre: "Terror",
     year: 2022,
     rating: "8.2",
-    age: "16",
     image: "images/wednesday.jpg",
-    backdrop: "images/wednesday-bg.jpg",
-    desc: "Uma estudante excêntrica investiga mistérios."
+    background: "images/wednesday-bg.jpg",
+    description: "Uma estudante excêntrica investiga mistérios."
   },
 
   {
@@ -90,10 +84,9 @@ const data = [
     genre: "Aventura",
     year: 2023,
     rating: "8.6",
-    age: "12",
     image: "images/one-piece.jpg",
-    backdrop: "images/one-piece-bg.jpg",
-    desc: "Uma tripulação parte em busca de um grande tesouro."
+    background: "images/one-piece-bg.jpg",
+    description: "Uma tripulação parte em busca de um grande tesouro."
   },
 
   {
@@ -103,10 +96,9 @@ const data = [
     genre: "Ação",
     year: 2026,
     rating: "8.0",
-    age: "16",
     image: "images/guardiao.jpg",
-    backdrop: "images/guardiao-bg.jpg",
-    desc: "Uma noite muda tudo."
+    background: "images/guardiao-bg.jpg",
+    description: "Uma noite muda tudo."
   },
 
   {
@@ -116,10 +108,9 @@ const data = [
     genre: "Drama",
     year: 2026,
     rating: "8.1",
-    age: "12",
     image: "images/dois-mundos.jpg",
-    backdrop: "images/dois-mundos-bg.jpg",
-    desc: "Duas realidades encontram-se."
+    background: "images/dois-mundos-bg.jpg",
+    description: "Duas realidades encontram-se."
   },
 
   {
@@ -129,36 +120,34 @@ const data = [
     genre: "Aventura",
     year: 2026,
     rating: "8.4",
-    age: "12",
     image: "images/legado.jpg",
-    backdrop: "images/legado-bg.jpg",
-    desc: "Um segredo antigo é descoberto."
+    background: "images/legado-bg.jpg",
+    description: "Um segredo antigo é descoberto."
   }
 ];
 
 
-/* =========================================================
-   02 - MINHA LISTA
-   ========================================================= */
+/* =====================================================
+   MINHA LISTA
+===================================================== */
 
-let list = JSON.parse(
-  localStorage.getItem("vip_list") || "[]"
+let minhaLista = JSON.parse(
+  localStorage.getItem("vip_lista") || "[]"
 );
 
-function saveList() {
+function guardarLista() {
   localStorage.setItem(
-    "vip_list",
-    JSON.stringify(list)
+    "vip_lista",
+    JSON.stringify(minhaLista)
   );
 }
 
 
-/* =========================================================
-   03 - CABEÇALHO
-   ========================================================= */
+/* =====================================================
+   CABEÇALHO
+===================================================== */
 
 function header() {
-
   return `
     <header class="top">
 
@@ -187,70 +176,57 @@ function header() {
 }
 
 
-/* =========================================================
-   04 - MENU SUPERIOR
-   ========================================================= */
+/* =====================================================
+   MENU SUPERIOR
+===================================================== */
 
-function nav(active) {
-
-  const menus = [
-    "Início",
-    "Explorar",
-    "Filmes",
-    "Séries",
-    "Novidades",
-    "Minha Lista"
-  ];
-
+function menuSuperior() {
   return `
     <div class="nav">
 
-      ${menus.map(menu => {
+      <button onclick="home()">
+        Início
+      </button>
 
-        let action = "explore()";
+      <button onclick="explore()">
+        Explorar
+      </button>
 
-        if (menu === "Início") {
-          action = "home()";
-        }
+      <button onclick="filmes()">
+        Filmes
+      </button>
 
-        if (menu === "Minha Lista") {
-          action = "favorites()";
-        }
+      <button onclick="series()">
+        Séries
+      </button>
 
-        return `
-          <button
-            class="${active === menu ? "active" : ""}"
-            onclick="${action}">
-            ${menu}
-          </button>
-        `;
+      <button onclick="novidades()">
+        Novidades
+      </button>
 
-      }).join("")}
+      <button onclick="favorites()">
+        Minha Lista
+      </button>
 
     </div>
   `;
 }
 
 
-/* =========================================================
-   05 - MENU INFERIOR
-   ========================================================= */
+/* =====================================================
+   MENU INFERIOR
+===================================================== */
 
-function bottom(active) {
-
+function menuInferior() {
   return `
     <nav class="bottom">
 
-      <button
-        class="${active === "home" ? "active" : ""}"
-        onclick="home()">
+      <button onclick="home()">
         <b>⌂</b>
         <span>Início</span>
       </button>
 
-      <button
-        class="${active === "explore" ? "active" : ""}"
-        onclick="explore()">
+      <button onclick="explore()">
         <b>▦</b>
         <span>Explorar</span>
       </button>
@@ -260,9 +236,7 @@ function bottom(active) {
         <span>Downloads</span>
       </button>
 
-      <button
-        class="${active === "fav" ? "active" : ""}"
-        onclick="favorites()">
+      <button onclick="favorites()">
         <b>＋</b>
         <span>Minha Lista</span>
       </button>
@@ -277,58 +251,33 @@ function bottom(active) {
 }
 
 
-/* =========================================================
-   06 - POSTER
-   ========================================================= */
+/* =====================================================
+   CARD
+===================================================== */
 
-function poster(movie) {
-
-  return `
-    <div
-      class="poster"
-      style="
-        background-image:
-        url('${movie.image}');
-      "
-    >
-
-      <div class="poster-overlay"></div>
-
-      <span class="poster-title">
-        ${movie.title}
-      </span>
-
-      <span class="play-circle">
-        ▶
-      </span>
-
-    </div>
-  `;
-}
-
-
-/* =========================================================
-   07 - CARD
-   ========================================================= */
-
-function card(movie, progress = false) {
-
+function card(movie) {
   return `
     <article
       class="card"
-      onclick="detail(${movie.id})">
+      onclick="details(${movie.id})">
 
-      ${poster(movie)}
+      <div
+        class="poster"
+        style="
+          background-image:
+          url('${movie.image}');
+        "
+      >
 
-      ${
-        progress
-          ? `
-            <div class="progress">
-              <i></i>
-            </div>
-          `
-          : ""
-      }
+        <span class="poster-title">
+          ${movie.title}
+        </span>
+
+        <span class="play-circle">
+          ▶
+        </span>
+
+      </div>
 
       <div class="card-info">
 
@@ -337,9 +286,7 @@ function card(movie, progress = false) {
         </h3>
 
         <div class="muted">
-          ⭐ ${movie.rating}
-          ·
-          ${movie.year}
+          ⭐ ${movie.rating} · ${movie.year}
         </div>
 
       </div>
@@ -349,29 +296,19 @@ function card(movie, progress = false) {
 }
 
 
-/* =========================================================
-   08 - ESTRUTURA DA PÁGINA
-   ========================================================= */
-
-function shell(content, active = "home", menu = "Início") {
-
-  A.innerHTML =
-    header() +
-    nav(menu) +
-    content +
-    bottom(active);
-}
-
-
-/* =========================================================
-   09 - PÁGINA INICIAL
-   ========================================================= */
+/* =====================================================
+   PÁGINA INICIAL
+===================================================== */
 
 function home() {
 
   const destaque = data[0];
 
-  shell(`
+  A.innerHTML = `
+
+    ${header()}
+
+    ${menuSuperior()}
 
     <section
       class="hero"
@@ -379,17 +316,18 @@ function home() {
         background-image:
         linear-gradient(
           to right,
-          rgba(0,0,0,.95),
-          rgba(0,0,0,.35)
+          rgba(0,0,0,.96),
+          rgba(0,0,0,.55),
+          rgba(0,0,0,.25)
         ),
-        url('${destaque.backdrop}');
+        url('${destaque.background}');
       "
     >
 
       <div class="hero-content">
 
         <div class="eyebrow">
-          SÉRIE ORIGINAL
+          N  SÉRIE
         </div>
 
         <h1>
@@ -397,7 +335,7 @@ function home() {
         </h1>
 
         <p>
-          ${destaque.desc}
+          ${destaque.description}
         </p>
 
         <button
@@ -408,7 +346,7 @@ function home() {
 
         <button
           class="btn dark"
-          onclick="detail(${destaque.id})">
+          onclick="details(${destaque.id})">
           ⓘ Mais informações
         </button>
 
@@ -433,9 +371,7 @@ function home() {
 
       <div class="row">
 
-        ${data.slice(1, 5).map(
-          movie => card(movie, true)
-        ).join("")}
+        ${data.slice(1, 5).map(card).join("")}
 
       </div>
 
@@ -450,17 +386,11 @@ function home() {
           Populares na VipNetflix
         </h2>
 
-        <button class="see">
-          Ver tudo
-        </button>
-
       </div>
 
       <div class="row">
 
-        ${data.slice(0, 7).map(
-          movie => card(movie)
-        ).join("")}
+        ${data.slice(0, 7).map(card).join("")}
 
       </div>
 
@@ -475,33 +405,33 @@ function home() {
           Lançamentos
         </h2>
 
-        <button class="see">
-          Ver tudo
-        </button>
-
       </div>
 
       <div class="row">
 
-        ${data.slice(7).map(
-          movie => card(movie)
-        ).join("")}
+        ${data.slice(7).map(card).join("")}
 
       </div>
 
     </section>
 
-  `, "home", "Início");
+    ${menuInferior()}
+
+  `;
 }
 
 
-/* =========================================================
-   10 - EXPLORAR
-   ========================================================= */
+/* =====================================================
+   EXPLORAR
+===================================================== */
 
 function explore() {
 
-  shell(`
+  A.innerHTML = `
+
+    ${header()}
+
+    ${menuSuperior()}
 
     <section class="section">
 
@@ -509,85 +439,52 @@ function explore() {
         Explorar
       </h1>
 
-      <div class="chips">
-
-        ${[
-          "Todos",
-          "Ação",
-          "Aventura",
-          "Drama",
-          "Comédia",
-          "Terror",
-          "Crime",
-          "Fantasia"
-        ].map(category => `
-          
-          <button
-            class="chip"
-            onclick="filterGenre('${category}')">
-            ${category}
-          </button>
-
-        `).join("")}
-
-      </div>
-
-
-      <h2>
-        Pesquisar
-      </h2>
-
       <input
-        id="q"
         class="search"
-        type="search"
         placeholder="Procurar filmes e séries..."
-        oninput="search(this.value)"
+        oninput="pesquisar(this.value)"
       >
 
-
       <div
-        id="results"
+        id="resultados"
         class="grid">
 
-        ${data.map(
-          movie => card(movie)
-        ).join("")}
+        ${data.map(card).join("")}
 
       </div>
 
     </section>
 
-  `, "explore", "Explorar");
+    ${menuInferior()}
+
+  `;
 }
 
 
-/* =========================================================
-   11 - PESQUISA
-   ========================================================= */
+/* =====================================================
+   PESQUISA
+===================================================== */
 
-function search(value) {
+function pesquisar(texto) {
 
-  const results =
-    document.getElementById("results");
+  const resultados =
+    document.getElementById("resultados");
 
-  if (!results) return;
+  if (!resultados) return;
 
-  const q =
-    value.toLowerCase().trim();
+  const textoNormalizado =
+    texto.toLowerCase().trim();
 
-  const found = data.filter(movie => {
-
-    return (
-      movie.title.toLowerCase().includes(q) ||
-      movie.genre.toLowerCase().includes(q)
+  const encontrados =
+    data.filter(movie =>
+      movie.title
+        .toLowerCase()
+        .includes(textoNormalizado)
     );
 
-  });
-
-  results.innerHTML =
-    found.length
-      ? found.map(movie => card(movie)).join("")
+  resultados.innerHTML =
+    encontrados.length
+      ? encontrados.map(card).join("")
       : `
         <p class="muted">
           Nenhum conteúdo encontrado.
@@ -596,191 +493,228 @@ function search(value) {
 }
 
 
-/* =========================================================
-   12 - FILTRAR POR GÉNERO
-   ========================================================= */
+/* =====================================================
+   FILMES
+===================================================== */
 
-function filterGenre(genre) {
+function filmes() {
 
-  if (genre === "Todos") {
-    explore();
-    return;
-  }
-
-  const found =
+  const filmes =
     data.filter(movie =>
-      movie.genre
-        .toLowerCase()
-        .includes(genre.toLowerCase())
+      movie.type === "Filme"
     );
 
-  shell(`
+  A.innerHTML = `
+
+    ${header()}
+
+    ${menuSuperior()}
 
     <section class="section">
 
       <h1>
-        ${genre}
+        Filmes
       </h1>
 
       <div class="grid">
 
-        ${
-          found.length
-            ? found.map(movie => card(movie)).join("")
-            : `
-              <p class="muted">
-                Nenhum conteúdo nesta categoria.
-              </p>
-            `
-        }
+        ${filmes.map(card).join("")}
 
       </div>
 
     </section>
 
-  `, "explore", "Explorar");
+    ${menuInferior()}
+
+  `;
 }
 
 
-/* =========================================================
-   13 - DETALHES
-   ========================================================= */
+/* =====================================================
+   SÉRIES
+===================================================== */
 
-function detail(id) {
+function series() {
+
+  const series =
+    data.filter(movie =>
+      movie.type === "Série"
+    );
+
+  A.innerHTML = `
+
+    ${header()}
+
+    ${menuSuperior()}
+
+    <section class="section">
+
+      <h1>
+        Séries
+      </h1>
+
+      <div class="grid">
+
+        ${series.map(card).join("")}
+
+      </div>
+
+    </section>
+
+    ${menuInferior()}
+
+  `;
+}
+
+
+/* =====================================================
+   NOVIDADES
+===================================================== */
+
+function novidades() {
+
+  A.innerHTML = `
+
+    ${header()}
+
+    ${menuSuperior()}
+
+    <section class="section">
+
+      <h1>
+        Novidades
+      </h1>
+
+      <div class="grid">
+
+        ${data.slice(-4).map(card).join("")}
+
+      </div>
+
+    </section>
+
+    ${menuInferior()}
+
+  `;
+}
+
+
+/* =====================================================
+   DETALHES
+===================================================== */
+
+function details(id) {
 
   const movie =
     data.find(item => item.id === id);
 
   if (!movie) return;
 
-  const inList =
-    list.includes(movie.id);
+  const adicionada =
+    minhaLista.includes(movie.id);
 
   A.innerHTML = `
 
     ${header()}
 
-    <main>
+    <section
+      class="detail-hero"
+      style="
+        background-image:
+        linear-gradient(
+          to right,
+          rgba(0,0,0,.95),
+          rgba(0,0,0,.4)
+        ),
+        url('${movie.background}');
+      "
+    >
 
-      <section
-        class="detail-hero"
-        style="
-          background-image:
-          linear-gradient(
-            to right,
-            rgba(0,0,0,.95),
-            rgba(0,0,0,.35)
-          ),
-          url('${movie.backdrop}');
-        "
-      >
+      <div>
 
-        <div>
-
-          <div class="eyebrow">
-            ${movie.type.toUpperCase()}
-          </div>
-
-          <h1>
-            ${movie.title}
-          </h1>
-
-          <div class="detail-meta">
-
-            ${movie.year}
-            ·
-            ⭐ ${movie.rating}
-            ·
-            ${movie.age}+
-            ·
-            ${movie.genre}
-
-          </div>
-
-          <p class="detail-desc">
-            ${movie.desc}
-          </p>
-
-          <button
-            class="btn red"
-            onclick="watch(${movie.id})">
-            ▶ Assistir
-          </button>
-
-          <button
-            class="btn dark"
-            onclick="toggleList(${movie.id})">
-
-            ${
-              inList
-                ? "♥ Na Minha Lista"
-                : "＋ Minha Lista"
-            }
-
-          </button>
-
+        <div class="eyebrow">
+          ${movie.type.toUpperCase()}
         </div>
 
-      </section>
+        <h1>
+          ${movie.title}
+        </h1>
 
-
-      <section class="section">
-
-        <h2>
-          Informações
-        </h2>
-
-        <p class="muted">
-          ${movie.type}
-          ·
-          ${movie.genre}
-          ·
+        <div class="detail-meta">
           ${movie.year}
-          ·
-          Classificação ${movie.age}+
+          · ⭐ ${movie.rating}
+          · ${movie.genre}
+        </div>
+
+        <p class="detail-desc">
+          ${movie.description}
         </p>
 
-      </section>
+        <button
+          class="btn red"
+          onclick="watch(${movie.id})">
+          ▶ Assistir
+        </button>
 
-    </main>
+        <button
+          class="btn dark"
+          onclick="toggleList(${movie.id})">
 
-    ${bottom("home")}
+          ${
+            adicionada
+              ? "♥ Na Minha Lista"
+              : "＋ Minha Lista"
+          }
+
+        </button>
+
+      </div>
+
+    </section>
+
+    ${menuInferior()}
 
   `;
 }
 
 
-/* =========================================================
-   14 - MINHA LISTA
-   ========================================================= */
+/* =====================================================
+   MINHA LISTA
+===================================================== */
 
 function toggleList(id) {
 
-  if (list.includes(id)) {
+  if (minhaLista.includes(id)) {
 
-    list =
-      list.filter(item => item !== id);
+    minhaLista =
+      minhaLista.filter(
+        item => item !== id
+      );
 
   } else {
 
-    list.push(id);
+    minhaLista.push(id);
 
   }
 
-  saveList();
+  guardarLista();
 
-  detail(id);
+  details(id);
 }
 
 
 function favorites() {
 
-  const movies =
+  const favoritos =
     data.filter(movie =>
-      list.includes(movie.id)
+      minhaLista.includes(movie.id)
     );
 
-  shell(`
+  A.innerHTML = `
+
+    ${header()}
+
+    ${menuSuperior()}
 
     <section class="section">
 
@@ -789,10 +723,10 @@ function favorites() {
       </h1>
 
       ${
-        movies.length
+        favoritos.length
           ? `
             <div class="grid">
-              ${movies.map(movie => card(movie)).join("")}
+              ${favoritos.map(card).join("")}
             </div>
           `
           : `
@@ -804,7 +738,7 @@ function favorites() {
 
               <p class="muted">
                 Adiciona filmes e séries
-                para encontrá-los aqui.
+                para aparecerem aqui.
               </p>
 
             </div>
@@ -813,17 +747,21 @@ function favorites() {
 
     </section>
 
-  `, "fav", "Minha Lista");
+    ${menuInferior()}
+
+  `;
 }
 
 
-/* =========================================================
-   15 - DOWNLOADS
-   ========================================================= */
+/* =====================================================
+   DOWNLOADS
+===================================================== */
 
 function downloads() {
 
-  shell(`
+  A.innerHTML = `
+
+    ${header()}
 
     <section class="section">
 
@@ -850,13 +788,15 @@ function downloads() {
 
     </section>
 
-  `);
+    ${menuInferior()}
+
+  `;
 }
 
 
-/* =========================================================
-   16 - PERFIL
-   ========================================================= */
+/* =====================================================
+   PERFIL
+===================================================== */
 
 function profile() {
 
@@ -872,14 +812,7 @@ function profile() {
 
       <div class="box">
 
-        <div
-          class="avatar"
-          style="
-            width:70px;
-            height:70px;
-            font-size:32px;
-          "
-        >
+        <div class="avatar">
           👤
         </div>
 
@@ -894,43 +827,22 @@ function profile() {
         <button
           class="btn red"
           onclick="plans()">
-          Ver planos
+          Planos
         </button>
-
-      </div>
-
-
-      <div class="box">
-
-        <h3>
-          Configurações
-        </h3>
-
-        <p>
-          Qualidade de vídeo　›
-        </p>
-
-        <p>
-          Idioma　Português　›
-        </p>
-
-        <p>
-          Notificações　›
-        </p>
 
       </div>
 
     </section>
 
-    ${bottom("")}
+    ${menuInferior()}
 
   `;
 }
 
 
-/* =========================================================
-   17 - PLANOS
-   ========================================================= */
+/* =====================================================
+   PLANOS
+===================================================== */
 
 function plans() {
 
@@ -943,7 +855,6 @@ function plans() {
       <h1>
         Planos VipNetflix
       </h1>
-
 
       <div class="plan">
 
@@ -992,17 +903,17 @@ function plans() {
 
     </section>
 
-    ${bottom("")}
+    ${menuInferior()}
 
   `;
 }
 
 
-/* =========================================================
-   18 - PAGAMENTO
-   ========================================================= */
+/* =====================================================
+   PAGAMENTO
+===================================================== */
 
-function payment(plan, price) {
+function payment(plano, valor) {
 
   A.innerHTML = `
 
@@ -1017,43 +928,28 @@ function payment(plan, price) {
       <div class="box">
 
         <h2>
-          Plano ${plan}
+          Plano ${plano}
         </h2>
 
         <p class="muted">
-          Valor: ${price} MT / mês
+          ${valor} MT por mês
         </p>
 
-
-        <label>
-          Nome
-        </label>
-
         <input
+          id="nome"
           class="search"
-          id="payName"
-          placeholder="Digite o seu nome"
+          placeholder="Nome completo"
         >
 
-
-        <label>
-          Número de telefone
-        </label>
-
         <input
+          id="telefone"
           class="search"
-          id="payPhone"
+          placeholder="Número de telefone"
           type="tel"
-          placeholder="84/85/86/87..."
         >
-
-
-        <label>
-          Método de pagamento
-        </label>
 
         <select
-          id="payMethod"
+          id="metodo"
           class="search">
 
           <option>
@@ -1070,12 +966,11 @@ function payment(plan, price) {
 
         </select>
 
-
         <button
           class="btn red"
-          onclick="confirmPayment('${plan}', ${price})">
+          onclick="confirmarPagamento()">
 
-          Continuar pagamento
+          Continuar
 
         </button>
 
@@ -1083,28 +978,21 @@ function payment(plan, price) {
 
     </section>
 
-    ${bottom("")}
+    ${menuInferior()}
 
   `;
 }
 
 
-/* =========================================================
-   19 - CONFIRMAR PAGAMENTO
-   ========================================================= */
+function confirmarPagamento() {
 
-function confirmPayment(plan, price) {
+  const nome =
+    document.getElementById("nome").value;
 
-  const name =
-    document.getElementById("payName").value.trim();
+  const telefone =
+    document.getElementById("telefone").value;
 
-  const phone =
-    document.getElementById("payPhone").value.trim();
-
-  const method =
-    document.getElementById("payMethod").value;
-
-  if (!name || !phone) {
+  if (!nome || !telefone) {
 
     alert(
       "Preencha o nome e o número de telefone."
@@ -1114,19 +1002,14 @@ function confirmPayment(plan, price) {
   }
 
   alert(
-    "Pedido criado!\n\n" +
-    "Plano: " + plan + "\n" +
-    "Valor: " + price + " MT\n" +
-    "Método: " + method + "\n\n" +
-    "A integração real do pagamento será feita depois."
+    "Pedido criado com sucesso!"
   );
-
 }
 
 
-/* =========================================================
-   20 - PLAYER
-   ========================================================= */
+/* =====================================================
+   PLAYER
+===================================================== */
 
 function watch(id) {
 
@@ -1143,11 +1026,7 @@ function watch(id) {
         class="video"
         style="
           background-image:
-          linear-gradient(
-            rgba(0,0,0,.45),
-            rgba(0,0,0,.75)
-          ),
-          url('${movie.backdrop}');
+          url('${movie.background}');
           background-size: cover;
           background-position: center;
         "
@@ -1155,14 +1034,10 @@ function watch(id) {
 
         <button
           class="icon"
-          style="
-            position:absolute;
-            left:16px;
-            top:15px;
-            z-index:5;
-          "
-          onclick="detail(${movie.id})">
+          onclick="details(${movie.id})">
+
           ←
+
         </button>
 
         <div class="video-center">
@@ -1191,7 +1066,6 @@ function watch(id) {
 
       </div>
 
-
       <div class="player-info">
 
         <h1>
@@ -1199,17 +1073,11 @@ function watch(id) {
         </h1>
 
         <p class="muted">
-          ${movie.year}
-          ·
-          ${movie.genre}
+          ${movie.year} · ${movie.genre}
         </p>
 
-        <h2>
-          Começar a assistir
-        </h2>
-
         <p class="detail-desc">
-          ${movie.desc}
+          ${movie.description}
         </p>
 
       </div>
@@ -1220,8 +1088,8 @@ function watch(id) {
 }
 
 
-/* =========================================================
-   21 - INICIAR APP
-   ========================================================= */
+/* =====================================================
+   INICIAR
+===================================================== */
 
 home();
