@@ -386,7 +386,6 @@ function details(id) {
 /* =========================================================
    PLAYER
    ========================================================= */
-
 function watch(id) {
 
   const m = getContents().find(x => x.id == id);
@@ -400,7 +399,6 @@ function watch(id) {
     "";
 
   app.innerHTML = `
-
     <div class="player">
 
       <button
@@ -409,45 +407,44 @@ function watch(id) {
         ✕
       </button>
 
-      <h2>${m.title}</h2>
+      <h2>${m.title || "Vídeo"}</h2>
 
       ${
         video
-        ?
+        ? `
+          <video
+            controls
+            autoplay
+            playsinline
+            class="video">
+
+            <source
+              src="${video}"
+              type="video/mp4">
+
+            Seu navegador não suporta vídeo.
+
+          </video>
         `
-        <video
-          controls
-          autoplay
-          playsinline
-          class="video">
+        : `
+          <div class="video-empty">
 
-          <source
-            src="${video}"
-            type="video/mp4">
+            <div style="font-size:50px;">
+              🎬
+            </div>
 
-          Seu navegador não suporta vídeo.
+            <h2>Vídeo ainda não configurado</h2>
 
-        </video>
-        `
-        :
-        `
-        <div class="video-empty">
+            <p>
+              Adicione um link de vídeo autorizado
+              pelo painel administrativo.
+            </p>
 
-          <div>▶️</div>
-
-          <h2>Vídeo ainda não configurado</h2>
-
-          <p>
-            Adicione o link do vídeo autorizado
-            pelo painel administrativo.
-          </p>
-
-        </div>
+          </div>
         `
       }
 
     </div>
-
   `;
 }
 
