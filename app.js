@@ -388,20 +388,17 @@ function watch(id) {
 
   const m = getContents().find(x => x.id == id);
 
-  if (!m) return;
+  if (!m) {
+    alert("Conteúdo não encontrado.");
+    return;
+  }
 
-  const video =
-    m.videoUrl ||
-    m.videoURL ||
-    m.video ||
-    "";
+  const video = m.videoUrl || m.videoURL || m.video || "";
 
   app.innerHTML = `
     <div class="player">
 
-      <button
-        class="close"
-        onclick="home()">
+      <button class="close" onclick="home()">
         ✕
       </button>
 
@@ -416,9 +413,7 @@ function watch(id) {
             playsinline
             class="video">
 
-            <source
-              src="${video}"
-              type="video/mp4">
+            <source src="${video}" type="video/mp4">
 
             Seu navegador não suporta vídeo.
 
@@ -434,14 +429,16 @@ function watch(id) {
             <h2>Vídeo ainda não configurado</h2>
 
             <p>
-              Adicione um link de vídeo autorizado
-              pelo painel administrativo.
+              Este conteúdo ainda não possui um link de vídeo.
             </p>
 
           </div>
         `
       }
 
+    </div>
+  `;
+}
     </div>
   `;
 }
