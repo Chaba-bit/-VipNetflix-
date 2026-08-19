@@ -1,18 +1,6 @@
 const A = document.getElementById("app");
 
-/* =========================================================
-   VIPNETFLIX
-   APP.JS
-   Versão simples com suporte a imagens locais
-   ========================================================= */
-
-
-/* =========================================================
-   FILMES E SÉRIES
-   ========================================================= */
-
 const data = [
-
   {
     id: 1,
     title: "Impacto",
@@ -20,12 +8,9 @@ const data = [
     genre: "Ação",
     year: 2026,
     rating: "8.8",
-    age: "16",
     image: "images/impacto.jpg",
-    backdrop: "images/impacto-bg.jpg",
     desc: "Quando o sistema falha, justiça se torna escolha."
   },
-
   {
     id: 2,
     title: "Stranger Things",
@@ -33,12 +18,9 @@ const data = [
     genre: "Ficção científica · Terror · Mistério",
     year: 2016,
     rating: "8.7",
-    age: "16",
     image: "images/stranger-things.jpg",
-    backdrop: "images/stranger-things.jpg",
     desc: "Um desaparecimento coloca uma pequena cidade no centro de um mistério sobrenatural."
   },
-
   {
     id: 3,
     title: "Lupin",
@@ -46,12 +28,9 @@ const data = [
     genre: "Policial",
     year: 2021,
     rating: "7.5",
-    age: "16",
     image: "images/lupin.jpg",
-    backdrop: "images/lupin.jpg",
     desc: "Um ladrão elegante prepara golpes impossíveis."
   },
-
   {
     id: 4,
     title: "La Casa de Papel",
@@ -59,12 +38,9 @@ const data = [
     genre: "Crime",
     year: 2017,
     rating: "8.3",
-    age: "16",
     image: "images/762016.jpeg",
-    backdrop: "images/762016.jpeg",
     desc: "Um grupo executa um plano ousado que pode mudar suas vidas."
   },
-
   {
     id: 5,
     title: "The Witcher",
@@ -72,12 +48,9 @@ const data = [
     genre: "Fantasia",
     year: 2019,
     rating: "8.2",
-    age: "16",
     image: "images/the-witcher.jpg",
-    backdrop: "images/the-witcher.jpg",
     desc: "Um caçador de monstros percorre um mundo perigoso."
   },
-
   {
     id: 6,
     title: "Wednesday",
@@ -85,12 +58,9 @@ const data = [
     genre: "Terror · Mistério",
     year: 2022,
     rating: "8.2",
-    age: "16",
     image: "images/wednesday.jpg",
-    backdrop: "images/wednesday.jpg",
-    desc: "Uma estudante excêntrica investiga mistérios em uma nova escola."
+    desc: "Uma estudante excêntrica investiga mistérios."
   },
-
   {
     id: 7,
     title: "One Piece",
@@ -98,12 +68,9 @@ const data = [
     genre: "Aventura",
     year: 2023,
     rating: "8.6",
-    age: "12",
     image: "images/one-piece.jpg",
-    backdrop: "images/one-piece.jpg",
     desc: "Uma tripulação parte em busca de um grande tesouro."
   },
-
   {
     id: 8,
     title: "O Guardião da Noite",
@@ -111,12 +78,9 @@ const data = [
     genre: "Ação",
     year: 2026,
     rating: "8.0",
-    age: "16",
     image: "images/guardiao-da-noite.jpg",
-    backdrop: "images/guardiao-da-noite.jpg",
-    desc: "Uma noite muda tudo quando uma ameaça aparece."
+    desc: "Uma noite muda tudo."
   },
-
   {
     id: 9,
     title: "Entre Dois Mundos",
@@ -124,12 +88,9 @@ const data = [
     genre: "Drama",
     year: 2026,
     rating: "8.1",
-    age: "12",
     image: "images/entre-dois-mundos.jpg",
-    backdrop: "images/entre-dois-mundos.jpg",
     desc: "Duas realidades diferentes acabam se encontrando."
   },
-
   {
     id: 10,
     title: "O Legado Escondido",
@@ -137,145 +98,80 @@ const data = [
     genre: "Aventura",
     year: 2026,
     rating: "8.4",
-    age: "12",
     image: "images/legado-escondido.jpg",
-    backdrop: "images/legado-escondido.jpg",
-    desc: "Um segredo antigo é descoberto e coloca todos em perigo."
+    desc: "Um segredo antigo é descoberto."
   }
-
 ];
 
-
-/* =========================================================
-   MINHA LISTA
-   ========================================================= */
-
-let list = JSON.parse(
+let minhaLista = JSON.parse(
   localStorage.getItem("vip_list") || "[]"
 );
 
-function saveList() {
+function salvarLista() {
   localStorage.setItem(
     "vip_list",
-    JSON.stringify(list)
+    JSON.stringify(minhaLista)
   );
 }
 
-
-/* =========================================================
-   IMAGEM
-   ========================================================= */
-
-function imageHTML(m) {
-
+function imagem(m) {
   return `
     <img
       src="${m.image}"
       alt="${m.title}"
       class="poster-image"
-      loading="lazy"
-      onerror="this.style.display='none'; this.parentElement.classList.add('no-image')"
+      onerror="this.style.display='none'"
     >
   `;
-
 }
 
-
-/* =========================================================
-   POSTER
-   ========================================================= */
-
-function poster(m) {
-
+function card(m) {
   return `
-    <div
-      class="poster"
-      style="
-        background-image:
-        linear-gradient(
-          to bottom,
-          rgba(0,0,0,0.05),
-          rgba(0,0,0,0.85)
-        ),
-        url('${m.image}');
-        background-size: cover;
-        background-position: center;
-      "
-    >
+    <article class="card" onclick="detalhes(${m.id})">
 
-      ${imageHTML(m)}
+      <div class="poster">
+        ${imagem(m)}
 
-      <div class="poster-overlay">
-
-        <span class="poster-title">
-          ${m.title}
-        </span>
-
-        <span class="poster-meta">
-          ${m.type}
-        </span>
-
+        <div class="poster-overlay">
+          <strong>${m.title}</strong>
+          <span>${m.type}</span>
+        </div>
       </div>
 
-    </div>
-  `;
-
-}
-
-
-/* =========================================================
-   CARD
-   ========================================================= */
-
-function card(m, progress = false) {
-
-  return `
-    <article
-      class="card"
-      onclick="detail(${m.id})"
-    >
-
-      ${poster(m)}
-
-      ${
-        progress
-        ? `
-          <div class="progress">
-            <i></i>
-          </div>
-        `
-        : ""
-      }
-
       <div class="card-info">
-
         <h3>${m.title}</h3>
-
         <div class="muted">
           ⭐ ${m.rating} · ${m.year}
         </div>
-
       </div>
 
     </article>
   `;
-
 }
 
+function cards(lista) {
+  if (lista.length === 0) {
+    return `
+      <p class="muted">
+        Nenhum conteúdo encontrado.
+      </p>
+    `;
+  }
 
-/* =========================================================
-   CABEÇALHO
-   ========================================================= */
+  return `
+    <div class="grid">
+      ${lista.map(card).join("")}
+    </div>
+  `;
+}
 
 function header() {
-
   return `
     <header class="top">
 
       <div
         class="logo"
         onclick="home()"
-        style="cursor:pointer"
       >
         <span>Vip</span>Netflix
       </div>
@@ -284,23 +180,21 @@ function header() {
 
         <button
           class="icon"
-          onclick="explore()"
-          aria-label="Pesquisar"
+          onclick="explorar()"
         >
           ⌕
         </button>
 
         <button
           class="icon"
-          onclick="profile()"
-          aria-label="Perfil"
+          onclick="perfil()"
         >
           ◉
         </button>
 
         <div
           class="avatar"
-          onclick="profile()"
+          onclick="perfil()"
         >
           👤
         </div>
@@ -309,159 +203,79 @@ function header() {
 
     </header>
   `;
-
 }
 
-
-/* =========================================================
-   MENU SUPERIOR
-   ========================================================= */
-
-function nav(active) {
-
-  const items = [
-    "Início",
-    "Explorar",
-    "Filmes",
-    "Séries",
-    "Novidades",
-    "Minha Lista"
-  ];
-
+function nav() {
   return `
     <div class="nav">
 
-      ${
-        items.map(item => {
+      <button onclick="home()">
+        Início
+      </button>
 
-          let action = "home()";
+      <button onclick="explorar()">
+        Explorar
+      </button>
 
-          if (item === "Explorar") {
-            action = "explore()";
-          }
+      <button onclick="filmes()">
+        Filmes
+      </button>
 
-          if (item === "Filmes") {
-            action = "movies()";
-          }
+      <button onclick="series()">
+        Séries
+      </button>
 
-          if (item === "Séries") {
-            action = "series()";
-          }
+      <button onclick="novidades()">
+        Novidades
+      </button>
 
-          if (item === "Novidades") {
-            action = "newReleases()";
-          }
-
-          if (item === "Minha Lista") {
-            action = "favorites()";
-          }
-
-          return `
-            <button
-              class="${active === item ? "active" : ""}"
-              onclick="${action}"
-            >
-              ${item}
-            </button>
-          `;
-
-        }).join("")
-      }
+      <button onclick="minhaLista()">
+        Minha Lista
+      </button>
 
     </div>
   `;
-
 }
 
-
-/* =========================================================
-   MENU INFERIOR
-   ========================================================= */
-
-function bottom(active) {
-
+function bottom() {
   return `
     <nav class="bottom">
 
-      <button
-        class="${active === "home" ? "active" : ""}"
-        onclick="home()"
-      >
+      <button onclick="home()">
         <b>⌂</b>
         <span>Início</span>
       </button>
 
-      <button
-        class="${active === "explore" ? "active" : ""}"
-        onclick="explore()"
-      >
+      <button onclick="explorar()">
         <b>⌕</b>
         <span>Explorar</span>
       </button>
 
-      <button
-        class="${active === "movies" ? "active" : ""}"
-        onclick="movies()"
-      >
+      <button onclick="filmes()">
         <b>▣</b>
         <span>Filmes</span>
       </button>
 
-      <button
-        class="${active === "series" ? "active" : ""}"
-        onclick="series()"
-      >
+      <button onclick="series()">
         <b>▶</b>
         <span>Séries</span>
       </button>
 
-      <button
-        class="${active === "favorites" ? "active" : ""}"
-        onclick="favorites()"
-      >
+      <button onclick="minhaLista()">
         <b>♡</b>
         <span>Minha Lista</span>
       </button>
 
     </nav>
   `;
-
 }
-
-
-/* =========================================================
-   LISTA DE CARDS
-   ========================================================= */
-
-function cards(items) {
-
-  if (!items.length) {
-    return `
-      <div class="empty">
-        Nenhum conteúdo encontrado.
-      </div>
-    `;
-  }
-
-  return `
-    <div class="grid">
-      ${items.map(m => card(m)).join("")}
-    </div>
-  `;
-
-}
-
-
-/* =========================================================
-   HOME
-   ========================================================= */
 
 function home() {
 
   A.innerHTML = `
 
     ${header()}
-    ${nav("Início")}
+    ${nav()}
 
     <main>
 
@@ -469,243 +283,210 @@ function home() {
 
         <div class="hero-content">
 
-          <span class="badge">VIPNETFLIX</span>
+          <span class="badge">
+            SÉRIE
+          </span>
 
-          <h1>Impacto</h1>
+          <h1>IMPACTO</h1>
 
           <p>
-            Quando o sistema falha, justiça se torna escolha.
+            Quando o sistema falha,
+            justiça se torna escolha.
           </p>
 
-          <div class="hero-buttons">
-
-            <button
-              class="btn"
-              onclick="detail(1)"
-            >
-              ▶ Assistir
-            </button>
-
-            <button
-              class="btn secondary"
-              onclick="detail(1)"
-            >
-              + Minha Lista
-            </button>
-
-          </div>
+          <button
+            class="btn"
+            onclick="detalhes(1)"
+          >
+            ▶ Assistir
+          </button>
 
         </div>
 
       </section>
 
-
       <section class="section">
 
-        <h2>Populares</h2>
+        <h2>Populares na VipNetflix</h2>
 
         ${cards(data.slice(0, 7))}
 
       </section>
-
 
       <section class="section">
 
         <h2>Filmes</h2>
 
         ${cards(
-          data.filter(m => m.type === "Filme")
+          data.filter(
+            m => m.type === "Filme"
+          )
         )}
 
       </section>
 
     </main>
 
-    ${bottom("home")}
+    ${bottom()}
 
   `;
-
 }
 
-
-/* =========================================================
-   EXPLORAR
-   ========================================================= */
-
-function explore() {
+function explorar() {
 
   A.innerHTML = `
 
     ${header()}
-    ${nav("Explorar")}
+    ${nav()}
 
-    <main class="page">
+    <main class="section">
 
       <h1>Explorar</h1>
 
       <input
-        id="search"
+        id="pesquisa"
         class="search"
         type="search"
         placeholder="Pesquisar filmes e séries..."
-        oninput="searchContent(this.value)"
+        oninput="pesquisar(this.value)"
       >
 
-      <div id="results">
+      <div id="resultado">
         ${cards(data)}
       </div>
 
     </main>
 
-    ${bottom("explore")}
+    ${bottom()}
 
   `;
-
 }
 
+function pesquisar(texto) {
 
-function searchContent(value) {
+  const termo = texto
+    .toLowerCase()
+    .trim();
 
-  const term = value.toLowerCase().trim();
-
-  const results = data.filter(m =>
-    m.title.toLowerCase().includes(term) ||
-    m.genre.toLowerCase().includes(term)
+  const resultado = data.filter(m =>
+    m.title.toLowerCase().includes(termo) ||
+    m.genre.toLowerCase().includes(termo)
   );
 
-  const el = document.getElementById("results");
+  const area =
+    document.getElementById("resultado");
 
-  if (el) {
-    el.innerHTML = cards(results);
+  if (area) {
+    area.innerHTML = cards(resultado);
   }
-
 }
 
+function filmes() {
 
-/* =========================================================
-   FILMES
-   ========================================================= */
-
-function movies() {
-
-  const items = data.filter(
+  const lista = data.filter(
     m => m.type === "Filme"
   );
 
   A.innerHTML = `
 
     ${header()}
-    ${nav("Filmes")}
+    ${nav()}
 
-    <main class="page">
+    <main class="section">
 
       <h1>Filmes</h1>
 
-      ${cards(items)}
+      ${cards(lista)}
 
     </main>
 
-    ${bottom("movies")}
+    ${bottom()}
 
   `;
-
 }
-
-
-/* =========================================================
-   SÉRIES
-   ========================================================= */
 
 function series() {
 
-  const items = data.filter(
+  const lista = data.filter(
     m => m.type === "Série"
   );
 
   A.innerHTML = `
 
     ${header()}
-    ${nav("Séries")}
+    ${nav()}
 
-    <main class="page">
+    <main class="section">
 
       <h1>Séries</h1>
 
-      ${cards(items)}
+      ${cards(lista)}
 
     </main>
 
-    ${bottom("series")}
+    ${bottom()}
 
   `;
-
 }
 
+function novidades() {
 
-/* =========================================================
-   NOVIDADES
-   ========================================================= */
-
-function newReleases() {
-
-  const items = [...data]
-    .sort((a, b) => b.year - a.year);
+  const lista = [...data]
+    .sort(
+      (a, b) => b.year - a.year
+    );
 
   A.innerHTML = `
 
     ${header()}
-    ${nav("Novidades")}
+    ${nav()}
 
-    <main class="page">
+    <main class="section">
 
       <h1>Novidades</h1>
 
-      ${cards(items)}
+      ${cards(lista)}
 
     </main>
 
-    ${bottom("home")}
+    ${bottom()}
 
   `;
-
 }
 
+function minhaLista() {
 
-/* =========================================================
-   MINHA LISTA
-   ========================================================= */
-
-function favorites() {
-
-  const items = data.filter(
-    m => list.includes(m.id)
+  const lista = data.filter(
+    m => minhaLista.includes(m.id)
   );
 
   A.innerHTML = `
 
     ${header()}
-    ${nav("Minha Lista")}
+    ${nav()}
 
-    <main class="page">
+    <main class="section">
 
       <h1>Minha Lista</h1>
 
-      ${cards(items)}
+      ${
+        lista.length
+        ? cards(lista)
+        : `
+          <p class="muted">
+            A tua lista está vazia.
+          </p>
+        `
+      }
 
     </main>
 
-    ${bottom("favorites")}
+    ${bottom()}
 
   `;
-
 }
 
-
-/* =========================================================
-   DETALHES
-   ========================================================= */
-
-function detail(id) {
+function detalhes(id) {
 
   const m = data.find(
     item => item.id === id
@@ -713,7 +494,8 @@ function detail(id) {
 
   if (!m) return;
 
-  const saved = list.includes(m.id);
+  const salvo =
+    minhaLista.includes(m.id);
 
   A.innerHTML = `
 
@@ -727,10 +509,10 @@ function detail(id) {
           background-image:
           linear-gradient(
             to bottom,
-            rgba(0,0,0,0.15),
+            rgba(0,0,0,0.2),
             rgba(0,0,0,0.95)
           ),
-          url('${m.backdrop}');
+          url('${m.image}');
           background-size: cover;
           background-position: center;
         "
@@ -747,30 +529,30 @@ function detail(id) {
           <div class="muted">
             ⭐ ${m.rating}
             · ${m.year}
-            · ${m.age}
+            · ${m.genre}
           </div>
 
           <p>
             ${m.desc}
           </p>
 
-          <div class="hero-buttons">
+          <button
+            class="btn"
+            onclick="assistir(${m.id})"
+          >
+            ▶ Assistir
+          </button>
 
-            <button
-              class="btn"
-              onclick="play(${m.id})"
-            >
-              ▶ Assistir
-            </button>
-
-            <button
-              class="btn secondary"
-              onclick="toggleList(${m.id})"
-            >
-              ${saved ? "✓ Na Minha Lista" : "+ Minha Lista"}
-            </button>
-
-          </div>
+          <button
+            class="btn secondary"
+            onclick="alternarLista(${m.id})"
+          >
+            ${
+              salvo
+              ? "✓ Na Minha Lista"
+              : "+ Minha Lista"
+            }
+          </button>
 
         </div>
 
@@ -778,81 +560,66 @@ function detail(id) {
 
     </main>
 
-    ${bottom("home")}
+    ${bottom()}
 
   `;
-
 }
 
+function alternarLista(id) {
 
-/* =========================================================
-   MINHA LISTA — ADICIONAR / REMOVER
-   ========================================================= */
+  if (minhaLista.includes(id)) {
 
-function toggleList(id) {
-
-  if (list.includes(id)) {
-
-    list = list.filter(
-      item => item !== id
-    );
+    minhaLista =
+      minhaLista.filter(
+        item => item !== id
+      );
 
   } else {
 
-    list.push(id);
+    minhaLista.push(id);
 
   }
 
-  saveList();
+  salvarLista();
 
-  detail(id);
-
+  detalhes(id);
 }
 
-
-/* =========================================================
-   PERFIL
-   ========================================================= */
-
-function profile() {
+function perfil() {
 
   A.innerHTML = `
 
     ${header()}
-    ${nav("")}
+    ${nav()}
 
-    <main class="page">
+    <main class="section">
 
       <h1>Perfil</h1>
 
-      <div class="profile-card">
+      <div class="box">
 
-        <div class="avatar large">
+        <div class="avatar">
           👤
         </div>
 
-        <h2>Usuário VIP</h2>
+        <h2>
+          Utilizador VipNetflix
+        </h2>
 
         <p class="muted">
-          Bem-vindo ao VipNetflix.
+          Conta de demonstração
         </p>
 
       </div>
 
     </main>
 
-    ${bottom("home")}
+    ${bottom()}
 
   `;
-
 }
 
-
-/* =========================================================
-   PLAYER
-   ========================================================= */
-
-function play(id) {
+function assistir(id) {
 
   const m = data.find(
     item => item.id === id
@@ -864,36 +631,39 @@ function play(id) {
 
     ${header()}
 
-    <main class="page">
-
-      <h1>${m.title}</h1>
+    <main class="section">
 
       <div class="video">
 
-        <div class="video-placeholder">
+        <div class="video-center">
           ▶
         </div>
 
       </div>
 
+      <h1>${m.title}</h1>
+
+      <p class="muted">
+        ${m.year} · ${m.genre}
+      </p>
+
       <button
         class="btn"
-        onclick="detail(${m.id})"
+        onclick="detalhes(${m.id})"
       >
         ← Voltar
       </button>
 
     </main>
 
-    ${bottom("home")}
+    ${bottom()}
 
   `;
-
 }
 
 
-/* =========================================================
-   INICIAR APLICAÇÃO
-   ========================================================= */
+/* =====================================================
+   INICIAR APP
+   ===================================================== */
 
 home();
