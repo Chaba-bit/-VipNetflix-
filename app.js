@@ -449,15 +449,15 @@ function watch(id) {
 /* =========================================================
    HERO
    ========================================================= */
-
 function watchHero() {
-
   const movies = getContents();
 
-  if (movies.length) {
-    watch(movies[0].id);
+  if (!movies || movies.length === 0) {
+    alert("Nenhum conteúdo disponível.");
+    return;
   }
 
+  details(movies[0].id);
 }
 
 function detailsHero() {
