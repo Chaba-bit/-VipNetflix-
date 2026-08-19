@@ -1,111 +1,357 @@
-/* =========================================================
-   VIPNETFLIX
-   APP.JS
-   LA CASA DE PAPEL + STRANGER THINGS
-========================================================= */
+/* =========================================
+   VIPNETFLIX - APP.JS
+========================================= */
+
+let parteAtual = 1;
+let episodioAtual = 1;
+let minhaLista = false;
 
 
-/* =========================================================
-   ESTADO
-========================================================= */
+/* =========================================
+   NAVEGAÇÃO
+========================================= */
 
-let currentPage = "homePage";
+function showPage(id) {
 
-let currentShow = "stranger";
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
 
-let currentPart = 1;
+    const page = document.getElementById(id);
 
-let currentEpisode = 1;
+    if (page) {
+        page.classList.add("active");
+    }
 
-let inMyList = false;
+    window.scrollTo(0, 0);
+}
 
-let downloadedEpisodes = [];
+
+/* =========================================
+   MENU INFERIOR
+========================================= */
+
+function bottom(menu) {
+
+    document.querySelectorAll(".bottom-item")
+        .forEach(item => item.classList.remove("active"));
+
+    if (menu === "home") {
+
+        showPage("homePage");
+
+    }
+
+    if (menu === "explore") {
+
+        showPage("explorePage");
+
+    }
+
+    if (menu === "list") {
+
+        showPage("listPage");
+
+    }
+
+    if (menu === "downloads") {
+
+        alert("Seus downloads aparecerão aqui.");
+
+    }
+
+}
 
 
-/* =========================================================
-   DADOS - LA CASA DE PAPEL
-========================================================= */
+/* =========================================
+   LA CASA DE PAPEL
+========================================= */
 
-const laCasaDePapel = {
+function openLaCasa() {
 
-    id: "lacasa",
+    showPage("detailPage");
 
-    title: "La Casa de Papel",
+}
 
-    year: "2017",
 
-    parts: 5,
+/* =========================================
+   ASSISTIR
+========================================= */
 
-    age: "16",
+function assistir() {
 
-    rating: "8.3",
+    showPage("playerPage");
 
-    genre: "Policial · Thriller · Crime",
+}
 
-    description:
-        "O Professor reúne um grupo de criminosos para realizar um grande assalto. Com identidades baseadas em cidades, a equipe precisa enfrentar a polícia, os reféns e os próprios conflitos enquanto tenta executar um plano cuidadosamente preparado.",
 
-    poster: "images/lacasadepapel.jpg",
+/* =========================================
+   VOLTAR DO PLAYER
+========================================= */
 
-    backdrop: "images/lacasadepapel-backdrop.jpg",
+function voltarPlayer() {
 
-    cast: [
+    showPage("detailPage");
 
-        {
-            name: "Úrsula Corberó",
-            role: "Tóquio",
-            image: "images/tokyo.jpg"
-        },
+}
 
-        {
-            name: "Álvaro Morte",
-            role: "Professor",
-            image: "images/professor.jpg"
-        },
 
-        {
-            name: "Itziar Ituño",
-            role: "Lisboa",
-            image: "images/lisboa.jpg"
-        },
+/* =========================================
+   ESCOLHER PARTE
+========================================= */
 
-        {
-            name: "Pedro Alonso",
-            role: "Berlim",
-            image: "images/berlin.jpg"
-        },
+function escolherParte(parte) {
 
-        {
-            name: "Miguel Herrán",
-            role: "Rio",
-            image: "images/rio.jpg"
-        },
+    parteAtual = parte;
 
-        {
-            name: "Jaime Lorente",
-            role: "Denver",
-            image: "images/denver.jpg"
-        },
+    episodioAtual = 1;
 
-        {
-            name: "Esther Acebo",
-            role: "Estocolmo",
-            image: "images/estocolmo.jpg"
-        },
+    document.querySelectorAll(".season")
+        .forEach(item => {
+            item.classList.remove("active");
+        });
 
-        {
-            name: "Darko Perić",
-            role: "Helsinque",
-            image: "images/helsinque.jpg"
-        }
+    const partes =
+        document.querySelectorAll(".season");
 
-    ],
+    if (partes[parte - 1]) {
+        partes[parte - 1].classList.add("active");
+    }
 
-    partsData: {
+    carregarEpisodios();
 
-        1: {
-            name: "Parte 1",
-            episodes: 9
+}
+
+
+/* =========================================
+   EPISÓDIOS
+========================================= */
+
+function carregarEpisodios() {
+
+    const lista =
+        document.getElementById("episodes");
+
+    if (!lista) return;
+
+    lista.innerHTML = "";
+
+    const quantidade = [
+        9,
+        6,
+        8,
+        8,
+        10
+    ][parteAtual - 1];
+
+
+    for (let i = 1; i <= quantidade; i++) {
+
+        lista.innerHTML += `
+
+            <div
+                class="episode"
+                onclick="abrirEpisodio(${i})"
+            >
+
+                <img
+                    src="images/lacasadepapel.jpg"
+                >
+
+                <div class="episode-info">
+
+                    <div class="episode-title">
+
+                        ${i}. Episódio ${i}
+
+                    </div>
+
+                    <div class="episode-description">
+
+                        La Casa de Papel
+                        • Parte ${parteAtual}
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="download"
+                    onclick="
+                        event.stopPropagation();
+                        baixarEpisodio(${i});
+                    "
+                >
+                    ↓
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   ABRIR EPISÓDIO
+========================================= */
+
+function abrirEpisodio(numero) {
+
+    episodioAtual = numero;
+
+    showPage("playerPage");
+
+    const video =
+        document.getElementById("videoPlayer");
+
+    if (video) {
+
+        video.src =
+            `videos/lacasa-p${parteAtual}-e${episodioAtual}.mp4`;
+
+        video.load();
+
+        video.play().catch(() => {});
+
+    }
+
+}
+
+
+/* =========================================
+   PLAYER
+========================================= */
+
+function continuar() {
+
+    const video =
+        document.getElementById("videoPlayer");
+
+    if (video) {
+        video.play().catch(() => {});
+    }
+
+}
+
+
+/* =========================================
+   DOWNLOAD
+========================================= */
+
+function baixarEpisodio(numero) {
+
+    alert(
+        `Parte ${parteAtual}, episódio ${numero} adicionado aos Downloads.`
+    );
+
+}
+
+
+/* =========================================
+   MINHA LISTA
+========================================= */
+
+function toggleList() {
+
+    minhaLista = !minhaLista;
+
+    if (minhaLista) {
+
+        alert(
+            "La Casa de Papel foi adicionada à Minha Lista."
+        );
+
+    } else {
+
+        alert(
+            "La Casa de Papel foi removida da Minha Lista."
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+function showInfo() {
+
+    const modal =
+        document.getElementById("modal");
+
+    if (modal) {
+        modal.classList.add("active");
+    }
+
+}
+
+
+function closeModal() {
+
+    const modal =
+        document.getElementById("modal");
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+
+}
+
+
+/* =========================================
+   CATEGORIAS
+========================================= */
+
+document.querySelectorAll(".category")
+.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        document.querySelectorAll(".category")
+        .forEach(x => x.classList.remove("active"));
+
+        item.classList.add("active");
+
+    });
+
+});
+
+
+/* =========================================
+   GÊNEROS
+========================================= */
+
+document.querySelectorAll(".genre")
+.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        document.querySelectorAll(".genre")
+        .forEach(x => x.classList.remove("active"));
+
+        item.classList.add("active");
+
+    });
+
+});
+
+
+/* =========================================
+   INICIAR
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    carregarEpisodios();
+
+    showPage("homePage");
+
+});            episodes: 9
         },
 
         2: {
