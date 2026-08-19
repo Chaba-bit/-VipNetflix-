@@ -1352,15 +1352,55 @@ function openMovie(title){
 
 }
 
-
 /* =========================
    REPRODUZIR EPISÓDIO
 ========================= */
+
+let selectedEpisode = "";
+let selectedVideoUrl = "";
+
 
 function playEpisode(seriesTitle, episodeTitle){
 
     selectedMovie =
         seriesTitle + " — " + episodeTitle;
+
+    selectedEpisode = episodeTitle;
+
+
+    /*
+       VÍDEOS DE TESTE
+
+       Por enquanto, todos usam o mesmo
+       vídeo público apenas para testar.
+    */
+
+    const episodeVideos = {
+
+        "Episódio 1 — A Travessia":
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+
+        "Episódio 2 — O Sinal":
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+
+        "Episódio 3 — A Descoberta":
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+
+        "Temporada 2 — Episódio 1":
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+
+        "Temporada 2 — Episódio 2":
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+
+        "Temporada 2 — Episódio 3":
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+
+    };
+
+
+    selectedVideoUrl =
+        episodeVideos[episodeTitle] || "";
+
 
     closeMovie();
 
@@ -1393,28 +1433,30 @@ function closeOutside(event){
    PLAYER
 ========================= */
 
-function playSelected(){
-
-    alert(
-        "Player VipNetflix\n\n" +
-        "Aqui vamos conectar o vídeo autorizado."
-    );
-
-}
-
 
 /* =========================
    HERO
 ========================= */
 function playSelected(){
 
-    const oldPlayer = document.getElementById("vipPlayer");
+    const oldPlayer =
+        document.getElementById("vipPlayer");
 
     if(oldPlayer){
         oldPlayer.remove();
     }
 
-    const player = document.createElement("div");
+    if(!selectedVideoUrl){
+
+        alert(
+            "Vídeo não disponível para este episódio."
+        );
+
+        return;
+    }
+
+    const player =
+        document.createElement("div");
 
     player.id = "vipPlayer";
 
@@ -1430,11 +1472,11 @@ function playSelected(){
     player.innerHTML = `
 
         <div style="
-            width:100%;
-            height:60px;
             position:absolute;
             top:0;
             left:0;
+            width:100%;
+            height:60px;
             display:flex;
             align-items:center;
             padding:0 18px;
@@ -1455,7 +1497,7 @@ function playSelected(){
                     cursor:pointer;
                 "
             >
-                ←
+                ✕
             </button>
 
             <div style="
@@ -1481,14 +1523,12 @@ function playSelected(){
                 background:#000;
             "
         >
-
             <source
-                src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+                src="${selectedVideoUrl}"
                 type="video/mp4"
             >
 
             Seu navegador não suporta vídeo.
-
         </video>
 
     `;
