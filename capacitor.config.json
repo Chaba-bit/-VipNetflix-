@@ -1,0 +1,8 @@
+{
+  "appId": "com.vipnetflix.app",
+  "appName": "VipNetflix",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https"
+  }
+}
