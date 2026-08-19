@@ -387,4 +387,513 @@ function bottom(active) {
         class="${active === "home" ? "active" : ""}"
         onclick="home()"
       >
-        <b>
+        <b>⌂</b>
+        <span>Início</span>
+      </button>
+
+      <button
+        class="${active === "explore" ? "active" : ""}"
+        onclick="explore()"
+      >
+        <b>⌕</b>
+        <span>Explorar</span>
+      </button>
+
+      <button
+        class="${active === "movies" ? "active" : ""}"
+        onclick="movies()"
+      >
+        <b>▣</b>
+        <span>Filmes</span>
+      </button>
+
+      <button
+        class="${active === "series" ? "active" : ""}"
+        onclick="series()"
+      >
+        <b>▶</b>
+        <span>Séries</span>
+      </button>
+
+      <button
+        class="${active === "favorites" ? "active" : ""}"
+        onclick="favorites()"
+      >
+        <b>♡</b>
+        <span>Minha Lista</span>
+      </button>
+
+    </nav>
+  `;
+
+}
+
+
+/* =========================================================
+   LISTA DE CARDS
+   ========================================================= */
+
+function cards(items) {
+
+  if (!items.length) {
+    return `
+      <div class="empty">
+        Nenhum conteúdo encontrado.
+      </div>
+    `;
+  }
+
+  return `
+    <div class="grid">
+      ${items.map(m => card(m)).join("")}
+    </div>
+  `;
+
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+function home() {
+
+  A.innerHTML = `
+
+    ${header()}
+    ${nav("Início")}
+
+    <main>
+
+      <section class="hero">
+
+        <div class="hero-content">
+
+          <span class="badge">VIPNETFLIX</span>
+
+          <h1>Impacto</h1>
+
+          <p>
+            Quando o sistema falha, justiça se torna escolha.
+          </p>
+
+          <div class="hero-buttons">
+
+            <button
+              class="btn"
+              onclick="detail(1)"
+            >
+              ▶ Assistir
+            </button>
+
+            <button
+              class="btn secondary"
+              onclick="detail(1)"
+            >
+              + Minha Lista
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section class="section">
+
+        <h2>Populares</h2>
+
+        ${cards(data.slice(0, 7))}
+
+      </section>
+
+
+      <section class="section">
+
+        <h2>Filmes</h2>
+
+        ${cards(
+          data.filter(m => m.type === "Filme")
+        )}
+
+      </section>
+
+    </main>
+
+    ${bottom("home")}
+
+  `;
+
+}
+
+
+/* =========================================================
+   EXPLORAR
+   ========================================================= */
+
+function explore() {
+
+  A.innerHTML = `
+
+    ${header()}
+    ${nav("Explorar")}
+
+    <main class="page">
+
+      <h1>Explorar</h1>
+
+      <input
+        id="search"
+        class="search"
+        type="search"
+        placeholder="Pesquisar filmes e séries..."
+        oninput="searchContent(this.value)"
+      >
+
+      <div id="results">
+        ${cards(data)}
+      </div>
+
+    </main>
+
+    ${bottom("explore")}
+
+  `;
+
+}
+
+
+function searchContent(value) {
+
+  const term = value.toLowerCase().trim();
+
+  const results = data.filter(m =>
+    m.title.toLowerCase().includes(term) ||
+    m.genre.toLowerCase().includes(term)
+  );
+
+  const el = document.getElementById("results");
+
+  if (el) {
+    el.innerHTML = cards(results);
+  }
+
+}
+
+
+/* =========================================================
+   FILMES
+   ========================================================= */
+
+function movies() {
+
+  const items = data.filter(
+    m => m.type === "Filme"
+  );
+
+  A.innerHTML = `
+
+    ${header()}
+    ${nav("Filmes")}
+
+    <main class="page">
+
+      <h1>Filmes</h1>
+
+      ${cards(items)}
+
+    </main>
+
+    ${bottom("movies")}
+
+  `;
+
+}
+
+
+/* =========================================================
+   SÉRIES
+   ========================================================= */
+
+function series() {
+
+  const items = data.filter(
+    m => m.type === "Série"
+  );
+
+  A.innerHTML = `
+
+    ${header()}
+    ${nav("Séries")}
+
+    <main class="page">
+
+      <h1>Séries</h1>
+
+      ${cards(items)}
+
+    </main>
+
+    ${bottom("series")}
+
+  `;
+
+}
+
+
+/* =========================================================
+   NOVIDADES
+   ========================================================= */
+
+function newReleases() {
+
+  const items = [...data]
+    .sort((a, b) => b.year - a.year);
+
+  A.innerHTML = `
+
+    ${header()}
+    ${nav("Novidades")}
+
+    <main class="page">
+
+      <h1>Novidades</h1>
+
+      ${cards(items)}
+
+    </main>
+
+    ${bottom("home")}
+
+  `;
+
+}
+
+
+/* =========================================================
+   MINHA LISTA
+   ========================================================= */
+
+function favorites() {
+
+  const items = data.filter(
+    m => list.includes(m.id)
+  );
+
+  A.innerHTML = `
+
+    ${header()}
+    ${nav("Minha Lista")}
+
+    <main class="page">
+
+      <h1>Minha Lista</h1>
+
+      ${cards(items)}
+
+    </main>
+
+    ${bottom("favorites")}
+
+  `;
+
+}
+
+
+/* =========================================================
+   DETALHES
+   ========================================================= */
+
+function detail(id) {
+
+  const m = data.find(
+    item => item.id === id
+  );
+
+  if (!m) return;
+
+  const saved = list.includes(m.id);
+
+  A.innerHTML = `
+
+    ${header()}
+
+    <main>
+
+      <section
+        class="detail-hero"
+        style="
+          background-image:
+          linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.15),
+            rgba(0,0,0,0.95)
+          ),
+          url('${m.backdrop}');
+          background-size: cover;
+          background-position: center;
+        "
+      >
+
+        <div class="detail-content">
+
+          <span class="badge">
+            ${m.type}
+          </span>
+
+          <h1>${m.title}</h1>
+
+          <div class="muted">
+            ⭐ ${m.rating}
+            · ${m.year}
+            · ${m.age}
+          </div>
+
+          <p>
+            ${m.desc}
+          </p>
+
+          <div class="hero-buttons">
+
+            <button
+              class="btn"
+              onclick="play(${m.id})"
+            >
+              ▶ Assistir
+            </button>
+
+            <button
+              class="btn secondary"
+              onclick="toggleList(${m.id})"
+            >
+              ${saved ? "✓ Na Minha Lista" : "+ Minha Lista"}
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    ${bottom("home")}
+
+  `;
+
+}
+
+
+/* =========================================================
+   MINHA LISTA — ADICIONAR / REMOVER
+   ========================================================= */
+
+function toggleList(id) {
+
+  if (list.includes(id)) {
+
+    list = list.filter(
+      item => item !== id
+    );
+
+  } else {
+
+    list.push(id);
+
+  }
+
+  saveList();
+
+  detail(id);
+
+}
+
+
+/* =========================================================
+   PERFIL
+   ========================================================= */
+
+function profile() {
+
+  A.innerHTML = `
+
+    ${header()}
+    ${nav("")}
+
+    <main class="page">
+
+      <h1>Perfil</h1>
+
+      <div class="profile-card">
+
+        <div class="avatar large">
+          👤
+        </div>
+
+        <h2>Usuário VIP</h2>
+
+        <p class="muted">
+          Bem-vindo ao VipNetflix.
+        </p>
+
+      </div>
+
+    </main>
+
+    ${bottom("home")}
+
+  `;
+
+}
+
+
+/* =========================================================
+   PLAYER
+   ========================================================= */
+
+function play(id) {
+
+  const m = data.find(
+    item => item.id === id
+  );
+
+  if (!m) return;
+
+  A.innerHTML = `
+
+    ${header()}
+
+    <main class="page">
+
+      <h1>${m.title}</h1>
+
+      <div class="video">
+
+        <div class="video-placeholder">
+          ▶
+        </div>
+
+      </div>
+
+      <button
+        class="btn"
+        onclick="detail(${m.id})"
+      >
+        ← Voltar
+      </button>
+
+    </main>
+
+    ${bottom("home")}
+
+  `;
+
+}
+
+
+/* =========================================================
+   INICIAR APLICAÇÃO
+   ========================================================= */
+
+home();
