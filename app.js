@@ -1,180 +1,82 @@
 /* =========================================================
-   VIPNETFLIX — APP.JS
-   Versão inicial compatível com o novo index.html
-========================================================= */
-
-"use strict";
-
-/* =========================================================
-   DADOS
-========================================================= */
-
-const catalog = [
-  {
-    id: 1,
-    title: "Aventura VIP",
-    type: "movie",
-    genre: "Aventura",
-    year: 2026,
-    rating: 8.8,
-    description: "Uma aventura especial para começar sua experiência VIPNETFLIX.",
-    image: "",
-    video: ""
-  },
-  {
-    id: 2,
-    title: "Impacto",
-    type: "movie",
-    genre: "Ação",
-    year: 2026,
-    rating: 8.7,
-    description: "Uma equipa enfrenta uma ameaça que pode mudar o futuro.",
-    image: "",
-    video: ""
-  },
-  {
-    id: 3,
-    title: "Além do Espaço",
-    type: "movie",
-    genre: "Ficção científica",
-    year: 2026,
-    rating: 8.2,
-    description: "Uma missão espacial revela um segredo inesperado.",
-    image: "",
-    video: ""
-  },
-  {
-    id: 4,
-    title: "Noite de Cinema",
-    type: "movie",
-    genre: "Drama",
-    year: 2026,
-    rating: 8.1,
-    description: "Uma história de drama para toda a família.",
-    image: "",
-    video: ""
-  },
-  {
-    id: 5,
-    title: "Cidade Sombria",
-    type: "series",
-    genre: "Crime",
-    year: 2026,
-    rating: 8.9,
-    description: "Uma investigação leva uma equipa aos segredos de uma cidade.",
-    image: "",
-    video: ""
-  },
-  {
-    id: 6,
-    title: "Horizonte",
-    type: "series",
-    genre: "Drama",
-    year: 2026,
-    rating: 8.5,
-    description: "Uma série sobre escolhas, família e novos caminhos.",
-    image: "",
-    video: ""
-  },
-  {
-    id: 7,
-    title: "Missão Final",
-    type: "series",
-    genre: "Ação",
-    year: 2026,
-    rating: 9.0,
-    description: "Uma equipa recebe uma missão que pode ser a última.",
-    image: "",
-    video: ""
-  },
-  {
-    id: 8,
-    title: "Universo Zero",
-    type: "series",
-    genre: "Ficção científica",
-    year: 2026,
-    rating: 8.6,
-    description: "Uma descoberta muda tudo o que a humanidade conhece.",
-    image: "",
-    video: ""
-  }
-];
-
-
-/* =========================================================
-   ESTADO DA APLICAÇÃO
+   VIPNETFLIX - APP.JS
 ========================================================= */
 
 let currentUser = null;
 let currentProfile = null;
 let selectedPlan = null;
-let selectedPayment = null;
-let featuredContent = catalog[0];
 
-let myList = JSON.parse(
-  localStorage.getItem("vipnetflix_mylist") || "[]"
-);
+const demoMovies = [
+  {
+    id: 1,
+    title: "Aventura VIP",
+    genre: "Aventura",
+    year: 2026,
+    rating: "8.8",
+    type: "movie",
+    image: "",
+    description: "Conteúdo de demonstração autorizado."
+  },
+  {
+    id: 2,
+    title: "Noite de Cinema",
+    genre: "Drama",
+    year: 2026,
+    rating: "8.2",
+    type: "movie",
+    image: "",
+    description: "Filme de demonstração do catálogo."
+  },
+  {
+    id: 3,
+    title: "Além do Espaço",
+    genre: "Ficção científica",
+    year: 2026,
+    rating: "8.5",
+    type: "movie",
+    image: "",
+    description: "Uma missão espacial revela um segredo inesperado."
+  }
+];
 
-let history = JSON.parse(
-  localStorage.getItem("vipnetflix_history") || "[]"
-);
+const demoSeries = [
+  {
+    id: 101,
+    title: "Série VIP",
+    genre: "Drama",
+    year: 2026,
+    rating: "8.7",
+    type: "series",
+    image: "",
+    description: "Série de demonstração."
+  },
+  {
+    id: 102,
+    title: "Operação VIP",
+    genre: "Ação",
+    year: 2026,
+    rating: "8.9",
+    type: "series",
+    image: "",
+    description: "Uma equipe enfrenta uma missão perigosa."
+  }
+];
 
-let downloads = JSON.parse(
-  localStorage.getItem("vipnetflix_downloads") || "[]"
-);
-
+const catalog = [...demoMovies, ...demoSeries];
 
 /* =========================================================
-   UTILITÁRIOS
+   INICIALIZAÇÃO
 ========================================================= */
 
-function $(id) {
-  return document.getElementById(id);
-}
+document.addEventListener("DOMContentLoaded", () => {
 
+  loadCatalog();
 
-function escapeHTML(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
+  renderProfiles();
 
+  updateAccount();
 
-function saveData() {
-  localStorage.setItem(
-    "vipnetflix_mylist",
-    JSON.stringify(myList)
-  );
-
-  localStorage.setItem(
-    "vipnetflix_history",
-    JSON.stringify(history)
-  );
-
-  localStorage.setItem(
-    "vipnetflix_downloads",
-    JSON.stringify(downloads)
-  );
-}
-
-
-function showToast(message) {
-  const toast = $("toast");
-
-  if (!toast) return;
-
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  clearTimeout(window.vipToastTimer);
-
-  window.vipToastTimer = setTimeout(() => {
-    toast.classList.remove("show");
-  }, 3000);
-}
+});
 
 
 /* =========================================================
@@ -183,76 +85,44 @@ function showToast(message) {
 
 function showAuthForm(form) {
 
-  const forms = [
-    "loginForm",
-    "registerForm",
-    "forgotForm"
-  ];
+  document.querySelectorAll(".auth-form")
+    .forEach(el => el.classList.add("hidden"));
 
-  forms.forEach(id => {
-    const element = $(id);
+  const target = document.getElementById(form + "Form");
 
-    if (element) {
-      element.classList.add("hidden");
-    }
-  });
-
-  const selected = $(form + "Form");
-
-  if (selected) {
-    selected.classList.remove("hidden");
+  if (target) {
+    target.classList.remove("hidden");
   }
-}
-
-
-function loginUser() {
-
-  const email = $("loginEmail")?.value.trim();
-  const password = $("loginPassword")?.value;
-
-  if (!email || !password) {
-    showToast("Preencha o email e a palavra-passe.");
-    return;
-  }
-
-  currentUser = {
-    name: email.split("@")[0],
-    email: email
-  };
-
-  localStorage.setItem(
-    "vipnetflix_user",
-    JSON.stringify(currentUser)
-  );
-
-  showProfileScreen();
-
-  showToast("Login realizado com sucesso.");
 }
 
 
 function registerUser() {
 
-  const name = $("registerName")?.value.trim();
-  const email = $("registerEmail")?.value.trim();
-  const phone = $("registerPhone")?.value.trim();
-  const password = $("registerPassword")?.value;
-  const confirm = $("registerPasswordConfirm")?.value;
+  const name =
+    document.getElementById("registerName")?.value.trim();
 
-  if (!name || !email || !phone || !password || !confirm) {
-    showToast("Preencha todos os campos.");
+  const email =
+    document.getElementById("registerEmail")?.value.trim();
+
+  const password =
+    document.getElementById("registerPassword")?.value;
+
+  const confirm =
+    document.getElementById("registerPasswordConfirm")?.value;
+
+  if (!name || !email || !password) {
+    toast("Preencha todos os campos.");
     return;
   }
 
   if (password !== confirm) {
-    showToast("As palavras-passe não coincidem.");
+    toast("As palavras-passe não coincidem.");
     return;
   }
 
   currentUser = {
     name,
-    email,
-    phone
+    email
   };
 
   localStorage.setItem(
@@ -260,47 +130,52 @@ function registerUser() {
     JSON.stringify(currentUser)
   );
 
-  showProfileScreen();
+  openProfiles();
 
-  showToast("Conta criada com sucesso.");
+  toast("Conta criada com sucesso!");
+}
+
+
+function loginUser() {
+
+  const email =
+    document.getElementById("loginEmail")?.value.trim();
+
+  const password =
+    document.getElementById("loginPassword")?.value;
+
+  if (!email || !password) {
+    toast("Digite seu email e palavra-passe.");
+    return;
+  }
+
+  currentUser = {
+    name: email.split("@")[0],
+    email
+  };
+
+  localStorage.setItem(
+    "vipnetflix_user",
+    JSON.stringify(currentUser)
+  );
+
+  openProfiles();
+
+  toast("Login efetuado!");
 }
 
 
 function recoverPassword() {
 
-  const email = $("forgotEmail")?.value.trim();
+  const email =
+    document.getElementById("forgotEmail")?.value.trim();
 
   if (!email) {
-    showToast("Digite seu email.");
+    toast("Digite seu email.");
     return;
   }
 
-  showToast(
-    "Se o email estiver cadastrado, você receberá as instruções."
-  );
-
-  showAuthForm("login");
-}
-
-
-function logoutUser() {
-
-  currentUser = null;
-  currentProfile = null;
-
-  localStorage.removeItem("vipnetflix_user");
-
-  const mainApp = $("mainApp");
-  const profileScreen = $("profileScreen");
-  const authScreen = $("authScreen");
-
-  if (mainApp) mainApp.classList.add("hidden");
-  if (profileScreen) profileScreen.classList.add("hidden");
-  if (authScreen) authScreen.classList.remove("hidden");
-
-  showAuthForm("login");
-
-  showToast("Sessão encerrada.");
+  toast("Solicitação de recuperação enviada.");
 }
 
 
@@ -308,135 +183,80 @@ function logoutUser() {
    PERFIS
 ========================================================= */
 
-function showProfileScreen() {
+function openProfiles() {
 
-  const authScreen = $("authScreen");
-  const profileScreen = $("profileScreen");
-  const mainApp = $("mainApp");
+  document.getElementById("authScreen")
+    ?.classList.add("hidden");
 
-  if (authScreen) authScreen.classList.add("hidden");
-  if (mainApp) mainApp.classList.add("hidden");
-  if (profileScreen) profileScreen.classList.remove("hidden");
+  document.getElementById("profileScreen")
+    ?.classList.remove("hidden");
 
   renderProfiles();
-}
-
-
-function getProfiles() {
-
-  const saved = JSON.parse(
-    localStorage.getItem("vipnetflix_profiles") || "[]"
-  );
-
-  if (saved.length > 0) {
-    return saved;
-  }
-
-  return [
-    {
-      id: 1,
-      name: currentUser?.name || "Meu perfil",
-      avatar: "👤"
-    }
-  ];
-}
-
-
-function saveProfiles(profiles) {
-
-  localStorage.setItem(
-    "vipnetflix_profiles",
-    JSON.stringify(profiles)
-  );
 }
 
 
 function renderProfiles() {
 
-  const container = $("profilesList");
+  const list =
+    document.getElementById("profilesList");
 
-  if (!container) return;
+  if (!list) return;
 
-  const profiles = getProfiles();
-
-  container.innerHTML = profiles.map(profile => `
+  list.innerHTML = `
     <button
       class="profile-card"
-      type="button"
-      onclick="selectProfile(${profile.id})"
+      onclick="selectProfile('Principal')"
+      style="
+        background:#151515;
+        color:white;
+        border:1px solid #333;
+        padding:25px;
+        border-radius:10px;
+        margin-bottom:20px;
+        width:100%;
+      "
     >
-      <div class="profile-avatar">
-        ${escapeHTML(profile.avatar || "👤")}
-      </div>
-
-      <strong>
-        ${escapeHTML(profile.name)}
-      </strong>
+      <div style="font-size:50px;">👤</div>
+      <strong>Principal</strong>
     </button>
-  `).join("");
+  `;
 }
 
 
-function selectProfile(id) {
+function selectProfile(name) {
 
-  const profiles = getProfiles();
+  currentProfile = name;
 
-  currentProfile = profiles.find(
-    profile => profile.id === id
-  );
+  document.getElementById("profileScreen")
+    ?.classList.add("hidden");
 
-  if (!currentProfile) return;
+  document.getElementById("mainApp")
+    ?.classList.remove("hidden");
 
-  const profileScreen = $("profileScreen");
-  const mainApp = $("mainApp");
-
-  if (profileScreen) {
-    profileScreen.classList.add("hidden");
-  }
-
-  if (mainApp) {
-    mainApp.classList.remove("hidden");
-  }
-
-  updateAccountInfo();
-  renderAll();
-
-  showToast(
-    `Olá, ${currentProfile.name}!`
-  );
+  showPage("home");
 }
 
 
 function createProfile() {
 
-  const name = prompt("Nome do novo perfil:");
+  const name =
+    prompt("Nome do novo perfil:");
 
-  if (!name || !name.trim()) return;
+  if (!name) return;
 
-  const profiles = getProfiles();
+  toast("Perfil criado: " + name);
 
-  const newProfile = {
-    id: Date.now(),
-    name: name.trim(),
-    avatar: "👤"
-  };
-
-  profiles.push(newProfile);
-
-  saveProfiles(profiles);
   renderProfiles();
-
-  showToast("Perfil criado.");
 }
 
 
 function changeProfile() {
 
-  const mainApp = $("mainApp");
-  const profileScreen = $("profileScreen");
+  document.getElementById("mainApp")
+    ?.classList.add("hidden");
 
-  if (mainApp) mainApp.classList.add("hidden");
-  if (profileScreen) profileScreen.classList.remove("hidden");
+  document.getElementById("profileScreen")
+    ?.classList.remove("hidden");
 
   renderProfiles();
 }
@@ -446,120 +266,209 @@ function changeProfile() {
    NAVEGAÇÃO
 ========================================================= */
 
-function showPage(pageId) {
+function showPage(pageName) {
 
-  const pages = document.querySelectorAll(".page");
+  document.querySelectorAll(".page")
+    .forEach(page => page.classList.remove("active"));
 
-  pages.forEach(page => {
-    page.classList.remove("active");
-  });
+  const page =
+    document.getElementById(pageName);
 
-  const selectedPage = $(pageId);
-
-  if (selectedPage) {
-    selectedPage.classList.add("active");
+  if (page) {
+    page.classList.add("active");
   }
 
-  document.querySelectorAll(
-    ".nav-link, .bottom-nav-item"
-  ).forEach(button => {
+  document.querySelectorAll(".nav-link")
+    .forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.page === pageName
+      );
+    });
 
-    button.classList.toggle(
-      "active",
-      button.dataset.page === pageId
-    );
-
-  });
+  document.querySelectorAll(".bottom-nav-item")
+    .forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.page === pageName
+      );
+    });
 
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
 
-  if (pageId === "profile") {
-    updateAccountInfo();
-  }
-
-  if (pageId === "mylist") {
-    renderMyList();
-  }
-
-  if (pageId === "downloads") {
-    renderDownloads();
-  }
-
-  if (pageId === "history") {
-    renderHistory();
-  }
-
-  if (pageId === "plans") {
-    selectedPlan = selectedPlan || null;
-  }
+  renderPage(pageName);
 }
 
 
-function toggleMobileMenu() {
+function renderPage(pageName) {
 
-  const menu = $("mobileMenu");
+  if (pageName === "home") {
+    loadCatalog();
+  }
 
-  if (!menu) return;
+  if (pageName === "series") {
+    renderGrid(
+      "seriesGrid",
+      demoSeries
+    );
+  }
 
-  menu.classList.toggle("hidden");
+  if (pageName === "movies") {
+    renderGrid(
+      "moviesGrid",
+      demoMovies
+    );
+  }
+
+  if (pageName === "new") {
+    renderGrid(
+      "newGrid",
+      catalog
+    );
+  }
+
+  if (pageName === "mylist") {
+    renderMyList();
+  }
+
+  if (pageName === "history") {
+    renderGrid(
+      "historyGrid",
+      []
+    );
+  }
+
+  if (pageName === "downloads") {
+    renderGrid(
+      "downloadsGrid",
+      []
+    );
+  }
 }
 
 
 /* =========================================================
-   CARDS
+   CATÁLOGO
 ========================================================= */
 
-function createCard(item, index = 0) {
+function loadCatalog() {
 
-  const image = item.image
-    ? `
-      <img
-        src="${escapeHTML(item.image)}"
-        alt="${escapeHTML(item.title)}"
-        loading="lazy"
-      >
-    `
-    : `
-      <div class="card-placeholder">
-        ${item.type === "series" ? "📺" : "🎬"}
+  renderGrid(
+    "top10",
+    catalog
+  );
+
+  renderGrid(
+    "trending",
+    catalog
+  );
+
+  renderGrid(
+    "newReleases",
+    catalog
+  );
+
+  renderGrid(
+    "popularMovies",
+    demoMovies
+  );
+
+  renderGrid(
+    "popularSeries",
+    demoSeries
+  );
+
+  renderGrid(
+    "categoryAction",
+    catalog.filter(x =>
+      x.genre === "Ação"
+    )
+  );
+
+  renderGrid(
+    "categoryDrama",
+    catalog.filter(x =>
+      x.genre === "Drama"
+    )
+  );
+
+  renderGrid(
+    "categoryComedy",
+    catalog.filter(x =>
+      x.genre === "Comédia"
+    )
+  );
+
+  renderGrid(
+    "categorySciFi",
+    catalog.filter(x =>
+      x.genre === "Ficção científica"
+    )
+  );
+
+}
+
+
+function renderGrid(id, items) {
+
+  const container =
+    document.getElementById(id);
+
+  if (!container) return;
+
+  if (!items || items.length === 0) {
+
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🎬</div>
+        <p>Nenhum conteúdo disponível.</p>
       </div>
     `;
 
+    return;
+  }
+
+  container.innerHTML =
+    items.map(createCard).join("");
+}
+
+
+function createCard(item) {
+
+  const image =
+    item.image ||
+    "https://via.placeholder.com/300x450/151515/ffffff?text=VIPNETFLIX";
+
   return `
-    <article
-      class="content-card"
-      data-id="${item.id}"
-      onclick="openDetails(${item.id})"
-    >
+    <article class="content-card">
 
-      <div class="card-image">
+      <img
+        src="${image}"
+        alt="${escapeHTML(item.title)}"
+        loading="lazy"
+      >
 
-        ${image}
-
-        ${
-          index < 10
-            ? `<span class="card-number">${index + 1}</span>`
-            : ""
-        }
-
-      </div>
-
-      <div class="card-info">
+      <div class="content-card-info">
 
         <h3>
           ${escapeHTML(item.title)}
         </h3>
 
-        <div class="card-meta">
-          <span>${escapeHTML(item.year)}</span>
-          <span>•</span>
-          <span>${escapeHTML(item.genre)}</span>
-          <span>•</span>
-          <span>⭐ ${escapeHTML(item.rating)}</span>
-        </div>
+        <p>
+          ${escapeHTML(item.genre)}
+          • ${item.year}
+        </p>
+
+        <button
+          class="primary-btn"
+          style="width:100%;margin-top:10px;"
+          onclick="openDetails(${item.id})"
+        >
+          Ver
+        </button>
 
       </div>
 
@@ -568,435 +477,67 @@ function createCard(item, index = 0) {
 }
 
 
-function renderRow(elementId, items) {
-
-  const container = $(elementId);
-
-  if (!container) return;
-
-  if (!items.length) {
-    container.innerHTML = `
-      <div class="empty-state">
-        Nenhum conteúdo encontrado.
-      </div>
-    `;
-    return;
-  }
-
-  container.innerHTML = items
-    .map((item, index) => createCard(item, index))
-    .join("");
-}
-
-
-function renderGrid(elementId, items) {
-
-  const container = $(elementId);
-
-  if (!container) return;
-
-  if (!items.length) {
-
-    container.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">🎬</div>
-        <h2>Nenhum conteúdo encontrado</h2>
-        <p>Tente outra categoria.</p>
-      </div>
-    `;
-
-    return;
-  }
-
-  container.innerHTML = items
-    .map((item, index) => createCard(item, index))
-    .join("");
-}
-
-
-/* =========================================================
-   HOME
-========================================================= */
-
-function renderHome() {
-
-  const series = catalog.filter(
-    item => item.type === "series"
-  );
-
-  const movies = catalog.filter(
-    item => item.type === "movie"
-  );
-
-  renderRow(
-    "continueWatching",
-    history.slice(0, 10)
-      .map(entry => findContent(entry.id))
-      .filter(Boolean)
-  );
-
-  renderRow(
-    "top10",
-    catalog
-      .slice()
-      .sort((a, b) => b.rating - a.rating)
-      .slice(0, 10)
-  );
-
-  renderRow(
-    "trending",
-    catalog.slice().reverse()
-  );
-
-  renderRow(
-    "newReleases",
-    catalog
-      .slice()
-      .sort((a, b) => b.year - a.year)
-  );
-
-  renderRow(
-    "popularMovies",
-    movies
-  );
-
-  renderRow(
-    "popularSeries",
-    series
-  );
-
-  renderRow(
-    "categoryAction",
-    catalog.filter(
-      item => item.genre === "Ação"
-    )
-  );
-
-  renderRow(
-    "categoryDrama",
-    catalog.filter(
-      item => item.genre === "Drama"
-    )
-  );
-
-  renderRow(
-    "categoryComedy",
-    catalog.filter(
-      item => item.genre === "Comédia"
-    )
-  );
-
-  renderRow(
-    "categorySciFi",
-    catalog.filter(
-      item => item.genre === "Ficção científica"
-    )
-  );
-
-  updateHero();
-}
-
-
-function updateHero() {
-
-  if (!featuredContent) return;
-
-  const title = $("heroTitle");
-  const description = $("heroDescription");
-  const year = $("heroYear");
-  const genre = $("heroGenre");
-  const hero = $("hero");
-
-  if (title) {
-    title.textContent = featuredContent.title;
-  }
-
-  if (description) {
-    description.textContent =
-      featuredContent.description;
-  }
-
-  if (year) {
-    year.textContent =
-      featuredContent.year;
-  }
-
-  if (genre) {
-    genre.textContent =
-      featuredContent.genre;
-  }
-
-  if (
-    hero &&
-    featuredContent.image
-  ) {
-    hero.style.backgroundImage =
-      `url("${featuredContent.image}")`;
-  }
-}
-
-
-/* =========================================================
-   SÉRIES
-========================================================= */
-
-function renderSeries() {
-
-  renderGrid(
-    "seriesGrid",
-    catalog.filter(
-      item => item.type === "series"
-    )
-  );
-}
-
-
-function filterSeries(category) {
-
-  let results = catalog.filter(
-    item => item.type === "series"
-  );
-
-  if (category !== "all") {
-
-    const map = {
-      action: "Ação",
-      drama: "Drama",
-      crime: "Crime",
-      scifi: "Ficção científica"
-    };
-
-    const genre = map[category];
-
-    if (genre) {
-      results = results.filter(
-        item => item.genre === genre
-      );
-    }
-  }
-
-  renderGrid("seriesGrid", results);
-}
-
-
-/* =========================================================
-   FILMES
-========================================================= */
-
-function renderMovies() {
-
-  renderGrid(
-    "moviesGrid",
-    catalog.filter(
-      item => item.type === "movie"
-    )
-  );
-}
-
-
-function filterContent(category) {
-
-  let results = catalog.filter(
-    item => item.type === "movie"
-  );
-
-  if (category !== "all") {
-
-    const map = {
-      action: "Ação",
-      adventure: "Aventura",
-      drama: "Drama",
-      comedy: "Comédia",
-      scifi: "Ficção científica"
-    };
-
-    const genre = map[category];
-
-    if (genre) {
-      results = results.filter(
-        item => item.genre === genre
-      );
-    }
-  }
-
-  renderGrid("moviesGrid", results);
-}
-
-
-function renderNew() {
-
-  renderGrid(
-    "newGrid",
-    catalog
-      .slice()
-      .sort((a, b) => b.year - a.year)
-  );
-}
-
-
-/* =========================================================
-   PESQUISA
-========================================================= */
-
-function searchContent() {
-
-  const input = $("searchInput");
-
-  if (!input) return;
-
-  const term = input.value
-    .trim()
-    .toLowerCase();
-
-  if (!term) {
-
-    const results = $("searchResults");
-
-    if (results) {
-      results.innerHTML = `
-        <p class="empty-state">
-          Digite o nome de um filme ou série.
-        </p>
-      `;
-    }
-
-    return;
-  }
-
-  const results = catalog.filter(item =>
-    item.title.toLowerCase().includes(term) ||
-    item.genre.toLowerCase().includes(term) ||
-    item.description.toLowerCase().includes(term)
-  );
-
-  renderGrid(
-    "searchResults",
-    results
-  );
-}
-
-
-function openCategory(category) {
-
-  showPage("explore");
-
-  const results = catalog.filter(
-    item =>
-      item.genre.toLowerCase() ===
-      category.toLowerCase()
-  );
-
-  renderGrid(
-    "categoryResults",
-    results
-  );
-
-  showToast(
-    `Categoria: ${category}`
-  );
-}
-
-
 /* =========================================================
    DETALHES
 ========================================================= */
 
-function findContent(id) {
-
-  return catalog.find(
-    item => Number(item.id) === Number(id)
-  );
-}
-
-
 function openDetails(id) {
 
-  const item = findContent(id);
+  const item =
+    catalog.find(x => x.id === id);
 
   if (!item) return;
 
-  const container = $("detailsContent");
+  const container =
+    document.getElementById("detailsContent");
 
   if (!container) return;
 
+  const image =
+    item.image ||
+    "https://via.placeholder.com/500x700/151515/ffffff?text=VIPNETFLIX";
+
   container.innerHTML = `
+    <div style="padding:40px 5%;">
 
-    <button
-      class="secondary-btn"
-      type="button"
-      onclick="showPage('home')"
-    >
-      ← Voltar
-    </button>
+      <img
+        src="${image}"
+        alt="${escapeHTML(item.title)}"
+        style="
+          width:220px;
+          max-width:100%;
+          border-radius:8px;
+          margin-bottom:20px;
+        "
+      >
 
-    <div class="details-layout">
+      <h1>${escapeHTML(item.title)}</h1>
 
-      <div class="details-poster">
+      <p style="color:#aaa;margin:15px 0;">
+        ${escapeHTML(item.genre)}
+        • ${item.year}
+        • ⭐ ${item.rating}
+      </p>
 
-        ${
-          item.image
-            ? `<img
-                src="${escapeHTML(item.image)}"
-                alt="${escapeHTML(item.title)}"
-              >`
-            : `<div class="details-placeholder">
-                ${item.type === "series" ? "📺" : "🎬"}
-              </div>`
-        }
+      <p style="max-width:700px;line-height:1.6;color:#ddd;">
+        ${escapeHTML(item.description)}
+      </p>
 
-      </div>
+      <div style="margin-top:25px;display:flex;gap:10px;flex-wrap:wrap;">
 
-      <div class="details-info">
+        <button
+          class="primary-btn"
+          onclick="playItem(${item.id})"
+        >
+          ▶ Assistir
+        </button>
 
-        <span class="hero-badge">
-          ${item.type === "series" ? "SÉRIE" : "FILME"}
-        </span>
-
-        <h1>
-          ${escapeHTML(item.title)}
-        </h1>
-
-        <div class="hero-meta">
-
-          <span>${item.year}</span>
-          <span>•</span>
-          <span>${escapeHTML(item.genre)}</span>
-          <span>•</span>
-          <span>⭐ ${item.rating}</span>
-
-        </div>
-
-        <p>
-          ${escapeHTML(item.description)}
-        </p>
-
-        <div class="hero-actions">
-
-          <button
-            class="primary-btn"
-            type="button"
-            onclick="playContent(${item.id})"
-          >
-            ▶ Assistir
-          </button>
-
-          <button
-            class="secondary-btn"
-            type="button"
-            onclick="toggleMyList(${item.id})"
-          >
-            ❤️ Minha Lista
-          </button>
-
-          <button
-            class="secondary-btn"
-            type="button"
-            onclick="downloadContent(${item.id})"
-          >
-            ⬇️ Download
-          </button>
-
-        </div>
+        <button
+          class="secondary-btn"
+          onclick="addToMyList(${item.id})"
+        >
+          ＋ Minha Lista
+        </button>
 
       </div>
 
@@ -1009,94 +550,9 @@ function openDetails(id) {
 
 function openFeaturedDetails() {
 
-  if (featuredContent) {
-    openDetails(featuredContent.id);
+  if (catalog.length) {
+    openDetails(catalog[0].id);
   }
-}
-
-
-/* =========================================================
-   MINHA LISTA
-========================================================= */
-
-function isInMyList(id) {
-
-  return myList.some(
-    item => Number(item.id) === Number(id)
-  );
-}
-
-
-function toggleMyList(id) {
-
-  const item = findContent(id);
-
-  if (!item) return;
-
-  if (isInMyList(id)) {
-
-    myList = myList.filter(
-      saved => Number(saved.id) !== Number(id)
-    );
-
-    showToast("Removido da Minha Lista.");
-
-  } else {
-
-    myList.push(item);
-
-    showToast("Adicionado à Minha Lista.");
-  }
-
-  saveData();
-  renderMyList();
-}
-
-
-function addFeatured() {
-
-  if (!featuredContent) return;
-
-  toggleMyList(featuredContent.id);
-}
-
-
-function renderMyList() {
-
-  renderGrid(
-    "myListGrid",
-    myList
-  );
-}
-
-
-/* =========================================================
-   HISTÓRICO
-========================================================= */
-
-function addToHistory(item) {
-
-  history = history.filter(
-    entry => Number(entry.id) !== Number(item.id)
-  );
-
-  history.unshift({
-    ...item,
-    watchedAt: Date.now()
-  });
-
-  history = history.slice(0, 50);
-
-  saveData();
-}
-
-
-function renderHistory() {
-
-  renderGrid(
-    "historyGrid",
-    history
-  );
 }
 
 
@@ -1104,244 +560,204 @@ function renderHistory() {
    PLAYER
 ========================================================= */
 
-function playFeatured() {
+function playItem(id) {
 
-  if (!featuredContent) return;
-
-  playContent(
-    featuredContent.id
-  );
-}
-
-
-function playContent(id) {
-
-  const item = findContent(id);
+  const item =
+    catalog.find(x => x.id === id);
 
   if (!item) return;
 
-  addToHistory(item);
+  const modal =
+    document.getElementById("playerModal");
 
-  const modal = $("playerModal");
-  const video = $("videoPlayer");
-  const source = $("videoSource");
+  const title =
+    document.getElementById("playerTitle");
 
-  const title = $("playerTitle");
-  const description = $("playerDescription");
+  const description =
+    document.getElementById("playerDescription");
 
-  if (title) {
-    title.textContent = item.title;
-  }
+  if (title) title.textContent = item.title;
 
   if (description) {
     description.textContent =
-      item.description;
+      item.description || "";
   }
 
-  if (!item.video) {
+  /*
+    Aqui será colocado posteriormente
+    o vídeo autorizado do catálogo.
+  */
 
-    showToast(
-      "O vídeo deste conteúdo ainda não foi configurado."
-    );
+  modal?.classList.add("active");
+}
 
-    return;
-  }
 
-  if (source) {
-    source.src = item.video;
-  }
+function playFeatured() {
 
-  if (video) {
-    video.load();
-  }
-
-  if (modal) {
-    modal.classList.add("show");
-  }
-
-  if (video) {
-    video.play().catch(() => {});
+  if (catalog.length) {
+    playItem(catalog[0].id);
   }
 }
 
 
 function closePlayer() {
 
-  const modal = $("playerModal");
-  const video = $("videoPlayer");
+  const modal =
+    document.getElementById("playerModal");
+
+  const video =
+    document.getElementById("videoPlayer");
 
   if (video) {
     video.pause();
     video.currentTime = 0;
   }
 
-  if (modal) {
-    modal.classList.remove("show");
-  }
+  modal?.classList.remove("active");
 }
 
 
 /* =========================================================
-   EPISÓDIOS
+   MINHA LISTA
 ========================================================= */
 
-function openEpisodeModal(id) {
+function addToMyList(id) {
 
-  const item = findContent(id);
+  let list =
+    JSON.parse(
+      localStorage.getItem("vipnetflix_mylist") || "[]"
+    );
 
-  if (!item) return;
+  if (!list.includes(id)) {
+    list.push(id);
 
-  const modal = $("episodeModal");
-  const content = $("episodeModalContent");
+    localStorage.setItem(
+      "vipnetflix_mylist",
+      JSON.stringify(list)
+    );
 
-  if (!content) return;
+    toast("Adicionado à Minha Lista.");
+  } else {
+    toast("Já está na sua lista.");
+  }
 
-  content.innerHTML = `
+  renderMyList();
+}
 
-    <h2>${escapeHTML(item.title)}</h2>
 
-    <p>
-      Temporadas e episódios serão adicionados
-      ao catálogo desta série.
-    </p>
+function addFeatured() {
 
-    <button
-      class="primary-btn"
-      type="button"
-      onclick="playContent(${item.id})"
-    >
-      ▶ Assistir
-    </button>
-
-  `;
-
-  if (modal) {
-    modal.classList.add("show");
+  if (catalog.length) {
+    addToMyList(catalog[0].id);
   }
 }
 
 
-function closeEpisodeModal() {
+function renderMyList() {
 
-  const modal = $("episodeModal");
+  const ids =
+    JSON.parse(
+      localStorage.getItem("vipnetflix_mylist") || "[]"
+    );
 
-  if (modal) {
-    modal.classList.remove("show");
-  }
+  const items =
+    catalog.filter(item =>
+      ids.includes(item.id)
+    );
+
+  renderGrid(
+    "myListGrid",
+    items
+  );
 }
 
 
 /* =========================================================
-   DOWNLOADS
+   PESQUISA
 ========================================================= */
 
-function isDownloaded(id) {
+function searchContent() {
 
-  return downloads.some(
-    item => Number(item.id) === Number(id)
-  );
-}
+  const input =
+    document.getElementById("searchInput");
 
+  const results =
+    document.getElementById("searchResults");
 
-function downloadContent(id) {
+  if (!input || !results) return;
 
-  const item = findContent(id);
+  const term =
+    input.value.toLowerCase().trim();
 
-  if (!item) return;
-
-  if (isDownloaded(id)) {
-    showToast("Este conteúdo já está nos downloads.");
+  if (!term) {
+    results.innerHTML = "";
     return;
   }
 
-  downloads.push(item);
+  const found =
+    catalog.filter(item =>
+      item.title.toLowerCase().includes(term) ||
+      item.genre.toLowerCase().includes(term)
+    );
 
-  saveData();
-  renderDownloads();
-
-  showToast(
-    `"${item.title}" adicionado aos downloads.`
-  );
+  results.innerHTML =
+    found.map(createCard).join("");
 }
 
 
-function removeDownload(id) {
+function openCategory(category) {
 
-  downloads = downloads.filter(
-    item => Number(item.id) !== Number(id)
-  );
+  const results =
+    document.getElementById("categoryResults");
 
-  saveData();
-  renderDownloads();
+  if (!results) return;
 
-  showToast("Download removido.");
+  const found =
+    catalog.filter(item =>
+      item.genre.toLowerCase() ===
+      category.toLowerCase()
+    );
+
+  results.innerHTML =
+    found.map(createCard).join("");
+
+  toast("Categoria: " + category);
 }
 
 
-function renderDownloads() {
+/* =========================================================
+   FILTROS
+========================================================= */
 
-  const grid = $("downloadsGrid");
-  const empty = $("emptyDownloads");
+function filterSeries(type) {
 
-  if (!grid) return;
-
-  if (!downloads.length) {
-
-    grid.innerHTML = "";
-
-    if (empty) {
-      empty.style.display = "block";
-    }
-
+  if (type === "all") {
+    renderGrid("seriesGrid", demoSeries);
     return;
   }
 
-  if (empty) {
-    empty.style.display = "none";
+  renderGrid(
+    "seriesGrid",
+    demoSeries.filter(item =>
+      item.genre.toLowerCase().includes(type)
+    )
+  );
+}
+
+
+function filterContent(type) {
+
+  if (type === "all") {
+    renderGrid("moviesGrid", demoMovies);
+    return;
   }
 
-  grid.innerHTML = downloads.map(item => `
-
-    <article class="content-card">
-
-      <div
-        onclick="openDetails(${item.id})"
-      >
-
-        <div class="card-image">
-
-          ${
-            item.image
-              ? `<img
-                  src="${escapeHTML(item.image)}"
-                  alt="${escapeHTML(item.title)}"
-                >`
-              : `<div class="card-placeholder">🎬</div>`
-          }
-
-        </div>
-
-        <div class="card-info">
-
-          <h3>
-            ${escapeHTML(item.title)}
-          </h3>
-
-        </div>
-
-      </div>
-
-      <button
-        class="secondary-btn"
-        type="button"
-        onclick="removeDownload(${item.id})"
-      >
-        Remover
-      </button>
-
-    </article>
-
-  `).join("");
+  renderGrid(
+    "moviesGrid",
+    demoMovies.filter(item =>
+      item.genre.toLowerCase().includes(type)
+    )
+  );
 }
 
 
@@ -1349,50 +765,23 @@ function renderDownloads() {
    PLANOS
 ========================================================= */
 
-const plans = {
-  "Básico": {
-    price: 100
-  },
+function selectPlan(plan) {
 
-  "Premium": {
-    price: 200
-  },
+  selectedPlan = plan;
 
-  "VIP": {
-    price: 300
-  }
-};
-
-
-function selectPlan(planName) {
-
-  const plan = plans[planName];
-
-  if (!plan) return;
-
-  selectedPlan = {
-    name: planName,
-    price: plan.price
+  const prices = {
+    "Básico": "100 MT / mês",
+    "Premium": "200 MT / mês",
+    "VIP": "300 MT / mês"
   };
 
-  const name = $("selectedPlanName");
-  const price = $("selectedPlanPrice");
+  document.getElementById("selectedPlanName")
+    .textContent = plan;
 
-  if (name) {
-    name.textContent =
-      selectedPlan.name;
-  }
-
-  if (price) {
-    price.textContent =
-      `${selectedPlan.price} MT / mês`;
-  }
+  document.getElementById("selectedPlanPrice")
+    .textContent = prices[plan] || "-";
 
   showPage("payment");
-
-  showToast(
-    `Plano ${planName} selecionado.`
-  );
 }
 
 
@@ -1402,114 +791,47 @@ function selectPlan(planName) {
 
 function choosePayment(method) {
 
-  selectedPayment = method;
-
-  const form = $("paymentForm");
+  const form =
+    document.getElementById("paymentForm");
 
   if (!form) return;
 
-  if (method === "Cartão") {
+  form.innerHTML = `
+    <div style="
+      background:#191919;
+      padding:20px;
+      border-radius:8px;
+      margin-top:20px;
+    ">
 
-    form.innerHTML = `
+      <h3>Pagamento por ${method}</h3>
 
-      <h3>Pagamento com cartão</h3>
-
-      <label>Número do cartão</label>
-
-      <input
-        type="text"
-        inputmode="numeric"
-        placeholder="0000 0000 0000 0000"
-      >
-
-      <label>Nome no cartão</label>
-
-      <input
-        type="text"
-        placeholder="Nome completo"
-      >
-
-      <div class="payment-row">
-
-        <div>
-          <label>Validade</label>
-          <input
-            type="text"
-            placeholder="MM/AA"
-          >
-        </div>
-
-        <div>
-          <label>CVV</label>
-          <input
-            type="password"
-            inputmode="numeric"
-            placeholder="123"
-          >
-        </div>
-
-      </div>
+      <p style="color:#aaa;margin:10px 0 20px;">
+        Método selecionado.
+      </p>
 
       <button
         class="primary-btn full-btn"
-        type="button"
-        onclick="processPayment()"
+        onclick="confirmPayment('${method}')"
       >
-        Pagar agora
+        Continuar
       </button>
 
-    `;
-
-  } else {
-
-    form.innerHTML = `
-
-      <h3>
-        Pagamento por ${escapeHTML(method)}
-      </h3>
-
-      <label>Número de telefone</label>
-
-      <input
-        type="tel"
-        placeholder="Digite seu número"
-      >
-
-      <button
-        class="primary-btn full-btn"
-        type="button"
-        onclick="processPayment()"
-      >
-        Continuar pagamento
-      </button>
-
-    `;
-  }
+    </div>
+  `;
 }
 
 
-function processPayment() {
+function confirmPayment(method) {
 
-  if (!selectedPlan) {
-    showToast("Escolha um plano primeiro.");
-    return;
-  }
-
-  if (!selectedPayment) {
-    showToast("Escolha uma forma de pagamento.");
-    return;
-  }
+  toast(
+    "Pagamento selecionado: " + method
+  );
 
   /*
-    IMPORTANTE:
-    Esta função é apenas a interface inicial.
-    Para cobrar dinheiro de verdade, será necessário
-    integrar um gateway de pagamento real.
+    A integração real de pagamento
+    será adicionada posteriormente.
   */
-
-  showToast(
-    `Pagamento preparado: ${selectedPlan.name} — ${selectedPayment}.`
-  );
 }
 
 
@@ -1517,102 +839,114 @@ function processPayment() {
    CONTA
 ========================================================= */
 
-function updateAccountInfo() {
+function updateAccount() {
 
-  const name = $("accountName");
-  const info = $("currentUserInfo");
+  const saved =
+    localStorage.getItem("vipnetflix_user");
 
-  if (name) {
-    name.textContent =
-      currentProfile?.name ||
-      currentUser?.name ||
-      "Minha conta";
-  }
-
-  if (info) {
-
-    info.textContent =
-      currentUser?.email ||
-      "Conta VIPNETFLIX";
-  }
-}
-
-
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
-
-function renderAll() {
-
-  renderHome();
-  renderSeries();
-  renderMovies();
-  renderNew();
-  renderMyList();
-  renderDownloads();
-  renderHistory();
-  updateAccountInfo();
-}
-
-
-function initializeApp() {
-
-  const savedUser = localStorage.getItem(
-    "vipnetflix_user"
-  );
-
-  if (savedUser) {
-
+  if (saved) {
     try {
-
-      currentUser =
-        JSON.parse(savedUser);
-
-      showProfileScreen();
-
-    } catch (error) {
-
-      localStorage.removeItem(
-        "vipnetflix_user"
-      );
-
-      showAuthForm("login");
-    }
-
-  } else {
-
-    showAuthForm("login");
+      currentUser = JSON.parse(saved);
+    } catch (e) {}
   }
 
-  renderAll();
+  const name =
+    document.getElementById("accountName");
+
+  const info =
+    document.getElementById("currentUserInfo");
+
+  if (currentUser) {
+
+    if (name) {
+      name.textContent =
+        currentUser.name || "Minha conta";
+    }
+
+    if (info) {
+      info.textContent =
+        currentUser.email || "";
+    }
+  }
+}
+
+
+function logoutUser() {
+
+  localStorage.removeItem("vipnetflix_user");
+
+  currentUser = null;
+
+  document.getElementById("mainApp")
+    ?.classList.add("hidden");
+
+  document.getElementById("profileScreen")
+    ?.classList.add("hidden");
+
+  document.getElementById("authScreen")
+    ?.classList.remove("hidden");
+
+  showAuthForm("login");
+
+  toast("Você saiu da conta.");
 }
 
 
 /* =========================================================
-   EVENTOS
+   MENU MOBILE
 ========================================================= */
 
-document.addEventListener(
-  "keydown",
-  event => {
+function toggleMobileMenu() {
 
-    if (event.key === "Escape") {
+  const menu =
+    document.getElementById("mobileMenu");
 
-      closePlayer();
-      closeEpisodeModal();
+  menu?.classList.toggle("hidden");
+}
 
-      const menu = $("mobileMenu");
 
-      if (menu) {
-        menu.classList.add("hidden");
-      }
-    }
+/* =========================================================
+   TOAST
+========================================================= */
 
+function toast(message) {
+
+  const element =
+    document.getElementById("toast");
+
+  if (!element) {
+    alert(message);
+    return;
   }
-);
+
+  element.textContent = message;
+
+  element.style.position = "fixed";
+  element.style.bottom = "90px";
+  element.style.left = "50%";
+  element.style.transform = "translateX(-50%)";
+  element.style.background = "#222";
+  element.style.color = "#fff";
+  element.style.padding = "12px 18px";
+  element.style.borderRadius = "6px";
+  element.style.zIndex = "2000";
+
+  setTimeout(() => {
+    element.textContent = "";
+  }, 3000);
+}
 
 
-document.addEventListener(
-  "DOMContentLoaded",
-  initializeApp
-);
+/* =========================================================
+   UTILITÁRIO
+========================================================= */
+
+function escapeHTML(text) {
+
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+      }
