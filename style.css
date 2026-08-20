@@ -8,8 +8,14 @@
   --bg: #080808;
   --card: #151515;
   --red: #e50914;
+  --red-dark: #b20710;
   --white: #ffffff;
   --gray: #999999;
+  --border: #303030;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -26,9 +32,246 @@ button {
   background: transparent;
 }
 
+input {
+  font-family: inherit;
+}
+
+
+/* =====================================================
+   UTILITÁRIO
+===================================================== */
+
+.hidden {
+  display: none !important;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+  color: var(--red);
+  font-size: 25px;
+  font-weight: 900;
+  white-space: nowrap;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: white;
+}
+
+
+/* =====================================================
+   LOGIN / CADASTRO
+===================================================== */
+
+.auth-screen {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  background:
+    linear-gradient(
+      rgba(0,0,0,.72),
+      rgba(0,0,0,.92)
+    ),
+    radial-gradient(
+      circle at top right,
+      #421010,
+      #080808 55%
+    );
+}
+
+.auth-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 450px;
+  background: rgba(10,10,10,.94);
+  border-radius: 6px;
+  padding: 45px 45px 35px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 20px 70px rgba(0,0,0,.7);
+}
+
+.auth-logo {
+  margin-bottom: 35px;
+  font-size: 30px;
+}
+
+.auth-box h1 {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.auth-subtitle {
+  color: #aaa;
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+
+.auth-box input {
+  width: 100%;
+  height: 52px;
+  margin-bottom: 15px;
+  padding: 0 16px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  outline: none;
+  background: #222;
+  color: white;
+  font-size: 15px;
+}
+
+.auth-box input:focus {
+  border-color: var(--red);
+  background: #292929;
+}
+
+.auth-button {
+  width: 100%;
+  margin-top: 5px;
+  min-height: 50px;
+}
+
+.auth-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: #aaa;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.auth-link:hover {
+  color: white;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #777;
+  margin: 25px 0;
+  font-size: 12px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  height: 1px;
+  background: #333;
+  flex: 1;
+}
+
+.secondary-auth-btn {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background: #222;
+  font-weight: bold;
+}
+
+.secondary-auth-btn:hover {
+  background: #303030;
+}
+
+.terms-text {
+  color: #777;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 5px 0 20px;
+}
+
+
+/* =====================================================
+   PERFIS
+===================================================== */
+
+.profile-screen {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background: #080808;
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.profile-container .logo {
+  margin-bottom: 45px;
+}
+
+.profile-container h1 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.profile-subtitle {
+  color: #888;
+  margin-bottom: 35px;
+}
+
+.profiles-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 35px;
+}
+
+.profile-card {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-card img {
+  width: 125px;
+  height: 125px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 3px solid transparent;
+}
+
+.profile-card:hover img {
+  border-color: white;
+}
+
+.profile-card span {
+  color: #aaa;
+  font-size: 17px;
+}
+
+.profile-card:hover span {
+  color: white;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
 .header {
   height: 70px;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0,0,0,.96);
   display: flex;
   align-items: center;
   padding: 0 5%;
@@ -36,17 +279,6 @@ button {
   position: sticky;
   top: 0;
   z-index: 100;
-}
-
-.logo {
-  color: var(--red);
-  font-size: 25px;
-  font-weight: 900;
-  white-space: nowrap;
-}
-
-.logo span {
-  color: white;
 }
 
 .header nav {
@@ -67,6 +299,11 @@ button {
   font-size: 22px;
 }
 
+
+/* =====================================================
+   PÁGINAS
+===================================================== */
+
 .page {
   display: none;
 }
@@ -75,14 +312,34 @@ button {
   display: block;
 }
 
+
+/* =====================================================
+   HERO
+===================================================== */
+
 .hero {
-  min-height: 520px;
+  min-height: 540px;
   display: flex;
   align-items: center;
   padding: 60px 6%;
   background:
-    linear-gradient(90deg, #080808 0%, rgba(8,8,8,.8) 35%, rgba(8,8,8,.15) 100%),
-    linear-gradient(0deg, #080808 0%, transparent 30%);
+    linear-gradient(
+      90deg,
+      #080808 0%,
+      rgba(8,8,8,.82) 38%,
+      rgba(8,8,8,.15) 100%
+    ),
+    linear-gradient(
+      0deg,
+      #080808 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 75% 35%,
+      #461010,
+      #111 45%,
+      #080808 75%
+    );
 }
 
 .hero-content {
@@ -111,10 +368,15 @@ button {
   gap: 12px;
 }
 
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
 .primary-btn,
 .secondary-btn {
   padding: 13px 22px;
-  border-radius: 7px;
+  border-radius: 5px;
   font-weight: bold;
 }
 
@@ -131,6 +393,15 @@ button {
 .secondary-btn:hover {
   transform: scale(1.04);
 }
+
+.logout-btn:hover {
+  background: var(--red);
+}
+
+
+/* =====================================================
+   CONTEÚDO
+===================================================== */
 
 .content-section {
   padding: 20px 5%;
@@ -152,11 +423,16 @@ button {
   display: none;
 }
 
+
+/* =====================================================
+   CARDS
+===================================================== */
+
 .movie-card {
   min-width: 180px;
   width: 180px;
   background: var(--card);
-  border-radius: 9px;
+  border-radius: 7px;
   overflow: hidden;
   transition: .25s;
 }
@@ -202,6 +478,11 @@ button {
   background: var(--red);
 }
 
+
+/* =====================================================
+   PÁGINAS DE CATÁLOGO
+===================================================== */
+
 .page-title {
   padding: 45px 5% 25px;
 }
@@ -218,16 +499,24 @@ button {
 .movie-grid {
   padding: 0 5% 100px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(180px, 1fr)
+  );
   gap: 20px;
 }
+
+
+/* =====================================================
+   PESQUISA
+===================================================== */
 
 .search-input {
   margin-top: 20px;
   width: 100%;
   max-width: 600px;
   padding: 15px;
-  border-radius: 7px;
+  border-radius: 5px;
   border: 1px solid #333;
   background: #171717;
   color: white;
@@ -239,11 +528,32 @@ button {
   border-color: var(--red);
 }
 
+
+/* =====================================================
+   CONTA
+===================================================== */
+
+.account-box {
+  padding: 0 5% 100px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.account-box button {
+  min-width: 150px;
+}
+
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.94);
+  background: rgba(0,0,0,.95);
   z-index: 999;
   align-items: center;
   justify-content: center;
@@ -264,7 +574,7 @@ button {
   width: 100%;
   max-height: 70vh;
   background: black;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .close-player {
@@ -283,11 +593,33 @@ button {
   margin-top: 8px;
 }
 
+
+/* =====================================================
+   MENU MOBILE
+===================================================== */
+
 .mobile-nav {
   display: none;
 }
 
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
 @media (max-width: 700px) {
+
+  .auth-box {
+    padding: 35px 25px 30px;
+  }
+
+  .auth-logo {
+    font-size: 26px;
+  }
+
+  .auth-box h1 {
+    font-size: 27px;
+  }
 
   .header {
     height: 60px;
@@ -339,6 +671,19 @@ button {
     height: 230px;
   }
 
+  .profile-container h1 {
+    font-size: 28px;
+  }
+
+  .profile-card {
+    width: 110px;
+  }
+
+  .profile-card img {
+    width: 90px;
+    height: 90px;
+  }
+
   .mobile-nav {
     position: fixed;
     display: flex;
@@ -365,4 +710,9 @@ button {
     font-size: 10px;
     color: #aaa;
   }
+
+  .account-box {
+    padding: 0 18px 100px;
+  }
+
   }
