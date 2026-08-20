@@ -1,47 +1,125 @@
-/* =====================================================
-   LOGOTIPO VIPNETFLIX
-===================================================== */
+/* =========================================================
+   VIPNETFLIX — STYLE.CSS
+   ========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #080808;
+  --bg2: #111111;
+  --card: #181818;
+  --red: #e50914;
+  --red-dark: #b20710;
+  --white: #ffffff;
+  --gray: #b3b3b3;
+  --border: #292929;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  gap: 35px;
+
+  padding: 0 4%;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.95),
+    rgba(0,0,0,0.65),
+    transparent
+  );
+}
+
+/* LOGO */
 
 .logo {
-  font-size: 30px;
+  color: var(--red);
+  font-size: 29px;
   font-weight: 900;
   letter-spacing: -1.5px;
-  line-height: 1;
   white-space: nowrap;
 }
 
 .logo span {
-  font-weight: 900;
+  color: var(--white);
 }
 
-/* Logo no cabeçalho */
-.header .logo {
-  font-size: 30px;
+/* MENU */
+
+.header nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
 }
 
-/* Logo na tela de login */
-.auth-logo {
-  font-size: 34px;
+.header nav button {
+  border: none;
+  background: none;
+  color: #ddd;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 0;
 }
 
-/* Logo na tela de seleção de perfil */
-.profile-container .logo {
-  font-size: 34px;
+.header nav button:hover {
+  color: var(--white);
 }
 
-/* Ajuste para celulares */
-@media (max-width: 600px) {
-  .logo {
-    font-size: 25px;
-    letter-spacing: -1px;
-  }
-
-  .header .logo {
-    font-size: 24px;
-  }
-
-  .auth-logo,
-  .profile-container .logo {
-    font-size: 30px;
-  }
+.header-right {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
 }
+
+.header-right button {
+  width: 38px;
+  height: 38px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.12);
+  color: white;
+
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.header-right button:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+
+/* =========================================================
+   PÁGINAS
+   ========================================================= */
+
+main {
+ 
