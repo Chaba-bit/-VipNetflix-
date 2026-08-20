@@ -122,4 +122,578 @@ body {
    ========================================================= */
 
 main {
- 
+  min-height: 100vh;
+}
+
+.page {
+  display: none;
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+.page.active {
+  display: block;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+  position: relative;
+  min-height: 650px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 100px 6% 70px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #080808 0%,
+      rgba(8,8,8,0.88) 30%,
+      rgba(8,8,8,0.35) 65%,
+      rgba(8,8,8,0.95) 100%
+    ),
+    linear-gradient(
+      0deg,
+      #080808 0%,
+      transparent 35%
+    ),
+    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1800&q=80");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content {
+  width: 560px;
+  max-width: 90%;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-label {
+  display: inline-block;
+
+  margin-bottom: 18px;
+  padding: 7px 13px;
+
+  background: var(--red);
+  border-radius: 4px;
+
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 0.95;
+  font-weight: 900;
+
+  margin-bottom: 22px;
+
+  letter-spacing: -3px;
+}
+
+.hero p {
+  max-width: 520px;
+
+  color: #ddd;
+  font-size: 17px;
+  line-height: 1.6;
+
+  margin-bottom: 28px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 5px;
+
+  padding: 13px 23px;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.btn-primary {
+  background: var(--red);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #f40612;
+  transform: scale(1.03);
+}
+
+.btn-secondary {
+  background: rgba(80,80,80,0.75);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: rgba(120,120,120,0.75);
+}
+
+
+/* =========================================================
+   CATÁLOGO
+   ========================================================= */
+
+.catalog {
+  padding: 10px 4% 25px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+}
+
+.section-title h2 {
+  font-size: 21px;
+}
+
+.section-title span {
+  color: var(--red);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.cards {
+  display: flex;
+  gap: 14px;
+
+  overflow-x: auto;
+
+  padding-bottom: 10px;
+
+  scrollbar-width: none;
+}
+
+.cards::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  position: relative;
+
+  flex: 0 0 170px;
+
+  overflow: hidden;
+
+  border-radius: 7px;
+
+  background: var(--card);
+
+  cursor: pointer;
+
+  transition: transform 0.25s;
+}
+
+.card:hover {
+  transform: scale(1.06);
+  z-index: 10;
+}
+
+.card-image {
+  width: 100%;
+  height: 245px;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.card-info {
+  padding: 10px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: bold;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-meta {
+  margin-top: 7px;
+
+  color: var(--gray);
+
+  font-size: 12px;
+}
+
+.card-play {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(229,9,20,0.95);
+
+  opacity: 0;
+
+  transition: 0.2s;
+}
+
+.card:hover .card-play {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.grid {
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(170px, 1fr)
+  );
+
+  gap: 18px;
+
+  padding: 0 4%;
+}
+
+.grid .card {
+  width: 100%;
+}
+
+
+/* =========================================================
+   CABEÇALHO DAS PÁGINAS
+   ========================================================= */
+
+.page-header {
+  padding: 120px 4% 35px;
+}
+
+.page-header h1 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.page-header p {
+  color: var(--gray);
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   PESQUISA
+   ========================================================= */
+
+.search {
+  display: block;
+
+  width: calc(100% - 8%);
+  margin: 0 4% 30px;
+
+  padding: 15px 18px;
+
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  outline: none;
+
+  background: #151515;
+  color: white;
+
+  font-size: 16px;
+}
+
+.search:focus {
+  border-color: var(--red);
+}
+
+.search::placeholder {
+  color: #777;
+}
+
+
+/* =========================================================
+   PERFIL
+   ========================================================= */
+
+.profile {
+  text-align: center;
+
+  padding: 150px 20px;
+}
+
+.profile-icon {
+  width: 100px;
+  height: 100px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--red);
+
+  font-size: 45px;
+}
+
+.profile h1 {
+  margin-bottom: 8px;
+}
+
+.profile p {
+  color: var(--gray);
+  margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   BOTTOM NAV
+   ========================================================= */
+
+.bottom-nav {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 65px;
+
+  z-index: 2000;
+
+  display: none;
+
+  align-items: center;
+  justify-content: space-around;
+
+  background: rgba(10,10,10,0.97);
+
+  border-top: 1px solid var(--border);
+
+  backdrop-filter: blur(10px);
+}
+
+.bottom-nav button {
+  border: none;
+  background: none;
+
+  color: #aaa;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 4px;
+
+  cursor: pointer;
+}
+
+.bottom-nav button:hover {
+  color: white;
+}
+
+.bottom-nav small {
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+#toast {
+  position: fixed;
+
+  left: 50%;
+  bottom: 90px;
+
+  transform: translateX(-50%);
+
+  background: #222;
+  color: white;
+
+  padding: 12px 20px;
+
+  border-radius: 6px;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: 0.3s;
+
+  z-index: 5000;
+}
+
+#toast.show {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+  .header {
+    height: 60px;
+    padding: 0 16px;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  .header nav {
+    display: none;
+  }
+
+  .header-right {
+    gap: 7px;
+  }
+
+  .header-right button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .hero {
+    min-height: 600px;
+
+    padding: 100px 20px 60px;
+
+    background-position: center;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+    letter-spacing: -2px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .catalog {
+    padding-left: 16px;
+    padding-right: 0;
+  }
+
+  .section-title {
+    padding-right: 16px;
+  }
+
+  .section-title h2 {
+    font-size: 18px;
+  }
+
+  .card {
+    flex-basis: 135px;
+  }
+
+  .card-image {
+    height: 195px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  .grid .card {
+    min-width: 0;
+  }
+
+  .page-header {
+    padding: 95px 16px 25px;
+  }
+
+  .page-header h1 {
+    font-size: 30px;
+  }
+
+  .search {
+    width: calc(100% - 32px);
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .bottom-nav {
+    display: flex;
+  }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .logo {
+    font-size: 21px;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .card {
+    flex-basis: 125px;
+  }
+
+  .card-image {
+    height: 180px;
+  }
+
+   }
