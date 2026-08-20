@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080808">
-  <meta name="description" content="VIPNETFLIX - Plataforma de streaming">
+  <meta name="description" content="VIPNETFLIX - Filmes e séries">
   <title>VIPNETFLIX</title>
 
   <link rel="stylesheet" href="style.css">
@@ -17,8 +17,6 @@
 ===================================================== -->
 
 <div id="authScreen" class="auth-screen">
-
-  <div class="auth-overlay"></div>
 
   <div class="auth-box">
 
@@ -33,7 +31,7 @@
       <h1>Entrar</h1>
 
       <p class="auth-subtitle">
-        Entre na sua conta para continuar assistindo.
+        Entre na sua conta VIPNETFLIX.
       </p>
 
       <input
@@ -80,7 +78,10 @@
 
     <!-- CADASTRO -->
 
-    <div id="registerForm" class="hidden">
+    <div
+      id="registerForm"
+      class="hidden"
+    >
 
       <h1>Criar conta</h1>
 
@@ -124,8 +125,8 @@
       >
 
       <p class="terms-text">
-        Ao criar uma conta, você concorda com os termos
-        e condições do VIPNETFLIX.
+        Ao criar uma conta, você concorda com os
+        termos e condições do VIPNETFLIX.
       </p>
 
       <button
@@ -147,7 +148,10 @@
 
     <!-- RECUPERAÇÃO -->
 
-    <div id="forgotForm" class="hidden">
+    <div
+      id="forgotForm"
+      class="hidden"
+    >
 
       <h1>Recuperar conta</h1>
 
@@ -183,7 +187,7 @@
 
 
 <!-- =====================================================
-     PERFIS
+     SELEÇÃO DE PERFIL
 ===================================================== -->
 
 <div
@@ -221,16 +225,22 @@
 
 
 <!-- =====================================================
-     APLICATIVO
+     APLICATIVO PRINCIPAL
 ===================================================== -->
 
-<div id="mainApp" class="hidden">
+<div
+  id="mainApp"
+  class="hidden"
+>
 
 <header class="header">
 
   <div class="logo">
     VIP<span>NETFLIX</span>
   </div>
+
+
+  <!-- MENU DESKTOP -->
 
   <nav>
 
@@ -246,11 +256,20 @@
       Séries
     </button>
 
+    <button onclick="showPage('categories')">
+      Categorias
+    </button>
+
     <button onclick="showPage('mylist')">
-      Minha Lista
+      Favoritos
+    </button>
+
+    <button onclick="showPage('plans')">
+      Planos
     </button>
 
   </nav>
+
 
   <button
     class="search-btn"
@@ -264,6 +283,7 @@
 
 <main id="app">
 
+
 <!-- =====================================================
      HOME
 ===================================================== -->
@@ -273,12 +293,14 @@
   class="page active"
 >
 
+  <!-- DESTAQUE -->
+
   <div class="hero">
 
     <div class="hero-content">
 
       <span class="badge">
-        DESTAQUE
+        ⭐ DESTAQUE
       </span>
 
       <h1 id="heroTitle">
@@ -289,6 +311,14 @@
         Filmes e séries autorizados em uma
         plataforma moderna de streaming.
       </p>
+
+      <div class="hero-meta">
+        <span id="heroYear">2026</span>
+        <span>•</span>
+        <span id="heroGenre">Aventura</span>
+        <span>•</span>
+        <span>HD</span>
+      </div>
 
       <div class="hero-buttons">
 
@@ -306,6 +336,13 @@
           ＋ Minha Lista
         </button>
 
+        <button
+          class="secondary-btn"
+          onclick="openFeaturedDetails()"
+        >
+          ℹ Mais informações
+        </button>
+
       </div>
 
     </div>
@@ -313,9 +350,29 @@
   </div>
 
 
+  <!-- CONTINUAR -->
+
   <section class="content-section">
 
-    <h2>🔥 Tendências</h2>
+    <h2>
+      ▶ Continuar assistindo
+    </h2>
+
+    <div
+      id="continueWatching"
+      class="movie-row"
+    ></div>
+
+  </section>
+
+
+  <!-- EM ALTA -->
+
+  <section class="content-section">
+
+    <h2>
+      🔥 Em alta
+    </h2>
 
     <div
       id="trending"
@@ -325,9 +382,29 @@
   </section>
 
 
+  <!-- TOP 10 -->
+
   <section class="content-section">
 
-    <h2>🎬 Filmes populares</h2>
+    <h2>
+      🔝 Top 10
+    </h2>
+
+    <div
+      id="top10"
+      class="movie-row top10-row"
+    ></div>
+
+  </section>
+
+
+  <!-- FILMES POPULARES -->
+
+  <section class="content-section">
+
+    <h2>
+      🎬 Filmes populares
+    </h2>
 
     <div
       id="popularMovies"
@@ -337,9 +414,13 @@
   </section>
 
 
+  <!-- SÉRIES POPULARES -->
+
   <section class="content-section">
 
-    <h2>📺 Séries populares</h2>
+    <h2>
+      📺 Séries populares
+    </h2>
 
     <div
       id="popularSeries"
@@ -349,12 +430,64 @@
   </section>
 
 
+  <!-- AÇÃO -->
+
   <section class="content-section">
 
-    <h2>▶ Continuar assistindo</h2>
+    <h2>
+      💥 Ação
+    </h2>
 
     <div
-      id="continueWatching"
+      id="categoryAction"
+      class="movie-row"
+    ></div>
+
+  </section>
+
+
+  <!-- DRAMA -->
+
+  <section class="content-section">
+
+    <h2>
+      🎭 Drama
+    </h2>
+
+    <div
+      id="categoryDrama"
+      class="movie-row"
+    ></div>
+
+  </section>
+
+
+  <!-- COMÉDIA -->
+
+  <section class="content-section">
+
+    <h2>
+      😂 Comédia
+    </h2>
+
+    <div
+      id="categoryComedy"
+      class="movie-row"
+    ></div>
+
+  </section>
+
+
+  <!-- FICÇÃO -->
+
+  <section class="content-section">
+
+    <h2>
+      🚀 Ficção científica
+    </h2>
+
+    <div
+      id="categorySciFi"
       class="movie-row"
     ></div>
 
@@ -374,13 +507,41 @@
 
   <div class="page-title">
 
-    <h1>Filmes</h1>
+    <h1>🎬 Filmes</h1>
 
     <p>
-      Explore o catálogo de filmes.
+      Explore nosso catálogo de filmes.
     </p>
 
   </div>
+
+
+  <div
+    class="filter-bar"
+  >
+
+    <button onclick="filterContent('all')">
+      Todos
+    </button>
+
+    <button onclick="filterContent('action')">
+      Ação
+    </button>
+
+    <button onclick="filterContent('drama')">
+      Drama
+    </button>
+
+    <button onclick="filterContent('comedy')">
+      Comédia
+    </button>
+
+    <button onclick="filterContent('scifi')">
+      Ficção científica
+    </button>
+
+  </div>
+
 
   <div
     id="moviesGrid"
@@ -401,13 +562,41 @@
 
   <div class="page-title">
 
-    <h1>Séries</h1>
+    <h1>📺 Séries</h1>
 
     <p>
-      Encontre suas séries favoritas.
+      Séries com temporadas e episódios.
     </p>
 
   </div>
+
+
+  <div
+    class="filter-bar"
+  >
+
+    <button onclick="filterSeries('all')">
+      Todas
+    </button>
+
+    <button onclick="filterSeries('action')">
+      Ação
+    </button>
+
+    <button onclick="filterSeries('drama')">
+      Drama
+    </button>
+
+    <button onclick="filterSeries('crime')">
+      Crime
+    </button>
+
+    <button onclick="filterSeries('scifi')">
+      Ficção científica
+    </button>
+
+  </div>
+
 
   <div
     id="seriesGrid"
@@ -418,7 +607,107 @@
 
 
 <!-- =====================================================
-     MINHA LISTA
+     CATEGORIAS
+===================================================== -->
+
+<section
+  id="categories"
+  class="page"
+>
+
+  <div class="page-title">
+
+    <h1>📚 Categorias</h1>
+
+    <p>
+      Escolha um gênero para encontrar conteúdo.
+    </p>
+
+  </div>
+
+
+  <div
+    id="categoriesGrid"
+    class="categories-grid"
+  >
+
+    <button
+      class="category-box"
+      onclick="openCategory('Ação')"
+    >
+      💥
+      <span>Ação</span>
+    </button>
+
+    <button
+      class="category-box"
+      onclick="openCategory('Aventura')"
+    >
+      🗺️
+      <span>Aventura</span>
+    </button>
+
+    <button
+      class="category-box"
+      onclick="openCategory('Drama')"
+    >
+      🎭
+      <span>Drama</span>
+    </button>
+
+    <button
+      class="category-box"
+      onclick="openCategory('Comédia')"
+    >
+      😂
+      <span>Comédia</span>
+    </button>
+
+    <button
+      class="category-box"
+      onclick="openCategory('Crime')"
+    >
+      🕵️
+      <span>Crime</span>
+    </button>
+
+    <button
+      class="category-box"
+      onclick="openCategory('Suspense')"
+    >
+      😱
+      <span>Suspense</span>
+    </button>
+
+    <button
+      class="category-box"
+      onclick="openCategory('Romance')"
+    >
+      ❤️
+      <span>Romance</span>
+    </button>
+
+    <button
+      class="category-box"
+      onclick="openCategory('Ficção científica')"
+    >
+      🚀
+      <span>Ficção científica</span>
+    </button>
+
+  </div>
+
+
+  <div
+    id="categoryResults"
+    class="movie-grid category-results"
+  ></div>
+
+</section>
+
+
+<!-- =====================================================
+     FAVORITOS
 ===================================================== -->
 
 <section
@@ -428,13 +717,14 @@
 
   <div class="page-title">
 
-    <h1>Minha Lista</h1>
+    <h1>❤️ Minha Lista</h1>
 
     <p>
-      Seus conteúdos favoritos.
+      Filmes e séries que você adicionou aos favoritos.
     </p>
 
   </div>
+
 
   <div
     id="myListGrid"
@@ -455,17 +745,23 @@
 
   <div class="page-title">
 
-    <h1>Pesquisar</h1>
+    <h1>🔍 Pesquisar</h1>
+
+    <p>
+      Encontre filmes, séries e categorias.
+    </p>
+
 
     <input
       id="searchInput"
       class="search-input"
       type="search"
-      placeholder="Pesquisar filmes e séries..."
+      placeholder="Pesquisar..."
       oninput="searchContent()"
     >
 
   </div>
+
 
   <div
     id="searchResults"
@@ -476,7 +772,241 @@
 
 
 <!-- =====================================================
-     PERFIL
+     DETALHES DE SÉRIE / EPISÓDIOS
+===================================================== -->
+
+<section
+  id="details"
+  class="page"
+>
+
+  <div
+    id="detailsContent"
+    class="details-container"
+  ></div>
+
+</section>
+
+
+<!-- =====================================================
+     PLANOS
+===================================================== -->
+
+<section
+  id="plans"
+  class="page"
+>
+
+  <div class="page-title">
+
+    <h1>💳 Planos VIPNETFLIX</h1>
+
+    <p>
+      Escolha o plano que combina com você.
+    </p>
+
+  </div>
+
+
+  <div
+    id="plansGrid"
+    class="plans-grid"
+  >
+
+    <div class="plan-card">
+
+      <span class="plan-badge">
+        BÁSICO
+      </span>
+
+      <h2>Plano Básico</h2>
+
+      <div class="plan-price">
+        <strong>100 MT</strong>
+        <span>/ mês</span>
+      </div>
+
+      <ul>
+
+        <li>✓ Filmes e séries</li>
+        <li>✓ Qualidade HD</li>
+        <li>✓ 1 perfil</li>
+        <li>✓ Catálogo básico</li>
+
+      </ul>
+
+      <button
+        class="primary-btn"
+        onclick="selectPlan('Básico')"
+      >
+        Escolher plano
+      </button>
+
+    </div>
+
+
+    <div class="plan-card featured-plan">
+
+      <span class="plan-badge">
+        POPULAR
+      </span>
+
+      <h2>Plano Premium</h2>
+
+      <div class="plan-price">
+        <strong>200 MT</strong>
+        <span>/ mês</span>
+      </div>
+
+      <ul>
+
+        <li>✓ Catálogo completo</li>
+        <li>✓ Qualidade Full HD</li>
+        <li>✓ Até 3 perfis</li>
+        <li>✓ Conteúdo premium</li>
+
+      </ul>
+
+      <button
+        class="primary-btn"
+        onclick="selectPlan('Premium')"
+      >
+        Escolher plano
+      </button>
+
+    </div>
+
+
+    <div class="plan-card">
+
+      <span class="plan-badge">
+        VIP
+      </span>
+
+      <h2>Plano VIP</h2>
+
+      <div class="plan-price">
+        <strong>300 MT</strong>
+        <span>/ mês</span>
+      </div>
+
+      <ul>
+
+        <li>✓ Catálogo completo</li>
+        <li>✓ Qualidade Full HD</li>
+        <li>✓ Até 5 perfis</li>
+        <li>✓ Conteúdo premium</li>
+        <li>✓ Prioridade VIP</li>
+
+      </ul>
+
+      <button
+        class="primary-btn"
+        onclick="selectPlan('VIP')"
+      >
+        Escolher plano
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     PAGAMENTO
+===================================================== -->
+
+<section
+  id="payment"
+  class="page"
+>
+
+  <div class="page-title">
+
+    <h1>💳 Pagamento</h1>
+
+    <p>
+      Finalize a escolha do seu plano.
+    </p>
+
+  </div>
+
+
+  <div
+    id="paymentContent"
+    class="payment-container"
+  >
+
+    <div class="payment-summary">
+
+      <h2>Resumo</h2>
+
+      <p>
+        Plano selecionado:
+        <strong id="selectedPlanName">
+          -
+        </strong>
+      </p>
+
+      <p>
+        Valor:
+        <strong id="selectedPlanPrice">
+          -
+        </strong>
+      </p>
+
+    </div>
+
+
+    <div class="payment-methods">
+
+      <h2>Forma de pagamento</h2>
+
+      <button
+        class="payment-method"
+        onclick="choosePayment('M-Pesa')"
+      >
+        📱 M-Pesa
+      </button>
+
+      <button
+        class="payment-method"
+        onclick="choosePayment('e-Mola')"
+      >
+        📱 e-Mola
+      </button>
+
+      <button
+        class="payment-method"
+        onclick="choosePayment('Cartão')"
+      >
+        💳 Cartão
+      </button>
+
+      <button
+        class="payment-method"
+        onclick="choosePayment('Outro')"
+      >
+        💰 Outro método
+      </button>
+
+    </div>
+
+
+    <div
+      id="paymentForm"
+      class="payment-form"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     PERFIL / CONTA
 ===================================================== -->
 
 <section
@@ -486,11 +1016,12 @@
 
   <div class="page-title">
 
-    <h1>Minha conta</h1>
+    <h1>👤 Minha conta</h1>
 
     <p id="currentUserInfo"></p>
 
   </div>
+
 
   <div class="account-box">
 
@@ -499,6 +1030,13 @@
       onclick="changeProfile()"
     >
       Trocar perfil
+    </button>
+
+    <button
+      class="secondary-btn"
+      onclick="showPage('plans')"
+    >
+      💳 Meu plano
     </button>
 
     <button
@@ -533,10 +1071,12 @@
       ✕
     </button>
 
+
     <video
       id="videoPlayer"
       controls
       playsinline
+      preload="metadata"
     >
 
       <source
@@ -549,6 +1089,7 @@
 
     </video>
 
+
     <div class="player-info">
 
       <h2 id="playerTitle"></h2>
@@ -556,6 +1097,31 @@
       <p id="playerDescription"></p>
 
     </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL DE EPISÓDIO
+===================================================== -->
+
+<div
+  id="episodeModal"
+  class="modal"
+>
+
+  <div class="episode-modal-box">
+
+    <button
+      class="close-player"
+      onclick="closeEpisodeModal()"
+    >
+      ✕
+    </button>
+
+    <div id="episodeModalContent"></div>
 
   </div>
 
@@ -578,14 +1144,14 @@
     <span>Pesquisa</span>
   </button>
 
-  <button onclick="showPage('movies')">
-    🎬
-    <span>Filmes</span>
+  <button onclick="showPage('categories')">
+    📚
+    <span>Categorias</span>
   </button>
 
   <button onclick="showPage('mylist')">
     ❤️
-    <span>Minha Lista</span>
+    <span>Favoritos</span>
   </button>
 
   <button onclick="showPage('profile')">
@@ -595,10 +1161,12 @@
 
 </div>
 
-</div>
 
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script src="app.js"></script>
 
 </body>
-        </html>
+  </html>
