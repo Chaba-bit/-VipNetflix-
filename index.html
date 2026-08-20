@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080808">
+  <meta name="description" content="VIPNETFLIX - Plataforma de streaming">
   <title>VIPNETFLIX</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -15,6 +17,8 @@
 ===================================================== -->
 
 <div id="authScreen" class="auth-screen">
+
+  <div class="auth-overlay"></div>
 
   <div class="auth-box">
 
@@ -29,19 +33,21 @@
       <h1>Entrar</h1>
 
       <p class="auth-subtitle">
-        Entre na sua conta VIPNETFLIX
+        Entre na sua conta para continuar assistindo.
       </p>
 
       <input
         id="loginEmail"
         type="email"
         placeholder="Email"
+        autocomplete="email"
       >
 
       <input
         id="loginPassword"
         type="password"
         placeholder="Palavra-passe"
+        autocomplete="current-password"
       >
 
       <button
@@ -53,16 +59,20 @@
 
       <button
         class="auth-link"
-        onclick="showAuthForm('register')"
-      >
-        Criar uma conta
-      </button>
-
-      <button
-        class="auth-link"
         onclick="showAuthForm('forgot')"
       >
         Esqueci a palavra-passe
+      </button>
+
+      <div class="auth-divider">
+        <span>OU</span>
+      </div>
+
+      <button
+        class="secondary-auth-btn"
+        onclick="showAuthForm('register')"
+      >
+        Criar nova conta
       </button>
 
     </div>
@@ -75,38 +85,48 @@
       <h1>Criar conta</h1>
 
       <p class="auth-subtitle">
-        Crie sua conta VIPNETFLIX
+        Crie sua conta VIPNETFLIX.
       </p>
 
       <input
         id="registerName"
         type="text"
-        placeholder="Nome"
+        placeholder="Nome completo"
+        autocomplete="name"
       >
 
       <input
         id="registerEmail"
         type="email"
         placeholder="Email"
+        autocomplete="email"
       >
 
       <input
         id="registerPhone"
         type="tel"
         placeholder="Número de telefone"
+        autocomplete="tel"
       >
 
       <input
         id="registerPassword"
         type="password"
-        placeholder="Palavra-passe"
+        placeholder="Criar palavra-passe"
+        autocomplete="new-password"
       >
 
       <input
         id="registerPasswordConfirm"
         type="password"
         placeholder="Confirmar palavra-passe"
+        autocomplete="new-password"
       >
+
+      <p class="terms-text">
+        Ao criar uma conta, você concorda com os termos
+        e condições do VIPNETFLIX.
+      </p>
 
       <button
         class="primary-btn auth-button"
@@ -163,10 +183,13 @@
 
 
 <!-- =====================================================
-     SELEÇÃO DE PERFIL
+     PERFIS
 ===================================================== -->
 
-<div id="profileScreen" class="profile-screen hidden">
+<div
+  id="profileScreen"
+  class="profile-screen hidden"
+>
 
   <div class="profile-container">
 
@@ -176,7 +199,14 @@
 
     <h1>Quem está assistindo?</h1>
 
-    <div id="profilesList" class="profiles-list"></div>
+    <p class="profile-subtitle">
+      Escolha seu perfil para continuar.
+    </p>
+
+    <div
+      id="profilesList"
+      class="profiles-list"
+    ></div>
 
     <button
       class="secondary-btn"
@@ -234,12 +264,14 @@
 
 <main id="app">
 
-
 <!-- =====================================================
      HOME
 ===================================================== -->
 
-<section id="home" class="page active">
+<section
+  id="home"
+  class="page active"
+>
 
   <div class="hero">
 
@@ -254,8 +286,8 @@
       </h1>
 
       <p id="heroDescription">
-        Filmes e séries autorizados em uma plataforma
-        moderna de streaming.
+        Filmes e séries autorizados em uma
+        plataforma moderna de streaming.
       </p>
 
       <div class="hero-buttons">
@@ -283,9 +315,7 @@
 
   <section class="content-section">
 
-    <h2>
-      🔥 Tendências
-    </h2>
+    <h2>🔥 Tendências</h2>
 
     <div
       id="trending"
@@ -297,9 +327,7 @@
 
   <section class="content-section">
 
-    <h2>
-      🎬 Filmes populares
-    </h2>
+    <h2>🎬 Filmes populares</h2>
 
     <div
       id="popularMovies"
@@ -311,9 +339,7 @@
 
   <section class="content-section">
 
-    <h2>
-      📺 Séries populares
-    </h2>
+    <h2>📺 Séries populares</h2>
 
     <div
       id="popularSeries"
@@ -325,9 +351,7 @@
 
   <section class="content-section">
 
-    <h2>
-      ▶ Continuar assistindo
-    </h2>
+    <h2>▶ Continuar assistindo</h2>
 
     <div
       id="continueWatching"
@@ -343,14 +367,17 @@
      FILMES
 ===================================================== -->
 
-<section id="movies" class="page">
+<section
+  id="movies"
+  class="page"
+>
 
   <div class="page-title">
 
     <h1>Filmes</h1>
 
     <p>
-      Explore nosso catálogo.
+      Explore o catálogo de filmes.
     </p>
 
   </div>
@@ -367,7 +394,10 @@
      SÉRIES
 ===================================================== -->
 
-<section id="series" class="page">
+<section
+  id="series"
+  class="page"
+>
 
   <div class="page-title">
 
@@ -391,7 +421,10 @@
      MINHA LISTA
 ===================================================== -->
 
-<section id="mylist" class="page">
+<section
+  id="mylist"
+  class="page"
+>
 
   <div class="page-title">
 
@@ -415,7 +448,10 @@
      PESQUISA
 ===================================================== -->
 
-<section id="search" class="page">
+<section
+  id="search"
+  class="page"
+>
 
   <div class="page-title">
 
@@ -443,7 +479,10 @@
      PERFIL
 ===================================================== -->
 
-<section id="profile" class="page">
+<section
+  id="profile"
+  class="page"
+>
 
   <div class="page-title">
 
@@ -463,7 +502,7 @@
     </button>
 
     <button
-      class="secondary-btn"
+      class="secondary-btn logout-btn"
       onclick="logoutUser()"
     >
       Sair da conta
@@ -562,4 +601,4 @@
 <script src="app.js"></script>
 
 </body>
-  </html>
+        </html>
