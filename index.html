@@ -2,9 +2,22 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080808">
-  <meta name="description" content="VIPNETFLIX - Filmes e séries">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#080808"
+  >
+
+  <meta
+    name="description"
+    content="VIPNETFLIX - Plataforma de filmes e séries"
+  >
+
   <title>VIPNETFLIX</title>
 
   <link rel="stylesheet" href="style.css">
@@ -12,21 +25,32 @@
 
 <body>
 
-<!-- =====================================================
-     AUTENTICAÇÃO
-===================================================== -->
+<!-- =========================================================
+     VIPNETFLIX
+     NOVA ESTRUTURA PRINCIPAL
+     
+     IMPORTANTE:
+     Este arquivo é a nova interface.
+     O app.js antigo será substituído depois por uma
+     versão compatível com esta estrutura.
+========================================================= -->
 
-<div id="authScreen" class="auth-screen">
 
-  <div class="auth-box">
+<!-- =========================================================
+     1. AUTENTICAÇÃO
+========================================================= -->
 
-    <div class="logo auth-logo">
+<div id="authScreen" class="screen auth-screen">
+
+  <div class="auth-container">
+
+    <div class="brand-logo">
       VIP<span>NETFLIX</span>
     </div>
 
     <!-- LOGIN -->
 
-    <div id="loginForm">
+    <div id="loginForm" class="auth-form">
 
       <h1>Entrar</h1>
 
@@ -34,29 +58,39 @@
         Entre na sua conta VIPNETFLIX.
       </p>
 
+      <label for="loginEmail">
+        Email
+      </label>
+
       <input
         id="loginEmail"
         type="email"
-        placeholder="Email"
+        placeholder="Digite seu email"
         autocomplete="email"
       >
+
+      <label for="loginPassword">
+        Palavra-passe
+      </label>
 
       <input
         id="loginPassword"
         type="password"
-        placeholder="Palavra-passe"
+        placeholder="Digite sua palavra-passe"
         autocomplete="current-password"
       >
 
       <button
-        class="primary-btn auth-button"
+        class="primary-btn full-btn"
+        type="button"
         onclick="loginUser()"
       >
         Entrar
       </button>
 
       <button
-        class="auth-link"
+        class="text-btn"
+        type="button"
         onclick="showAuthForm('forgot')"
       >
         Esqueci a palavra-passe
@@ -67,7 +101,8 @@
       </div>
 
       <button
-        class="secondary-auth-btn"
+        class="secondary-btn full-btn"
+        type="button"
         onclick="showAuthForm('register')"
       >
         Criar nova conta
@@ -80,7 +115,7 @@
 
     <div
       id="registerForm"
-      class="hidden"
+      class="auth-form hidden"
     >
 
       <h1>Criar conta</h1>
@@ -89,26 +124,42 @@
         Crie sua conta VIPNETFLIX.
       </p>
 
+      <label for="registerName">
+        Nome completo
+      </label>
+
       <input
         id="registerName"
         type="text"
-        placeholder="Nome completo"
+        placeholder="Seu nome completo"
         autocomplete="name"
       >
+
+      <label for="registerEmail">
+        Email
+      </label>
 
       <input
         id="registerEmail"
         type="email"
-        placeholder="Email"
+        placeholder="Seu email"
         autocomplete="email"
       >
+
+      <label for="registerPhone">
+        Número de telefone
+      </label>
 
       <input
         id="registerPhone"
         type="tel"
-        placeholder="Número de telefone"
+        placeholder="Seu número de telefone"
         autocomplete="tel"
       >
+
+      <label for="registerPassword">
+        Palavra-passe
+      </label>
 
       <input
         id="registerPassword"
@@ -116,6 +167,10 @@
         placeholder="Criar palavra-passe"
         autocomplete="new-password"
       >
+
+      <label for="registerPasswordConfirm">
+        Confirmar palavra-passe
+      </label>
 
       <input
         id="registerPasswordConfirm"
@@ -130,14 +185,16 @@
       </p>
 
       <button
-        class="primary-btn auth-button"
+        class="primary-btn full-btn"
+        type="button"
         onclick="registerUser()"
       >
         Criar conta
       </button>
 
       <button
-        class="auth-link"
+        class="text-btn"
+        type="button"
         onclick="showAuthForm('login')"
       >
         Já tenho uma conta
@@ -150,7 +207,7 @@
 
     <div
       id="forgotForm"
-      class="hidden"
+      class="auth-form hidden"
     >
 
       <h1>Recuperar conta</h1>
@@ -159,21 +216,28 @@
         Digite seu email para recuperar o acesso.
       </p>
 
+      <label for="forgotEmail">
+        Email
+      </label>
+
       <input
         id="forgotEmail"
         type="email"
         placeholder="Seu email"
+        autocomplete="email"
       >
 
       <button
-        class="primary-btn auth-button"
+        class="primary-btn full-btn"
+        type="button"
         onclick="recoverPassword()"
       >
-        Recuperar
+        Recuperar acesso
       </button>
 
       <button
-        class="auth-link"
+        class="text-btn"
+        type="button"
         onclick="showAuthForm('login')"
       >
         Voltar para o login
@@ -186,18 +250,18 @@
 </div>
 
 
-<!-- =====================================================
-     SELEÇÃO DE PERFIL
-===================================================== -->
+<!-- =========================================================
+     2. SELEÇÃO DE PERFIL
+========================================================= -->
 
 <div
   id="profileScreen"
-  class="profile-screen hidden"
+  class="screen profile-screen hidden"
 >
 
   <div class="profile-container">
 
-    <div class="logo">
+    <div class="brand-logo">
       VIP<span>NETFLIX</span>
     </div>
 
@@ -214,6 +278,7 @@
 
     <button
       class="secondary-btn"
+      type="button"
       onclick="createProfile()"
     >
       ＋ Adicionar perfil
@@ -224,83 +289,260 @@
 </div>
 
 
-<!-- =====================================================
-     APLICATIVO PRINCIPAL
-===================================================== -->
+<!-- =========================================================
+     3. APLICAÇÃO PRINCIPAL
+========================================================= -->
 
 <div
   id="mainApp"
-  class="hidden"
+  class="app hidden"
 >
 
-<header class="header">
 
-  <div class="logo">
-    VIP<span>NETFLIX</span>
+<!-- =========================================================
+     CABEÇALHO
+========================================================= -->
+
+<header class="main-header">
+
+  <div class="header-left">
+
+    <button
+      class="mobile-menu-btn"
+      type="button"
+      onclick="toggleMobileMenu()"
+      aria-label="Abrir menu"
+    >
+      ☰
+    </button>
+
+    <button
+      class="brand-button"
+      type="button"
+      onclick="showPage('home')"
+    >
+      VIP<span>NETFLIX</span>
+    </button>
+
   </div>
 
 
-  <!-- MENU DESKTOP -->
+  <!-- MENU PRINCIPAL -->
 
-  <nav>
+  <nav
+    id="desktopNav"
+    class="desktop-nav"
+  >
 
-    <button onclick="showPage('home')">
+    <button
+      type="button"
+      class="nav-link active"
+      data-page="home"
+      onclick="showPage('home')"
+    >
       Início
     </button>
 
-    <button onclick="showPage('movies')">
-      Filmes
-    </button>
-
-    <button onclick="showPage('series')">
+    <button
+      type="button"
+      class="nav-link"
+      data-page="series"
+      onclick="showPage('series')"
+    >
       Séries
     </button>
 
-    <button onclick="showPage('categories')">
-      Categorias
+    <button
+      type="button"
+      class="nav-link"
+      data-page="movies"
+      onclick="showPage('movies')"
+    >
+      Filmes
     </button>
 
-    <button onclick="showPage('mylist')">
-      Favoritos
+    <button
+      type="button"
+      class="nav-link"
+      data-page="new"
+      onclick="showPage('new')"
+    >
+      Novidades
     </button>
 
-    <button onclick="showPage('plans')">
-      Planos
+    <button
+      type="button"
+      class="nav-link"
+      data-page="mylist"
+      onclick="showPage('mylist')"
+    >
+      Minha Lista
+    </button>
+
+    <button
+      type="button"
+      class="nav-link"
+      data-page="explore"
+      onclick="showPage('explore')"
+    >
+      Explorar
     </button>
 
   </nav>
 
 
-  <button
-    class="search-btn"
-    onclick="showPage('search')"
-  >
-    🔍
-  </button>
+  <!-- ÁREA DIREITA -->
+
+  <div class="header-right">
+
+    <button
+      class="icon-btn"
+      type="button"
+      onclick="showPage('search')"
+      aria-label="Pesquisar"
+    >
+      🔍
+    </button>
+
+    <button
+      class="profile-mini-btn"
+      type="button"
+      onclick="showPage('profile')"
+      aria-label="Perfil"
+    >
+      👤
+    </button>
+
+  </div>
 
 </header>
 
 
-<main id="app">
+<!-- =========================================================
+     MENU MOBILE LATERAL
+========================================================= -->
+
+<div
+  id="mobileMenu"
+  class="mobile-menu hidden"
+>
+
+  <div class="mobile-menu-header">
+
+    <div class="brand-logo">
+      VIP<span>NETFLIX</span>
+    </div>
+
+    <button
+      class="icon-btn"
+      type="button"
+      onclick="toggleMobileMenu()"
+    >
+      ✕
+    </button>
+
+  </div>
 
 
-<!-- =====================================================
-     HOME
-===================================================== -->
+  <nav class="mobile-menu-links">
+
+    <button
+      type="button"
+      onclick="showPage('home'); toggleMobileMenu()"
+    >
+      🏠 Início
+    </button>
+
+    <button
+      type="button"
+      onclick="showPage('series'); toggleMobileMenu()"
+    >
+      📺 Séries
+    </button>
+
+    <button
+      type="button"
+      onclick="showPage('movies'); toggleMobileMenu()"
+    >
+      🎬 Filmes
+    </button>
+
+    <button
+      type="button"
+      onclick="showPage('new'); toggleMobileMenu()"
+    >
+      ✨ Novidades
+    </button>
+
+    <button
+      type="button"
+      onclick="showPage('explore'); toggleMobileMenu()"
+    >
+      🔎 Explorar
+    </button>
+
+    <button
+      type="button"
+      onclick="showPage('mylist'); toggleMobileMenu()"
+    >
+      ❤️ Minha Lista
+    </button>
+
+    <button
+      type="button"
+      onclick="showPage('downloads'); toggleMobileMenu()"
+    >
+      ⬇️ Downloads
+    </button>
+
+    <button
+      type="button"
+      onclick="showPage('plans'); toggleMobileMenu()"
+    >
+      💳 Planos
+    </button>
+
+    <button
+      type="button"
+      onclick="showPage('profile'); toggleMobileMenu()"
+    >
+      👤 Minha conta
+    </button>
+
+  </nav>
+
+</div>
+
+
+<!-- =========================================================
+     CONTEÚDO
+========================================================= -->
+
+<main id="appContent">
+
+
+<!-- =========================================================
+     PÁGINA: INÍCIO
+========================================================= -->
 
 <section
   id="home"
   class="page active"
 >
 
-  <!-- DESTAQUE -->
+  <!-- HERO -->
 
-  <div class="hero">
+  <div
+    id="hero"
+    class="hero-section"
+  >
+
+    <div class="hero-overlay"></div>
 
     <div class="hero-content">
 
-      <span class="badge">
-        ⭐ DESTAQUE
+      <span class="hero-badge">
+        ⭐ DESTAQUE VIP
       </span>
 
       <h1 id="heroTitle">
@@ -313,17 +555,28 @@
       </p>
 
       <div class="hero-meta">
-        <span id="heroYear">2026</span>
+
+        <span id="heroYear">
+          2026
+        </span>
+
         <span>•</span>
-        <span id="heroGenre">Aventura</span>
+
+        <span id="heroGenre">
+          Aventura
+        </span>
+
         <span>•</span>
+
         <span>HD</span>
+
       </div>
 
-      <div class="hero-buttons">
+      <div class="hero-actions">
 
         <button
           class="primary-btn"
+          type="button"
           onclick="playFeatured()"
         >
           ▶ Assistir
@@ -331,6 +584,7 @@
 
         <button
           class="secondary-btn"
+          type="button"
           onclick="addFeatured()"
         >
           ＋ Minha Lista
@@ -338,9 +592,10 @@
 
         <button
           class="secondary-btn"
+          type="button"
           onclick="openFeaturedDetails()"
         >
-          ℹ Mais informações
+          ℹ Informações
         </button>
 
       </div>
@@ -352,31 +607,26 @@
 
   <!-- CONTINUAR -->
 
-  <section class="content-section">
+  <section class="catalog-section">
 
-    <h2>
-      ▶ Continuar assistindo
-    </h2>
+    <div class="section-heading">
+
+      <h2>
+        ▶ Continuar assistindo
+      </h2>
+
+      <button
+        type="button"
+        onclick="showPage('history')"
+      >
+        Ver tudo
+      </button>
+
+    </div>
 
     <div
       id="continueWatching"
-      class="movie-row"
-    ></div>
-
-  </section>
-
-
-  <!-- EM ALTA -->
-
-  <section class="content-section">
-
-    <h2>
-      🔥 Em alta
-    </h2>
-
-    <div
-      id="trending"
-      class="movie-row"
+      class="content-row"
     ></div>
 
   </section>
@@ -384,47 +634,113 @@
 
   <!-- TOP 10 -->
 
-  <section class="content-section">
+  <section class="catalog-section">
 
-    <h2>
-      🔝 Top 10
-    </h2>
+    <div class="section-heading">
+
+      <h2>
+        🔥 Top 10
+      </h2>
+
+    </div>
 
     <div
       id="top10"
-      class="movie-row top10-row"
+      class="content-row top10-row"
     ></div>
 
   </section>
 
 
-  <!-- FILMES POPULARES -->
+  <!-- EM ALTA -->
 
-  <section class="content-section">
+  <section class="catalog-section">
 
-    <h2>
-      🎬 Filmes populares
-    </h2>
+    <div class="section-heading">
+
+      <h2>
+        📈 Em alta
+      </h2>
+
+    </div>
+
+    <div
+      id="trending"
+      class="content-row"
+    ></div>
+
+  </section>
+
+
+  <!-- LANÇAMENTOS -->
+
+  <section class="catalog-section">
+
+    <div class="section-heading">
+
+      <h2>
+        ✨ Lançamentos
+      </h2>
+
+    </div>
+
+    <div
+      id="newReleases"
+      class="content-row"
+    ></div>
+
+  </section>
+
+
+  <!-- FILMES -->
+
+  <section class="catalog-section">
+
+    <div class="section-heading">
+
+      <h2>
+        🎬 Filmes populares
+      </h2>
+
+      <button
+        type="button"
+        onclick="showPage('movies')"
+      >
+        Ver todos
+      </button>
+
+    </div>
 
     <div
       id="popularMovies"
-      class="movie-row"
+      class="content-row"
     ></div>
 
   </section>
 
 
-  <!-- SÉRIES POPULARES -->
+  <!-- SÉRIES -->
 
-  <section class="content-section">
+  <section class="catalog-section">
 
-    <h2>
-      📺 Séries populares
-    </h2>
+    <div class="section-heading">
+
+      <h2>
+        📺 Séries populares
+      </h2>
+
+      <button
+        type="button"
+        onclick="showPage('series')"
+      >
+        Ver todas
+      </button>
+
+    </div>
 
     <div
       id="popularSeries"
-      class="movie-row"
+      class="content-row"
     ></div>
 
   </section>
@@ -432,15 +748,19 @@
 
   <!-- AÇÃO -->
 
-  <section class="content-section">
+  <section class="catalog-section">
 
-    <h2>
-      💥 Ação
-    </h2>
+    <div class="section-heading">
+
+      <h2>
+        💥 Ação
+      </h2>
+
+    </div>
 
     <div
       id="categoryAction"
-      class="movie-row"
+      class="content-row"
     ></div>
 
   </section>
@@ -448,15 +768,19 @@
 
   <!-- DRAMA -->
 
-  <section class="content-section">
+  <section class="catalog-section">
 
-    <h2>
-      🎭 Drama
-    </h2>
+    <div class="section-heading">
+
+      <h2>
+        🎭 Drama
+      </h2>
+
+    </div>
 
     <div
       id="categoryDrama"
-      class="movie-row"
+      class="content-row"
     ></div>
 
   </section>
@@ -464,15 +788,19 @@
 
   <!-- COMÉDIA -->
 
-  <section class="content-section">
+  <section class="catalog-section">
 
-    <h2>
-      😂 Comédia
-    </h2>
+    <div class="section-heading">
+
+      <h2>
+        😂 Comédia
+      </h2>
+
+    </div>
 
     <div
       id="categoryComedy"
-      class="movie-row"
+      class="content-row"
     ></div>
 
   </section>
@@ -480,15 +808,19 @@
 
   <!-- FICÇÃO -->
 
-  <section class="content-section">
+  <section class="catalog-section">
 
-    <h2>
-      🚀 Ficção científica
-    </h2>
+    <div class="section-heading">
+
+      <h2>
+        🚀 Ficção científica
+      </h2>
+
+    </div>
 
     <div
       id="categorySciFi"
-      class="movie-row"
+      class="content-row"
     ></div>
 
   </section>
@@ -496,102 +828,60 @@
 </section>
 
 
-<!-- =====================================================
-     FILMES
-===================================================== -->
-
-<section
-  id="movies"
-  class="page"
->
-
-  <div class="page-title">
-
-    <h1>🎬 Filmes</h1>
-
-    <p>
-      Explore nosso catálogo de filmes.
-    </p>
-
-  </div>
-
-
-  <div
-    class="filter-bar"
-  >
-
-    <button onclick="filterContent('all')">
-      Todos
-    </button>
-
-    <button onclick="filterContent('action')">
-      Ação
-    </button>
-
-    <button onclick="filterContent('drama')">
-      Drama
-    </button>
-
-    <button onclick="filterContent('comedy')">
-      Comédia
-    </button>
-
-    <button onclick="filterContent('scifi')">
-      Ficção científica
-    </button>
-
-  </div>
-
-
-  <div
-    id="moviesGrid"
-    class="movie-grid"
-  ></div>
-
-</section>
-
-
-<!-- =====================================================
-     SÉRIES
-===================================================== -->
+<!-- =========================================================
+     PÁGINA: SÉRIES
+========================================================= -->
 
 <section
   id="series"
   class="page"
 >
 
-  <div class="page-title">
+  <div class="page-header">
 
     <h1>📺 Séries</h1>
 
     <p>
-      Séries com temporadas e episódios.
+      Descubra séries e acompanhe suas temporadas e episódios.
     </p>
 
   </div>
 
 
-  <div
-    class="filter-bar"
-  >
+  <div class="filter-bar">
 
-    <button onclick="filterSeries('all')">
+    <button
+      type="button"
+      onclick="filterSeries('all')"
+    >
       Todas
     </button>
 
-    <button onclick="filterSeries('action')">
+    <button
+      type="button"
+      onclick="filterSeries('action')"
+    >
       Ação
     </button>
 
-    <button onclick="filterSeries('drama')">
+    <button
+      type="button"
+      onclick="filterSeries('drama')"
+    >
       Drama
     </button>
 
-    <button onclick="filterSeries('crime')">
+    <button
+      type="button"
+      onclick="filterSeries('crime')"
+    >
       Crime
     </button>
 
-    <button onclick="filterSeries('scifi')">
+    <button
+      type="button"
+      onclick="filterSeries('scifi')"
+    >
       Ficção científica
     </button>
 
@@ -600,127 +890,266 @@
 
   <div
     id="seriesGrid"
-    class="movie-grid"
+    class="content-grid"
   ></div>
 
 </section>
 
 
-<!-- =====================================================
-     CATEGORIAS
-===================================================== -->
+<!-- =========================================================
+     PÁGINA: FILMES
+========================================================= -->
 
 <section
-  id="categories"
+  id="movies"
   class="page"
 >
 
-  <div class="page-title">
+  <div class="page-header">
 
-    <h1>📚 Categorias</h1>
+    <h1>🎬 Filmes</h1>
 
     <p>
-      Escolha um gênero para encontrar conteúdo.
+      Encontre filmes para assistir.
+    </p>
+
+  </div>
+
+
+  <div class="filter-bar">
+
+    <button
+      type="button"
+      onclick="filterContent('all')"
+    >
+      Todos
+    </button>
+
+    <button
+      type="button"
+      onclick="filterContent('action')"
+    >
+      Ação
+    </button>
+
+    <button
+      type="button"
+      onclick="filterContent('adventure')"
+    >
+      Aventura
+    </button>
+
+    <button
+      type="button"
+      onclick="filterContent('drama')"
+    >
+      Drama
+    </button>
+
+    <button
+      type="button"
+      onclick="filterContent('comedy')"
+    >
+      Comédia
+    </button>
+
+    <button
+      type="button"
+      onclick="filterContent('scifi')"
+    >
+      Ficção científica
+    </button>
+
+  </div>
+
+
+  <div
+    id="moviesGrid"
+    class="content-grid"
+  ></div>
+
+</section>
+
+
+<!-- =========================================================
+     PÁGINA: NOVIDADES
+========================================================= -->
+
+<section
+  id="new"
+  class="page"
+>
+
+  <div class="page-header">
+
+    <h1>✨ Novidades</h1>
+
+    <p>
+      Veja os conteúdos mais recentes do catálogo.
     </p>
 
   </div>
 
 
   <div
-    id="categoriesGrid"
-    class="categories-grid"
-  >
-
-    <button
-      class="category-box"
-      onclick="openCategory('Ação')"
-    >
-      💥
-      <span>Ação</span>
-    </button>
-
-    <button
-      class="category-box"
-      onclick="openCategory('Aventura')"
-    >
-      🗺️
-      <span>Aventura</span>
-    </button>
-
-    <button
-      class="category-box"
-      onclick="openCategory('Drama')"
-    >
-      🎭
-      <span>Drama</span>
-    </button>
-
-    <button
-      class="category-box"
-      onclick="openCategory('Comédia')"
-    >
-      😂
-      <span>Comédia</span>
-    </button>
-
-    <button
-      class="category-box"
-      onclick="openCategory('Crime')"
-    >
-      🕵️
-      <span>Crime</span>
-    </button>
-
-    <button
-      class="category-box"
-      onclick="openCategory('Suspense')"
-    >
-      😱
-      <span>Suspense</span>
-    </button>
-
-    <button
-      class="category-box"
-      onclick="openCategory('Romance')"
-    >
-      ❤️
-      <span>Romance</span>
-    </button>
-
-    <button
-      class="category-box"
-      onclick="openCategory('Ficção científica')"
-    >
-      🚀
-      <span>Ficção científica</span>
-    </button>
-
-  </div>
-
-
-  <div
-    id="categoryResults"
-    class="movie-grid category-results"
+    id="newGrid"
+    class="content-grid"
   ></div>
 
 </section>
 
 
-<!-- =====================================================
-     FAVORITOS
-===================================================== -->
+<!-- =========================================================
+     PÁGINA: EXPLORAR
+========================================================= -->
+
+<section
+  id="explore"
+  class="page"
+>
+
+  <div class="page-header">
+
+    <h1>🔎 Explorar</h1>
+
+    <p>
+      Explore filmes, séries e categorias.
+    </p>
+
+  </div>
+
+
+  <!-- PESQUISA -->
+
+  <div class="explore-search">
+
+    <input
+      id="searchInput"
+      class="search-input"
+      type="search"
+      placeholder="Pesquisar filmes, séries..."
+      oninput="searchContent()"
+    >
+
+  </div>
+
+
+  <!-- CATEGORIAS -->
+
+  <h2 class="subsection-title">
+    Categorias
+  </h2>
+
+  <div class="categories-grid">
+
+    <button
+      class="category-card"
+      type="button"
+      onclick="openCategory('Ação')"
+    >
+      <span>💥</span>
+      <strong>Ação</strong>
+    </button>
+
+    <button
+      class="category-card"
+      type="button"
+      onclick="openCategory('Aventura')"
+    >
+      <span>🗺️</span>
+      <strong>Aventura</strong>
+    </button>
+
+    <button
+      class="category-card"
+      type="button"
+      onclick="openCategory('Drama')"
+    >
+      <span>🎭</span>
+      <strong>Drama</strong>
+    </button>
+
+    <button
+      class="category-card"
+      type="button"
+      onclick="openCategory('Comédia')"
+    >
+      <span>😂</span>
+      <strong>Comédia</strong>
+    </button>
+
+    <button
+      class="category-card"
+      type="button"
+      onclick="openCategory('Crime')"
+    >
+      <span>🕵️</span>
+      <strong>Crime</strong>
+    </button>
+
+    <button
+      class="category-card"
+      type="button"
+      onclick="openCategory('Suspense')"
+    >
+      <span>😱</span>
+      <strong>Suspense</strong>
+    </button>
+
+    <button
+      class="category-card"
+      type="button"
+      onclick="openCategory('Romance')"
+    >
+      <span>❤️</span>
+      <strong>Romance</strong>
+    </button>
+
+    <button
+      class="category-card"
+      type="button"
+      onclick="openCategory('Ficção científica')"
+    >
+      <span>🚀</span>
+      <strong>Ficção científica</strong>
+    </button>
+
+  </div>
+
+
+  <h2 class="subsection-title">
+    Resultados
+  </h2>
+
+  <div
+    id="searchResults"
+    class="content-grid"
+  ></div>
+
+
+  <div
+    id="categoryResults"
+    class="content-grid"
+  ></div>
+
+</section>
+
+
+<!-- =========================================================
+     PÁGINA: MINHA LISTA
+========================================================= -->
 
 <section
   id="mylist"
   class="page"
 >
 
-  <div class="page-title">
+  <div class="page-header">
 
     <h1>❤️ Minha Lista</h1>
 
     <p>
-      Filmes e séries que você adicionou aos favoritos.
+      Seus filmes e séries favoritos.
     </p>
 
   </div>
@@ -728,52 +1157,89 @@
 
   <div
     id="myListGrid"
-    class="movie-grid"
+    class="content-grid"
   ></div>
 
 </section>
 
 
-<!-- =====================================================
-     PESQUISA
-===================================================== -->
+<!-- =========================================================
+     PÁGINA: DOWNLOADS
+========================================================= -->
 
 <section
-  id="search"
+  id="downloads"
   class="page"
 >
 
-  <div class="page-title">
+  <div class="page-header">
 
-    <h1>🔍 Pesquisar</h1>
+    <h1>⬇️ Downloads</h1>
 
     <p>
-      Encontre filmes, séries e categorias.
+      Conteúdos autorizados disponíveis para assistir offline.
     </p>
-
-
-    <input
-      id="searchInput"
-      class="search-input"
-      type="search"
-      placeholder="Pesquisar..."
-      oninput="searchContent()"
-    >
 
   </div>
 
 
   <div
-    id="searchResults"
-    class="movie-grid"
+    id="downloadsGrid"
+    class="content-grid"
+  ></div>
+
+
+  <div
+    id="emptyDownloads"
+    class="empty-state"
+  >
+
+    <div class="empty-icon">
+      ⬇️
+    </div>
+
+    <h2>Nenhum download</h2>
+
+    <p>
+      Os conteúdos baixados aparecerão aqui.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     PÁGINA: HISTÓRICO
+========================================================= -->
+
+<section
+  id="history"
+  class="page"
+>
+
+  <div class="page-header">
+
+    <h1>🕘 Histórico</h1>
+
+    <p>
+      Continue de onde você parou.
+    </p>
+
+  </div>
+
+
+  <div
+    id="historyGrid"
+    class="content-grid"
   ></div>
 
 </section>
 
 
-<!-- =====================================================
-     DETALHES DE SÉRIE / EPISÓDIOS
-===================================================== -->
+<!-- =========================================================
+     PÁGINA: DETALHES
+========================================================= -->
 
 <section
   id="details"
@@ -782,40 +1248,44 @@
 
   <div
     id="detailsContent"
-    class="details-container"
+    class="details-page"
   ></div>
 
 </section>
 
 
-<!-- =====================================================
-     PLANOS
-===================================================== -->
+<!-- =========================================================
+     PÁGINA: PLANOS
+========================================================= -->
 
 <section
   id="plans"
   class="page"
 >
 
-  <div class="page-title">
+  <div class="page-header center-header">
 
-    <h1>💳 Planos VIPNETFLIX</h1>
+    <span class="vip-badge">
+      VIP
+    </span>
+
+    <h1>Escolha seu plano</h1>
 
     <p>
-      Escolha o plano que combina com você.
+      Escolha o plano ideal para sua experiência VIPNETFLIX.
     </p>
 
   </div>
 
 
-  <div
-    id="plansGrid"
-    class="plans-grid"
-  >
+  <div class="plans-grid">
 
-    <div class="plan-card">
 
-      <span class="plan-badge">
+    <!-- BÁSICO -->
+
+    <article class="plan-card">
+
+      <span class="plan-label">
         BÁSICO
       </span>
 
@@ -836,19 +1306,22 @@
       </ul>
 
       <button
-        class="primary-btn"
+        class="primary-btn full-btn"
+        type="button"
         onclick="selectPlan('Básico')"
       >
         Escolher plano
       </button>
 
-    </div>
+    </article>
 
 
-    <div class="plan-card featured-plan">
+    <!-- PREMIUM -->
 
-      <span class="plan-badge">
-        POPULAR
+    <article class="plan-card featured-plan">
+
+      <span class="plan-label">
+        MAIS POPULAR
       </span>
 
       <h2>Plano Premium</h2>
@@ -868,18 +1341,21 @@
       </ul>
 
       <button
-        class="primary-btn"
+        class="primary-btn full-btn"
+        type="button"
         onclick="selectPlan('Premium')"
       >
         Escolher plano
       </button>
 
-    </div>
+    </article>
 
 
-    <div class="plan-card">
+    <!-- VIP -->
 
-      <span class="plan-badge">
+    <article class="plan-card vip-plan">
+
+      <span class="plan-label">
         VIP
       </span>
 
@@ -901,196 +1377,289 @@
       </ul>
 
       <button
-        class="primary-btn"
+        class="primary-btn full-btn"
+        type="button"
         onclick="selectPlan('VIP')"
       >
         Escolher plano
       </button>
 
-    </div>
+    </article>
 
   </div>
 
 </section>
 
 
-<!-- =====================================================
-     PAGAMENTO
-===================================================== -->
+<!-- =========================================================
+     PÁGINA: PAGAMENTO
+========================================================= -->
 
 <section
   id="payment"
   class="page"
 >
 
-  <div class="page-title">
+  <div class="page-header">
 
-    <h1>💳 Pagamento</h1>
+    <h1>💳 Checkout</h1>
 
     <p>
-      Finalize a escolha do seu plano.
+      Finalize sua assinatura VIPNETFLIX.
     </p>
 
   </div>
 
 
-  <div
-    id="paymentContent"
-    class="payment-container"
-  >
+  <div class="checkout-layout">
 
-    <div class="payment-summary">
 
-      <h2>Resumo</h2>
+    <!-- RESUMO -->
 
-      <p>
-        Plano selecionado:
-        <strong id="selectedPlanName">
-          -
-        </strong>
-      </p>
+    <div class="checkout-card">
 
-      <p>
-        Valor:
-        <strong id="selectedPlanPrice">
-          -
-        </strong>
-      </p>
+      <h2>Resumo do pedido</h2>
+
+      <div class="checkout-summary">
+
+        <div>
+          <span>Plano</span>
+
+          <strong id="selectedPlanName">
+            -
+          </strong>
+        </div>
+
+        <div>
+          <span>Valor</span>
+
+          <strong id="selectedPlanPrice">
+            -
+          </strong>
+        </div>
+
+      </div>
 
     </div>
 
 
-    <div class="payment-methods">
+    <!-- PAGAMENTO -->
+
+    <div class="checkout-card">
 
       <h2>Forma de pagamento</h2>
 
-      <button
-        class="payment-method"
-        onclick="choosePayment('M-Pesa')"
-      >
-        📱 M-Pesa
-      </button>
+      <div class="payment-methods">
 
-      <button
-        class="payment-method"
-        onclick="choosePayment('e-Mola')"
-      >
-        📱 e-Mola
-      </button>
+        <button
+          class="payment-method"
+          type="button"
+          onclick="choosePayment('M-Pesa')"
+        >
+          <span>📱</span>
+          <strong>M-Pesa</strong>
+        </button>
 
-      <button
-        class="payment-method"
-        onclick="choosePayment('Cartão')"
-      >
-        💳 Cartão
-      </button>
+        <button
+          class="payment-method"
+          type="button"
+          onclick="choosePayment('e-Mola')"
+        >
+          <span>📱</span>
+          <strong>e-Mola</strong>
+        </button>
 
-      <button
-        class="payment-method"
-        onclick="choosePayment('Outro')"
-      >
-        💰 Outro método
-      </button>
+        <button
+          class="payment-method"
+          type="button"
+          onclick="choosePayment('Cartão')"
+        >
+          <span>💳</span>
+          <strong>Cartão</strong>
+        </button>
+
+      </div>
+
+
+      <div
+        id="paymentForm"
+        class="payment-form"
+      ></div>
 
     </div>
-
-
-    <div
-      id="paymentForm"
-      class="payment-form"
-    ></div>
 
   </div>
 
 </section>
 
 
-<!-- =====================================================
-     PERFIL / CONTA
-===================================================== -->
+<!-- =========================================================
+     PÁGINA: PERFIL / CONTA
+========================================================= -->
 
 <section
   id="profile"
   class="page"
 >
 
-  <div class="page-title">
+  <div class="page-header">
 
     <h1>👤 Minha conta</h1>
 
-    <p id="currentUserInfo"></p>
+    <p>
+      Gerencie sua conta VIPNETFLIX.
+    </p>
 
   </div>
 
 
-  <div class="account-box">
+  <div class="account-layout">
 
-    <button
-      class="secondary-btn"
-      onclick="changeProfile()"
-    >
-      Trocar perfil
-    </button>
 
-    <button
-      class="secondary-btn"
-      onclick="showPage('plans')"
-    >
-      💳 Meu plano
-    </button>
+    <!-- INFORMAÇÕES -->
 
-    <button
-      class="secondary-btn logout-btn"
-      onclick="logoutUser()"
-    >
-      Sair da conta
-    </button>
+    <div class="account-card">
+
+      <div class="account-avatar">
+        👤
+      </div>
+
+      <div class="account-info">
+
+        <h2 id="accountName">
+          Minha conta
+        </h2>
+
+        <p id="currentUserInfo"></p>
+
+      </div>
+
+    </div>
+
+
+    <!-- OPÇÕES -->
+
+    <div class="account-menu">
+
+      <button
+        type="button"
+        onclick="changeProfile()"
+      >
+        <span>👥</span>
+        <div>
+          <strong>Trocar perfil</strong>
+          <small>Escolher outro perfil</small>
+        </div>
+        <span>›</span>
+      </button>
+
+
+      <button
+        type="button"
+        onclick="showPage('plans')"
+      >
+        <span>💳</span>
+        <div>
+          <strong>Meu plano</strong>
+          <small>Gerenciar assinatura</small>
+        </div>
+        <span>›</span>
+      </button>
+
+
+      <button
+        type="button"
+        onclick="showPage('downloads')"
+      >
+        <span>⬇️</span>
+        <div>
+          <strong>Downloads</strong>
+          <small>Conteúdo offline</small>
+        </div>
+        <span>›</span>
+      </button>
+
+
+      <button
+        type="button"
+        onclick="showPage('mylist')"
+      >
+        <span>❤️</span>
+        <div>
+          <strong>Minha Lista</strong>
+          <small>Seus favoritos</small>
+        </div>
+        <span>›</span>
+      </button>
+
+
+      <button
+        type="button"
+        onclick="logoutUser()"
+        class="logout-option"
+      >
+        <span>🚪</span>
+        <div>
+          <strong>Sair da conta</strong>
+          <small>Encerrar sessão</small>
+        </div>
+        <span>›</span>
+      </button>
+
+    </div>
 
   </div>
 
 </section>
 
+
 </main>
 
 
-<!-- =====================================================
+<!-- =========================================================
      PLAYER
-===================================================== -->
+========================================================= -->
 
 <div
   id="playerModal"
   class="modal"
 >
 
-  <div class="player-box">
+  <div class="player-container">
 
     <button
-      class="close-player"
+      class="close-modal"
+      type="button"
       onclick="closePlayer()"
+      aria-label="Fechar player"
     >
       ✕
     </button>
 
 
-    <video
-      id="videoPlayer"
-      controls
-      playsinline
-      preload="metadata"
-    >
+    <div class="video-wrapper">
 
-      <source
-        id="videoSource"
-        src=""
-        type="video/mp4"
+      <video
+        id="videoPlayer"
+        controls
+        playsinline
+        preload="metadata"
       >
 
-      Seu navegador não suporta vídeo.
+        <source
+          id="videoSource"
+          src=""
+          type="video/mp4"
+        >
 
-    </video>
+        Seu navegador não suporta vídeo.
+
+      </video>
+
+    </div>
 
 
-    <div class="player-info">
+    <div class="player-details">
 
       <h2 id="playerTitle"></h2>
 
@@ -1103,70 +1672,116 @@
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================================
      MODAL DE EPISÓDIO
-===================================================== -->
+========================================================= -->
 
 <div
   id="episodeModal"
   class="modal"
 >
 
-  <div class="episode-modal-box">
+  <div class="episode-modal">
 
     <button
-      class="close-player"
+      class="close-modal"
+      type="button"
       onclick="closeEpisodeModal()"
     >
       ✕
     </button>
 
-    <div id="episodeModalContent"></div>
+    <div
+      id="episodeModalContent"
+    ></div>
 
   </div>
 
 </div>
 
 
-<!-- =====================================================
-     MENU MOBILE
-===================================================== -->
+<!-- =========================================================
+     NAVEGAÇÃO INFERIOR MOBILE
+========================================================= -->
 
-<div class="mobile-nav">
+<nav class="bottom-nav">
 
-  <button onclick="showPage('home')">
-    🏠
-    <span>Início</span>
+  <button
+    type="button"
+    class="bottom-nav-item active"
+    data-page="home"
+    onclick="showPage('home')"
+  >
+    <span>🏠</span>
+    <small>Início</small>
   </button>
 
-  <button onclick="showPage('search')">
-    🔍
-    <span>Pesquisa</span>
+
+  <button
+    type="button"
+    class="bottom-nav-item"
+    data-page="explore"
+    onclick="showPage('explore')"
+  >
+    <span>🔎</span>
+    <small>Explorar</small>
   </button>
 
-  <button onclick="showPage('categories')">
-    📚
-    <span>Categorias</span>
+
+  <button
+    type="button"
+    class="bottom-nav-item"
+    data-page="downloads"
+    onclick="showPage('downloads')"
+  >
+    <span>⬇️</span>
+    <small>Downloads</small>
   </button>
 
-  <button onclick="showPage('mylist')">
-    ❤️
-    <span>Favoritos</span>
+
+  <button
+    type="button"
+    class="bottom-nav-item"
+    data-page="mylist"
+    onclick="showPage('mylist')"
+  >
+    <span>❤️</span>
+    <small>Minha Lista</small>
   </button>
 
-  <button onclick="showPage('profile')">
-    👤
-    <span>Perfil</span>
+
+  <button
+    type="button"
+    class="bottom-nav-item"
+    data-page="profile"
+    onclick="showPage('profile')"
+  >
+    <span>👤</span>
+    <small>Perfil</small>
   </button>
 
-</div>
+</nav>
 
 
-<!-- =====================================================
+<!-- =========================================================
+     NOTIFICAÇÃO
+========================================================= -->
+
+<div
+  id="toast"
+  class="toast"
+  role="status"
+  aria-live="polite"
+></div>
+
+
+<!-- =========================================================
      JAVASCRIPT
-===================================================== -->
+========================================================= -->
 
 <script src="app.js"></script>
+
+</div>
 
 </body>
   </html>
