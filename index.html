@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <title>VIPNETFLIX</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- CABEÇALHO -->
+  <header class="header">
+    <div class="logo">VIP<span>NETFLIX</span></div>
+
+    <nav>
+      <button onclick="showPage('home')">Início</button>
+      <button onclick="showPage('movies')">Filmes</button>
+      <button onclick="showPage('series')">Séries</button>
+      <button onclick="showPage('mylist')">Minha Lista</button>
+    </nav>
+
+    <button class="search-btn" onclick="showPage('search')">🔍</button>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main id="app">
+
+    <!-- INÍCIO -->
+    <section id="home" class="page active">
+
+      <div class="hero">
+        <div class="hero-content">
+          <span class="badge">DESTAQUE</span>
+          <h1 id="heroTitle">Bem-vindo ao VIPNETFLIX</h1>
+
+          <p id="heroDescription">
+            Filmes e séries autorizados em uma plataforma de streaming
+            moderna e cinematográfica.
+          </p>
+
+          <div class="hero-buttons">
+            <button class="primary-btn" onclick="playFeatured()">
+              ▶ Assistir
+            </button>
+
+            <button class="secondary-btn" onclick="addFeatured()">
+              ＋ Minha Lista
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <section class="content-section">
+        <h2>🔥 Tendências</h2>
+        <div id="trending" class="movie-row"></div>
+      </section>
+
+      <section class="content-section">
+        <h2>🎬 Filmes populares</h2>
+        <div id="popularMovies" class="movie-row"></div>
+      </section>
+
+      <section class="content-section">
+        <h2>📺 Séries populares</h2>
+        <div id="popularSeries" class="movie-row"></div>
+      </section>
+
+      <section class="content-section">
+        <h2>▶ Continuar assistindo</h2>
+        <div id="continueWatching" class="movie-row"></div>
+      </section>
+
+    </section>
+
+    <!-- FILMES -->
+    <section id="movies" class="page">
+      <div class="page-title">
+        <h1>Filmes</h1>
+        <p>Explore nosso catálogo.</p>
+      </div>
+
+      <div id="moviesGrid" class="movie-grid"></div>
+    </section>
+
+    <!-- SÉRIES -->
+    <section id="series" class="page">
+      <div class="page-title">
+        <h1>Séries</h1>
+        <p>Encontre suas séries favoritas.</p>
+      </div>
+
+      <div id="seriesGrid" class="movie-grid"></div>
+    </section>
+
+    <!-- MINHA LISTA -->
+    <section id="mylist" class="page">
+      <div class="page-title">
+        <h1>Minha Lista</h1>
+        <p>Seus conteúdos favoritos.</p>
+      </div>
+
+      <div id="myListGrid" class="movie-grid"></div>
+    </section>
+
+    <!-- PESQUISA -->
+    <section id="search" class="page">
+      <div class="page-title">
+        <h1>Pesquisar</h1>
+
+        <input
+          id="searchInput"
+          class="search-input"
+          type="search"
+          placeholder="Pesquisar filmes e séries..."
+          oninput="searchContent()"
+        >
+      </div>
+
+      <div id="searchResults" class="movie-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- PLAYER -->
+  <div id="playerModal" class="modal">
+
+    <div class="player-box">
+
+      <button class="close-player" onclick="closePlayer()">✕</button>
+
+      <video id="videoPlayer" controls playsinline>
+        <source id="videoSource" src="" type="video/mp4">
+        Seu navegador não suporta vídeo.
+      </video>
+
+      <div class="player-info">
+        <h2 id="playerTitle"></h2>
+        <p id="playerDescription"></p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- NAVEGAÇÃO MOBILE -->
+  <div class="mobile-nav">
+
+    <button onclick="showPage('home')">
+      🏠
+      <span>Início</span>
+    </button>
+
+    <button onclick="showPage('search')">
+      🔍
+      <span>Pesquisa</span>
+    </button>
+
+    <button onclick="showPage('movies')">
+      🎬
+      <span>Filmes</span>
+    </button>
+
+    <button onclick="showPage('mylist')">
+      ❤️
+      <span>Minha Lista</span>
+    </button>
+
+    <button onclick="showPage('profile')">
+      👤
+      <span>Perfil</span>
+    </button>
+
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+        </html>
