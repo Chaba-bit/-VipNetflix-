@@ -6,12 +6,13 @@
 
 :root {
   --bg: #080808;
-  --card: #151515;
+  --bg2: #111111;
+  --card: #181818;
+  --card2: #222222;
   --red: #e50914;
-  --red-dark: #b20710;
   --white: #ffffff;
   --gray: #999999;
-  --border: #303030;
+  --green: #19c37d;
 }
 
 html {
@@ -25,6 +26,11 @@ body {
   min-height: 100vh;
 }
 
+button,
+input {
+  font: inherit;
+}
+
 button {
   border: none;
   cursor: pointer;
@@ -32,19 +38,9 @@ button {
   background: transparent;
 }
 
-input {
-  font-family: inherit;
-}
-
-
-/* =====================================================
-   UTILITÁRIO
-===================================================== */
-
 .hidden {
   display: none !important;
 }
-
 
 /* =====================================================
    LOGO
@@ -55,7 +51,6 @@ input {
   font-size: 25px;
   font-weight: 900;
   white-space: nowrap;
-  letter-spacing: -1px;
 }
 
 .logo span {
@@ -64,92 +59,73 @@ input {
 
 
 /* =====================================================
-   LOGIN / CADASTRO
+   AUTENTICAÇÃO
 ===================================================== */
 
 .auth-screen {
   min-height: 100vh;
-  position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 30px 20px;
+  align-items: center;
+  padding: 25px;
   background:
     linear-gradient(
       rgba(0,0,0,.72),
       rgba(0,0,0,.92)
     ),
-    radial-gradient(
-      circle at top right,
-      #421010,
-      #080808 55%
-    );
-}
-
-.auth-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+    #080808;
 }
 
 .auth-box {
   width: 100%;
-  max-width: 450px;
-  background: rgba(10,10,10,.94);
-  border-radius: 6px;
-  padding: 45px 45px 35px;
-  position: relative;
-  z-index: 2;
+  max-width: 430px;
+  background: rgba(20,20,20,.96);
+  padding: 45px;
+  border-radius: 10px;
   box-shadow: 0 20px 70px rgba(0,0,0,.7);
 }
 
 .auth-logo {
+  text-align: center;
   margin-bottom: 35px;
-  font-size: 30px;
 }
 
 .auth-box h1 {
   font-size: 30px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .auth-subtitle {
-  color: #aaa;
-  line-height: 1.5;
+  color: var(--gray);
   margin-bottom: 25px;
+  line-height: 1.5;
 }
 
 .auth-box input {
   width: 100%;
-  height: 52px;
-  margin-bottom: 15px;
-  padding: 0 16px;
+  background: #292929;
   border: 1px solid #444;
-  border-radius: 4px;
-  outline: none;
-  background: #222;
   color: white;
-  font-size: 15px;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 13px;
+  outline: none;
 }
 
 .auth-box input:focus {
   border-color: var(--red);
-  background: #292929;
 }
 
 .auth-button {
   width: 100%;
-  margin-top: 5px;
-  min-height: 50px;
+  margin-top: 8px;
 }
 
 .auth-link {
-  display: block;
   width: 100%;
-  text-align: center;
-  color: #aaa;
-  margin-top: 18px;
-  font-size: 14px;
+  padding: 15px 5px;
+  color: #bbb;
+  margin-top: 5px;
 }
 
 .auth-link:hover {
@@ -159,10 +135,9 @@ input {
 .auth-divider {
   display: flex;
   align-items: center;
-  gap: 15px;
-  color: #777;
-  margin: 25px 0;
-  font-size: 12px;
+  gap: 10px;
+  color: #666;
+  margin: 18px 0;
 }
 
 .auth-divider::before,
@@ -175,22 +150,49 @@ input {
 
 .secondary-auth-btn {
   width: 100%;
-  min-height: 50px;
+  padding: 14px;
   border: 1px solid #555;
-  border-radius: 4px;
+  border-radius: 5px;
   background: #222;
-  font-weight: bold;
 }
 
 .secondary-auth-btn:hover {
-  background: #303030;
+  background: #333;
 }
 
 .terms-text {
   color: #777;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
-  margin: 5px 0 20px;
+  margin: 8px 0;
+}
+
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
+.primary-btn,
+.secondary-btn {
+  padding: 13px 22px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: .2s;
+}
+
+.primary-btn {
+  background: white;
+  color: black;
+}
+
+.secondary-btn {
+  background: rgba(255,255,255,.16);
+  color: white;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  transform: scale(1.03);
 }
 
 
@@ -208,47 +210,45 @@ input {
 }
 
 .profile-container {
+  text-align: center;
   width: 100%;
   max-width: 800px;
-  text-align: center;
 }
 
 .profile-container .logo {
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 }
 
 .profile-container h1 {
-  font-size: 38px;
+  font-size: 35px;
   margin-bottom: 10px;
 }
 
 .profile-subtitle {
-  color: #888;
-  margin-bottom: 35px;
+  color: var(--gray);
+  margin-bottom: 30px;
 }
 
 .profiles-list {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 25px;
   margin-bottom: 35px;
 }
 
 .profile-card {
-  width: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  width: 130px;
 }
 
 .profile-card img {
-  width: 125px;
-  height: 125px;
-  object-fit: cover;
+  width: 110px;
+  height: 110px;
   border-radius: 5px;
+  object-fit: cover;
   border: 3px solid transparent;
+  display: block;
+  margin: auto;
 }
 
 .profile-card:hover img {
@@ -256,12 +256,9 @@ input {
 }
 
 .profile-card span {
-  color: #aaa;
-  font-size: 17px;
-}
-
-.profile-card:hover span {
-  color: white;
+  display: block;
+  margin-top: 10px;
+  color: #ccc;
 }
 
 
@@ -275,19 +272,21 @@ input {
   display: flex;
   align-items: center;
   padding: 0 5%;
-  gap: 40px;
+  gap: 35px;
   position: sticky;
   top: 0;
   z-index: 100;
+  border-bottom: 1px solid #171717;
 }
 
 .header nav {
   display: flex;
-  gap: 25px;
+  gap: 22px;
 }
 
 .header nav button {
-  font-size: 15px;
+  font-size: 14px;
+  color: #ddd;
 }
 
 .header nav button:hover {
@@ -296,7 +295,7 @@ input {
 
 .search-btn {
   margin-left: auto;
-  font-size: 22px;
+  font-size: 21px;
 }
 
 
@@ -306,6 +305,7 @@ input {
 
 .page {
   display: none;
+  min-height: calc(100vh - 70px);
 }
 
 .page.active {
@@ -318,32 +318,26 @@ input {
 ===================================================== */
 
 .hero {
-  min-height: 540px;
+  min-height: 560px;
   display: flex;
   align-items: center;
-  padding: 60px 6%;
+  padding: 70px 6%;
   background:
     linear-gradient(
       90deg,
       #080808 0%,
-      rgba(8,8,8,.82) 38%,
-      rgba(8,8,8,.15) 100%
+      rgba(8,8,8,.85) 35%,
+      rgba(8,8,8,.25) 100%
     ),
     linear-gradient(
       0deg,
       #080808 0%,
       transparent 35%
-    ),
-    radial-gradient(
-      circle at 75% 35%,
-      #461010,
-      #111 45%,
-      #080808 75%
     );
 }
 
 .hero-content {
-  max-width: 620px;
+  max-width: 650px;
 }
 
 .badge {
@@ -353,54 +347,33 @@ input {
 }
 
 .hero h1 {
-  font-size: clamp(35px, 6vw, 70px);
+  font-size: clamp(38px, 6vw, 70px);
   margin: 15px 0;
 }
 
 .hero p {
   color: #ddd;
   line-height: 1.7;
+  margin-bottom: 15px;
+  max-width: 600px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 10px;
+  color: #bbb;
   margin-bottom: 25px;
 }
 
 .hero-buttons {
   display: flex;
-  gap: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 
 /* =====================================================
-   BOTÕES
-===================================================== */
-
-.primary-btn,
-.secondary-btn {
-  padding: 13px 22px;
-  border-radius: 5px;
-  font-weight: bold;
-}
-
-.primary-btn {
-  background: white;
-  color: black;
-}
-
-.secondary-btn {
-  background: rgba(255,255,255,.18);
-}
-
-.primary-btn:hover,
-.secondary-btn:hover {
-  transform: scale(1.04);
-}
-
-.logout-btn:hover {
-  background: var(--red);
-}
-
-
-/* =====================================================
-   CONTEÚDO
+   SEÇÕES
 ===================================================== */
 
 .content-section {
@@ -409,13 +382,14 @@ input {
 
 .content-section h2 {
   margin-bottom: 15px;
+  font-size: 21px;
 }
 
 .movie-row {
   display: flex;
   gap: 15px;
   overflow-x: auto;
-  padding-bottom: 12px;
+  padding: 5px 5px 18px;
   scrollbar-width: none;
 }
 
@@ -429,16 +403,19 @@ input {
 ===================================================== */
 
 .movie-card {
+  position: relative;
   min-width: 180px;
   width: 180px;
   background: var(--card);
-  border-radius: 7px;
+  border-radius: 8px;
   overflow: hidden;
   transition: .25s;
+  flex-shrink: 0;
 }
 
 .movie-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.045);
+  z-index: 5;
 }
 
 .movie-card img {
@@ -455,11 +432,15 @@ input {
 .card-info h3 {
   font-size: 15px;
   margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-info p {
   color: var(--gray);
   font-size: 12px;
+  line-height: 1.5;
 }
 
 .card-buttons {
@@ -470,7 +451,7 @@ input {
 
 .card-buttons button {
   background: #292929;
-  padding: 7px 9px;
+  padding: 7px 10px;
   border-radius: 5px;
 }
 
@@ -480,239 +461,4 @@ input {
 
 
 /* =====================================================
-   PÁGINAS DE CATÁLOGO
-===================================================== */
-
-.page-title {
-  padding: 45px 5% 25px;
-}
-
-.page-title h1 {
-  font-size: 35px;
-  margin-bottom: 8px;
-}
-
-.page-title p {
-  color: var(--gray);
-}
-
-.movie-grid {
-  padding: 0 5% 100px;
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(180px, 1fr)
-  );
-  gap: 20px;
-}
-
-
-/* =====================================================
-   PESQUISA
-===================================================== */
-
-.search-input {
-  margin-top: 20px;
-  width: 100%;
-  max-width: 600px;
-  padding: 15px;
-  border-radius: 5px;
-  border: 1px solid #333;
-  background: #171717;
-  color: white;
-  font-size: 16px;
-  outline: none;
-}
-
-.search-input:focus {
-  border-color: var(--red);
-}
-
-
-/* =====================================================
-   CONTA
-===================================================== */
-
-.account-box {
-  padding: 0 5% 100px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.account-box button {
-  min-width: 150px;
-}
-
-
-/* =====================================================
-   PLAYER
-===================================================== */
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.95);
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal.show {
-  display: flex;
-}
-
-.player-box {
-  width: 100%;
-  max-width: 950px;
-  position: relative;
-}
-
-.player-box video {
-  width: 100%;
-  max-height: 70vh;
-  background: black;
-  border-radius: 6px;
-}
-
-.close-player {
-  position: absolute;
-  right: 0;
-  top: -45px;
-  font-size: 25px;
-}
-
-.player-info {
-  padding-top: 15px;
-}
-
-.player-info p {
-  color: var(--gray);
-  margin-top: 8px;
-}
-
-
-/* =====================================================
-   MENU MOBILE
-===================================================== */
-
-.mobile-nav {
-  display: none;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 700px) {
-
-  .auth-box {
-    padding: 35px 25px 30px;
-  }
-
-  .auth-logo {
-    font-size: 26px;
-  }
-
-  .auth-box h1 {
-    font-size: 27px;
-  }
-
-  .header {
-    height: 60px;
-    padding: 0 18px;
-  }
-
-  .header nav {
-    display: none;
-  }
-
-  .logo {
-    font-size: 21px;
-  }
-
-  .hero {
-    min-height: 470px;
-    padding: 40px 20px;
-  }
-
-  .hero h1 {
-    font-size: 40px;
-  }
-
-  .content-section {
-    padding: 18px;
-  }
-
-  .movie-card {
-    min-width: 145px;
-    width: 145px;
-  }
-
-  .movie-card img {
-    height: 205px;
-  }
-
-  .movie-grid {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 0 18px 100px;
-    gap: 12px;
-  }
-
-  .movie-grid .movie-card {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .movie-grid .movie-card img {
-    height: 230px;
-  }
-
-  .profile-container h1 {
-    font-size: 28px;
-  }
-
-  .profile-card {
-    width: 110px;
-  }
-
-  .profile-card img {
-    width: 90px;
-    height: 90px;
-  }
-
-  .mobile-nav {
-    position: fixed;
-    display: flex;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 65px;
-    background: #111;
-    border-top: 1px solid #292929;
-    z-index: 500;
-    justify-content: space-around;
-  }
-
-  .mobile-nav button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    font-size: 18px;
-  }
-
-  .mobile-nav span {
-    font-size: 10px;
-    color: #aaa;
-  }
-
-  .account-box {
-    padding: 0 18px 100px;
-  }
-
-  }
+   TOP 
