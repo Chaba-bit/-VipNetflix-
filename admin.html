@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+
+  <title>VIPNETFLIX - Admin</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="header">
+
+    <div class="logo">
+      VIP<span>NETFLIX</span>
+    </div>
+
+    <nav>
+      <button onclick="showAdminPage('dashboard')">
+        Dashboard
+      </button>
+
+      <button onclick="showAdminPage('movies')">
+        Filmes
+      </button>
+
+      <button onclick="showAdminPage('series')">
+        Séries
+      </button>
+
+      <button onclick="showAdminPage('categories')">
+        Categorias
+      </button>
+
+      <button onclick="showAdminPage('plans')">
+        Planos
+      </button>
+    </nav>
+
+    <button onclick="window.location.href='index.html'">
+      Voltar
+    </button>
+
+  </header>
+
+
+  <main id="adminApp">
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard" class="admin-page active">
+
+      <div class="page-title">
+
+        <h1>Dashboard</h1>
+
+        <p>
+          Painel administrativo do VIPNETFLIX
+        </p>
+
+      </div>
+
+
+      <div class="movie-grid">
+
+        <div class="movie-card">
+
+          <div class="card-info">
+
+            <h3>Usuários</h3>
+
+            <p id="totalUsers">
+              0
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="movie-card">
+
+          <div class="card-info">
+
+            <h3>Filmes</h3>
+
+            <p id="totalMovies">
+              0
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="movie-card">
+
+          <div class="card-info">
+
+            <h3>Séries</h3>
+
+            <p id="totalSeries">
+              0
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="movie-card">
+
+          <div class="card-info">
+
+            <h3>Planos</h3>
+
+            <p id="totalPlans">
+              0
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- FILMES -->
+
+    <section id="movies" class="admin-page">
+
+      <div class="page-title">
+
+        <h1>Gerenciar Filmes</h1>
+
+        <p>
+          Cadastre os filmes autorizados para distribuição.
+        </p>
+
+      </div>
+
+
+      <div class="admin-form">
+
+        <input
+          id="movieTitle"
+          type="text"
+          placeholder="Título do filme"
+        >
+
+        <input
+          id="movieYear"
+          type="number"
+          placeholder="Ano"
+        >
+
+        <input
+          id="movieGenre"
+          type="text"
+          placeholder="Gênero"
+        >
+
+        <input
+          id="moviePoster"
+          type="url"
+          placeholder="URL do poster"
+        >
+
+        <input
+          id="movieVideo"
+          type="url"
+          placeholder="URL do vídeo autorizado"
+        >
+
+        <textarea
+          id="movieDescription"
+          placeholder="Sinopse"
+        ></textarea>
+
+
+        <select id="moviePremium">
+
+          <option value="false">
+            Gratuito
+          </option>
+
+          <option value="true">
+            Premium
+          </option>
+
+        </select>
+
+
+        <button
+          class="primary-btn"
+          onclick="addMovie()"
+        >
+          + Adicionar Filme
+        </button>
+
+      </div>
+
+
+      <div
+        id="adminMoviesList"
+        class="movie-grid"
+      ></div>
+
+    </section>
+
+
+
+    <!-- SÉRIES -->
+
+    <section id="series" class="admin-page">
+
+      <div class="page-title">
+
+        <h1>Gerenciar Séries</h1>
+
+        <p>
+          Cadastre séries autorizadas.
+        </p>
+
+      </div>
+
+
+      <div class="admin-form">
+
+        <input
+          id="seriesTitle"
+          type="text"
+          placeholder="Título da série"
+        >
+
+        <input
+          id="seriesYear"
+          type="number"
+          placeholder="Ano"
+        >
+
+        <input
+          id="seriesGenre"
+          type="text"
+          placeholder="Gênero"
+        >
+
+        <input
+          id="seriesPoster"
+          type="url"
+          placeholder="URL do poster"
+        >
+
+        <input
+          id="seriesTrailer"
+          type="url"
+          placeholder="URL do trailer"
+        >
+
+        <textarea
+          id="seriesDescription"
+          placeholder="Sinopse"
+        ></textarea>
+
+
+        <select id="seriesPremium">
+
+          <option value="false">
+            Gratuito
+          </option>
+
+          <option value="true">
+            Premium
+          </option>
+
+        </select>
+
+
+        <button
+          class="primary-btn"
+          onclick="addSeries()"
+        >
+          + Adicionar Série
+        </button>
+
+      </div>
+
+
+      <div
+        id="adminSeriesList"
+        class="movie-grid"
+      ></div>
+
+    </section>
+
+
+
+    <!-- CATEGORIAS -->
+
+    <section id="categories" class="admin-page">
+
+      <div class="page-title">
+
+        <h1>Categorias</h1>
+
+        <p>
+          Gerencie as categorias do catálogo.
+        </p>
+
+      </div>
+
+
+      <div class="admin-form">
+
+        <input
+          id="categoryName"
+          type="text"
+          placeholder="Nome da categoria"
+        >
+
+        <button
+          class="primary-btn"
+          onclick="addCategory()"
+        >
+          + Adicionar Categoria
+        </button>
+
+      </div>
+
+
+      <div id="categoriesList"></div>
+
+    </section>
+
+
+
+    <!-- PLANOS -->
+
+    <section id="plans" class="admin-page">
+
+      <div class="page-title">
+
+        <h1>Planos</h1>
+
+        <p>
+          Gerencie os planos de assinatura.
+        </p>
+
+      </div>
+
+
+      <div class="admin-form">
+
+        <input
+          id="planName"
+          type="text"
+          placeholder="Nome do plano"
+        >
+
+        <input
+          id="planPrice"
+          type="number"
+          step="0.01"
+          placeholder="Preço"
+        >
+
+        <input
+          id="planScreens"
+          type="number"
+          placeholder="Número de telas"
+        >
+
+        <select id="planQuality">
+
+          <option value="HD">
+            HD
+          </option>
+
+          <option value="Full HD">
+            Full HD
+          </option>
+
+          <option value="4K">
+            4K
+          </option>
+
+        </select>
+
+
+        <button
+          class="primary-btn"
+          onclick="addPlan()"
+        >
+          + Adicionar Plano
+        </button>
+
+      </div>
+
+
+      <div
+        id="plansList"
+        class="movie-grid"
+      ></div>
+
+    </section>
+
+  </main>
+
+
+  <script src="admin.js"></script>
+
+</body>
+</html>
