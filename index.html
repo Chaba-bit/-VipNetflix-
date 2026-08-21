@@ -1,1486 +1,640 @@
-/* =====================================================
-   VIPNETFLIX
-   ESTILO PRINCIPAL
-===================================================== */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: #030405;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-}
-
-button:active {
-  transform: scale(.97);
-}
-
-
-/* =====================================================
-   ABERTURA
-===================================================== */
-
-.welcome-screen {
-  min-height: 100vh;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
-
-  background:
-    radial-gradient(
-      circle at 20% 20%,
-      #a90020,
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at 80% 80%,
-      #35006b,
-      transparent 45%
-    ),
-    #080808;
-}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-.welcome-content {
-  width: 90%;
-  max-width: 500px;
-}
+  <meta name="theme-color" content="#050505">
 
-.welcome-content h1 {
-  font-size: 65px;
-  font-weight: 900;
-  letter-spacing: -4px;
-  margin-bottom: 35px;
-}
+  <title>VipNetflix</title>
 
-.welcome-content h1 span {
-  color: white;
-}
+  <link rel="stylesheet" href="style.css">
+</head>
 
-.welcome-content h1 b {
-  color: #e50914;
-}
+<body>
 
-.welcome-content p {
-  color: #aaa;
-  font-size: 20px;
-  line-height: 1.6;
-}
+<!-- =====================================================
+     TELA DE ABERTURA
+====================================================== -->
 
-.enter-btn {
-  width: 100%;
+<section id="welcomeScreen" class="welcome-screen">
 
-  margin-top: 55px;
+  <div class="welcome-glow glow-red"></div>
+  <div class="welcome-glow glow-purple"></div>
 
-  padding: 22px;
+  <div class="welcome-content">
 
-  border: none;
-  border-radius: 25px;
+    <h1>
+      <span>VIP</span>NETFLIX<b>.</b>
+    </h1>
 
-  background:
-    linear-gradient(
-      90deg,
-      #ff1e2d,
-      #e50914
-    );
+    <p>Todo o seu catálogo em um só lugar.</p>
+    <p>Sem limites, sem interrupções.</p>
 
-  color: white;
+    <button id="enterBtn" class="enter-btn">
+      ENTRAR <span>→</span>
+    </button>
 
-  font-size: 25px;
-  font-weight: bold;
+  </div>
 
-  box-shadow:
-    0 10px 35px
-    rgba(229,9,20,.4);
-}
+</section>
 
-.enter-btn span {
-  margin-left: 12px;
-}
 
+<!-- =====================================================
+     TELA DE CONTA
+====================================================== -->
 
-/* =====================================================
-   CONTA
-===================================================== */
+<section id="accountScreen" class="account-screen">
 
-.account-screen {
-  display: none;
+  <button id="backBtn" class="back-btn">
+    ← Voltar
+  </button>
 
-  min-height: 100vh;
+  <div class="account-box">
 
-  padding: 25px 20px;
+    <div class="account-logo">
+      <span>VIP</span>NETFLIX
+    </div>
 
-  background:
-    radial-gradient(
-      circle at top,
-      #45000d,
-      #050505 55%
-    );
-}
+    <h2>Criar sua conta</h2>
 
-.back-btn {
-  border: none;
-  background: transparent;
+    <p>Entre para começar a assistir.</p>
 
-  color: white;
+    <input
+      id="nameInput"
+      type="text"
+      placeholder="Seu nome"
+      autocomplete="name"
+    >
 
-  font-size: 18px;
-}
+    <input
+      id="emailInput"
+      type="email"
+      placeholder="Seu email"
+      autocomplete="email"
+    >
 
-.account-box {
-  width: 100%;
-  max-width: 450px;
+    <input
+      id="passwordInput"
+      type="password"
+      placeholder="Sua senha"
+      autocomplete="new-password"
+    >
 
-  margin: 80px auto;
+    <button id="createAccountBtn" class="account-btn">
+      CRIAR CONTA
+    </button>
 
-  padding: 35px;
+    <p id="accountMessage" class="account-message"></p>
 
-  background: #121212;
+  </div>
 
-  border: 1px solid #242424;
+</section>
 
-  border-radius: 20px;
 
-  text-align: center;
-}
+<!-- =====================================================
+     APLICAÇÃO PRINCIPAL
+====================================================== -->
 
-.account-logo {
-  font-size: 38px;
-  font-weight: 900;
+<section id="appScreen" class="app-screen">
 
-  margin-bottom: 45px;
-}
+  <!-- =================================================
+       TOPO
+  ================================================== -->
 
-.account-logo span {
-  color: #e50914;
-}
+  <header class="topbar">
 
-.account-box h2 {
-  font-size: 30px;
-}
+    <button id="menuBtn" class="icon-btn">
+      ☰
+    </button>
 
-.account-box > p {
-  color: #999;
-  margin: 12px 0 25px;
-}
+    <div class="main-logo">
+      <span>VIP</span>NETFLIX
+    </div>
 
-.account-box input {
-  width: 100%;
+    <button id="searchBtn" class="icon-btn">
+      ⌕
+    </button>
 
-  padding: 18px;
+  </header>
 
-  margin-bottom: 15px;
 
-  border-radius: 12px;
+  <!-- =================================================
+       HOME
+  ================================================== -->
 
-  border: 1px solid #333;
+  <main id="homePage" class="page active-page">
 
-  background: #222;
+    <section class="hero">
 
-  color: white;
+      <div class="hero-background"></div>
 
-  outline: none;
+      <div class="hero-overlay"></div>
 
-  font-size: 16px;
-}
+      <div class="hero-content">
 
-.account-box input:focus {
-  border-color: #e50914;
-}
+        <div class="hero-title">
+          REACHER
+        </div>
 
-.account-btn {
-  width: 100%;
+        <div class="hero-info">
+          2022
+          <span>•</span>
+          2 Temporadas
+          <span>•</span>
+          Ação
+          <strong>16</strong>
+        </div>
 
-  padding: 18px;
+        <div class="rating">
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <small>3.012 votos</small>
+        </div>
 
-  border: none;
+        <p class="hero-description">
+          Quando reformado, o investigador militar Jack
+          Reacher viaja pelo país sem rumo fixo — até ser
+          preso por um crime que não cometeu.
+        </p>
 
-  border-radius: 12px;
+        <div class="hero-buttons">
 
-  background: #e50914;
+          <button
+            class="primary-btn"
+            onclick="playContent('Reacher')">
+            ▶ CONTINUAR ASSISTINDO
+          </button>
 
-  color: white;
+          <button
+            class="secondary-btn"
+            onclick="downloadEpisode('Reacher','T2:E1','720p','850 MB')">
+            ⬇ BAIXAR
+          </button>
 
-  font-size: 18px;
+          <button
+            class="secondary-btn"
+            onclick="addFavorite('Reacher')">
+            ＋ MINHA LISTA
+          </button>
 
-  font-weight: bold;
-}
+        </div>
 
-.account-message {
-  min-height: 20px;
-}
+        <div class="hero-details">
 
+          <span>◷ Duração: 45m</span>
+          <span>🔊 Áudio: Português</span>
+          <span>▣ Legendas: Português</span>
 
-/* =====================================================
-   APP
-===================================================== */
+        </div>
 
-.app-screen {
-  display: none;
+      </div>
 
-  min-height: 100vh;
+    </section>
 
-  padding-bottom: 100px;
 
-  background: #030405;
-}
+    <!-- CONTINUAR -->
 
+    <section class="content-section">
 
-/* =====================================================
-   TOPO
-===================================================== */
+      <div class="section-header">
 
-.topbar {
-  height: 75px;
+        <h2>
+          <i></i>
+          CONTINUAR ASSISTINDO
+        </h2>
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+        <button onclick="clearContinue()">
+          LIMPAR
+        </button>
 
-  position: sticky;
-  top: 0;
+      </div>
 
-  z-index: 100;
+      <div id="continueCards" class="poster-row"></div>
 
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(0,0,0,.98),
-      rgba(0,0,0,.88)
-    );
-}
+    </section>
 
-.icon-btn {
-  position: absolute;
 
-  background: transparent;
+    <!-- LANÇAMENTOS -->
 
-  border: none;
+    <section class="content-section">
 
-  color: white;
+      <div class="section-header">
 
-  font-size: 38px;
+        <h2>
+          <i></i>
+          LANÇAMENTOS
+        </h2>
 
-  line-height: 1;
-}
+        <button onclick="showPage('releasesPage')">
+          VER TODOS →
+        </button>
 
-.icon-btn:first-child {
-  left: 25px;
-}
+      </div>
 
-.search-icon {
-  right: 25px;
+      <div id="releaseCards" class="poster-row"></div>
 
-  font-size: 43px;
-}
+    </section>
 
-.main-logo {
-  font-size: 31px;
 
-  font-weight: 900;
+    <!-- DOWNLOADS -->
 
-  letter-spacing: -2px;
-}
+    <section class="content-section">
 
-.main-logo span {
-  color: #e50914;
-}
+      <div class="section-header">
 
+        <h2>
+          <i></i>
+          DOWNLOADS
+        </h2>
 
-/* =====================================================
-   HERO
-===================================================== */
+        <button onclick="showPage('downloadsPage')">
+          VER TODOS →
+        </button>
 
-.hero {
-  position: relative;
+      </div>
 
-  min-height: 650px;
+      <div class="storage-box">
 
-  overflow: hidden;
+        <div class="storage-icon">
+          ⬇
+        </div>
 
-  display: flex;
+        <div class="storage-info">
 
-  align-items: flex-end;
-}
+          <h3>Armazenamento de Downloads</h3>
 
-.hero-background {
-  position: absolute;
+          <p id="storageText">
+            0 MB usados de 64 GB
+          </p>
 
-  inset: 0;
+          <div class="storage-bar">
+            <div id="storageProgress"></div>
+          </div>
 
-  background:
-    linear-gradient(
-      to right,
-      rgba(0,0,0,.98) 0%,
-      rgba(0,0,0,.78) 32%,
-      rgba(0,0,0,.15) 70%,
-      rgba(0,0,0,.3)
-    ),
-    linear-gradient(
-      to top,
-      #030405 0%,
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 70% 35%,
-      #8c1525,
-      #07121c 65%,
-      #030405
-    );
+        </div>
 
-  transform: scale(1.03);
-}
+      </div>
 
-.hero-background::after {
-  content: "";
+    </section>
 
-  position: absolute;
 
-  width: 55%;
+    <!-- RECOMENDAÇÕES -->
 
-  height: 100%;
+    <section class="content-section">
 
-  right: 0;
+      <div class="section-header">
 
-  top: 0;
+        <h2>
+          <i></i>
+          TAMBÉM PODE GOSTAR
+        </h2>
 
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(180,20,35,.65),
-      transparent 65%
-    );
-}
+      </div>
 
-.hero-content {
-  position: relative;
+      <div id="recommendationCards" class="poster-row"></div>
 
-  z-index: 2;
+    </section>
 
-  width: 100%;
+  </main>
 
-  max-width: 650px;
 
-  padding: 35px;
-}
+  <!-- =================================================
+       CATÁLOGO
+  ================================================== -->
 
-.hero-title {
-  font-size: 66px;
+  <main id="catalogPage" class="page">
 
-  font-weight: 900;
+    <div class="page-title">
 
-  letter-spacing: 3px;
+      <h1>CATÁLOGO</h1>
 
-  margin-bottom: 15px;
-}
+      <p>Filmes e séries disponíveis</p>
 
-.hero-info {
-  color: #ddd;
+    </div>
 
-  font-size: 17px;
+    <div id="catalogGrid" class="catalog-grid"></div>
 
-  margin-bottom: 18px;
-}
+  </main>
 
-.hero-info span {
-  margin: 0 7px;
 
-  color: #888;
-}
+  <!-- =================================================
+       LANÇAMENTOS
+  ================================================== -->
 
-.hero-info strong {
-  background: #e50914;
+  <main id="releasesPage" class="page">
 
-  padding: 4px 7px;
+    <div class="page-title">
 
-  border-radius: 3px;
+      <h1>LANÇAMENTOS</h1>
 
-  margin-left: 7px;
-}
+      <p>Confira os conteúdos mais recentes</p>
 
-.rating {
-  display: flex;
+    </div>
 
-  align-items: center;
+    <div id="allReleaseGrid" class="catalog-grid"></div>
 
-  gap: 5px;
+  </main>
 
-  font-size: 27px;
 
-  margin-bottom: 18px;
-}
+  <!-- =================================================
+       DOWNLOADS
+  ================================================== -->
 
-.rating span {
-  color: white;
-}
+  <main id="downloadsPage" class="page">
 
-.rating .empty-star {
-  color: #555;
-}
+    <div class="page-title">
 
-.rating small {
-  color: #aaa;
+      <h1>DOWNLOADS</h1>
 
-  font-size: 15px;
+      <p>
+        Assista aos conteúdos disponíveis offline.
+      </p>
 
-  margin-left: 10px;
-}
+    </div>
 
-.hero-description {
-  color: #d2d2d2;
+    <div class="large-storage">
 
-  font-size: 17px;
+      <div class="large-download-icon">
+        ⬇
+      </div>
 
-  line-height: 1.55;
+      <div>
 
-  max-width: 570px;
+        <h2>Armazenamento</h2>
 
-  margin-bottom: 25px;
-}
+        <p id="largeStorageText">
+          0 MB usados de 64 GB
+        </p>
 
-.hero-buttons {
-  display: flex;
+        <div class="storage-bar large">
+          <div id="largeStorageProgress"></div>
+        </div>
 
-  gap: 10px;
+      </div>
 
-  flex-wrap: wrap;
-}
+    </div>
 
-.primary-btn,
-.secondary-btn {
-  min-height: 55px;
+    <div id="downloadsList" class="downloads-list"></div>
 
-  border-radius: 10px;
+  </main>
 
-  padding: 0 20px;
 
-  font-size: 15px;
+  <!-- =================================================
+       FAVORITOS
+  ================================================== -->
 
-  font-weight: bold;
-}
+  <main id="favoritesPage" class="page">
 
-.primary-btn {
-  border: none;
+    <div class="page-title">
 
-  background: #e50914;
+      <h1>FAVORITOS</h1>
 
-  color: white;
-}
+      <p>Os seus conteúdos favoritos.</p>
 
-.secondary-btn {
-  border: 1px solid #444;
+    </div>
 
-  background: #1b1b1d;
+    <div id="favoritesGrid" class="catalog-grid"></div>
 
-  color: white;
-}
+  </main>
 
 
-/* =====================================================
-   SEÇÕES
-===================================================== */
+  <!-- =================================================
+       MENU LATERAL
+  ================================================== -->
 
-.content-section {
-  padding: 25px 30px;
-}
+  <div id="sideMenu" class="side-menu">
 
-.section-header {
-  display: flex;
+    <div class="side-header">
 
-  align-items: center;
+      <div class="side-logo">
+        <span>VIP</span>NETFLIX
+      </div>
 
-  justify-content: space-between;
+      <button onclick="closeMenu()">×</button>
 
-  margin-bottom: 15px;
-}
+    </div>
 
-.section-header h2 {
-  font-size: 21px;
+    <div class="profile-mini">
 
-  font-weight: 500;
-}
+      <div class="profile-avatar">
+        V
+      </div>
 
-.section-header h2 i {
-  display: inline-block;
+      <div>
+        <strong id="profileName">Visitante</strong>
+        <small>Conta VipNetflix</small>
+      </div>
 
-  width: 3px;
+    </div>
 
-  height: 25px;
+    <button onclick="showPage('homePage'); closeMenu()">
+      🏠 Início
+    </button>
 
-  background: #e50914;
+    <button onclick="showPage('catalogPage'); closeMenu()">
+      🎬 Catálogo
+    </button>
 
-  margin-right: 10px;
+    <button onclick="showPage('releasesPage'); closeMenu()">
+      ⭐ Lançamentos
+    </button>
 
-  vertical-align: middle;
-}
+    <button onclick="showPage('downloadsPage'); closeMenu()">
+      ⬇ Downloads
+    </button>
 
-.section-header button {
-  border: none;
+    <button onclick="showPage('favoritesPage'); closeMenu()">
+      ♥ Favoritos
+    </button>
 
-  background: transparent;
+  </div>
 
-  color: #aaa;
+  <div id="menuOverlay" class="menu-overlay"></div>
 
-  font-size: 14px;
-}
 
+  <!-- =================================================
+       PESQUISA
+  ================================================== -->
 
-/* =====================================================
-   POSTERS
-===================================================== */
+  <div id="searchModal" class="search-modal">
 
-.poster-row {
-  display: flex;
+    <div class="search-box">
 
-  gap: 15px;
+      <button
+        class="modal-close"
+        onclick="closeSearch()">
+        ×
+      </button>
 
-  overflow-x: auto;
+      <h2>Pesquisar</h2>
 
-  scrollbar-width: none;
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Digite o nome de um filme ou série..."
+      >
 
-  padding-bottom: 8px;
-}
+      <div id="searchResults"></div>
 
-.poster-row::-webkit-scrollbar {
-  display: none;
-}
+    </div>
 
-.poster-card {
-  min-width: 185px;
+  </div>
 
-  max-width: 185px;
 
-  position: relative;
-}
+  <!-- =================================================
+       MODAL DE SÉRIE
+  ================================================== -->
 
-.poster-image {
-  width: 185px;
+  <div id="seriesModal" class="modal">
 
-  height: 275px;
+    <div class="modal-content">
 
-  border-radius: 9px;
+      <button
+        class="modal-close"
+        onclick="closeSeries()">
+        ×
+      </button>
 
-  background:
-    linear-gradient(
-      135deg,
-      #351019,
-      #0c1115
-    );
+      <div id="modalPoster" class="modal-poster"></div>
 
-  position: relative;
+      <h2 id="modalTitle">
+        Série
+      </h2>
 
-  overflow: hidden;
+      <p id="modalDescription"></p>
 
-  display: flex;
+      <div class="season-selector">
 
-  justify-content: center;
+        <label>Temporada</label>
 
-  align-items: center;
+        <select id="seasonSelect"></select>
 
-  font-size: 45px;
-}
+      </div>
 
-.poster-image::after {
-  content: "";
+      <div id="episodesList"></div>
 
-  position: absolute;
+    </div>
 
-  inset: 0;
+  </div>
 
-  background:
-    linear-gradient(
-      to top,
-      rgba(0,0,0,.7),
-      transparent 45%
-    );
-}
 
-.poster-play {
-  position: absolute;
+  <!-- =================================================
+       PLAYER
+  ================================================== -->
 
-  z-index: 3;
+  <div id="playerModal" class="modal">
 
-  width: 55px;
+    <div class="player-content">
 
-  height: 55px;
+      <button
+        class="modal-close"
+        onclick="closePlayer()">
+        ×
+      </button>
 
-  border: 2px solid white;
+      <h2 id="playerTitle">
+        VipNetflix
+      </h2>
 
-  border-radius: 50%;
+      <div class="video-box">
 
-  display: flex;
+        <div class="demo-player">
 
-  align-items: center;
+          <div
+            class="play-circle"
+            onclick="startDemoVideo()">
+            ▶
+          </div>
 
-  justify-content: center;
+          <p>
+            PLAYER VIPNETFLIX
+          </p>
 
-  background: rgba(0,0,0,.35);
+          <small>
+            Conteúdo de demonstração
+          </small>
 
-  font-size: 22px;
-}
+        </div>
 
-.poster-progress {
-  position: absolute;
+      </div>
 
-  left: 10px;
+      <p class="player-note">
+        Este player está preparado para receber
+        conteúdos de vídeo autorizados.
+      </p>
 
-  right: 10px;
+    </div>
 
-  bottom: 10px;
+  </div>
 
-  height: 4px;
 
-  background: #555;
+  <!-- =================================================
+       MENU INFERIOR
+  ================================================== -->
 
-  z-index: 5;
-}
+  <nav class="bottom-nav">
 
-.poster-progress span {
-  display: block;
+    <button
+      class="nav-item active"
+      data-page="homePage"
+      onclick="showPage('homePage')">
 
-  height: 100%;
+      <span>⌂</span>
+      <small>INÍCIO</small>
 
-  background: #e50914;
-}
+    </button>
 
-.poster-card h3 {
-  margin-top: 10px;
+    <button
+      class="nav-item"
+      data-page="releasesPage"
+      onclick="showPage('releasesPage')">
 
-  font-size: 15px;
+      <span>★</span>
+      <small>LANÇAMENTOS</small>
 
-  font-weight: 500;
+    </button>
 
-  white-space: nowrap;
+    <button
+      class="nav-item"
+      data-page="catalogPage"
+      onclick="showPage('catalogPage')">
 
-  overflow: hidden;
+      <span>▣</span>
+      <small>CATÁLOGO</small>
 
-  text-overflow: ellipsis;
-}
+    </button>
 
-.poster-card p {
-  margin-top: 5px;
+    <button
+      class="nav-item"
+      data-page="favoritesPage"
+      onclick="showPage('favoritesPage')">
 
-  color: #888;
+      <span>♥</span>
+      <small>FAVORITOS</small>
 
-  font-size: 13px;
-}
+    </button>
 
-.more-btn {
-  position: absolute;
+    <button
+      class="nav-item"
+      data-page="downloadsPage"
+      onclick="showPage('downloadsPage')">
 
-  right: 2px;
+      <span>⬇</span>
+      <small>DOWNLOADS</small>
 
-  bottom: 25px;
+    </button>
 
-  background: none;
+  </nav>
 
-  border: none;
+</section>
 
-  color: white;
 
-  font-size: 20px;
-}
+<script src="app.js"></script>
 
-
-/* =====================================================
-   LANÇAMENTOS
-===================================================== */
-
-.release-card {
-  min-width: 185px;
-}
-
-.release-card .poster-image {
-  height: 275px;
-}
-
-.top-badge {
-  position: absolute;
-
-  top: 8px;
-
-  right: 8px;
-
-  z-index: 5;
-
-  background: #e50914;
-
-  padding: 5px;
-
-  border-radius: 4px;
-
-  font-size: 11px;
-
-  font-weight: bold;
-}
-
-
-/* =====================================================
-   DOWNLOAD / ARMAZENAMENTO
-===================================================== */
-
-.storage-box {
-  display: flex;
-
-  align-items: center;
-
-  gap: 20px;
-
-  padding: 20px;
-
-  border-radius: 15px;
-
-  background: #111315;
-
-  border: 1px solid #24272a;
-}
-
-.storage-icon {
-  min-width: 65px;
-
-  height: 65px;
-
-  border: 3px solid #e50914;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  font-size: 30px;
-}
-
-.storage-info {
-  width: 100%;
-}
-
-.storage-info h3 {
-  margin-bottom: 8px;
-
-  font-size: 17px;
-}
-
-.storage-info p {
-  color: #999;
-
-  font-size: 14px;
-
-  margin-bottom: 10px;
-}
-
-.storage-bar {
-  width: 100%;
-
-  height: 7px;
-
-  background: #3b3d40;
-
-  border-radius: 10px;
-
-  overflow: hidden;
-}
-
-.storage-bar div {
-  width: 0%;
-
-  height: 100%;
-
-  background: #e50914;
-
-  border-radius: inherit;
-}
-
-
-/* =====================================================
-   PÁGINAS
-===================================================== */
-
-.page {
-  display: none;
-
-  min-height: calc(100vh - 75px);
-
-  padding: 30px;
-}
-
-.page.active-page {
-  display: block;
-}
-
-.page-title {
-  margin-bottom: 30px;
-}
-
-.page-title h1 {
-  font-size: 30px;
-}
-
-.page-title p {
-  color: #888;
-
-  margin-top: 8px;
-}
-
-.catalog-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(auto-fill, minmax(170px, 1fr));
-
-  gap: 25px 15px;
-}
-
-
-/* =====================================================
-   DOWNLOADS
-===================================================== */
-
-.large-storage {
-  display: flex;
-
-  align-items: center;
-
-  gap: 20px;
-
-  padding: 25px;
-
-  background: #121416;
-
-  border-radius: 18px;
-
-  border: 1px solid #292c2f;
-
-  margin-bottom: 30px;
-}
-
-.large-download-icon {
-  width: 80px;
-
-  height: 80px;
-
-  min-width: 80px;
-
-  border: 3px solid #e50914;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  font-size: 35px;
-}
-
-.large-storage h2 {
-  margin-bottom: 7px;
-}
-
-.large-storage p {
-  color: #888;
-
-  margin-bottom: 12px;
-}
-
-.storage-bar.large {
-  width: 300px;
-  max-width: 100%;
-}
-
-.downloads-list {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 12px;
-}
-
-.download-item {
-  display: flex;
-
-  align-items: center;
-
-  gap: 15px;
-
-  padding: 12px;
-
-  background: #121416;
-
-  border-radius: 12px;
-}
-
-.download-thumb {
-  width: 65px;
-
-  height: 85px;
-
-  flex-shrink: 0;
-
-  border-radius: 7px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #43101b,
-      #111820
-    );
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 25px;
-}
-
-.download-details {
-  flex: 1;
-}
-
-.download-details h3 {
-  font-size: 16px;
-
-  margin-bottom: 6px;
-}
-
-.download-details p {
-  color: #888;
-
-  font-size: 13px;
-}
-
-.offline-badge {
-  color: #4ade80;
-
-  font-size: 12px;
-
-  margin-top: 5px;
-}
-
-.delete-download {
-  background: transparent;
-
-  border: none;
-
-  color: #aaa;
-
-  font-size: 20px;
-}
-
-.empty-downloads {
-  text-align: center;
-
-  padding: 60px 25px;
-
-  color: #777;
-}
-
-.empty-downloads div {
-  font-size: 50px;
-
-  margin-bottom: 15px;
-
-  color: #555;
-}
-
-.empty-downloads h3 {
-  color: #ccc;
-
-  margin-bottom: 10px;
-}
-
-
-/* =====================================================
-   FAVORITOS
-===================================================== */
-
-.favorite-card {
-  position: relative;
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-.modal {
-  display: none;
-
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 500;
-
-  background: rgba(0,0,0,.85);
-
-  overflow-y: auto;
-
-  padding: 25px;
-}
-
-.modal.show {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-}
-
-.modal-content,
-.player-content {
-  width: 100%;
-
-  max-width: 600px;
-
-  background: #111315;
-
-  border: 1px solid #303338;
-
-  border-radius: 18px;
-
-  padding: 25px;
-
-  position: relative;
-}
-
-.modal-content h2,
-.player-content h2 {
-  margin-bottom: 12px;
-}
-
-.modal-content > p {
-  color: #aaa;
-
-  line-height: 1.5;
-
-  margin-bottom: 20px;
-}
-
-.modal-close {
-  position: absolute;
-
-  right: 15px;
-
-  top: 12px;
-
-  width: 40px;
-
-  height: 40px;
-
-  border: none;
-
-  border-radius: 50%;
-
-  background: #25272a;
-
-  color: white;
-
-  font-size: 25px;
-}
-
-.season-selector {
-  margin-bottom: 20px;
-}
-
-.season-selector label {
-  display: block;
-
-  margin-bottom: 8px;
-
-  color: #aaa;
-}
-
-.season-selector select {
-  width: 100%;
-
-  padding: 13px;
-
-  border-radius: 8px;
-
-  background: #222;
-
-  color: white;
-
-  border: 1px solid #444;
-}
-
-.episode {
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-
-  padding: 14px 0;
-
-  border-bottom: 1px solid #292929;
-}
-
-.episode-number {
-  color: #e50914;
-
-  font-weight: bold;
-}
-
-.episode-info {
-  flex: 1;
-}
-
-.episode-info h3 {
-  font-size: 15px;
-}
-
-.episode-info p {
-  color: #777;
-
-  font-size: 12px;
-
-  margin-top: 5px;
-}
-
-.episode-download {
-  border: none;
-
-  background: #e50914;
-
-  color: white;
-
-  border-radius: 8px;
-
-  padding: 10px;
-}
-
-
-/* =====================================================
-   PLAYER
-===================================================== */
-
-.video-box {
-  margin-top: 20px;
-
-  background: #000;
-
-  border-radius: 12px;
-
-  overflow: hidden;
-}
-
-.demo-player {
-  height: 300px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  background:
-    radial-gradient(
-      circle,
-      #34101a,
-      #050505
-    );
-}
-
-.play-circle {
-  width: 75px;
-
-  height: 75px;
-
-  border-radius: 50%;
-
-  border: 2px solid white;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 30px;
-}
-
-.demo-player p {
-  color: #777;
-
-  margin-top: 15px;
-}
-
-.player-note {
-  color: #777;
-
-  font-size: 12px;
-
-  line-height: 1.5;
-
-  margin-top: 15px;
-}
-
-
-/* =====================================================
-   MENU INFERIOR
-===================================================== */
-
-.bottom-nav {
-  position: fixed;
-
-  bottom: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 82px;
-
-  z-index: 300;
-
-  display: flex;
-
-  justify-content: space-around;
-
-  align-items: center;
-
-  background:
-    rgba(5,7,8,.97);
-
-  border-top: 1px solid #1b1d1f;
-
-  backdrop-filter: blur(10px);
-}
-
-.nav-item {
-  flex: 1;
-
-  height: 100%;
-
-  border: none;
-
-  background: transparent;
-
-  color: #ddd;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 5px;
-}
-
-.nav-item span {
-  font-size: 27px;
-
-  line-height: 1;
-}
-
-.nav-item small {
-  font-size: 10px;
-}
-
-.nav-item.active {
-  color: #e50914;
-}
-
-
-/* =====================================================
-   DESKTOP
-===================================================== */
-
-@media (min-width: 900px) {
-
-  .hero {
-    min-height: 650px;
-  }
-
-  .hero-content {
-    padding-left: 55px;
-  }
-
-  .poster-card,
-  .release-card {
-    min-width: 200px;
-  }
-
-  .poster-image {
-    width: 200px;
-  }
-
-}
-
-
-/* =====================================================
-   CELULAR
-===================================================== */
-
-@media (max-width: 600px) {
-
-  .welcome-content h1 {
-    font-size: 50px;
-  }
-
-  .welcome-content p {
-    font-size: 17px;
-  }
-
-  .enter-btn {
-    font-size: 21px;
-  }
-
-  .account-box {
-    margin: 50px auto;
-    padding: 25px;
-  }
-
-  .main-logo {
-    font-size: 28px;
-  }
-
-  .hero {
-    min-height: 620px;
-  }
-
-  .hero-content {
-    padding: 25px 20px;
-  }
-
-  .hero-title {
-    font-size: 48px;
-  }
-
-  .hero-info {
-    font-size: 14px;
-  }
-
-  .hero-description {
-    font-size: 15px;
-  }
-
-  .hero-buttons {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .primary-btn {
-    grid-column: 1 / -1;
-  }
-
-  .primary-btn,
-  .secondary-btn {
-    width: 100%;
-
-    padding: 0 8px;
-
-    font-size: 12px;
-  }
-
-  .content-section {
-    padding: 20px 15px;
-  }
-
-  .poster-card {
-    min-width: 145px;
-    max-width: 145px;
-  }
-
-  .poster-image {
-    width: 145px;
-    height: 215px;
-  }
-
-  .poster-card h3 {
-    font-size: 13px;
-  }
-
-  .catalog-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-
-    gap: 18px 10px;
-  }
-
-  .catalog-grid .poster-card {
-    min-width: 0;
-    max-width: none;
-  }
-
-  .catalog-grid .poster-image {
-    width: 100%;
-    height: 230px;
-  }
-
-  .storage-box {
-    padding: 15px;
-  }
-
-  .storage-icon {
-    min-width: 50px;
-    width: 50px;
-    height: 50px;
-    font-size: 23px;
-  }
-
-  .storage-info h3 {
-    font-size: 14px;
-  }
-
-  .large-storage {
-    padding: 15px;
-  }
-
-  .large-download-icon {
-    width: 60px;
-    height: 60px;
-    min-width: 60px;
-    font-size: 27px;
-  }
-
-  .bottom-nav {
-    height: 75px;
-  }
-
-  .nav-item span {
-    font-size: 23px;
-  }
-
-  .nav-item small {
-    font-size: 8px;
-  }
-
-  .modal {
-    padding: 10px;
-  }
-
-  .modal-content,
-  .player-content {
-    padding: 20px;
-  }
-
-}
+</body>
+   </html>
