@@ -201,3 +201,306 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Uma história de injustiça, sobrevivência e vingança.",
             image:
                 "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w
+
+/* =====================================================
+   PESQUISA — CORRIGIDA
+===================================================== */
+
+if (searchButton) {
+
+    searchButton.addEventListener("click", function (event) {
+
+        event.preventDefault();
+
+        if (searchBox) {
+            searchBox.classList.remove("hidden");
+        }
+
+        if (searchInput) {
+            searchInput.focus();
+        }
+
+    });
+
+}
+
+
+if (closeSearch) {
+
+    closeSearch.addEventListener("click", function (event) {
+
+        event.preventDefault();
+
+        if (searchInput) {
+            searchInput.value = "";
+        }
+
+        if (searchResults) {
+            searchResults.innerHTML = "";
+        }
+
+        if (searchResultsSection) {
+            searchResultsSection.classList.add("hidden");
+        }
+
+        if (searchBox) {
+            searchBox.classList.add("hidden");
+        }
+
+    });
+
+}
+
+
+/* Quando o usuário escreve */
+
+if (searchInput) {
+
+    searchInput.addEventListener("input", function () {
+
+        const texto =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+
+        /* Campo vazio */
+
+        if (texto === "") {
+
+            searchResults.innerHTML = "";
+
+            searchResultsSection.classList.add(
+                "hidden"
+            );
+
+            return;
+        }
+
+
+        /* Procurar no catálogo */
+
+        const resultados =
+            catalog.filter(function (filme) {
+
+                const titulo =
+                    String(filme.title || "")
+                        .toLowerCase();
+
+                const genero =
+                    String(filme.genre || "")
+                        .toLowerCase();
+
+                const tipo =
+                    String(filme.type || "")
+                        .toLowerCase();
+
+                return (
+                    titulo.includes(texto) ||
+                    genero.includes(texto) ||
+                    tipo.includes(texto)
+                );
+
+            });
+
+
+        /* Mostrar área de resultados */
+
+        searchResultsSection.classList.remove(
+            "hidden"
+        );
+
+
+        /* Mostrar resultados */
+
+        renderSearchResults(
+            resultados
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   RESULTADOS DA PESQUISA
+===================================================== */
+
+function renderSearchResults(resultados) {
+
+    if (!searchResults) return;
+
+    searchResults.innerHTML = "";
+
+
+    /* Nenhum resultado */
+
+    if (resultados.length === 0) {
+
+        searchResults.innerHTML = `
+
+            <div class="no-results">
+
+                <div style="font-size:40px;">
+                    🔍
+                </div>
+
+                <h3>
+                    Nenhum resultado encontrado
+                </h3>
+
+                <p>
+                    Tenta outro nome de filme ou série.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    /* Resultados encontrados */
+
+    resultados.forEach(function (filme) {
+
+        const card =
+            document.createElement("article");
+
+        card.className =
+            "poster-card search-result-card";
+
+        card.dataset.id =
+            filme.id;
+
+
+        card.innerHTML = `
+
+            <div class="poster-wrapper">
+
+                <img
+                    src="${filme.image}"
+                    alt="${filme.title}"
+                    loading="lazy"
+                >
+
+                <button
+                    class="poster-play"
+                    data-play="${filme.id}"
+                    type="button"
+                >
+                    ▶
+                </button>
+
+            </div>
+
+            <h3>
+                ${filme.title}
+            </h3>
+
+            <p>
+                ${filme.year}
+                •
+                ${filme.genre}
+            </p>
+
+        `;
+
+
+        searchResults.appendChild(
+            card
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   CLIQUE NO RESULTADO DA PESQUISA
+===================================================== */
+
+if (searchResults) {
+
+    searchResults.addEventListener(
+        "click",
+        function (event) {
+
+            /* Botão ▶ */
+
+            const playButton =
+                event.target.closest(
+                    "[data-play]"
+                );
+
+
+            if (playButton) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                const id =
+                    Number(
+                        playButton.dataset.play
+                    );
+
+
+                const filme =
+                    catalog.find(
+                        function (item) {
+
+                            return item.id === id;
+
+                        }
+                    );
+
+
+                if (filme) {
+
+                    openPlayer(filme);
+
+                }
+
+                return;
+            }
+
+
+            /* Capa do resultado */
+
+            const card =
+                event.target.closest(
+                    ".search-result-card"
+                );
+
+
+            if (card) {
+
+                const id =
+                    Number(
+                        card.dataset.id
+                    );
+
+
+                const filme =
+                    catalog.find(
+                        function (item) {
+
+                            return item.id === id;
+
+                        }
+                    );
+
+
+                if (filme) {
+
+                    openDetails(filme);
+
+                }
+
+            }
+
+        }
+    );
+
+            }           
