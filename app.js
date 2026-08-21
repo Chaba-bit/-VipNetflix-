@@ -1,240 +1,296 @@
 /* =========================================================
-   VIPNETFLIX — APP.JS
-   ESTRUTURA COMPLETA
+   VIPNETFLIX
+   APP.JS — SISTEMA PRINCIPAL
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
   /* =======================================================
-     DADOS DO CATÁLOGO
+     CATÁLOGO
   ======================================================= */
 
   const catalog = [
 
-    {
-      id: 1,
-      title: "Aventura VIP",
-      type: "Filme",
-      genre: "Aventura",
-      year: 2026,
-      rating: 8.8,
-      image: "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=700&q=80",
-      description: "Uma aventura emocionante onde um grupo precisa enfrentar desafios inesperados."
-    },
+    /* =====================================================
+       LA CASA DE PAPEL
+    ===================================================== */
 
     {
-      id: 2,
-      title: "Além do Espaço",
-      type: "Filme",
-      genre: "Ficção científica",
-      year: 2026,
-      rating: 8.2,
-      image: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=700&q=80",
-      description: "Uma missão espacial revela um segredo que pode mudar o futuro da humanidade."
+      id: "lcp",
+      title: "La Casa de Papel",
+      type: "series",
+      genre: "Drama",
+      year: 2017,
+      rating: 8.5,
+
+      image:
+        "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=85",
+
+      banner:
+        "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1500&q=85",
+
+      description:
+        "Uma equipe cuidadosamente preparada participa de uma operação de grande escala. Este registro representa a estrutura de uma série dentro do VIPNETFLIX.",
+
+      seasons: [
+
+        {
+          number: 1,
+
+          episodes: [
+
+            {
+              number: 1,
+              title: "Episódio 1",
+
+              image:
+                "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80",
+
+              description:
+                "Primeiro episódio da temporada.",
+
+              /*
+                COLOQUE AQUI A URL DO VÍDEO AUTORIZADO.
+                Exemplo:
+                videoUrl: "https://seu-servidor.com/video.mp4"
+              */
+
+              videoUrl: ""
+            },
+
+            {
+              number: 2,
+              title: "Episódio 2",
+
+              image:
+                "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=500&q=80",
+
+              description:
+                "Segundo episódio da temporada.",
+
+              videoUrl: ""
+            },
+
+            {
+              number: 3,
+              title: "Episódio 3",
+
+              image:
+                "https://images.unsplash.com/photo-1533130061792-64b345e4a833?auto=format&fit=crop&w=500&q=80",
+
+              description:
+                "Terceiro episódio da temporada.",
+
+              videoUrl: ""
+            }
+
+          ]
+        },
+
+        {
+          number: 2,
+
+          episodes: [
+
+            {
+              number: 1,
+              title: "Episódio 1",
+
+              image:
+                "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=500&q=80",
+
+              description:
+                "Primeiro episódio da segunda temporada.",
+
+              videoUrl: ""
+            },
+
+            {
+              number: 2,
+              title: "Episódio 2",
+
+              image:
+                "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80",
+
+              description:
+                "Segundo episódio da segunda temporada.",
+
+              videoUrl: ""
+            }
+
+          ]
+        }
+
+      ]
     },
 
-    {
-      id: 3,
-      title: "Código Sombrio",
-      type: "Série",
-      genre: "Ação",
-      year: 2026,
-      rating: 9.0,
-      image: "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?auto=format&fit=crop&w=700&q=80",
-      description: "Uma equipe especial descobre uma organização secreta."
-    },
+
+    /* =====================================================
+       HOMEM-ARANHA: UM NOVO DIA
+    ===================================================== */
 
     {
-      id: 4,
-      title: "Cidade Perdida",
-      type: "Filme",
+      id: "spider-new-day",
+      title: "Homem-Aranha: Um Novo Dia",
+      type: "movie",
       genre: "Ação",
       year: 2026,
       rating: 8.5,
-      image: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=700&q=80",
-      description: "Uma cidade escondida guarda um segredo perigoso."
-    },
 
-    {
-      id: 5,
-      title: "Amor em Paris",
-      type: "Filme",
-      genre: "Romance",
-      year: 2026,
-      rating: 7.9,
-      image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=700&q=80",
-      description: "Uma história de amor inesperada pelas ruas de Paris."
-    },
+      image:
+        "https://images.unsplash.com/photo-1635805737707-575885ab0820?auto=format&fit=crop&w=700&q=85",
 
-    {
-      id: 6,
-      title: "O Último Reino",
-      type: "Série",
-      genre: "Drama",
-      year: 2026,
-      rating: 8.9,
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80",
-      description: "Reinos rivais lutam pelo controle de uma terra dividida."
-    },
+      banner:
+        "https://images.unsplash.com/photo-1635805737707-575885ab0820?auto=format&fit=crop&w=1500&q=85",
 
-    {
-      id: 7,
-      title: "Noite de Terror",
-      type: "Filme",
-      genre: "Terror",
-      year: 2026,
-      rating: 8.0,
-      image: "https://images.unsplash.com/photo-1505635552518-3448f4b5c9b0?auto=format&fit=crop&w=700&q=80",
-      description: "Uma noite aparentemente normal transforma-se em um pesadelo."
-    },
+      description:
+        "Conteúdo cinematográfico representado no catálogo do VIPNETFLIX. O vídeo deverá ser associado somente através de uma fonte autorizada.",
 
-    {
-      id: 8,
-      title: "Risos da Cidade",
-      type: "Série",
-      genre: "Comédia",
-      year: 2026,
-      rating: 8.1,
-      image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=700&q=80",
-      description: "Amigos tentam sobreviver às situações mais engraçadas da cidade."
-    },
+      /*
+        URL DO FILME AUTORIZADO
+      */
 
-    {
-      id: 9,
-      title: "Planeta Azul",
-      type: "Documentário",
-      genre: "Documentário",
-      year: 2026,
-      rating: 9.1,
-      image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80",
-      description: "Uma viagem pelos lugares mais impressionantes do planeta."
-    },
-
-    {
-      id: 10,
-      title: "Operação Zero",
-      type: "Série",
-      genre: "Ação",
-      year: 2026,
-      rating: 8.7,
-      image: "https://images.unsplash.com/photo-1533130061792-64b345e4a833?auto=format&fit=crop&w=700&q=80",
-      description: "Uma operação secreta coloca uma equipe de elite em perigo."
-    },
-
-    {
-      id: 11,
-      title: "Depois da Tempestade",
-      type: "Filme",
-      genre: "Drama",
-      year: 2026,
-      rating: 8.4,
-      image: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=80",
-      description: "Depois de perder tudo, uma família tenta reconstruir sua vida."
-    },
-
-    {
-      id: 12,
-      title: "Horizonte",
-      type: "Série",
-      genre: "Ficção científica",
-      year: 2026,
-      rating: 8.6,
-      image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=700&q=80",
-      description: "Uma equipe viaja para além dos limites conhecidos."
+      videoUrl: ""
     }
 
   ];
 
 
   /* =======================================================
+     ESTADO
+  ======================================================= */
+
+  let currentContent = null;
+  let currentEpisode = null;
+  let currentSeason = null;
+
+  let myList =
+    readStorage("vipnetflix_my_list", []);
+
+  let progress =
+    readStorage("vipnetflix_progress", {});
+
+  let downloads =
+    readStorage("vipnetflix_downloads", []);
+
+
+  /* =======================================================
      ELEMENTOS
   ======================================================= */
 
-  const splashScreen = document.getElementById("splashScreen");
-  const appScreen = document.getElementById("appScreen");
+  const splash =
+    document.getElementById("splash");
 
-  const pages = document.querySelectorAll(".page");
-  const navButtons = document.querySelectorAll(".nav-button");
+  const app =
+    document.getElementById("app");
 
-  const popularGrid = document.getElementById("popularGrid");
-  const newGrid = document.getElementById("newGrid");
-  const continueGrid = document.getElementById("continueGrid");
+  const pages =
+    document.querySelectorAll(".page");
 
-  const moviesGrid = document.getElementById("moviesGrid");
-  const seriesGrid = document.getElementById("seriesGrid");
+  const navItems =
+    document.querySelectorAll(".nav-item");
 
-  const myListGrid = document.getElementById("myListGrid");
-  const downloadsGrid = document.getElementById("downloadsGrid");
+  const detailsModal =
+    document.getElementById("detailsModal");
 
-  const searchInput = document.getElementById("searchInput");
-  const searchResults = document.getElementById("searchResults");
+  const playerModal =
+    document.getElementById("playerModal");
 
-  const categoryResults = document.getElementById("categoryResults");
+  const videoPlayer =
+    document.getElementById("videoPlayer");
 
-  const detailsModal = document.getElementById("detailsModal");
-  const loginModal = document.getElementById("loginModal");
-  const playerModal = document.getElementById("playerModal");
+  const videoMessage =
+    document.getElementById("videoMessage");
 
-  const detailsImage = document.getElementById("detailsImage");
-  const detailsTitle = document.getElementById("detailsTitle");
-  const detailsMeta = document.getElementById("detailsMeta");
-  const detailsDescription = document.getElementById("detailsDescription");
+  const toast =
+    document.getElementById("toast");
 
-  const profileName = document.getElementById("profileName");
-  const profileEmail = document.getElementById("profileEmail");
 
-  let selectedMovie = null;
+  /* =======================================================
+     INICIALIZAÇÃO
+  ======================================================= */
+
+  setTimeout(() => {
+
+    splash.classList.add("hidden");
+
+    app.classList.remove("hidden");
+
+    renderAll();
+
+  }, 1200);
 
 
   /* =======================================================
      STORAGE
   ======================================================= */
 
-  let myList =
-    JSON.parse(localStorage.getItem("vipnetflix_mylist")) || [];
+  function readStorage(key, fallback) {
 
-  let downloads =
-    JSON.parse(localStorage.getItem("vipnetflix_downloads")) || [];
+    try {
 
-  let user =
-    JSON.parse(localStorage.getItem("vipnetflix_user")) || null;
+      const value =
+        localStorage.getItem(key);
+
+      return value
+        ? JSON.parse(value)
+        : fallback;
+
+    } catch {
+
+      return fallback;
+
+    }
+
+  }
 
 
-  /* =======================================================
-     SPLASH
-  ======================================================= */
+  function saveStorage(key, value) {
 
-  setTimeout(() => {
+    localStorage.setItem(
+      key,
+      JSON.stringify(value)
+    );
 
-    splashScreen.classList.add("hidden");
-
-    appScreen.classList.remove("hidden");
-
-    renderHome();
-
-    updateProfile();
-
-  }, 1800);
+  }
 
 
   /* =======================================================
      NAVEGAÇÃO
   ======================================================= */
 
-  navButtons.forEach(button => {
+  navItems.forEach(button => {
 
     button.addEventListener("click", () => {
 
-      const pageId = button.dataset.page;
-
-      showPage(pageId);
+      openPage(
+        button.dataset.page
+      );
 
     });
 
   });
 
 
-  function showPage(pageId) {
+  document
+    .querySelectorAll("[data-open-page]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          openPage(
+            button.dataset.openPage
+          );
+
+        }
+      );
+
+    });
+
+
+  function openPage(pageId) {
 
     pages.forEach(page => {
 
@@ -242,175 +298,197 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    const target = document.getElementById(pageId);
+    const page =
+      document.getElementById(pageId);
 
-    if (target) {
-      target.classList.add("active");
+    if (page) {
+
+      page.classList.add("active");
+
     }
 
-    navButtons.forEach(button => {
+    navItems.forEach(button => {
 
-      button.classList.remove("active");
-
-      if (button.dataset.page === pageId) {
-        button.classList.add("active");
-      }
+      button.classList.toggle(
+        "active",
+        button.dataset.page === pageId
+      );
 
     });
 
-
-    if (pageId === "homePage") {
-      renderHome();
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
 
     if (pageId === "moviesPage") {
+
       renderMovies();
+
     }
 
     if (pageId === "seriesPage") {
+
       renderSeries();
+
     }
 
     if (pageId === "myListPage") {
+
       renderMyList();
+
     }
 
     if (pageId === "downloadsPage") {
+
       renderDownloads();
+
     }
 
   }
 
 
   /* =======================================================
-     CARD
+     RENDER GERAL
   ======================================================= */
 
-  function createCard(movie) {
+  function renderAll() {
 
-    const card = document.createElement("article");
+    renderHero();
 
-    card.className = "movie-card";
+    renderHomeRows();
 
-    card.innerHTML = `
+    renderMovies();
 
-      <img
-        src="${movie.image}"
-        alt="${movie.title}"
-        loading="lazy"
-      >
+    renderSeries();
 
-      <div class="movie-info">
+    renderMyList();
 
-        <h3>${movie.title}</h3>
+    renderDownloads();
 
-        <div class="movie-meta">
+  }
 
-          ${movie.year}
-          ·
-          <span class="card-rating">
-            ⭐ ${movie.rating}
-          </span>
 
-        </div>
+  /* =======================================================
+     HERO
+  ======================================================= */
 
-      </div>
+  function renderHero() {
 
+    const hero =
+      document.getElementById("hero");
+
+    const title =
+      document.getElementById("heroTitle");
+
+    const meta =
+      document.getElementById("heroMeta");
+
+    const description =
+      document.getElementById("heroDescription");
+
+    const content =
+      catalog[0];
+
+    hero.style.backgroundImage = `
+      linear-gradient(
+        to top,
+        #080808 2%,
+        rgba(8,8,8,.75) 30%,
+        rgba(8,8,8,.15) 70%
+      ),
+      linear-gradient(
+        to right,
+        rgba(0,0,0,.85),
+        transparent
+      ),
+      url("${content.banner}")
     `;
 
-    card.addEventListener("click", () => {
+    title.textContent =
+      content.title;
 
-      openDetails(movie);
+    meta.textContent =
+      `${content.type === "series" ? "Série" : "Filme"} • ${content.genre} • ⭐ ${content.rating}`;
 
-    });
+    description.textContent =
+      content.description;
 
-    return card;
+    document
+      .getElementById("heroWatch")
+      .onclick = () => {
+
+        if (content.type === "series") {
+
+          openDetails(content);
+
+        } else {
+
+          playContent(content);
+
+        }
+
+      };
+
+
+    document
+      .getElementById("heroDetails")
+      .onclick = () => {
+
+        openDetails(content);
+
+      };
 
   }
 
 
   /* =======================================================
-     RENDER
+     HOME
   ======================================================= */
 
-  function renderGrid(container, movies) {
+  function renderHomeRows() {
 
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    if (!movies.length) {
-
-      container.innerHTML = `
-        <p style="
-          color:#888;
-          padding:20px;
-          grid-column:1/-1;
-        ">
-          Nenhum conteúdo encontrado.
-        </p>
-      `;
-
-      return;
-
-    }
-
-    movies.forEach(movie => {
-
-      container.appendChild(
-        createCard(movie)
+    const movies =
+      catalog.filter(
+        item => item.type === "movie"
       );
 
-    });
-
-  }
-
-
-  /* =======================================================
-     INÍCIO
-  ======================================================= */
-
-  function renderHome() {
-
-    renderGrid(
-      popularGrid,
-      catalog
-        .slice()
-        .sort((a, b) => b.rating - a.rating)
-        .slice(0, 8)
-    );
-
-    renderGrid(
-      newGrid,
-      catalog
-        .slice()
-        .sort((a, b) => b.year - a.year)
-        .slice(0, 8)
-    );
-
-    const continueWatching = catalog.slice(2, 7);
+    const series =
+      catalog.filter(
+        item => item.type === "series"
+      );
 
     renderHorizontal(
-      continueGrid,
-      continueWatching
+      document.getElementById("popularRow"),
+      catalog
+    );
+
+    renderHorizontal(
+      document.getElementById("continueRow"),
+      getContinueContent()
+    );
+
+    renderHorizontal(
+      document.getElementById("homeMoviesRow"),
+      movies
+    );
+
+    renderHorizontal(
+      document.getElementById("homeSeriesRow"),
+      series
     );
 
   }
 
 
-  function renderHorizontal(container, movies) {
+  function getContinueContent() {
 
-    if (!container) return;
+    const ids =
+      Object.keys(progress);
 
-    container.innerHTML = "";
-
-    movies.forEach(movie => {
-
-      container.appendChild(
-        createCard(movie)
-      );
-
-    });
+    return catalog.filter(
+      item => ids.includes(item.id)
+    );
 
   }
 
@@ -421,14 +499,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderMovies() {
 
-    const movies = catalog.filter(
-      movie =>
-        movie.type === "Filme" ||
-        movie.type === "Documentário"
-    );
+    const movies =
+      catalog.filter(
+        item => item.type === "movie"
+      );
 
     renderGrid(
-      moviesGrid,
+      document.getElementById("moviesGrid"),
       movies
     );
 
@@ -441,12 +518,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderSeries() {
 
-    const series = catalog.filter(
-      movie => movie.type === "Série"
-    );
+    const series =
+      catalog.filter(
+        item => item.type === "series"
+      );
 
     renderGrid(
-      seriesGrid,
+      document.getElementById("seriesGrid"),
       series
     );
 
@@ -459,13 +537,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderMyList() {
 
-    const movies = catalog.filter(movie =>
-      myList.includes(movie.id)
-    );
+    const items =
+      catalog.filter(item =>
+        myList.includes(item.id)
+      );
 
     renderGrid(
-      myListGrid,
-      movies
+      document.getElementById("myListGrid"),
+      items
     );
 
   }
@@ -477,14 +556,135 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderDownloads() {
 
-    const movies = catalog.filter(movie =>
-      downloads.includes(movie.id)
-    );
+    const items =
+      catalog.filter(item =>
+        downloads.includes(item.id)
+      );
 
     renderGrid(
-      downloadsGrid,
-      movies
+      document.getElementById("downloadsGrid"),
+      items
     );
+
+  }
+
+
+  /* =======================================================
+     CARDS
+  ======================================================= */
+
+  function renderGrid(
+    container,
+    items
+  ) {
+
+    container.innerHTML = "";
+
+    if (!items.length) {
+
+      container.innerHTML = `
+        <div class="empty-message"
+             style="
+               grid-column:1/-1;
+               padding:25px;
+               color:#888;
+             ">
+          Nenhum conteúdo encontrado.
+        </div>
+      `;
+
+      return;
+
+    }
+
+    items.forEach(item => {
+
+      container.appendChild(
+        createCard(item)
+      );
+
+    });
+
+  }
+
+
+  function renderHorizontal(
+    container,
+    items
+  ) {
+
+    container.innerHTML = "";
+
+    if (!items.length) {
+
+      container.innerHTML = `
+        <div style="color:#777;">
+          Nenhum conteúdo.
+        </div>
+      `;
+
+      return;
+
+    }
+
+    items.forEach(item => {
+
+      container.appendChild(
+        createCard(item)
+      );
+
+    });
+
+  }
+
+
+  function createCard(item) {
+
+    const card =
+      document.createElement("article");
+
+    card.className = "card";
+
+    const type =
+      item.type === "series"
+        ? "Série"
+        : "Filme";
+
+    card.innerHTML = `
+
+      <img
+        class="card-image"
+        src="${item.image}"
+        alt="${escapeHTML(item.title)}"
+        loading="lazy"
+      >
+
+      <div class="card-body">
+
+        <div class="card-title">
+          ${escapeHTML(item.title)}
+        </div>
+
+        <div class="card-meta">
+          ${type}
+          ·
+          ${item.year}
+          ·
+          <span class="rating">
+            ⭐ ${item.rating}
+          </span>
+        </div>
+
+      </div>
+
+    `;
+
+    card.addEventListener(
+      "click",
+      () => openDetails(item)
+    );
+
+    return card;
 
   }
 
@@ -493,200 +693,764 @@ document.addEventListener("DOMContentLoaded", () => {
      DETALHES
   ======================================================= */
 
-  function openDetails(movie) {
+  function openDetails(item) {
 
-    selectedMovie = movie;
+    currentContent = item;
 
-    detailsImage.src = movie.image;
+    document.getElementById(
+      "detailsImage"
+    ).src = item.image;
 
-    detailsTitle.textContent = movie.title;
+    document.getElementById(
+      "detailsTitle"
+    ).textContent = item.title;
 
-    detailsMeta.innerHTML = `
-      <span>${movie.type}</span>
-      <span>${movie.year}</span>
-      <span>⭐ ${movie.rating}</span>
-      <span>${movie.genre}</span>
+    document.getElementById(
+      "detailsMeta"
+    ).innerHTML = `
+
+      <span>${item.type === "series" ? "Série" : "Filme"}</span>
+      <span>${item.genre}</span>
+      <span>${item.year}</span>
+      <span>⭐ ${item.rating}</span>
+
     `;
 
-    detailsDescription.textContent =
-      movie.description;
-
-    detailsModal.classList.remove("hidden");
-
-  }
+    document.getElementById(
+      "detailsDescription"
+    ).textContent =
+      item.description;
 
 
-  document
-    .getElementById("closeDetails")
-    .addEventListener("click", () => {
+    const actions =
+      document.getElementById(
+        "detailsActions"
+      );
 
-      detailsModal.classList.add("hidden");
-
-    });
+    actions.innerHTML = "";
 
 
-  detailsModal.addEventListener("click", event => {
+    /* ASSISTIR */
 
-    if (event.target === detailsModal) {
+    const watchButton =
+      makeButton(
+        "▶ Assistir",
+        "primary"
+      );
 
-      detailsModal.classList.add("hidden");
+    watchButton.onclick = () => {
+
+      if (item.type === "series") {
+
+        const firstSeason =
+          item.seasons?.[0];
+
+        const firstEpisode =
+          firstSeason?.episodes?.[0];
+
+        if (firstEpisode) {
+
+          playEpisode(
+            item,
+            firstSeason,
+            firstEpisode
+          );
+
+        }
+
+      } else {
+
+        playContent(item);
+
+      }
+
+    };
+
+    actions.appendChild(
+      watchButton
+    );
+
+
+    /* MINHA LISTA */
+
+    const listButton =
+      makeButton(
+        myList.includes(item.id)
+          ? "✓ Na Minha Lista"
+          : "＋ Minha Lista",
+        "secondary"
+      );
+
+    listButton.onclick = () => {
+
+      toggleMyList(item.id);
+
+      listButton.textContent =
+        myList.includes(item.id)
+          ? "✓ Na Minha Lista"
+          : "＋ Minha Lista";
+
+    };
+
+    actions.appendChild(
+      listButton
+    );
+
+
+    /* DOWNLOAD */
+
+    const downloadButton =
+      makeButton(
+        downloads.includes(item.id)
+          ? "✓ Nos Downloads"
+          : "⬇️ Download",
+        "secondary"
+      );
+
+    downloadButton.onclick = () => {
+
+      requestDownload(item);
+
+    };
+
+    actions.appendChild(
+      downloadButton
+    );
+
+
+    /* TEMPORADAS */
+
+    const seasonArea =
+      document.getElementById(
+        "seasonArea"
+      );
+
+    if (item.type === "series") {
+
+      seasonArea.classList.remove(
+        "hidden"
+      );
+
+      renderSeasons(item);
+
+    } else {
+
+      seasonArea.classList.add(
+        "hidden"
+      );
 
     }
 
-  });
 
-
-  /* =======================================================
-     MINHA LISTA
-  ======================================================= */
-
-  document
-    .getElementById("modalList")
-    .addEventListener("click", () => {
-
-      if (!selectedMovie) return;
-
-      if (myList.includes(selectedMovie.id)) {
-
-        myList = myList.filter(
-          id => id !== selectedMovie.id
-        );
-
-      } else {
-
-        myList.push(selectedMovie.id);
-
-      }
-
-      localStorage.setItem(
-        "vipnetflix_mylist",
-        JSON.stringify(myList)
-      );
-
-      renderMyList();
-
-    });
-
-
-  /* =======================================================
-     DOWNLOAD
-  ======================================================= */
-
-  document
-    .getElementById("modalDownload")
-    .addEventListener("click", () => {
-
-      if (!selectedMovie) return;
-
-      if (!downloads.includes(selectedMovie.id)) {
-
-        downloads.push(selectedMovie.id);
-
-        localStorage.setItem(
-          "vipnetflix_downloads",
-          JSON.stringify(downloads)
-        );
-
-        alert(
-          `"${selectedMovie.title}" foi adicionado aos Downloads.`
-        );
-
-      } else {
-
-        alert(
-          "Este conteúdo já está nos Downloads."
-        );
-
-      }
-
-      renderDownloads();
-
-    });
-
-
-  /* =======================================================
-     PLAYER
-  ======================================================= */
-
-  function openPlayer(movie) {
-
-    if (!movie) return;
-
-    document.getElementById(
-      "playerTitle"
-    ).textContent = movie.title;
-
-    playerModal.classList.remove(
+    detailsModal.classList.remove(
       "hidden"
     );
 
   }
 
 
-  document
-    .getElementById("heroPlay")
-    .addEventListener("click", () => {
+  function makeButton(
+    text,
+    type
+  ) {
 
-      const movie = catalog[0];
+    const button =
+      document.createElement("button");
 
-      openPlayer(movie);
+    button.className =
+      `btn ${type}`;
 
-    });
+    button.textContent =
+      text;
+
+    return button;
+
+  }
 
 
-  document
-    .getElementById("modalPlay")
-    .addEventListener("click", () => {
+  /* =======================================================
+     TEMPORADAS
+  ======================================================= */
 
-      openPlayer(selectedMovie);
+  function renderSeasons(series) {
 
-      detailsModal.classList.add(
+    const buttons =
+      document.getElementById(
+        "seasonButtons"
+      );
+
+    buttons.innerHTML = "";
+
+    const episodes =
+      document.getElementById(
+        "episodeList"
+      );
+
+    episodes.innerHTML = "";
+
+
+    series.seasons.forEach(
+      (season, index) => {
+
+        const button =
+          document.createElement("button");
+
+        button.className =
+          "season-button";
+
+        button.textContent =
+          `Temporada ${season.number}`;
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            document
+              .querySelectorAll(
+                ".season-button"
+              )
+              .forEach(
+                b => b.classList.remove("active")
+              );
+
+            button.classList.add(
+              "active"
+            );
+
+            renderEpisodes(
+              series,
+              season
+            );
+
+          }
+        );
+
+        buttons.appendChild(
+          button
+        );
+
+        if (index === 0) {
+
+          button.classList.add(
+            "active"
+          );
+
+          renderEpisodes(
+            series,
+            season
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
+     EPISÓDIOS
+  ======================================================= */
+
+  function renderEpisodes(
+    series,
+    season
+  ) {
+
+    currentSeason =
+      season;
+
+    const list =
+      document.getElementById(
+        "episodeList"
+      );
+
+    list.innerHTML = "";
+
+    season.episodes.forEach(
+      episode => {
+
+        const element =
+          document.createElement("div");
+
+        element.className =
+          "episode";
+
+        element.innerHTML = `
+
+          <img
+            class="episode-image"
+            src="${episode.image}"
+            alt=""
+          >
+
+          <div class="episode-info">
+
+            <h3>
+              ${episode.number}.
+              ${escapeHTML(episode.title)}
+            </h3>
+
+            <p>
+              ${escapeHTML(episode.description)}
+            </p>
+
+          </div>
+
+          <button
+            class="episode-watch"
+            title="Assistir"
+          >
+            ▶
+          </button>
+
+        `;
+
+        element
+          .querySelector(
+            ".episode-watch"
+          )
+          .addEventListener(
+            "click",
+            () => {
+
+              playEpisode(
+                series,
+                season,
+                episode
+              );
+
+            }
+          );
+
+        list.appendChild(
+          element
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
+     PLAYER — FILMES
+  ======================================================= */
+
+  function playContent(item) {
+
+    currentContent =
+      item;
+
+    currentEpisode =
+      null;
+
+    document.getElementById(
+      "playerTitle"
+    ).textContent =
+      item.title;
+
+    document
+      .getElementById(
+        "nextEpisodeButton"
+      )
+      .classList.add("hidden");
+
+    openVideo(
+      item.videoUrl
+    );
+
+  }
+
+
+  /* =======================================================
+     PLAYER — EPISÓDIOS
+  ======================================================= */
+
+  function playEpisode(
+    series,
+    season,
+    episode
+  ) {
+
+    currentContent =
+      series;
+
+    currentSeason =
+      season;
+
+    currentEpisode =
+      episode;
+
+    document.getElementById(
+      "playerTitle"
+    ).textContent =
+      `${series.title} — T${season.number} E${episode.number}`;
+
+    openVideo(
+      episode.videoUrl
+    );
+
+
+    const next =
+      findNextEpisode(
+        series,
+        season,
+        episode
+      );
+
+    const nextButton =
+      document.getElementById(
+        "nextEpisodeButton"
+      );
+
+    if (next) {
+
+      nextButton.classList.remove(
         "hidden"
       );
 
-    });
+      nextButton.onclick = () => {
 
+        playEpisode(
+          series,
+          next.season,
+          next.episode
+        );
+
+      };
+
+    } else {
+
+      nextButton.classList.add(
+        "hidden"
+      );
+
+    }
+
+  }
+
+
+  /* =======================================================
+     ABRIR VÍDEO
+  ======================================================= */
+
+  function openVideo(url) {
+
+    videoPlayer.pause();
+
+    videoPlayer.removeAttribute(
+      "src"
+    );
+
+    videoPlayer.load();
+
+    videoMessage.classList.add(
+      "hidden"
+    );
+
+
+    if (!url) {
+
+      videoMessage.classList.remove(
+        "hidden"
+      );
+
+      playerModal.classList.remove(
+        "hidden"
+      );
+
+      return;
+
+    }
+
+
+    videoPlayer.src =
+      url;
+
+    playerModal.classList.remove(
+      "hidden"
+    );
+
+
+    videoPlayer.play()
+      .catch(() => {
+
+        /*
+          Alguns navegadores bloqueiam
+          autoplay com som.
+        */
+
+      });
+
+  }
+
+
+  /* =======================================================
+     PRÓXIMO EPISÓDIO
+  ======================================================= */
+
+  function findNextEpisode(
+    series,
+    season,
+    episode
+  ) {
+
+    const index =
+      season.episodes.findIndex(
+        ep =>
+          ep.number === episode.number
+      );
+
+    if (
+      index >= 0 &&
+      index <
+      season.episodes.length - 1
+    ) {
+
+      return {
+
+        season,
+
+        episode:
+          season.episodes[index + 1]
+
+      };
+
+    }
+
+
+    const seasonIndex =
+      series.seasons.findIndex(
+        s =>
+          s.number === season.number
+      );
+
+
+    if (
+      seasonIndex >= 0 &&
+      seasonIndex <
+      series.seasons.length - 1
+    ) {
+
+      const nextSeason =
+        series.seasons[
+          seasonIndex + 1
+        ];
+
+      if (
+        nextSeason.episodes.length
+      ) {
+
+        return {
+
+          season: nextSeason,
+
+          episode:
+            nextSeason.episodes[0]
+
+        };
+
+      }
+
+    }
+
+    return null;
+
+  }
+
+
+  /* =======================================================
+     FECHAR PLAYER
+  ======================================================= */
 
   document
     .getElementById("closePlayer")
-    .addEventListener("click", () => {
+    .addEventListener(
+      "click",
+      closePlayer
+    );
 
-      playerModal.classList.add(
-        "hidden"
-      );
 
-    });
+  function closePlayer() {
+
+    videoPlayer.pause();
+
+    videoPlayer.removeAttribute(
+      "src"
+    );
+
+    videoPlayer.load();
+
+    playerModal.classList.add(
+      "hidden"
+    );
+
+  }
 
 
   /* =======================================================
-     HERO INFO
+     FECHAR DETALHES
   ======================================================= */
 
   document
-    .getElementById("heroInfo")
-    .addEventListener("click", () => {
+    .getElementById("closeDetails")
+    .addEventListener(
+      "click",
+      () => {
 
-      openDetails(
-        catalog[0]
-      );
+        detailsModal.classList.add(
+          "hidden"
+        );
 
-    });
+      }
+    );
+
+
+  detailsModal.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        detailsModal
+      ) {
+
+        detailsModal.classList.add(
+          "hidden"
+        );
+
+      }
+
+    }
+  );
 
 
   /* =======================================================
-     BUSCA
+     MINHA LISTA
   ======================================================= */
+
+  function toggleMyList(id) {
+
+    if (
+      myList.includes(id)
+    ) {
+
+      myList =
+        myList.filter(
+          item => item !== id
+        );
+
+      showToast(
+        "Removido da Minha Lista"
+      );
+
+    } else {
+
+      myList.push(id);
+
+      showToast(
+        "Adicionado à Minha Lista"
+      );
+
+    }
+
+    saveStorage(
+      "vipnetflix_my_list",
+      myList
+    );
+
+    renderMyList();
+
+  }
+
+
+  /* =======================================================
+     DOWNLOADS
+  ======================================================= */
+
+  function requestDownload(item) {
+
+    if (
+      !item.videoUrl
+    ) {
+
+      showToast(
+        "Este conteúdo ainda não possui vídeo autorizado configurado."
+      );
+
+      return;
+
+    }
+
+
+    if (
+      downloads.includes(item.id)
+    ) {
+
+      showToast(
+        "Este conteúdo já está nos Downloads."
+      );
+
+      return;
+
+    }
+
+
+    /*
+      O navegador não permite garantir
+      armazenamento offline de qualquer
+      URL externa.
+
+      Por isso registramos o conteúdo
+      somente quando a fonte permitir
+      download.
+    */
+
+    downloads.push(
+      item.id
+    );
+
+    saveStorage(
+      "vipnetflix_downloads",
+      downloads
+    );
+
+    renderDownloads();
+
+    showToast(
+      "Conteúdo adicionado aos Downloads."
+    );
+
+  }
+
+
+  /* =======================================================
+     PESQUISA
+  ======================================================= */
+
+  const searchInput =
+    document.getElementById(
+      "searchInput"
+    );
+
+  const searchResults =
+    document.getElementById(
+      "searchResults"
+    );
+
 
   searchInput.addEventListener(
     "input",
     () => {
 
-      const text =
+      const query =
         searchInput.value
           .trim()
           .toLowerCase();
 
-      if (!text) {
+
+      if (!query) {
 
         searchResults.innerHTML = "";
 
@@ -694,26 +1458,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
       }
 
+
       const results =
-        catalog.filter(movie =>
+        catalog.filter(
+          item =>
 
-          movie.title
-            .toLowerCase()
-            .includes(text)
+            item.title
+              .toLowerCase()
+              .includes(query)
 
-          ||
+            ||
 
-          movie.genre
-            .toLowerCase()
-            .includes(text)
+            item.genre
+              .toLowerCase()
+              .includes(query)
 
-          ||
+            ||
 
-          movie.type
-            .toLowerCase()
-            .includes(text)
+            item.type
+              .toLowerCase()
+              .includes(query)
 
         );
+
 
       renderGrid(
         searchResults,
@@ -724,178 +1491,157 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
-  /* =======================================================
-     CATEGORIAS
-  ======================================================= */
+  /* PESQUISA NO TOPO */
 
   document
-    .querySelectorAll(
-      ".category-grid button"
+    .getElementById(
+      "topSearchButton"
     )
-    .forEach(button => {
+    .addEventListener(
+      "click",
+      () => {
 
-      button.addEventListener(
-        "click",
-        () => {
-
-          const category =
-            button.dataset.category;
-
-          const results =
-            catalog.filter(movie =>
-              movie.genre === category
-            );
-
-          renderGrid(
-            categoryResults,
-            results
-          );
-
-        }
-      );
-
-    });
-
-
-  /* =======================================================
-     LOGIN
-  ======================================================= */
-
-  document
-    .getElementById("profileButton")
-    .addEventListener("click", () => {
-
-      showPage("profilePage");
-
-    });
-
-
-  document
-    .getElementById("loginButton")
-    .addEventListener("click", () => {
-
-      loginModal.classList.remove(
-        "hidden"
-      );
-
-    });
-
-
-  document
-    .getElementById("closeLogin")
-    .addEventListener("click", () => {
-
-      loginModal.classList.add(
-        "hidden"
-      );
-
-    });
-
-
-  document
-    .getElementById("submitLogin")
-    .addEventListener("click", () => {
-
-      const name =
-        document.getElementById(
-          "loginName"
-        ).value.trim();
-
-      const email =
-        document.getElementById(
-          "loginEmail"
-        ).value.trim();
-
-      const password =
-        document.getElementById(
-          "loginPassword"
-        ).value.trim();
-
-
-      if (!name || !email || !password) {
-
-        alert(
-          "Preencha todos os campos."
+        openPage(
+          "searchPage"
         );
 
+        setTimeout(
+          () => searchInput.focus(),
+          100
+        );
+
+      }
+    );
+
+
+  /* =======================================================
+     PROGRESSO DO VÍDEO
+  ======================================================= */
+
+  videoPlayer.addEventListener(
+    "timeupdate",
+    () => {
+
+      if (!currentContent) {
         return;
+      }
+
+      progress[
+        currentContent.id
+      ] = {
+
+        currentTime:
+          videoPlayer.currentTime,
+
+        duration:
+          videoPlayer.duration || 0
+
+      };
+
+      saveStorage(
+        "vipnetflix_progress",
+        progress
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     RESTAURAR PROGRESSO
+  ======================================================= */
+
+  videoPlayer.addEventListener(
+    "loadedmetadata",
+    () => {
+
+      if (!currentContent) {
+        return;
+      }
+
+      const saved =
+        progress[
+          currentContent.id
+        ];
+
+      if (
+        saved &&
+        saved.currentTime > 5 &&
+        saved.currentTime <
+        videoPlayer.duration - 5
+      ) {
+
+        videoPlayer.currentTime =
+          saved.currentTime;
 
       }
 
-
-      user = {
-        name,
-        email
-      };
-
-
-      localStorage.setItem(
-        "vipnetflix_user",
-        JSON.stringify(user)
-      );
-
-
-      updateProfile();
-
-
-      loginModal.classList.add(
-        "hidden"
-      );
-
-
-      alert(
-        `Bem-vindo ao VipNetflix, ${name}!`
-      );
-
-    });
+    }
+  );
 
 
   /* =======================================================
-     PERFIL
+     TOAST
   ======================================================= */
 
-  function updateProfile() {
+  let toastTimer;
 
-    if (!user) {
+  function showToast(message) {
 
-      profileName.textContent =
-        "Visitante";
+    toast.textContent =
+      message;
 
-      profileEmail.textContent =
-        "Não conectado";
+    toast.classList.add(
+      "show"
+    );
 
-      return;
+    clearTimeout(
+      toastTimer
+    );
 
-    }
+    toastTimer =
+      setTimeout(
+        () => {
 
+          toast.classList.remove(
+            "show"
+          );
 
-    profileName.textContent =
-      user.name;
-
-    profileEmail.textContent =
-      user.email;
+        },
+        2500
+      );
 
   }
 
 
   /* =======================================================
-     BOTÃO VER TUDO
+     SEGURANÇA BÁSICA DE TEXTO
   ======================================================= */
 
-  document
-    .querySelectorAll(".see-all")
-    .forEach(button => {
+  function escapeHTML(value) {
 
-      button.addEventListener(
-        "click",
-        () => {
-
-          showPage("moviesPage");
-
-        }
+    return String(value)
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
       );
 
-    });
-
+  }
 
 });
