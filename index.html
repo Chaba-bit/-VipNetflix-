@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="theme-color" content="#080808">
   <title>VipNetflix</title>
 
   <link rel="stylesheet" href="style.css">
@@ -11,366 +11,118 @@
 
 <body>
 
-<!-- =====================================================
-     TOAST
-===================================================== -->
+<div id="app">
 
-<div id="toast" class="toast"></div>
+  <!-- ================= ABERTURA ================= -->
 
+  <section id="splash" class="screen splash">
 
-<!-- =====================================================
-     AUTENTICAÇÃO
-===================================================== -->
+    <div class="splash-bg"></div>
 
-<section id="authScreen" class="auth-screen">
+    <div class="splash-content">
 
-  <div class="auth-box">
+      <div class="logo">
+        <span>VIP</span>NETFLIX<span class="dot">.</span>
+      </div>
 
-    <div class="logo">
-      VipNetflix
-    </div>
+      <p>Todo o seu catálogo em um só lugar.</p>
+      <p>Sem limites, sem interrupções.</p>
 
-    <!-- LOGIN -->
-
-    <div id="loginForm">
-
-      <h1>Entrar</h1>
-
-      <input
-        id="loginEmail"
-        type="email"
-        placeholder="Email"
-      >
-
-      <input
-        id="loginPassword"
-        type="password"
-        placeholder="Palavra-passe"
-      >
-
-      <button
-        class="primary-btn full-btn"
-        onclick="loginUser()"
-      >
-        Entrar
-      </button>
-
-      <button
-        class="text-btn"
-        onclick="showAuthForm('forgot')"
-      >
-        Esqueci a palavra-passe
-      </button>
-
-      <p>
-        Ainda não tens conta?
-      </p>
-
-      <button
-        class="secondary-btn full-btn"
-        onclick="showAuthForm('register')"
-      >
-        Criar conta
+      <button class="main-button" onclick="showHome()">
+        ENTRAR →
       </button>
 
     </div>
 
+  </section>
 
-    <!-- REGISTRO -->
 
-    <div id="registerForm" class="hidden">
+  <!-- ================= APP PRINCIPAL ================= -->
 
-      <h1>Criar conta</h1>
+  <section id="mainApp" class="screen hidden">
 
-      <input
-        id="registerName"
-        type="text"
-        placeholder="Nome"
-      >
+    <!-- HEADER -->
 
-      <input
-        id="registerEmail"
-        type="email"
-        placeholder="Email"
-      >
+    <header class="header">
 
-      <input
-        id="registerPhone"
-        type="tel"
-        placeholder="Telefone"
-      >
+      <button class="icon-button" onclick="toggleMenu()">☰</button>
 
-      <input
-        id="registerPassword"
-        type="password"
-        placeholder="Palavra-passe"
-      >
+      <div class="logo small">
+        <span>VIP</span>NETFLIX
+      </div>
 
-      <input
-        id="registerPasswordConfirm"
-        type="password"
-        placeholder="Confirmar palavra-passe"
-      >
+      <button class="icon-button" onclick="showSearch()">⌕</button>
 
-      <button
-        class="primary-btn full-btn"
-        onclick="registerUser()"
-      >
-        Criar conta
+    </header>
+
+
+    <!-- CONTEÚDO -->
+
+    <main id="content"></main>
+
+
+    <!-- MENU INFERIOR -->
+
+    <nav class="bottom-nav">
+
+      <button onclick="showHome()">
+        🏠
+        <small>Início</small>
       </button>
 
-      <button
-        class="text-btn"
-        onclick="showAuthForm('login')"
-      >
-        Voltar para entrar
+      <button onclick="showCatalog()">
+        🔥
+        <small>Lançamentos</small>
       </button>
 
+      <button onclick="showCatalog()">
+        🎬
+        <small>Catálogo</small>
+      </button>
+
+      <button onclick="showGenres()">
+        ☷
+        <small>Gêneros</small>
+      </button>
+
+      <button onclick="showFavorites()">
+        ♥
+        <small>Favoritos</small>
+      </button>
+
+      <button onclick="showDownloads()">
+        ↓
+        <small>Downloads</small>
+      </button>
+
+    </nav>
+
+  </section>
+
+
+  <!-- ================= MENU ================= -->
+
+  <div id="sideMenu" class="side-menu">
+
+    <button onclick="closeMenu()">✕</button>
+
+    <div class="menu-logo">
+      <span>VIP</span>NETFLIX
     </div>
 
-
-    <!-- RECUPERAÇÃO -->
-
-    <div id="forgotForm" class="hidden">
-
-      <h1>Recuperar conta</h1>
-
-      <input
-        id="forgotEmail"
-        type="email"
-        placeholder="Digite seu email"
-      >
-
-      <button
-        class="primary-btn full-btn"
-        onclick="recoverPassword()"
-      >
-        Recuperar
-      </button>
-
-      <button
-        class="text-btn"
-        onclick="showAuthForm('login')"
-      >
-        Voltar
-      </button>
-
-    </div>
+    <button onclick="showHome(); closeMenu()">🏠 Início</button>
+    <button onclick="showCatalog(); closeMenu()">🎬 Catálogo</button>
+    <button onclick="showDownloads(); closeMenu()">⬇ Downloads</button>
+    <button onclick="showFavorites(); closeMenu()">♥ Favoritos</button>
+    <button onclick="showPlans(); closeMenu()">💳 Planos</button>
+    <button onclick="showAccount(); closeMenu()">👤 Minha conta</button>
 
   </div>
-
-</section>
-
-
-<!-- =====================================================
-     PERFIS
-===================================================== -->
-
-<section id="profileScreen" class="profile-screen hidden">
-
-  <div class="profile-container">
-
-    <h1>Quem está assistindo?</h1>
-
-    <div id="profilesList" class="profiles-list"></div>
-
-    <button
-      class="secondary-btn"
-      onclick="createProfile()"
-    >
-      ＋ Adicionar perfil
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     APLICAÇÃO
-===================================================== -->
-
-<main id="mainApp" class="hidden">
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<header class="header">
-
-  <div class="logo">
-    VipNetflix
-  </div>
-
-  <nav class="desktop-nav">
-
-    <button
-      class="nav-link active"
-      data-page="home"
-      onclick="showPage('home')"
-    >
-      Início
-    </button>
-
-    <button
-      class="nav-link"
-      data-page="series"
-      onclick="showPage('series')"
-    >
-      Séries
-    </button>
-
-    <button
-      class="nav-link"
-      data-page="movies"
-      onclick="showPage('movies')"
-    >
-      Filmes
-    </button>
-
-    <button
-      class="nav-link"
-      data-page="new"
-      onclick="showPage('new')"
-    >
-      Novidades
-    </button>
-
-    <button
-      class="nav-link"
-      data-page="mylist"
-      onclick="showPage('mylist')"
-    >
-      Minha Lista
-    </button>
-
-    <button
-      class="nav-link"
-      data-page="plans"
-      onclick="showPage('plans')"
-    >
-      Planos
-    </button>
-
-  </nav>
-
-
-  <div class="header-actions">
-
-    <button
-      onclick="showPage('explore')"
-      class="icon-btn"
-    >
-      🔍
-    </button>
-
-    <button
-      onclick="changeProfile()"
-      class="profile-mini"
-    >
-      👤
-    </button>
-
-    <button
-      onclick="toggleMobileMenu()"
-      class="menu-btn"
-    >
-      ☰
-    </button>
-
-  </div>
-
-</header>
-
-
-<!-- =====================================================
-     MOBILE MENU
-===================================================== -->
-
-<div id="mobileMenu" class="mobile-menu hidden">
-
-  <button onclick="showPage('home')">
-    Início
-  </button>
-
-  <button onclick="showPage('series')">
-    Séries
-  </button>
-
-  <button onclick="showPage('movies')">
-    Filmes
-  </button>
-
-  <button onclick="showPage('new')">
-    Novidades
-  </button>
-
-  <button onclick="showPage('mylist')">
-    Minha Lista
-  </button>
-
-  <button onclick="showPage('downloads')">
-    Downloads
-  </button>
-
-  <button onclick="showPage('history')">
-    Histórico
-  </button>
-
-  <button onclick="showPage('explore')">
-    Pesquisar
-  </button>
-
-  <button onclick="showPage('plans')">
-    Planos
-  </button>
-
-  <button onclick="logoutUser()">
-    Sair
-  </button>
 
 </div>
 
 
-<!-- =====================================================
-     HOME
-===================================================== -->
+<script src="app.js"></script>
 
-<section id="home" class="page active">
-
-  <div id="hero" class="hero">
-
-    <div class="hero-content">
-
-      <span class="hero-label">
-        VIPNETFLIX
-      </span>
-
-      <h1 id="heroTitle">
-        VipNetflix
-      </h1>
-
-      <div class="hero-meta">
-
-        <span id="heroYear">
-          2026
-        </span>
-
-        <span>•</span>
-
-        <span id="heroGenre">
-          Entretenimento
-        </span>
-
-      </div>
-
-      <p id="heroDescription">
-        Bem-vindo ao VipNetflix.
-      </p>
-
-      <div class="hero-buttons">
-
-        <button
-          class="primary-btn"
-         
+</body>
+</html>
