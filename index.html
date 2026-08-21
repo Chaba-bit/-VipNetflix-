@@ -2,8 +2,14 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080808">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
+
+  <meta name="theme-color" content="#070b10">
+
   <title>VipNetflix</title>
 
   <link rel="stylesheet" href="style.css">
@@ -11,25 +17,30 @@
 
 <body>
 
-<div id="app">
+  <!-- =====================================================
+       TELA DE ABERTURA
+  ====================================================== -->
 
-  <!-- ================= ABERTURA ================= -->
+  <section id="splash" class="splash">
 
-  <section id="splash" class="screen splash">
-
-    <div class="splash-bg"></div>
+    <div class="splash-background"></div>
 
     <div class="splash-content">
 
-      <div class="logo">
-        <span>VIP</span>NETFLIX<span class="dot">.</span>
+      <div class="brand-logo">
+        <span>VIP</span>NETFLIX<span class="red-dot">.</span>
       </div>
 
-      <p>Todo o seu catálogo em um só lugar.</p>
-      <p>Sem limites, sem interrupções.</p>
+      <p class="splash-text">
+        Todo o seu catálogo em um só lugar.
+      </p>
 
-      <button class="main-button" onclick="showHome()">
-        ENTRAR →
+      <p class="splash-text">
+        Sem limites, sem interrupções.
+      </p>
+
+      <button id="enterButton" class="enter-button">
+        ENTRAR <span>→</span>
       </button>
 
     </div>
@@ -37,21 +48,33 @@
   </section>
 
 
-  <!-- ================= APP PRINCIPAL ================= -->
+  <!-- =====================================================
+       APLICAÇÃO
+  ====================================================== -->
 
-  <section id="mainApp" class="screen hidden">
+  <div id="app" class="hidden">
 
     <!-- HEADER -->
 
-    <header class="header">
+    <header class="top-header">
 
-      <button class="icon-button" onclick="toggleMenu()">☰</button>
+      <button
+        id="menuButton"
+        class="header-button"
+        aria-label="Abrir menu">
+        ☰
+      </button>
 
-      <div class="logo small">
+      <div class="header-logo">
         <span>VIP</span>NETFLIX
       </div>
 
-      <button class="icon-button" onclick="showSearch()">⌕</button>
+      <button
+        id="searchButton"
+        class="header-button"
+        aria-label="Pesquisar">
+        ⌕
+      </button>
 
     </header>
 
@@ -61,68 +84,93 @@
     <main id="content"></main>
 
 
-    <!-- MENU INFERIOR -->
+    <!-- =================================================
+         MENU INFERIOR
+    ================================================== -->
 
-    <nav class="bottom-nav">
+    <nav class="bottom-navigation">
 
-      <button onclick="showHome()">
-        🏠
+      <button data-page="home">
+        <strong>⌂</strong>
         <small>Início</small>
       </button>
 
-      <button onclick="showCatalog()">
-        🔥
+      <button data-page="catalog">
+        <strong>🔥</strong>
         <small>Lançamentos</small>
       </button>
 
-      <button onclick="showCatalog()">
-        🎬
+      <button data-page="catalog">
+        <strong>▣</strong>
         <small>Catálogo</small>
       </button>
 
-      <button onclick="showGenres()">
-        ☷
+      <button data-page="genres">
+        <strong>☷</strong>
         <small>Gêneros</small>
       </button>
 
-      <button onclick="showFavorites()">
-        ♥
+      <button data-page="favorites">
+        <strong>♥</strong>
         <small>Favoritos</small>
       </button>
 
-      <button onclick="showDownloads()">
-        ↓
+      <button data-page="downloads">
+        <strong>↓</strong>
         <small>Downloads</small>
       </button>
 
     </nav>
 
-  </section>
+  </div>
 
 
-  <!-- ================= MENU ================= -->
+  <!-- =====================================================
+       MENU LATERAL
+  ====================================================== -->
 
-  <div id="sideMenu" class="side-menu">
+  <div id="menuOverlay" class="menu-overlay"></div>
 
-    <button onclick="closeMenu()">✕</button>
+  <aside id="sideMenu" class="side-menu">
 
-    <div class="menu-logo">
+    <button id="closeMenu" class="close-menu">
+      ×
+    </button>
+
+    <div class="side-logo">
       <span>VIP</span>NETFLIX
     </div>
 
-    <button onclick="showHome(); closeMenu()">🏠 Início</button>
-    <button onclick="showCatalog(); closeMenu()">🎬 Catálogo</button>
-    <button onclick="showDownloads(); closeMenu()">⬇ Downloads</button>
-    <button onclick="showFavorites(); closeMenu()">♥ Favoritos</button>
-    <button onclick="showPlans(); closeMenu()">💳 Planos</button>
-    <button onclick="showAccount(); closeMenu()">👤 Minha conta</button>
+    <button data-menu-page="home">
+      🏠 &nbsp; Início
+    </button>
 
-  </div>
+    <button data-menu-page="catalog">
+      🎬 &nbsp; Catálogo
+    </button>
 
-</div>
+    <button data-menu-page="downloads">
+      ⬇️ &nbsp; Downloads
+    </button>
+
+    <button data-menu-page="favorites">
+      ❤️ &nbsp; Favoritos
+    </button>
+
+    <button data-menu-page="plans">
+      💳 &nbsp; Planos
+    </button>
+
+    <button data-menu-page="account">
+      👤 &nbsp; Minha conta
+    </button>
+
+  </aside>
 
 
-<script src="app.js"></script>
+  <!-- JAVASCRIPT -->
+
+  <script src="app.js"></script>
 
 </body>
 </html>
