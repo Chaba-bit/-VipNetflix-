@@ -2,11 +2,8 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#050505">
-
   <title>VipNetflix</title>
 
   <link rel="stylesheet" href="style.css">
@@ -14,182 +11,149 @@
 
 <body>
 
-<!-- =====================================================
-     TELA DE ABERTURA
-====================================================== -->
+  <!-- =====================================================
+       ABERTURA
+  ====================================================== -->
+  <section id="splashScreen" class="screen splash-screen">
 
-<section id="welcomeScreen" class="welcome-screen">
+    <div class="splash-glow red"></div>
+    <div class="splash-glow purple"></div>
 
-  <div class="welcome-glow glow-red"></div>
-  <div class="welcome-glow glow-purple"></div>
+    <div class="splash-content">
 
-  <div class="welcome-content">
+      <div class="splash-logo">
+        <span>VIP</span><b>NETFLIX</b><i>.</i>
+      </div>
 
-    <h1>
-      <span>VIP</span>NETFLIX<b>.</b>
-    </h1>
+      <p>
+        Todo o seu catálogo em um só lugar.<br>
+        Sem limites, sem interrupções.
+      </p>
 
-    <p>Todo o seu catálogo em um só lugar.</p>
-    <p>Sem limites, sem interrupções.</p>
+      <button id="enterButton" class="enter-button">
+        ENTRAR <span>→</span>
+      </button>
 
-    <button id="enterBtn" class="enter-btn">
-      ENTRAR <span>→</span>
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     TELA DE CONTA
-====================================================== -->
-
-<section id="accountScreen" class="account-screen">
-
-  <button id="backBtn" class="back-btn">
-    ← Voltar
-  </button>
-
-  <div class="account-box">
-
-    <div class="account-logo">
-      <span>VIP</span>NETFLIX
     </div>
 
-    <h2>Criar sua conta</h2>
-
-    <p>Entre para começar a assistir.</p>
-
-    <input
-      id="nameInput"
-      type="text"
-      placeholder="Seu nome"
-      autocomplete="name"
-    >
-
-    <input
-      id="emailInput"
-      type="email"
-      placeholder="Seu email"
-      autocomplete="email"
-    >
-
-    <input
-      id="passwordInput"
-      type="password"
-      placeholder="Sua senha"
-      autocomplete="new-password"
-    >
-
-    <button id="createAccountBtn" class="account-btn">
-      CRIAR CONTA
-    </button>
-
-    <p id="accountMessage" class="account-message"></p>
-
-  </div>
-
-</section>
+  </section>
 
 
-<!-- =====================================================
-     APLICAÇÃO PRINCIPAL
-====================================================== -->
+  <!-- =====================================================
+       APLICAÇÃO
+  ====================================================== -->
+  <main id="appScreen" class="app-screen hidden">
 
-<section id="appScreen" class="app-screen">
+    <!-- HEADER -->
+    <header class="top-header">
 
-  <!-- =================================================
-       TOPO
-  ================================================== -->
+      <button class="icon-button" id="menuButton">
+        ☰
+      </button>
 
-  <header class="topbar">
+      <div class="header-logo">
+        <span>VIP</span><b>NETFLIX</b>
+      </div>
 
-    <button id="menuBtn" class="icon-btn">
-      ☰
-    </button>
+      <button class="icon-button" id="searchButton">
+        ⌕
+      </button>
 
-    <div class="main-logo">
-      <span>VIP</span>NETFLIX
-    </div>
-
-    <button id="searchBtn" class="icon-btn">
-      ⌕
-    </button>
-
-  </header>
+    </header>
 
 
-  <!-- =================================================
-       HOME
-  ================================================== -->
+    <!-- MENU LATERAL -->
+    <aside id="sideMenu" class="side-menu">
 
-  <main id="homePage" class="page active-page">
+      <div class="menu-header">
+        <div class="profile-circle">V</div>
+        <div>
+          <strong>VipNetflix</strong>
+          <small>Minha conta</small>
+        </div>
+      </div>
 
+      <button data-section="home">⌂ &nbsp; Início</button>
+      <button data-section="catalog">▣ &nbsp; Catálogo</button>
+      <button data-section="genres">☷ &nbsp; Géneros</button>
+      <button data-section="favorites">♥ &nbsp; Favoritos</button>
+      <button data-section="downloads">⇩ &nbsp; Downloads</button>
+
+    </aside>
+
+    <div id="menuOverlay" class="menu-overlay"></div>
+
+
+    <!-- PESQUISA -->
+    <section id="searchBox" class="search-box hidden">
+
+      <div class="search-input-wrapper">
+        <span>⌕</span>
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Pesquisar filmes e séries..."
+        >
+
+        <button id="closeSearch">×</button>
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
     <section class="hero">
 
       <div class="hero-background"></div>
 
-      <div class="hero-overlay"></div>
+      <div class="hero-gradient"></div>
 
       <div class="hero-content">
 
-        <div class="hero-title">
-          REACHER
-        </div>
+        <div class="hero-title">REACHER</div>
 
         <div class="hero-info">
-          2022
+          <span>2022</span>
+          <span class="age">16</span>
+          <span>2 Temporadas</span>
           <span>•</span>
-          2 Temporadas
-          <span>•</span>
-          Ação
-          <strong>16</strong>
-        </div>
-
-        <div class="rating">
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-          <small>3.012 votos</small>
+          <span>Ação</span>
         </div>
 
         <p class="hero-description">
-          Quando reformado, o investigador militar Jack
-          Reacher viaja pelo país sem rumo fixo — até ser
-          preso por um crime que não cometeu.
+          Quando reformado, o investigador militar Jack Reacher
+          viaja pelo país sem rumo fixo — até ser preso por um
+          crime que não cometeu.
         </p>
+
+        <div class="rating">
+          ★ ★ ★ ★ ★
+          <small>3,012 votos</small>
+        </div>
 
         <div class="hero-buttons">
 
-          <button
-            class="primary-btn"
-            onclick="playContent('Reacher')">
-            ▶ CONTINUAR ASSISTINDO
+          <button class="primary-button" id="continueHero">
+            ▶ &nbsp; CONTINUAR ASSISTINDO
           </button>
 
-          <button
-            class="secondary-btn"
-            onclick="downloadEpisode('Reacher','T2:E1','720p','850 MB')">
-            ⬇ BAIXAR
+          <button class="secondary-button" id="downloadHero">
+            ⇩ &nbsp; BAIXAR
           </button>
 
-          <button
-            class="secondary-btn"
-            onclick="addFavorite('Reacher')">
-            ＋ MINHA LISTA
+          <button class="secondary-button" id="favoriteHero">
+            ＋ &nbsp; MINHA LISTA
           </button>
 
         </div>
 
-        <div class="hero-details">
-
+        <div class="technical-info">
           <span>◷ Duração: 45m</span>
           <span>🔊 Áudio: Português</span>
           <span>▣ Legendas: Português</span>
-
         </div>
 
       </div>
@@ -197,444 +161,233 @@
     </section>
 
 
-    <!-- CONTINUAR -->
+    <!-- =================================================
+         CONTEÚDO
+    ================================================== -->
+    <section class="content-container">
 
-    <section class="content-section">
+      <!-- RESULTADOS DE PESQUISA -->
+      <section id="searchResultsSection" class="content-section hidden">
 
-      <div class="section-header">
-
-        <h2>
-          <i></i>
-          CONTINUAR ASSISTINDO
-        </h2>
-
-        <button onclick="clearContinue()">
-          LIMPAR
-        </button>
-
-      </div>
-
-      <div id="continueCards" class="poster-row"></div>
-
-    </section>
-
-
-    <!-- LANÇAMENTOS -->
-
-    <section class="content-section">
-
-      <div class="section-header">
-
-        <h2>
-          <i></i>
-          LANÇAMENTOS
-        </h2>
-
-        <button onclick="showPage('releasesPage')">
-          VER TODOS →
-        </button>
-
-      </div>
-
-      <div id="releaseCards" class="poster-row"></div>
-
-    </section>
-
-
-    <!-- DOWNLOADS -->
-
-    <section class="content-section">
-
-      <div class="section-header">
-
-        <h2>
-          <i></i>
-          DOWNLOADS
-        </h2>
-
-        <button onclick="showPage('downloadsPage')">
-          VER TODOS →
-        </button>
-
-      </div>
-
-      <div class="storage-box">
-
-        <div class="storage-icon">
-          ⬇
+        <div class="section-title">
+          <span>RESULTADOS</span>
         </div>
 
-        <div class="storage-info">
+        <div id="searchResults" class="poster-grid"></div>
 
-          <h3>Armazenamento de Downloads</h3>
+      </section>
 
-          <p id="storageText">
-            0 MB usados de 64 GB
-          </p>
 
-          <div class="storage-bar">
-            <div id="storageProgress"></div>
+      <!-- CONTINUAR -->
+      <section id="continueSection" class="content-section">
+
+        <div class="section-title">
+          <span>CONTINUAR ASSISTINDO</span>
+          <button id="clearContinue">LIMPAR</button>
+        </div>
+
+        <div id="continueList" class="continue-list"></div>
+
+      </section>
+
+
+      <!-- DOWNLOADS -->
+      <section id="downloadsSection" class="downloads-section">
+
+        <div class="section-title download-title">
+          <span>⇩ &nbsp; DOWNLOADS</span>
+
+          <button id="viewDownloads">
+            VER TODOS ›
+          </button>
+        </div>
+
+        <div id="downloadList"></div>
+
+        <div class="storage">
+
+          <div>
+            <span>▣ &nbsp; Armazenamento usado:</span>
+            <strong id="storageUsed">0 GB</strong>
+          </div>
+
+          <div>
+            Disponível:
+            <strong id="storageAvailable">64 GB</strong>
           </div>
 
         </div>
 
-      </div>
+        <div class="storage-bar">
+          <div id="storageProgress"></div>
+        </div>
+
+      </section>
+
+
+      <!-- CATÁLOGO -->
+      <section id="catalogSection" class="content-section">
+
+        <div class="section-title">
+          <span>CATÁLOGO</span>
+          <button id="showAll">VER TODOS ›</button>
+        </div>
+
+        <div id="catalogList" class="poster-grid"></div>
+
+      </section>
+
+
+      <!-- GÉNEROS -->
+      <section id="genresSection" class="content-section hidden">
+
+        <div class="section-title">
+          <span>GÉNEROS</span>
+        </div>
+
+        <div id="genresList" class="genres-list"></div>
+
+      </section>
+
+
+      <!-- FAVORITOS -->
+      <section id="favoritesSection" class="content-section hidden">
+
+        <div class="section-title">
+          <span>FAVORITOS</span>
+        </div>
+
+        <div id="favoritesList" class="poster-grid"></div>
+
+      </section>
 
     </section>
 
 
-    <!-- RECOMENDAÇÕES -->
+    <!-- =================================================
+         NAVEGAÇÃO
+    ================================================== -->
+    <nav class="bottom-navigation">
 
-    <section class="content-section">
+      <button class="nav-item active" data-section="home">
+        <span>⌂</span>
+        <small>INÍCIO</small>
+      </button>
 
-      <div class="section-header">
+      <button class="nav-item" data-section="releases">
+        <span>♨</span>
+        <small>LANÇAMENTOS</small>
+      </button>
 
-        <h2>
-          <i></i>
-          TAMBÉM PODE GOSTAR
-        </h2>
+      <button class="nav-item" data-section="catalog">
+        <span>▱</span>
+        <small>CATÁLOGO</small>
+      </button>
 
-      </div>
+      <button class="nav-item" data-section="genres">
+        <span>☷</span>
+        <small>GÉNEROS</small>
+      </button>
 
-      <div id="recommendationCards" class="poster-row"></div>
+      <button class="nav-item" data-section="favorites">
+        <span>♥</span>
+        <small>FAVORITOS</small>
+      </button>
 
-    </section>
+      <button class="nav-item" data-section="downloads">
+        <span>⇩</span>
+        <small>DOWNLOADS</small>
+      </button>
 
-  </main>
-
-
-  <!-- =================================================
-       CATÁLOGO
-  ================================================== -->
-
-  <main id="catalogPage" class="page">
-
-    <div class="page-title">
-
-      <h1>CATÁLOGO</h1>
-
-      <p>Filmes e séries disponíveis</p>
-
-    </div>
-
-    <div id="catalogGrid" class="catalog-grid"></div>
-
-  </main>
-
-
-  <!-- =================================================
-       LANÇAMENTOS
-  ================================================== -->
-
-  <main id="releasesPage" class="page">
-
-    <div class="page-title">
-
-      <h1>LANÇAMENTOS</h1>
-
-      <p>Confira os conteúdos mais recentes</p>
-
-    </div>
-
-    <div id="allReleaseGrid" class="catalog-grid"></div>
-
-  </main>
+    </nav>
 
 
-  <!-- =================================================
-       DOWNLOADS
-  ================================================== -->
+    <!-- PLAYER -->
+    <div id="playerModal" class="modal hidden">
 
-  <main id="downloadsPage" class="page">
+      <div class="player">
 
-    <div class="page-title">
+        <button id="closePlayer" class="close-player">×</button>
 
-      <h1>DOWNLOADS</h1>
+        <div class="fake-player">
 
-      <p>
-        Assista aos conteúdos disponíveis offline.
-      </p>
+          <div class="player-logo">
+            <span>VIP</span>NETFLIX
+          </div>
 
-    </div>
+          <button id="playVideo" class="big-play">
+            ▶
+          </button>
 
-    <div class="large-storage">
+          <div class="player-controls">
 
-      <div class="large-download-icon">
-        ⬇
-      </div>
+            <span>0:00</span>
 
-      <div>
+            <div class="player-line">
+              <div></div>
+            </div>
 
-        <h2>Armazenamento</h2>
+            <span>45:00</span>
 
-        <p id="largeStorageText">
-          0 MB usados de 64 GB
+          </div>
+
+        </div>
+
+        <h2 id="playerTitle">Reacher</h2>
+
+        <p>
+          Player de demonstração do VipNetflix.
+          Substitua pela URL do vídeo autorizado.
         </p>
 
-        <div class="storage-bar large">
-          <div id="largeStorageProgress"></div>
-        </div>
-
       </div>
 
     </div>
 
-    <div id="downloadsList" class="downloads-list"></div>
 
-  </main>
+    <!-- DETALHES -->
+    <div id="detailsModal" class="modal hidden">
 
+      <div class="details-modal">
 
-  <!-- =================================================
-       FAVORITOS
-  ================================================== -->
+        <button id="closeDetails" class="close-player">×</button>
 
-  <main id="favoritesPage" class="page">
+        <img id="detailsImage" src="" alt="">
 
-    <div class="page-title">
+        <div class="details-info">
 
-      <h1>FAVORITOS</h1>
+          <h2 id="detailsTitle"></h2>
 
-      <p>Os seus conteúdos favoritos.</p>
+          <p id="detailsDescription"></p>
 
-    </div>
+          <div class="details-actions">
 
-    <div id="favoritesGrid" class="catalog-grid"></div>
+            <button id="detailsPlay" class="primary-button">
+              ▶ ASSISTIR
+            </button>
 
-  </main>
+            <button id="detailsDownload" class="secondary-button">
+              ⇩ BAIXAR
+            </button>
 
-
-  <!-- =================================================
-       MENU LATERAL
-  ================================================== -->
-
-  <div id="sideMenu" class="side-menu">
-
-    <div class="side-header">
-
-      <div class="side-logo">
-        <span>VIP</span>NETFLIX
-      </div>
-
-      <button onclick="closeMenu()">×</button>
-
-    </div>
-
-    <div class="profile-mini">
-
-      <div class="profile-avatar">
-        V
-      </div>
-
-      <div>
-        <strong id="profileName">Visitante</strong>
-        <small>Conta VipNetflix</small>
-      </div>
-
-    </div>
-
-    <button onclick="showPage('homePage'); closeMenu()">
-      🏠 Início
-    </button>
-
-    <button onclick="showPage('catalogPage'); closeMenu()">
-      🎬 Catálogo
-    </button>
-
-    <button onclick="showPage('releasesPage'); closeMenu()">
-      ⭐ Lançamentos
-    </button>
-
-    <button onclick="showPage('downloadsPage'); closeMenu()">
-      ⬇ Downloads
-    </button>
-
-    <button onclick="showPage('favoritesPage'); closeMenu()">
-      ♥ Favoritos
-    </button>
-
-  </div>
-
-  <div id="menuOverlay" class="menu-overlay"></div>
-
-
-  <!-- =================================================
-       PESQUISA
-  ================================================== -->
-
-  <div id="searchModal" class="search-modal">
-
-    <div class="search-box">
-
-      <button
-        class="modal-close"
-        onclick="closeSearch()">
-        ×
-      </button>
-
-      <h2>Pesquisar</h2>
-
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Digite o nome de um filme ou série..."
-      >
-
-      <div id="searchResults"></div>
-
-    </div>
-
-  </div>
-
-
-  <!-- =================================================
-       MODAL DE SÉRIE
-  ================================================== -->
-
-  <div id="seriesModal" class="modal">
-
-    <div class="modal-content">
-
-      <button
-        class="modal-close"
-        onclick="closeSeries()">
-        ×
-      </button>
-
-      <div id="modalPoster" class="modal-poster"></div>
-
-      <h2 id="modalTitle">
-        Série
-      </h2>
-
-      <p id="modalDescription"></p>
-
-      <div class="season-selector">
-
-        <label>Temporada</label>
-
-        <select id="seasonSelect"></select>
-
-      </div>
-
-      <div id="episodesList"></div>
-
-    </div>
-
-  </div>
-
-
-  <!-- =================================================
-       PLAYER
-  ================================================== -->
-
-  <div id="playerModal" class="modal">
-
-    <div class="player-content">
-
-      <button
-        class="modal-close"
-        onclick="closePlayer()">
-        ×
-      </button>
-
-      <h2 id="playerTitle">
-        VipNetflix
-      </h2>
-
-      <div class="video-box">
-
-        <div class="demo-player">
-
-          <div
-            class="play-circle"
-            onclick="startDemoVideo()">
-            ▶
           </div>
 
-          <p>
-            PLAYER VIPNETFLIX
-          </p>
-
-          <small>
-            Conteúdo de demonstração
-          </small>
-
         </div>
 
       </div>
 
-      <p class="player-note">
-        Este player está preparado para receber
-        conteúdos de vídeo autorizados.
-      </p>
-
     </div>
 
-  </div>
+
+    <!-- TOAST -->
+    <div id="toast" class="toast">
+      Operação realizada.
+    </div>
+
+  </main>
 
 
-  <!-- =================================================
-       MENU INFERIOR
-  ================================================== -->
-
-  <nav class="bottom-nav">
-
-    <button
-      class="nav-item active"
-      data-page="homePage"
-      onclick="showPage('homePage')">
-
-      <span>⌂</span>
-      <small>INÍCIO</small>
-
-    </button>
-
-    <button
-      class="nav-item"
-      data-page="releasesPage"
-      onclick="showPage('releasesPage')">
-
-      <span>★</span>
-      <small>LANÇAMENTOS</small>
-
-    </button>
-
-    <button
-      class="nav-item"
-      data-page="catalogPage"
-      onclick="showPage('catalogPage')">
-
-      <span>▣</span>
-      <small>CATÁLOGO</small>
-
-    </button>
-
-    <button
-      class="nav-item"
-      data-page="favoritesPage"
-      onclick="showPage('favoritesPage')">
-
-      <span>♥</span>
-      <small>FAVORITOS</small>
-
-    </button>
-
-    <button
-      class="nav-item"
-      data-page="downloadsPage"
-      onclick="showPage('downloadsPage')">
-
-      <span>⬇</span>
-      <small>DOWNLOADS</small>
-
-    </button>
-
-  </nav>
-
-</section>
-
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 
 </body>
-   </html>
+  </html>
