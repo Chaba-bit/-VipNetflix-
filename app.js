@@ -1,2284 +1,901 @@
 /* =========================================================
    VIPNETFLIX — APP.JS
-   VERSÃO COMPLETA E CORRIGIDA
+   ESTRUTURA COMPLETA
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
-    /* =====================================================
-       ELEMENTOS
-    ===================================================== */
+  /* =======================================================
+     DADOS DO CATÁLOGO
+  ======================================================= */
 
-    const splashScreen = document.getElementById("splashScreen");
-    const appScreen = document.getElementById("appScreen");
+  const catalog = [
 
-    const enterButton = document.getElementById("enterButton");
+    {
+      id: 1,
+      title: "Aventura VIP",
+      type: "Filme",
+      genre: "Aventura",
+      year: 2026,
+      rating: 8.8,
+      image: "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=700&q=80",
+      description: "Uma aventura emocionante onde um grupo precisa enfrentar desafios inesperados."
+    },
 
-    const menuButton = document.getElementById("menuButton");
-    const sideMenu = document.getElementById("sideMenu");
-    const menuOverlay = document.getElementById("menuOverlay");
+    {
+      id: 2,
+      title: "Além do Espaço",
+      type: "Filme",
+      genre: "Ficção científica",
+      year: 2026,
+      rating: 8.2,
+      image: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=700&q=80",
+      description: "Uma missão espacial revela um segredo que pode mudar o futuro da humanidade."
+    },
 
-    const searchButton = document.getElementById("searchButton");
-    const searchBox = document.getElementById("searchBox");
-    const searchInput = document.getElementById("searchInput");
-    const closeSearch = document.getElementById("closeSearch");
+    {
+      id: 3,
+      title: "Código Sombrio",
+      type: "Série",
+      genre: "Ação",
+      year: 2026,
+      rating: 9.0,
+      image: "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?auto=format&fit=crop&w=700&q=80",
+      description: "Uma equipe especial descobre uma organização secreta."
+    },
 
-    const continueList =
-        document.getElementById("continueList");
+    {
+      id: 4,
+      title: "Cidade Perdida",
+      type: "Filme",
+      genre: "Ação",
+      year: 2026,
+      rating: 8.5,
+      image: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=700&q=80",
+      description: "Uma cidade escondida guarda um segredo perigoso."
+    },
 
-    const catalogList =
-        document.getElementById("catalogList");
+    {
+      id: 5,
+      title: "Amor em Paris",
+      type: "Filme",
+      genre: "Romance",
+      year: 2026,
+      rating: 7.9,
+      image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=700&q=80",
+      description: "Uma história de amor inesperada pelas ruas de Paris."
+    },
 
-    const downloadList =
-        document.getElementById("downloadList");
+    {
+      id: 6,
+      title: "O Último Reino",
+      type: "Série",
+      genre: "Drama",
+      year: 2026,
+      rating: 8.9,
+      image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80",
+      description: "Reinos rivais lutam pelo controle de uma terra dividida."
+    },
 
-    const genresList =
-        document.getElementById("genresList");
+    {
+      id: 7,
+      title: "Noite de Terror",
+      type: "Filme",
+      genre: "Terror",
+      year: 2026,
+      rating: 8.0,
+      image: "https://images.unsplash.com/photo-1505635552518-3448f4b5c9b0?auto=format&fit=crop&w=700&q=80",
+      description: "Uma noite aparentemente normal transforma-se em um pesadelo."
+    },
 
-    const favoritesList =
-        document.getElementById("favoritesList");
+    {
+      id: 8,
+      title: "Risos da Cidade",
+      type: "Série",
+      genre: "Comédia",
+      year: 2026,
+      rating: 8.1,
+      image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=700&q=80",
+      description: "Amigos tentam sobreviver às situações mais engraçadas da cidade."
+    },
 
-    const searchResultsSection =
-        document.getElementById("searchResultsSection");
+    {
+      id: 9,
+      title: "Planeta Azul",
+      type: "Documentário",
+      genre: "Documentário",
+      year: 2026,
+      rating: 9.1,
+      image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80",
+      description: "Uma viagem pelos lugares mais impressionantes do planeta."
+    },
 
-    const searchResults =
-        document.getElementById("searchResults");
+    {
+      id: 10,
+      title: "Operação Zero",
+      type: "Série",
+      genre: "Ação",
+      year: 2026,
+      rating: 8.7,
+      image: "https://images.unsplash.com/photo-1533130061792-64b345e4a833?auto=format&fit=crop&w=700&q=80",
+      description: "Uma operação secreta coloca uma equipe de elite em perigo."
+    },
 
-    const playerModal =
-        document.getElementById("playerModal");
+    {
+      id: 11,
+      title: "Depois da Tempestade",
+      type: "Filme",
+      genre: "Drama",
+      year: 2026,
+      rating: 8.4,
+      image: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=80",
+      description: "Depois de perder tudo, uma família tenta reconstruir sua vida."
+    },
 
-    const detailsModal =
-        document.getElementById("detailsModal");
+    {
+      id: 12,
+      title: "Horizonte",
+      type: "Série",
+      genre: "Ficção científica",
+      year: 2026,
+      rating: 8.6,
+      image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=700&q=80",
+      description: "Uma equipe viaja para além dos limites conhecidos."
+    }
 
-    const toast =
-        document.getElementById("toast");
-
-
-    console.log("VIPNETFLIX: app.js carregado");
-
-
-    /* =====================================================
-       CATÁLOGO
-    ===================================================== */
-
-    const catalog = [
-
-        {
-            id: 1,
-            title: "Reacher",
-            type: "Série",
-            genre: "Ação",
-            year: 2022,
-            rating: 8.7,
-            seasons: "2 Temporadas",
-            description:
-                "Um investigador militar viaja pelo país e acaba envolvido numa perigosa investigação.",
-            image:
-                "https://images.unsplash.com/photo-1599685315640-4eab9f2a2a35?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 2,
-            title: "Aventura VIP",
-            type: "Filme",
-            genre: "Aventura",
-            year: 2026,
-            rating: 8.8,
-            seasons: "Filme",
-            description:
-                "Uma aventura extraordinária começa quando uma equipa encontra um segredo perdido.",
-            image:
-                "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 3,
-            title: "Além do Espaço",
-            type: "Filme",
-            genre: "Ficção científica",
-            year: 2026,
-            rating: 8.2,
-            seasons: "Filme",
-            description:
-                "Uma missão espacial revela um segredo inesperado.",
-            image:
-                "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 4,
-            title: "O Voto de Morte",
-            type: "Série",
-            genre: "Drama",
-            year: 2026,
-            rating: 8.4,
-            seasons: "1 Temporada",
-            description:
-                "Uma decisão muda completamente o destino de um grupo de pessoas.",
-            image:
-                "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 5,
-            title: "Percy Jackson",
-            type: "Série",
-            genre: "Fantasia",
-            year: 2026,
-            rating: 8.5,
-            seasons: "1 Temporada",
-            description:
-                "Um jovem descobre um mundo de deuses, monstros e aventuras.",
-            image:
-                "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 6,
-            title: "Homem-Aranha",
-            type: "Filme",
-            genre: "Ação",
-            year: 2026,
-            rating: 8.9,
-            seasons: "Filme",
-            description:
-                "Um novo desafio coloca o herói diante de uma ameaça inesperada.",
-            image:
-                "https://images.unsplash.com/photo-1635805737707-575885ab0820?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 7,
-            title: "The Witcher",
-            type: "Série",
-            genre: "Fantasia",
-            year: 2025,
-            rating: 8.6,
-            seasons: "4 Temporadas",
-            description:
-                "Um caçador de monstros percorre um mundo cheio de perigos.",
-            image:
-                "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 8,
-            title: "A Casa do Dragão",
-            type: "Série",
-            genre: "Fantasia",
-            year: 2025,
-            rating: 8.8,
-            seasons: "2 Temporadas",
-            description:
-                "Uma guerra pelo poder coloca uma família contra outra.",
-            image:
-                "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 9,
-            title: "Stranger Things",
-            type: "Série",
-            genre: "Ficção científica",
-            year: 2025,
-            rating: 8.9,
-            seasons: "5 Temporadas",
-            description:
-                "Um grupo de jovens enfrenta acontecimentos misteriosos.",
-            image:
-                "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 10,
-            title: "O Conde de Monte Cristo",
-            type: "Série",
-            genre: "Drama",
-            year: 2025,
-            rating: 8.3,
-            seasons: "1 Temporada",
-            description:
-                "Uma história de injustiça, sobrevivência e vingança.",
-            image:
-                "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 11,
-            title: "O Problema dos 3 Corpos",
-            type: "Série",
-            genre: "Ficção científica",
-            year: 2024,
-            rating: 8.1,
-            seasons: "1 Temporada",
-            description:
-                "Uma descoberta científica ameaça mudar o futuro da humanidade.",
-            image:
-                "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=600&q=80"
-        },
-
-        {
-            id: 12,
-            title: "Operação Lioness",
-            type: "Série",
-            genre: "Ação",
-            year: 2024,
-            rating: 8.2,
-            seasons: "2 Temporadas",
-            description:
-                "Uma missão secreta coloca uma equipa de agentes em perigo.",
-            image:
-                "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80"
-        }
-
-    ];
+  ];
 
 
-    /* =====================================================
-       CONTINUAR ASSISTINDO
-    ===================================================== */
+  /* =======================================================
+     ELEMENTOS
+  ======================================================= */
 
-    let continueWatching = [
+  const splashScreen = document.getElementById("splashScreen");
+  const appScreen = document.getElementById("appScreen");
 
-        {
-            id: 4,
-            progress: 64,
-            remaining: "1h 32m restantes"
-        },
+  const pages = document.querySelectorAll(".page");
+  const navButtons = document.querySelectorAll(".nav-button");
 
-        {
-            id: 5,
-            progress: 42,
-            remaining: "S1:E3"
-        },
+  const popularGrid = document.getElementById("popularGrid");
+  const newGrid = document.getElementById("newGrid");
+  const continueGrid = document.getElementById("continueGrid");
 
-        {
-            id: 6,
-            progress: 58,
-            remaining: "1h 05m restantes"
-        }
+  const moviesGrid = document.getElementById("moviesGrid");
+  const seriesGrid = document.getElementById("seriesGrid");
 
-    ];
+  const myListGrid = document.getElementById("myListGrid");
+  const downloadsGrid = document.getElementById("downloadsGrid");
 
+  const searchInput = document.getElementById("searchInput");
+  const searchResults = document.getElementById("searchResults");
 
-    /* =====================================================
-       DOWNLOADS
-    ===================================================== */
+  const categoryResults = document.getElementById("categoryResults");
 
-    let downloads = [
+  const detailsModal = document.getElementById("detailsModal");
+  const loginModal = document.getElementById("loginModal");
+  const playerModal = document.getElementById("playerModal");
 
-        {
-            id: 7,
-            title: "The Witcher",
-            episode: "T2:E4",
-            quality: "720p",
-            size: 1.2,
-            image: catalog[6].image
-        },
+  const detailsImage = document.getElementById("detailsImage");
+  const detailsTitle = document.getElementById("detailsTitle");
+  const detailsMeta = document.getElementById("detailsMeta");
+  const detailsDescription = document.getElementById("detailsDescription");
 
-        {
-            id: 8,
-            title: "A Casa do Dragão",
-            episode: "S1:E6",
-            quality: "720p",
-            size: 1.1,
-            image: catalog[7].image
-        },
+  const profileName = document.getElementById("profileName");
+  const profileEmail = document.getElementById("profileEmail");
 
-        {
-            id: 9,
-            title: "Stranger Things",
-            episode: "S1:E7",
-            quality: "720p",
-            size: 1.0,
-            image: catalog[8].image
-        }
-
-    ];
+  let selectedMovie = null;
 
 
-    /* =====================================================
-       FAVORITOS
-    ===================================================== */
+  /* =======================================================
+     STORAGE
+  ======================================================= */
 
-    let favorites = [];
+  let myList =
+    JSON.parse(localStorage.getItem("vipnetflix_mylist")) || [];
 
-    try {
+  let downloads =
+    JSON.parse(localStorage.getItem("vipnetflix_downloads")) || [];
 
-        favorites = JSON.parse(
-            localStorage.getItem(
-                "vipnetflix_favorites"
-            ) || "[]"
+  let user =
+    JSON.parse(localStorage.getItem("vipnetflix_user")) || null;
+
+
+  /* =======================================================
+     SPLASH
+  ======================================================= */
+
+  setTimeout(() => {
+
+    splashScreen.classList.add("hidden");
+
+    appScreen.classList.remove("hidden");
+
+    renderHome();
+
+    updateProfile();
+
+  }, 1800);
+
+
+  /* =======================================================
+     NAVEGAÇÃO
+  ======================================================= */
+
+  navButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const pageId = button.dataset.page;
+
+      showPage(pageId);
+
+    });
+
+  });
+
+
+  function showPage(pageId) {
+
+    pages.forEach(page => {
+
+      page.classList.remove("active");
+
+    });
+
+    const target = document.getElementById(pageId);
+
+    if (target) {
+      target.classList.add("active");
+    }
+
+    navButtons.forEach(button => {
+
+      button.classList.remove("active");
+
+      if (button.dataset.page === pageId) {
+        button.classList.add("active");
+      }
+
+    });
+
+
+    if (pageId === "homePage") {
+      renderHome();
+    }
+
+    if (pageId === "moviesPage") {
+      renderMovies();
+    }
+
+    if (pageId === "seriesPage") {
+      renderSeries();
+    }
+
+    if (pageId === "myListPage") {
+      renderMyList();
+    }
+
+    if (pageId === "downloadsPage") {
+      renderDownloads();
+    }
+
+  }
+
+
+  /* =======================================================
+     CARD
+  ======================================================= */
+
+  function createCard(movie) {
+
+    const card = document.createElement("article");
+
+    card.className = "movie-card";
+
+    card.innerHTML = `
+
+      <img
+        src="${movie.image}"
+        alt="${movie.title}"
+        loading="lazy"
+      >
+
+      <div class="movie-info">
+
+        <h3>${movie.title}</h3>
+
+        <div class="movie-meta">
+
+          ${movie.year}
+          ·
+          <span class="card-rating">
+            ⭐ ${movie.rating}
+          </span>
+
+        </div>
+
+      </div>
+
+    `;
+
+    card.addEventListener("click", () => {
+
+      openDetails(movie);
+
+    });
+
+    return card;
+
+  }
+
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
+  function renderGrid(container, movies) {
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (!movies.length) {
+
+      container.innerHTML = `
+        <p style="
+          color:#888;
+          padding:20px;
+          grid-column:1/-1;
+        ">
+          Nenhum conteúdo encontrado.
+        </p>
+      `;
+
+      return;
+
+    }
+
+    movies.forEach(movie => {
+
+      container.appendChild(
+        createCard(movie)
+      );
+
+    });
+
+  }
+
+
+  /* =======================================================
+     INÍCIO
+  ======================================================= */
+
+  function renderHome() {
+
+    renderGrid(
+      popularGrid,
+      catalog
+        .slice()
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, 8)
+    );
+
+    renderGrid(
+      newGrid,
+      catalog
+        .slice()
+        .sort((a, b) => b.year - a.year)
+        .slice(0, 8)
+    );
+
+    const continueWatching = catalog.slice(2, 7);
+
+    renderHorizontal(
+      continueGrid,
+      continueWatching
+    );
+
+  }
+
+
+  function renderHorizontal(container, movies) {
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    movies.forEach(movie => {
+
+      container.appendChild(
+        createCard(movie)
+      );
+
+    });
+
+  }
+
+
+  /* =======================================================
+     FILMES
+  ======================================================= */
+
+  function renderMovies() {
+
+    const movies = catalog.filter(
+      movie =>
+        movie.type === "Filme" ||
+        movie.type === "Documentário"
+    );
+
+    renderGrid(
+      moviesGrid,
+      movies
+    );
+
+  }
+
+
+  /* =======================================================
+     SÉRIES
+  ======================================================= */
+
+  function renderSeries() {
+
+    const series = catalog.filter(
+      movie => movie.type === "Série"
+    );
+
+    renderGrid(
+      seriesGrid,
+      series
+    );
+
+  }
+
+
+  /* =======================================================
+     MINHA LISTA
+  ======================================================= */
+
+  function renderMyList() {
+
+    const movies = catalog.filter(movie =>
+      myList.includes(movie.id)
+    );
+
+    renderGrid(
+      myListGrid,
+      movies
+    );
+
+  }
+
+
+  /* =======================================================
+     DOWNLOADS
+  ======================================================= */
+
+  function renderDownloads() {
+
+    const movies = catalog.filter(movie =>
+      downloads.includes(movie.id)
+    );
+
+    renderGrid(
+      downloadsGrid,
+      movies
+    );
+
+  }
+
+
+  /* =======================================================
+     DETALHES
+  ======================================================= */
+
+  function openDetails(movie) {
+
+    selectedMovie = movie;
+
+    detailsImage.src = movie.image;
+
+    detailsTitle.textContent = movie.title;
+
+    detailsMeta.innerHTML = `
+      <span>${movie.type}</span>
+      <span>${movie.year}</span>
+      <span>⭐ ${movie.rating}</span>
+      <span>${movie.genre}</span>
+    `;
+
+    detailsDescription.textContent =
+      movie.description;
+
+    detailsModal.classList.remove("hidden");
+
+  }
+
+
+  document
+    .getElementById("closeDetails")
+    .addEventListener("click", () => {
+
+      detailsModal.classList.add("hidden");
+
+    });
+
+
+  detailsModal.addEventListener("click", event => {
+
+    if (event.target === detailsModal) {
+
+      detailsModal.classList.add("hidden");
+
+    }
+
+  });
+
+
+  /* =======================================================
+     MINHA LISTA
+  ======================================================= */
+
+  document
+    .getElementById("modalList")
+    .addEventListener("click", () => {
+
+      if (!selectedMovie) return;
+
+      if (myList.includes(selectedMovie.id)) {
+
+        myList = myList.filter(
+          id => id !== selectedMovie.id
         );
 
-    } catch (error) {
+      } else {
 
-        favorites = [];
+        myList.push(selectedMovie.id);
 
-    }
+      }
+
+      localStorage.setItem(
+        "vipnetflix_mylist",
+        JSON.stringify(myList)
+      );
+
+      renderMyList();
+
+    });
 
 
-    /* =====================================================
-       ENTRAR
-    ===================================================== */
+  /* =======================================================
+     DOWNLOAD
+  ======================================================= */
 
-    if (enterButton) {
+  document
+    .getElementById("modalDownload")
+    .addEventListener("click", () => {
 
-        enterButton.addEventListener(
-            "click",
-            function (event) {
+      if (!selectedMovie) return;
 
-                event.preventDefault();
+      if (!downloads.includes(selectedMovie.id)) {
 
-                if (splashScreen) {
+        downloads.push(selectedMovie.id);
 
-                    splashScreen.style.opacity = "0";
-
-                    splashScreen.style.transition =
-                        "opacity .4s";
-
-                }
-
-                setTimeout(
-                    function () {
-
-                        if (splashScreen) {
-
-                            splashScreen.classList.add(
-                                "hidden"
-                            );
-
-                        }
-
-                        if (appScreen) {
-
-                            appScreen.classList.remove(
-                                "hidden"
-                            );
-
-                        }
-
-                        window.scrollTo(
-                            0,
-                            0
-                        );
-
-                    },
-                    400
-                );
-
-            }
+        localStorage.setItem(
+          "vipnetflix_downloads",
+          JSON.stringify(downloads)
         );
 
-    }
-
-
-    /* =====================================================
-       MENU
-    ===================================================== */
-
-    if (menuButton) {
-
-        menuButton.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                if (sideMenu) {
-
-                    sideMenu.classList.add(
-                        "open"
-                    );
-
-                }
-
-                if (menuOverlay) {
-
-                    menuOverlay.classList.remove(
-                        "hidden"
-                    );
-
-                }
-
-            }
+        alert(
+          `"${selectedMovie.title}" foi adicionado aos Downloads.`
         );
 
-    }
+      } else {
 
-
-    if (menuOverlay) {
-
-        menuOverlay.addEventListener(
-            "click",
-            function () {
-
-                closeMenu();
-
-            }
+        alert(
+          "Este conteúdo já está nos Downloads."
         );
 
-    }
+      }
 
+      renderDownloads();
 
-    function closeMenu() {
+    });
 
-        if (sideMenu) {
 
-            sideMenu.classList.remove(
-                "open"
-            );
+  /* =======================================================
+     PLAYER
+  ======================================================= */
 
-        }
+  function openPlayer(movie) {
 
-        if (menuOverlay) {
+    if (!movie) return;
 
-            menuOverlay.classList.add(
-                "hidden"
-            );
+    document.getElementById(
+      "playerTitle"
+    ).textContent = movie.title;
 
-        }
+    playerModal.classList.remove(
+      "hidden"
+    );
 
-    }
+  }
 
 
-    /* =====================================================
-       PESQUISA
-    ===================================================== */
+  document
+    .getElementById("heroPlay")
+    .addEventListener("click", () => {
 
-    if (searchButton) {
+      const movie = catalog[0];
 
-        searchButton.addEventListener(
-            "click",
-            function (event) {
+      openPlayer(movie);
 
-                event.preventDefault();
+    });
 
-                if (searchBox) {
 
-                    searchBox.classList.remove(
-                        "hidden"
-                    );
+  document
+    .getElementById("modalPlay")
+    .addEventListener("click", () => {
 
-                }
+      openPlayer(selectedMovie);
 
-                if (searchInput) {
+      detailsModal.classList.add(
+        "hidden"
+      );
 
-                    searchInput.focus();
+    });
 
-                }
 
-            }
-        );
+  document
+    .getElementById("closePlayer")
+    .addEventListener("click", () => {
 
-    }
+      playerModal.classList.add(
+        "hidden"
+      );
 
+    });
 
-    if (closeSearch) {
 
-        closeSearch.addEventListener(
-            "click",
-            function (event) {
+  /* =======================================================
+     HERO INFO
+  ======================================================= */
 
-                event.preventDefault();
+  document
+    .getElementById("heroInfo")
+    .addEventListener("click", () => {
 
-                if (searchInput) {
+      openDetails(
+        catalog[0]
+      );
 
-                    searchInput.value = "";
+    });
 
-                }
 
-                if (searchResults) {
+  /* =======================================================
+     BUSCA
+  ======================================================= */
 
-                    searchResults.innerHTML = "";
+  searchInput.addEventListener(
+    "input",
+    () => {
 
-                }
+      const text =
+        searchInput.value
+          .trim()
+          .toLowerCase();
 
-                if (searchResultsSection) {
-
-                    searchResultsSection.classList.add(
-                        "hidden"
-                    );
-
-                }
-
-                if (searchBox) {
-
-                    searchBox.classList.add(
-                        "hidden"
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    if (searchInput) {
-
-        searchInput.addEventListener(
-            "input",
-            function () {
-
-                const texto =
-                    searchInput.value
-                        .trim()
-                        .toLowerCase();
-
-
-                if (texto === "") {
-
-                    if (searchResults) {
-
-                        searchResults.innerHTML = "";
-
-                    }
-
-                    if (searchResultsSection) {
-
-                        searchResultsSection.classList.add(
-                            "hidden"
-                        );
-
-                    }
-
-                    return;
-
-                }
-
-
-                const resultados =
-                    catalog.filter(
-                        function (filme) {
-
-                            const titulo =
-                                String(
-                                    filme.title || ""
-                                ).toLowerCase();
-
-                            const genero =
-                                String(
-                                    filme.genre || ""
-                                ).toLowerCase();
-
-                            const tipo =
-                                String(
-                                    filme.type || ""
-                                ).toLowerCase();
-
-                            return (
-                                titulo.includes(texto) ||
-                                genero.includes(texto) ||
-                                tipo.includes(texto)
-                            );
-
-                        }
-                    );
-
-
-                if (searchResultsSection) {
-
-                    searchResultsSection.classList.remove(
-                        "hidden"
-                    );
-
-                }
-
-                renderSearchResults(
-                    resultados
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       RESULTADOS DA PESQUISA
-    ===================================================== */
-
-    function renderSearchResults(resultados) {
-
-        if (!searchResults) return;
+      if (!text) {
 
         searchResults.innerHTML = "";
 
+        return;
 
-        if (!resultados.length) {
+      }
 
-            searchResults.innerHTML = `
+      const results =
+        catalog.filter(movie =>
 
-                <div class="no-results">
+          movie.title
+            .toLowerCase()
+            .includes(text)
 
-                    <div style="font-size:40px;">
-                        🔍
-                    </div>
+          ||
 
-                    <h3>
-                        Nenhum resultado encontrado
-                    </h3>
+          movie.genre
+            .toLowerCase()
+            .includes(text)
 
-                    <p>
-                        Tenta outro nome de filme ou série.
-                    </p>
+          ||
 
-                </div>
+          movie.type
+            .toLowerCase()
+            .includes(text)
 
-            `;
-
-            return;
-
-        }
-
-
-        resultados.forEach(
-            function (filme) {
-
-                const card =
-                    document.createElement(
-                        "article"
-                    );
-
-                card.className =
-                    "poster-card search-result-card";
-
-                card.dataset.id =
-                    filme.id;
-
-
-                card.innerHTML = `
-
-                    <div class="poster-wrapper">
-
-                        <img
-                            src="${filme.image}"
-                            alt="${filme.title}"
-                            loading="lazy"
-                        >
-
-                        <button
-                            class="poster-play"
-                            data-play="${filme.id}"
-                            type="button"
-                        >
-                            ▶
-                        </button>
-
-                    </div>
-
-                    <h3>
-                        ${filme.title}
-                    </h3>
-
-                    <p>
-                        ${filme.year}
-                        •
-                        ${filme.genre}
-                    </p>
-
-                `;
-
-
-                searchResults.appendChild(
-                    card
-                );
-
-            }
         );
 
-    }
-
-
-    /* =====================================================
-       CLIQUE NOS RESULTADOS DA PESQUISA
-    ===================================================== */
-
-    if (searchResults) {
-
-        searchResults.addEventListener(
-            "click",
-            function (event) {
-
-                const playButton =
-                    event.target.closest(
-                        "[data-play]"
-                    );
-
-
-                if (playButton) {
-
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    const id =
-                        Number(
-                            playButton.dataset.play
-                        );
-
-                    const filme =
-                        catalog.find(
-                            function (item) {
-
-                                return item.id === id;
-
-                            }
-                        );
-
-
-                    if (filme) {
-
-                        openPlayer(
-                            filme
-                        );
-
-                    }
-
-                    return;
-
-                }
-
-
-                const card =
-                    event.target.closest(
-                        ".search-result-card"
-                    );
-
-
-                if (card) {
-
-                    const id =
-                        Number(
-                            card.dataset.id
-                        );
-
-                    const filme =
-                        catalog.find(
-                            function (item) {
-
-                                return item.id === id;
-
-                            }
-                        );
-
-
-                    if (filme) {
-
-                        openDetails(
-                            filme
-                        );
-
-                    }
-
-                }
-
-            }
-        );
+      renderGrid(
+        searchResults,
+        results
+      );
 
     }
+  );
 
 
-    /* =====================================================
-       CONTINUAR ASSISTINDO
-    ===================================================== */
+  /* =======================================================
+     CATEGORIAS
+  ======================================================= */
 
-    function renderContinue() {
+  document
+    .querySelectorAll(
+      ".category-grid button"
+    )
+    .forEach(button => {
 
-        if (!continueList) return;
-
-        continueList.innerHTML = "";
-
-
-        continueWatching.forEach(
-            function (item) {
-
-                const movie =
-                    catalog.find(
-                        function (x) {
-
-                            return x.id === item.id;
-
-                        }
-                    );
-
-
-                if (!movie) return;
-
-
-                const card =
-                    document.createElement(
-                        "article"
-                    );
-
-                card.className =
-                    "continue-card";
-
-
-                card.innerHTML = `
-
-                    <div class="poster-wrapper">
-
-                        <img
-                            src="${movie.image}"
-                            alt="${movie.title}"
-                        >
-
-                        <button
-                            class="poster-play"
-                            data-play="${movie.id}"
-                            type="button"
-                        >
-                            ▶
-                        </button>
-
-                        <div class="progress">
-
-                            <div
-                                style="
-                                    width:${item.progress}%;
-                                "
-                            ></div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="card-title">
-                        ${movie.title}
-                    </div>
-
-                    <div class="card-subtitle">
-                        ${item.remaining}
-                    </div>
-
-                `;
-
-
-                continueList.appendChild(
-                    card
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       CATÁLOGO
-    ===================================================== */
-
-    function renderGrid(
-        container,
-        items
-    ) {
-
-        if (!container) return;
-
-        container.innerHTML = "";
-
-
-        if (!items.length) {
-
-            container.innerHTML = `
-
-                <p style="
-                    color:#aaa;
-                    grid-column:1/-1;
-                    text-align:center;
-                    padding:25px;
-                ">
-                    Nenhum conteúdo encontrado.
-                </p>
-
-            `;
-
-            return;
-
-        }
-
-
-        items.forEach(
-            function (movie) {
-
-                const card =
-                    document.createElement(
-                        "article"
-                    );
-
-                card.className =
-                    "poster-card";
-
-                card.dataset.id =
-                    movie.id;
-
-
-                card.innerHTML = `
-
-                    <div class="poster-wrapper">
-
-                        <img
-                            src="${movie.image}"
-                            alt="${movie.title}"
-                            loading="lazy"
-                        >
-
-                        <button
-                            class="poster-play"
-                            data-play="${movie.id}"
-                            type="button"
-                        >
-                            ▶
-                        </button>
-
-                    </div>
-
-                    <h3>
-                        ${movie.title}
-                    </h3>
-
-                    <p>
-                        ${movie.year}
-                        •
-                        ${movie.genre}
-                    </p>
-
-                `;
-
-
-                container.appendChild(
-                    card
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       CLIQUES NAS CAPAS
-    ===================================================== */
-
-    document.addEventListener(
+      button.addEventListener(
         "click",
-        function (event) {
+        () => {
 
-            const playButton =
-                event.target.closest(
-                    "[data-play]"
-                );
+          const category =
+            button.dataset.category;
 
-
-            if (playButton) {
-
-                event.preventDefault();
-                event.stopPropagation();
-
-                const id =
-                    Number(
-                        playButton.dataset.play
-                    );
-
-
-                const movie =
-                    catalog.find(
-                        function (item) {
-
-                            return item.id === id;
-
-                        }
-                    );
-
-
-                if (movie) {
-
-                    openPlayer(
-                        movie
-                    );
-
-                }
-
-                return;
-
-            }
-
-
-            const card =
-                event.target.closest(
-                    ".poster-card"
-                );
-
-
-            if (card) {
-
-                const id =
-                    Number(
-                        card.dataset.id
-                    );
-
-
-                const movie =
-                    catalog.find(
-                        function (item) {
-
-                            return item.id === id;
-
-                        }
-                    );
-
-
-                if (movie) {
-
-                    openDetails(
-                        movie
-                    );
-
-                }
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       PLAYER
-    ===================================================== */
-
-    function openPlayer(movie) {
-
-        if (!movie) return;
-
-
-        const title =
-            document.getElementById(
-                "playerTitle"
+          const results =
+            catalog.filter(movie =>
+              movie.genre === category
             );
 
-
-        if (title) {
-
-            title.textContent =
-                movie.title;
-
-        }
-
-
-        if (playerModal) {
-
-            playerModal.classList.remove(
-                "hidden"
-            );
+          renderGrid(
+            categoryResults,
+            results
+          );
 
         }
+      );
 
-    }
+    });
 
 
-    const closePlayer =
+  /* =======================================================
+     LOGIN
+  ======================================================= */
+
+  document
+    .getElementById("profileButton")
+    .addEventListener("click", () => {
+
+      showPage("profilePage");
+
+    });
+
+
+  document
+    .getElementById("loginButton")
+    .addEventListener("click", () => {
+
+      loginModal.classList.remove(
+        "hidden"
+      );
+
+    });
+
+
+  document
+    .getElementById("closeLogin")
+    .addEventListener("click", () => {
+
+      loginModal.classList.add(
+        "hidden"
+      );
+
+    });
+
+
+  document
+    .getElementById("submitLogin")
+    .addEventListener("click", () => {
+
+      const name =
         document.getElementById(
-            "closePlayer"
-        );
+          "loginName"
+        ).value.trim();
 
-
-    if (closePlayer) {
-
-        closePlayer.addEventListener(
-            "click",
-            function () {
-
-                if (playerModal) {
-
-                    playerModal.classList.add(
-                        "hidden"
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    const playVideo =
+      const email =
         document.getElementById(
-            "playVideo"
-        );
+          "loginEmail"
+        ).value.trim();
 
-
-    if (playVideo) {
-
-        playVideo.addEventListener(
-            "click",
-            function () {
-
-                showToast(
-                    "Player pronto para reproduzir o conteúdo."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       DETALHES
-    ===================================================== */
-
-    let selectedMovie = null;
-
-
-    function openDetails(movie) {
-
-        if (!movie) return;
-
-        selectedMovie =
-            movie;
-
-
-        const image =
-            document.getElementById(
-                "detailsImage"
-            );
-
-        const title =
-            document.getElementById(
-                "detailsTitle"
-            );
-
-        const description =
-            document.getElementById(
-                "detailsDescription"
-            );
-
-
-        if (image) {
-
-            image.src =
-                movie.image;
-
-        }
-
-
-        if (title) {
-
-            title.textContent =
-                movie.title;
-
-        }
-
-
-        if (description) {
-
-            description.textContent =
-                movie.description;
-
-        }
-
-
-        if (detailsModal) {
-
-            detailsModal.classList.remove(
-                "hidden"
-            );
-
-        }
-
-    }
-
-
-    const closeDetails =
+      const password =
         document.getElementById(
-            "closeDetails"
+          "loginPassword"
+        ).value.trim();
+
+
+      if (!name || !email || !password) {
+
+        alert(
+          "Preencha todos os campos."
         );
 
+        return;
 
-    if (closeDetails) {
+      }
 
-        closeDetails.addEventListener(
-            "click",
-            function () {
 
-                if (detailsModal) {
+      user = {
+        name,
+        email
+      };
 
-                    detailsModal.classList.add(
-                        "hidden"
-                    );
 
-                }
+      localStorage.setItem(
+        "vipnetflix_user",
+        JSON.stringify(user)
+      );
 
-            }
-        );
+
+      updateProfile();
+
+
+      loginModal.classList.add(
+        "hidden"
+      );
+
+
+      alert(
+        `Bem-vindo ao VipNetflix, ${name}!`
+      );
+
+    });
+
+
+  /* =======================================================
+     PERFIL
+  ======================================================= */
+
+  function updateProfile() {
+
+    if (!user) {
+
+      profileName.textContent =
+        "Visitante";
+
+      profileEmail.textContent =
+        "Não conectado";
+
+      return;
 
     }
 
 
-    const detailsPlay =
-        document.getElementById(
-            "detailsPlay"
-        );
+    profileName.textContent =
+      user.name;
 
+    profileEmail.textContent =
+      user.email;
 
-    if (detailsPlay) {
+  }
 
-        detailsPlay.addEventListener(
-            "click",
-            function () {
 
-                if (!selectedMovie) return;
+  /* =======================================================
+     BOTÃO VER TUDO
+  ======================================================= */
 
+  document
+    .querySelectorAll(".see-all")
+    .forEach(button => {
 
-                if (detailsModal) {
-
-                    detailsModal.classList.add(
-                        "hidden"
-                    );
-
-                }
-
-
-                openPlayer(
-                    selectedMovie
-                );
-
-            }
-        );
-
-    }
-
-
-    const detailsDownload =
-        document.getElementById(
-            "detailsDownload"
-        );
-
-
-    if (detailsDownload) {
-
-        detailsDownload.addEventListener(
-            "click",
-            function () {
-
-                if (!selectedMovie) return;
-
-                addDownload(
-                    selectedMovie
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       HERO
-    ===================================================== */
-
-    const continueHero =
-        document.getElementById(
-            "continueHero"
-        );
-
-
-    if (continueHero) {
-
-        continueHero.addEventListener(
-            "click",
-            function () {
-
-                const movie =
-                    catalog.find(
-                        function (item) {
-
-                            return item.id === 1;
-
-                        }
-                    );
-
-
-                openPlayer(
-                    movie
-                );
-
-            }
-        );
-
-    }
-
-
-    const downloadHero =
-        document.getElementById(
-            "downloadHero"
-        );
-
-
-    if (downloadHero) {
-
-        downloadHero.addEventListener(
-            "click",
-            function () {
-
-                const movie =
-                    catalog.find(
-                        function (item) {
-
-                            return item.id === 1;
-
-                        }
-                    );
-
-
-                addDownload(
-                    movie
-                );
-
-            }
-        );
-
-    }
-
-
-    const favoriteHero =
-        document.getElementById(
-            "favoriteHero"
-        );
-
-
-    if (favoriteHero) {
-
-        favoriteHero.addEventListener(
-            "click",
-            function () {
-
-                const movie =
-                    catalog.find(
-                        function (item) {
-
-                            return item.id === 1;
-
-                        }
-                    );
-
-
-                toggleFavorite(
-                    movie
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       DOWNLOADS
-    ===================================================== */
-
-    function renderDownloads() {
-
-        if (!downloadList) return;
-
-        downloadList.innerHTML = "";
-
-
-        downloads.forEach(
-            function (download) {
-
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                item.className =
-                    "download-item";
-
-
-                item.innerHTML = `
-
-                    <img
-                        class="download-image"
-                        src="${download.image}"
-                        alt="${download.title}"
-                    >
-
-                    <div class="download-info">
-
-                        <strong>
-                            ${download.title}
-                        </strong>
-
-                        <span>
-                            ${download.episode}
-                            ·
-                            ${download.quality}
-                            ·
-                            ${download.size.toFixed(1)}
-                            GB
-                        </span>
-
-                        <span class="download-status">
-                            Baixado ✓
-                        </span>
-
-                    </div>
-
-
-                    <button
-                        class="offline-button"
-                        data-offline="${download.id}"
-                        type="button"
-                    >
-                        ▶ ASSISTIR OFFLINE
-                    </button>
-
-
-                    <button
-                        class="download-menu"
-                        data-remove-download="${download.id}"
-                        type="button"
-                    >
-                        ⋮
-                    </button>
-
-                `;
-
-
-                downloadList.appendChild(
-                    item
-                );
-
-            }
-        );
-
-
-        updateStorage();
-
-    }
-
-
-    if (downloadList) {
-
-        downloadList.addEventListener(
-            "click",
-            function (event) {
-
-                const offline =
-                    event.target.closest(
-                        "[data-offline]"
-                    );
-
-
-                if (offline) {
-
-                    const id =
-                        Number(
-                            offline.dataset.offline
-                        );
-
-
-                    const movie =
-                        catalog.find(
-                            function (item) {
-
-                                return item.id === id;
-
-                            }
-                        );
-
-
-                    if (movie) {
-
-                        openPlayer(
-                            movie
-                        );
-
-                    } else {
-
-                        showToast(
-                            "Conteúdo offline selecionado."
-                        );
-
-                    }
-
-                    return;
-
-                }
-
-
-                const remove =
-                    event.target.closest(
-                        "[data-remove-download]"
-                    );
-
-
-                if (remove) {
-
-                    const id =
-                        Number(
-                            remove.dataset.removeDownload
-                        );
-
-
-                    downloads =
-                        downloads.filter(
-                            function (item) {
-
-                                return item.id !== id;
-
-                            }
-                        );
-
-
-                    renderDownloads();
-
-
-                    showToast(
-                        "Download removido."
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       ADICIONAR DOWNLOAD
-    ===================================================== */
-
-    function addDownload(movie) {
-
-        if (!movie) return;
-
-
-        const exists =
-            downloads.some(
-                function (item) {
-
-                    return item.id === movie.id;
-
-                }
-            );
-
-
-        if (exists) {
-
-            showToast(
-                "Este conteúdo já está nos downloads."
-            );
-
-            return;
-
-        }
-
-
-        downloads.push({
-
-            id: movie.id,
-
-            title: movie.title,
-
-            episode:
-                movie.type === "Série"
-                    ? "S1:E1"
-                    : "Filme",
-
-            quality: "720p",
-
-            size: 1.0,
-
-            image: movie.image
-
-        });
-
-
-        renderDownloads();
-
-
-        showToast(
-            movie.title +
-            " adicionado aos downloads."
-        );
-
-    }
-
-
-    /* =====================================================
-       ARMAZENAMENTO
-    ===================================================== */
-
-    function updateStorage() {
-
-        const used =
-            downloads.reduce(
-                function (total, item) {
-
-                    return total + item.size;
-
-                },
-                0
-            );
-
-
-        const total = 64;
-
-
-        const available =
-            Math.max(
-                total - used,
-                0
-            );
-
-
-        const usedElement =
-            document.getElementById(
-                "storageUsed"
-            );
-
-
-        const availableElement =
-            document.getElementById(
-                "storageAvailable"
-            );
-
-
-        const progress =
-            document.getElementById(
-                "storageProgress"
-            );
-
-
-        if (usedElement) {
-
-            usedElement.textContent =
-                used.toFixed(1) +
-                " GB";
-
-        }
-
-
-        if (availableElement) {
-
-            availableElement.textContent =
-                available.toFixed(1) +
-                " GB";
-
-        }
-
-
-        if (progress) {
-
-            progress.style.width =
-                Math.min(
-                    (used / total) * 100,
-                    100
-                ) +
-                "%";
-
-        }
-
-    }
-
-
-    /* =====================================================
-       FAVORITOS
-    ===================================================== */
-
-    function toggleFavorite(movie) {
-
-        if (!movie) return;
-
-
-        const index =
-            favorites.indexOf(
-                movie.id
-            );
-
-
-        if (index >= 0) {
-
-            favorites.splice(
-                index,
-                1
-            );
-
-
-            showToast(
-                "Removido dos favoritos."
-            );
-
-        } else {
-
-            favorites.push(
-                movie.id
-            );
-
-
-            showToast(
-                "Adicionado aos favoritos ♥"
-            );
-
-        }
-
-
-        try {
-
-            localStorage.setItem(
-                "vipnetflix_favorites",
-                JSON.stringify(
-                    favorites
-                )
-            );
-
-        } catch (error) {
-
-            console.log(
-                "Não foi possível guardar favoritos."
-            );
-
-        }
-
-
-        renderFavorites();
-
-    }
-
-
-    function renderFavorites() {
-
-        const items =
-            catalog.filter(
-                function (movie) {
-
-                    return favorites.includes(
-                        movie.id
-                    );
-
-                }
-            );
-
-
-        renderGrid(
-            favoritesList,
-            items
-        );
-
-    }
-
-
-    /* =====================================================
-       GÉNEROS
-    ===================================================== */
-
-    function renderGenres() {
-
-        if (!genresList) return;
-
-
-        const genres = [
-
-            "Ação",
-            "Aventura",
-            "Drama",
-            "Comédia",
-            "Fantasia",
-            "Ficção científica",
-            "Terror",
-            "Romance",
-            "Documentário",
-            "Suspense"
-
-        ];
-
-
-        genresList.innerHTML = "";
-
-
-        genres.forEach(
-            function (genre) {
-
-                const button =
-                    document.createElement(
-                        "button"
-                    );
-
-
-                button.className =
-                    "genre-card";
-
-
-                button.textContent =
-                    genre;
-
-
-                button.type =
-                    "button";
-
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        showSection(
-                            "catalog"
-                        );
-
-
-                        const filtered =
-                            catalog.filter(
-                                function (movie) {
-
-                                    return (
-                                        movie.genre ===
-                                        genre
-                                    );
-
-                                }
-                            );
-
-
-                        renderGrid(
-                            catalogList,
-                            filtered
-                        );
-
-                    }
-                );
-
-
-                genresList.appendChild(
-                    button
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       SEÇÕES
-    ===================================================== */
-
-    function hideAllSections() {
-
-        const sections = [
-
-            "continueSection",
-            "downloadsSection",
-            "catalogSection",
-            "genresSection",
-            "favoritesSection"
-
-        ];
-
-
-        sections.forEach(
-            function (id) {
-
-                const section =
-                    document.getElementById(
-                        id
-                    );
-
-
-                if (section) {
-
-                    section.classList.add(
-                        "hidden"
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    function showSection(section) {
-
-        closeMenu();
-
-        hideAllSections();
-
-
-        if (searchResultsSection) {
-
-            searchResultsSection.classList.add(
-                "hidden"
-            );
-
-        }
-
-
-        if (section === "home") {
-
-            const continueSection =
-                document.getElementById(
-                    "continueSection"
-                );
-
-
-            const downloadsSection =
-                document.getElementById(
-                    "downloadsSection"
-                );
-
-
-            const catalogSection =
-                document.getElementById(
-                    "catalogSection"
-                );
-
-
-            if (continueSection) {
-
-                continueSection.classList.remove(
-                    "hidden"
-                );
-
-            }
-
-
-            if (downloadsSection) {
-
-                downloadsSection.classList.remove(
-                    "hidden"
-                );
-
-            }
-
-
-            if (catalogSection) {
-
-                catalogSection.classList.remove(
-                    "hidden"
-                );
-
-            }
-
-        }
-
-
-        if (section === "catalog") {
-
-            const catalogSection =
-                document.getElementById(
-                    "catalogSection"
-                );
-
-
-            if (catalogSection) {
-
-                catalogSection.classList.remove(
-                    "hidden"
-                );
-
-            }
-
-
-            renderGrid(
-                catalogList,
-                catalog
-            );
-
-        }
-
-
-        if (section === "downloads") {
-
-            const downloadsSection =
-                document.getElementById(
-                    "downloadsSection"
-                );
-
-
-            if (downloadsSection) {
-
-                downloadsSection.classList.remove(
-                    "hidden"
-                );
-
-            }
-
-        }
-
-
-        if (section === "genres") {
-
-            const genresSection =
-                document.getElementById(
-                    "genresSection"
-                );
-
-
-            if (genresSection) {
-
-                genresSection.classList.remove(
-                    "hidden"
-                );
-
-            }
-
-        }
-
-
-        if (section === "favorites") {
-
-            const favoritesSection =
-                document.getElementById(
-                    "favoritesSection"
-                );
-
-
-            if (favoritesSection) {
-
-                favoritesSection.classList.remove(
-                    "hidden"
-                );
-
-            }
-
-
-            renderFavorites();
-
-        }
-
-
-        document
-            .querySelectorAll(
-                ".nav-item"
-            )
-            .forEach(
-                function (button) {
-
-                    button.classList.toggle(
-                        "active",
-                        button.dataset.section ===
-                        section
-                    );
-
-                }
-            );
-
-    }
-
-
-    /* =====================================================
-       NAVEGAÇÃO
-    ===================================================== */
-
-    document.addEventListener(
+      button.addEventListener(
         "click",
-        function (event) {
+        () => {
 
-            const button =
-                event.target.closest(
-                    "[data-section]"
-                );
-
-
-            if (!button) return;
-
-
-            const section =
-                button.dataset.section;
-
-
-            if (!section) return;
-
-
-            if (section === "releases") {
-
-                showSection(
-                    "catalog"
-                );
-
-
-                renderGrid(
-                    catalogList,
-                    catalog.slice(
-                        0,
-                        6
-                    )
-                );
-
-
-                return;
-
-            }
-
-
-            showSection(
-                section
-            );
+          showPage("moviesPage");
 
         }
-    );
+      );
 
+    });
 
-    /* =====================================================
-       VER TODOS
-    ===================================================== */
-
-    const showAll =
-        document.getElementById(
-            "showAll"
-        );
-
-
-    if (showAll) {
-
-        showAll.addEventListener(
-            "click",
-            function () {
-
-                showSection(
-                    "catalog"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       VER DOWNLOADS
-    ===================================================== */
-
-    const viewDownloads =
-        document.getElementById(
-            "viewDownloads"
-        );
-
-
-    if (viewDownloads) {
-
-        viewDownloads.addEventListener(
-            "click",
-            function () {
-
-                showSection(
-                    "downloads"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       LIMPAR CONTINUAR
-    ===================================================== */
-
-    const clearContinue =
-        document.getElementById(
-            "clearContinue"
-        );
-
-
-    if (clearContinue) {
-
-        clearContinue.addEventListener(
-            "click",
-            function () {
-
-                continueWatching = [];
-
-                renderContinue();
-
-
-                showToast(
-                    "Lista limpa."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       TOAST
-    ===================================================== */
-
-    let toastTimer = null;
-
-
-    function showToast(message) {
-
-        if (!toast) return;
-
-
-        toast.textContent =
-            message;
-
-
-        toast.classList.add(
-            "show"
-        );
-
-
-        if (toastTimer) {
-
-            clearTimeout(
-                toastTimer
-            );
-
-        }
-
-
-        toastTimer =
-            setTimeout(
-                function () {
-
-                    toast.classList.remove(
-                        "show"
-                    );
-
-                },
-                2500
-            );
-
-    }
-
-
-    /* =====================================================
-       INICIALIZAÇÃO
-    ===================================================== */
-
-    renderContinue();
-
-    renderGrid(
-        catalogList,
-        catalog
-    );
-
-    renderDownloads();
-
-    renderFavorites();
-
-    renderGenres();
-
-    showSection(
-        "home"
-    );
-
-
-    console.log(
-        "VIPNETFLIX: sistema iniciado corretamente."
-    );
 
 });
