@@ -1,5 +1,3 @@
-Claro. 👍 Este é o app.js completo e corrigido.
-Importante: apaga todo o conteúdo atual do teu app.js e cola somente este código. Não juntes com o código antigo.
 /* =========================================================
    VIPNETFLIX — APP.JS
    VERSÃO COMPLETA E CORRIGIDA
