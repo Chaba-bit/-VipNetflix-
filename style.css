@@ -1,7 +1,3 @@
-/* =========================================================
-   VIPNETFLIX — STYLE.CSS
-========================================================= */
-
 * {
   margin: 0;
   padding: 0;
@@ -12,159 +8,168 @@
   --bg: #080808;
   --panel: #151515;
   --panel2: #202020;
-  --text: #ffffff;
-  --muted: #a8a8a8;
-  --accent: #e50914;
   --border: #292929;
+  --text: #fff;
+  --muted: #aaa;
+  --red: #e50914;
 }
 
-html,
-body {
-  width: 100%;
-  min-height: 100%;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  min-height: 100vh;
 }
 
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
 
-/* =========================================================
-   UTILITÁRIOS
-========================================================= */
+img {
+  max-width: 100%;
+  display: block;
+}
 
 .hidden {
   display: none !important;
 }
 
-button {
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-}
 
-img {
-  display: block;
-  max-width: 100%;
-}
-
-
-/* =========================================================
-   SPLASH
-========================================================= */
+/* ================= SPLASH ================= */
 
 .splash {
   position: fixed;
   inset: 0;
-  background: #000;
+
   z-index: 9999;
+
+  background: #000;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+
   align-items: center;
+  justify-content: center;
 }
 
 .splash-logo {
-  color: var(--accent);
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 900;
-  letter-spacing: -2px;
 }
 
-.splash p {
-  color: #aaa;
-  margin-top: 10px;
+.splash-logo span {
+  color: var(--red);
 }
 
-.loader {
-  width: 35px;
-  height: 35px;
+.loading-line {
+  width: 80px;
+  height: 3px;
 
-  margin-top: 30px;
+  margin-top: 25px;
 
-  border: 3px solid #333;
-  border-top-color: var(--accent);
+  background: var(--red);
 
-  border-radius: 50%;
-
-  animation: spin 1s linear infinite;
+  animation: loading 1.2s infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+@keyframes loading {
+
+  0% {
+    transform: scaleX(.2);
+    opacity: .3;
   }
+
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleX(.2);
+    opacity: .3;
+  }
+
 }
 
 
-/* =========================================================
-   HEADER
-========================================================= */
+/* ================= APP ================= */
 
 .app {
   min-height: 100vh;
-  padding-bottom: 85px;
+  padding-bottom: 75px;
 }
 
-.top-header {
-  height: 65px;
 
+/* ================= HEADER ================= */
+
+.header {
   position: fixed;
+
   top: 0;
   left: 0;
   right: 0;
 
+  height: 62px;
+
   z-index: 100;
 
   display: flex;
+
   align-items: center;
   justify-content: space-between;
 
   padding: 0 18px;
 
-  background: rgba(0, 0, 0, .88);
+  background:
+    linear-gradient(
+      rgba(0,0,0,.95),
+      rgba(0,0,0,.65)
+    );
+
   backdrop-filter: blur(10px);
 }
 
-.brand {
-  color: #fff;
-  font-size: 23px;
+.logo {
+  font-size: 22px;
   font-weight: 900;
-  letter-spacing: -1px;
 }
 
-.brand span {
-  color: var(--accent);
+.logo span {
+  color: var(--red);
 }
 
-.profile-button {
-  width: 40px;
-  height: 40px;
+.icon-button {
+  width: 42px;
+  height: 42px;
 
+  border: none;
   border-radius: 50%;
 
-  background: var(--panel2);
-  color: #fff;
+  background: #222;
 
-  font-size: 20px;
+  color: white;
+
+  font-size: 19px;
 }
 
 
-/* =========================================================
-   PÁGINAS
-========================================================= */
+/* ================= MAIN ================= */
 
 main {
-  padding-top: 65px;
+  padding-top: 62px;
 }
 
 .page {
   display: none;
-  min-height: calc(100vh - 65px);
 }
 
 .page.active {
@@ -172,86 +177,94 @@ main {
 }
 
 
-/* =========================================================
-   HERO
-========================================================= */
+/* ================= HERO ================= */
 
 .hero {
-  min-height: 500px;
-
-  position: relative;
+  min-height: 540px;
 
   display: flex;
+
   align-items: flex-end;
 
   background:
     linear-gradient(
       to top,
-      #080808 0%,
-      rgba(8, 8, 8, .65) 35%,
-      rgba(8, 8, 8, .15) 75%
+      #080808 2%,
+      rgba(8,8,8,.75) 30%,
+      rgba(8,8,8,.15) 70%
     ),
-    url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80")
+    linear-gradient(
+      to right,
+      rgba(0,0,0,.85),
+      transparent
+    ),
+    url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1400&q=85")
     center / cover no-repeat;
 }
 
-.hero-overlay {
+.hero-content {
   width: 100%;
-  padding: 35px 20px 40px;
+  max-width: 650px;
+
+  padding: 30px 20px 40px;
 }
 
-.hero-tag {
+.hero-label {
   display: inline-block;
-
-  color: #fff;
-  background: var(--accent);
 
   padding: 6px 9px;
 
-  font-size: 11px;
-  font-weight: bold;
+  background: var(--red);
 
   border-radius: 4px;
+
+  font-size: 10px;
+  font-weight: bold;
 }
 
 .hero h1 {
-  font-size: 38px;
-  margin: 12px 0;
+  margin-top: 12px;
+
+  font-size: 39px;
+
+  line-height: 1.05;
+}
+
+.hero-meta {
+  margin-top: 12px;
+
+  color: #ddd;
+
+  font-size: 13px;
 }
 
 .hero p {
-  max-width: 500px;
+  margin-top: 12px;
 
   color: #ddd;
+
   line-height: 1.5;
 }
 
-.hero-info {
+.hero-actions {
   display: flex;
-  gap: 15px;
 
-  margin: 15px 0;
-
-  color: #ddd;
-  font-size: 14px;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+
+  gap: 9px;
+
+  margin-top: 18px;
 }
 
 
-/* =========================================================
-   BOTÕES
-========================================================= */
+/* ================= BOTÕES ================= */
 
-.primary-button,
-.secondary-button {
+.btn {
   min-height: 42px;
 
-  padding: 0 18px;
+  padding: 0 17px;
+
+  border: none;
 
   border-radius: 5px;
 
@@ -260,105 +273,105 @@ main {
   transition: .2s;
 }
 
-.primary-button {
-  background: #fff;
-  color: #000;
-}
-
-.secondary-button {
-  background: rgba(80, 80, 80, .75);
-  color: #fff;
-}
-
-.primary-button:hover,
-.secondary-button:hover {
+.btn:hover {
   transform: scale(1.03);
 }
 
-.full {
-  width: 100%;
+.btn.primary {
+  background: white;
+  color: black;
+}
+
+.btn.secondary {
+  background: #555;
+  color: white;
 }
 
 
-/* =========================================================
-   SEÇÕES
-========================================================= */
+/* ================= SEÇÕES ================= */
 
-.content-section {
+.section {
   padding: 20px;
 }
 
-.section-header {
+.section-title {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
 
   margin-bottom: 13px;
 }
 
-.section-header h2 {
-  font-size: 20px;
+.section-title h2 {
+  font-size: 19px;
 }
 
-.see-all {
+.link-button {
   background: transparent;
   color: #aaa;
+  border: none;
 }
 
 
-/* =========================================================
-   GRID
-========================================================= */
+/* ================= HORIZONTAL ================= */
 
-.movie-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(auto-fill, minmax(145px, 1fr));
-
-  gap: 12px;
-}
-
-.horizontal-grid {
+.horizontal-row {
   display: flex;
-  gap: 12px;
+
+  gap: 11px;
 
   overflow-x: auto;
 
   scrollbar-width: none;
 }
 
-.horizontal-grid::-webkit-scrollbar {
+.horizontal-row::-webkit-scrollbar {
   display: none;
 }
 
 
-/* =========================================================
-   CARD
-========================================================= */
+/* ================= GRID ================= */
 
-.movie-card {
-  position: relative;
+.content-grid {
+  display: grid;
 
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 11px;
+
+  padding: 0 20px 20px;
+}
+
+
+/* ================= CARD ================= */
+
+.card {
   min-width: 145px;
+
+  overflow: hidden;
 
   background: var(--panel);
 
   border-radius: 7px;
 
-  overflow: hidden;
-
   cursor: pointer;
 
-  transition: transform .2s;
+  transition: .2s;
 }
 
-.movie-card:hover {
-  transform: scale(1.03);
+.card:hover {
+  transform: scale(1.025);
 }
 
-.movie-card img {
+.horizontal-row .card {
+  flex: 0 0 145px;
+}
+
+.card-image {
   width: 100%;
+
   height: 215px;
 
   object-fit: cover;
@@ -366,247 +379,88 @@ main {
   background: #222;
 }
 
-.movie-info {
+.card-body {
   padding: 9px;
 }
 
-.movie-info h3 {
+.card-title {
   font-size: 14px;
 
   white-space: nowrap;
+
   overflow: hidden;
+
   text-overflow: ellipsis;
 }
 
-.movie-meta {
-  margin-top: 6px;
+.card-meta {
+  margin-top: 5px;
 
-  color: #aaa;
+  color: #999;
 
   font-size: 11px;
 }
 
-.card-rating {
+.rating {
   color: #ffd700;
 }
 
 
-/* =========================================================
-   TÍTULO DAS PÁGINAS
-========================================================= */
+/* ================= HEADING ================= */
 
-.page-title {
-  padding: 25px 20px;
+.page-heading {
+  padding: 25px 20px 18px;
 }
 
-.page-title h1 {
+.page-heading h1 {
   font-size: 30px;
 }
 
-.page-title p {
+.page-heading p {
+  margin-top: 7px;
+
   color: var(--muted);
-  margin-top: 6px;
 }
 
 
-/* =========================================================
-   CATEGORIAS
-========================================================= */
+/* ================= BUSCA ================= */
 
-.category-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, 1fr);
-
-  gap: 12px;
-
-  padding: 0 20px 25px;
-}
-
-.category-grid button {
-  min-height: 80px;
-
-  border-radius: 8px;
-
-  background: var(--panel);
-
-  border: 1px solid var(--border);
-
-  color: #fff;
-
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.category-grid button:hover {
-  border-color: var(--accent);
-}
-
-
-/* =========================================================
-   BUSCA
-========================================================= */
-
-.search-box {
+.search-container {
   margin: 0 20px 25px;
 
   height: 52px;
 
   display: flex;
+
   align-items: center;
 
   gap: 10px;
 
-  padding: 0 15px;
-
-  background: var(--panel);
+  padding: 0 14px;
 
   border: 1px solid var(--border);
 
   border-radius: 7px;
+
+  background: var(--panel);
 }
 
-.search-box span {
-  font-size: 22px;
-}
-
-.search-box input {
-  flex: 1;
-
-  height: 100%;
-
-  border: none;
-  outline: none;
-
-  background: transparent;
-
-  color: #fff;
-
-  font-size: 15px;
-}
-
-
-/* =========================================================
-   PERFIL
-========================================================= */
-
-.profile-header {
-  display: flex;
-  align-items: center;
-
-  gap: 15px;
-
-  padding: 30px 20px;
-
-  border-bottom: 1px solid var(--border);
-}
-
-.profile-avatar {
-  width: 65px;
-  height: 65px;
-
-  border-radius: 8px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: var(--panel2);
-
-  font-size: 35px;
-}
-
-.profile-header p {
-  color: #999;
-  margin-top: 4px;
-}
-
-.profile-menu {
-  padding: 10px 20px;
-}
-
-.profile-menu button {
+.search-container input {
   width: 100%;
+  height: 100%;
 
-  padding: 17px 5px;
-
-  text-align: left;
+  outline: none;
+  border: none;
 
   background: transparent;
 
-  color: #fff;
-
-  border-bottom: 1px solid var(--border);
+  color: white;
 
   font-size: 15px;
 }
 
 
-/* =========================================================
-   NAVEGAÇÃO
-========================================================= */
-
-.bottom-nav {
-  position: fixed;
-
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  height: 70px;
-
-  z-index: 200;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-
-  background: rgba(10, 10, 10, .96);
-
-  border-top: 1px solid var(--border);
-
-  backdrop-filter: blur(15px);
-}
-
-.nav-button {
-  flex: 1;
-
-  height: 100%;
-
-  background: transparent;
-
-  color: #777;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 4px;
-}
-
-.nav-button span {
-  font-size: 21px;
-}
-
-.nav-button small {
-  font-size: 10px;
-}
-
-.nav-button.active {
-  color: #fff;
-}
-
-.nav-button.active span {
-  color: var(--accent);
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
+/* ================= MODAL ================= */
 
 .modal {
   position: fixed;
@@ -615,146 +469,197 @@ main {
 
   z-index: 1000;
 
-  background: rgba(0, 0, 0, .85);
+  background:
+    rgba(0,0,0,.88);
 
   display: flex;
-  align-items: center;
-  justify-content: center;
 
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
+
+  padding: 15px;
 }
 
-.modal-content {
-  width: min(500px, 100%);
+.details-panel {
+  position: relative;
 
-  max-height: 90vh;
+  width: min(600px, 100%);
+
+  max-height: 92vh;
 
   overflow-y: auto;
 
   background: #151515;
 
   border-radius: 10px;
-
-  position: relative;
 }
 
-.modal-content > img {
+.close-button {
+  position: absolute;
+
+  right: 12px;
+  top: 12px;
+
+  z-index: 5;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  background: rgba(0,0,0,.7);
+
+  color: white;
+
+  font-size: 27px;
+}
+
+.details-image {
   width: 100%;
-  height: 280px;
+  height: 300px;
 
   object-fit: cover;
 }
 
-.modal-body {
+.details-content {
   padding: 20px;
 }
 
-.modal-body h2 {
-  font-size: 25px;
+.details-content h1 {
+  font-size: 27px;
 }
 
 .details-meta {
   display: flex;
-  gap: 10px;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 9px;
 
   color: #aaa;
 
-  margin: 10px 0;
+  font-size: 12px;
 }
 
-.modal-body p {
+.details-description {
+  margin-top: 15px;
+
   color: #ccc;
 
   line-height: 1.6;
 }
 
-.modal-buttons {
+.details-actions {
   display: flex;
+
+  flex-wrap: wrap;
+
   gap: 8px;
 
   margin-top: 20px;
-
-  flex-wrap: wrap;
 }
 
-.close-modal {
-  position: absolute;
 
-  top: 10px;
-  right: 10px;
+/* ================= TEMPORADAS ================= */
 
-  z-index: 5;
+.season-area {
+  margin-top: 25px;
+
+  border-top: 1px solid var(--border);
+
+  padding-top: 20px;
+}
+
+.season-buttons {
+  display: flex;
+
+  gap: 8px;
+
+  overflow-x: auto;
+
+  margin-top: 12px;
+}
+
+.season-button {
+  flex-shrink: 0;
+
+  padding: 10px 14px;
+
+  background: #292929;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 5px;
+}
+
+.season-button.active {
+  background: var(--red);
+}
+
+.episode-list {
+  margin-top: 15px;
+}
+
+.episode {
+  display: flex;
+
+  gap: 12px;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.episode-image {
+  width: 105px;
+  height: 65px;
+
+  object-fit: cover;
+
+  border-radius: 5px;
+}
+
+.episode-info {
+  flex: 1;
+}
+
+.episode-info h3 {
+  font-size: 14px;
+}
+
+.episode-info p {
+  margin-top: 5px;
+
+  color: #999;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+.episode-watch {
+  align-self: center;
 
   width: 35px;
   height: 35px;
 
   border-radius: 50%;
 
-  background: rgba(0, 0, 0, .7);
-
-  color: #fff;
-
-  font-size: 25px;
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-.login-box {
-  width: min(400px, 100%);
-
-  position: relative;
-
-  padding: 35px 25px;
-
-  background: #151515;
-
-  border-radius: 10px;
-}
-
-.login-brand {
-  margin-bottom: 25px;
-}
-
-.login-box h2 {
-  margin-bottom: 20px;
-}
-
-.login-box input {
-  width: 100%;
-
-  height: 50px;
-
-  margin-bottom: 12px;
-
-  padding: 0 15px;
-
   border: none;
-  outline: none;
 
-  border-radius: 5px;
+  background: var(--red);
 
-  background: #282828;
-
-  color: #fff;
-}
-
-.login-help {
-  color: #888;
-
-  text-align: center;
-
-  font-size: 12px;
-
-  margin-top: 15px;
+  color: white;
 }
 
 
-/* =========================================================
-   PLAYER
-========================================================= */
+/* ================= PLAYER ================= */
 
 .player-modal {
   position: fixed;
@@ -766,24 +671,159 @@ main {
   background: #000;
 
   display: flex;
-  align-items: center;
+
   justify-content: center;
+  align-items: center;
 }
 
-.player {
+.player-wrapper {
   width: 100%;
+
+  max-width: 1100px;
 }
 
-.player-screen {
+.video-player {
   width: 100%;
-  max-width: 1000px;
 
-  aspect-ratio: 16 / 9;
+  max-height: 75vh;
 
-  margin: auto;
+  background: black;
+}
 
-  background:
-    radial-gradient(circle, #222, #000);
+.player-info {
+  padding: 15px 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.player-info h2 {
+  font-size: 18px;
+}
+
+.player-close {
+  position: fixed;
+
+  right: 15px;
+  top: 15px;
+
+  z-index: 10;
+
+  width: 43px;
+  height: 43px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  background: #222;
+
+  color: white;
+
+  font-size: 28px;
+}
+
+.video-message {
+  padding: 30px;
+
+  text-align: center;
+
+  color: #aaa;
+}
+
+.video-message div {
+  font-size: 35px;
+
+  color: var(--red);
+
+  margin-bottom: 10px;
+}
+
+.video-message h2 {
+  color: white;
+}
+
+.video-message p {
+  margin-top: 7px;
+}
+
+
+/* ================= TOAST ================= */
+
+.toast {
+  position: fixed;
+
+  left: 50%;
+
+  bottom: 90px;
+
+  z-index: 3000;
+
+  transform:
+    translateX(-50%)
+    translateY(20px);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  background: #fff;
+
+  color: #000;
+
+  padding: 11px 16px;
+
+  border-radius: 6px;
+
+  font-size: 13px;
+
+  transition: .25s;
+}
+
+.toast.show {
+  opacity: 1;
+
+  transform:
+    translateX(-50%)
+    translateY(0);
+}
+
+
+/* ================= NAVEGAÇÃO ================= */
+
+.bottom-nav {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 68px;
+
+  z-index: 500;
+
+  display: flex;
+
+  background: rgba(10,10,10,.97);
+
+  border-top: 1px solid var(--border);
+
+  backdrop-filter: blur(15px);
+}
+
+.nav-item {
+  flex: 1;
+
+  border: none;
+
+  background: transparent;
+
+  color: #777;
 
   display: flex;
 
@@ -792,106 +832,75 @@ main {
   align-items: center;
   justify-content: center;
 
-  text-align: center;
+  gap: 3px;
 }
 
-.player-icon {
-  width: 70px;
-  height: 70px;
-
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: var(--accent);
-
-  font-size: 28px;
-
-  margin-bottom: 20px;
+.nav-item span {
+  font-size: 19px;
 }
 
-.player-screen p {
-  color: #888;
-
-  margin-top: 8px;
+.nav-item small {
+  font-size: 9px;
 }
 
-.close-player {
-  position: absolute;
+.nav-item.active {
+  color: white;
+}
 
-  top: 20px;
-  right: 20px;
-
-  z-index: 10;
-
-  width: 45px;
-  height: 45px;
-
-  border-radius: 50%;
-
-  background: #222;
-
-  color: #fff;
-
-  font-size: 28px;
+.nav-item.active span {
+  color: var(--red);
 }
 
 
-/* =========================================================
-   RESPONSIVO
-========================================================= */
+/* ================= DESKTOP ================= */
 
 @media (min-width: 700px) {
 
-  .movie-grid {
+  .content-grid {
     grid-template-columns:
       repeat(auto-fill, minmax(180px, 1fr));
   }
 
-  .movie-card img {
+  .card-image {
     height: 270px;
   }
 
+  .horizontal-row .card {
+    flex-basis: 180px;
+  }
+
   .hero {
-    min-height: 600px;
+    min-height: 650px;
+  }
+
+  .hero-content {
+    padding: 45px;
   }
 
   .hero h1 {
-    font-size: 50px;
-  }
-
-  .hero-overlay {
-    padding: 50px;
+    font-size: 52px;
   }
 
 }
 
-@media (max-width: 430px) {
 
-  .bottom-nav {
-    height: 65px;
+/* ================= PEQUENOS ================= */
+
+@media (max-width: 360px) {
+
+  .hero h1 {
+    font-size: 31px;
   }
 
-  .nav-button span {
-    font-size: 18px;
+  .content-grid {
+    gap: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
-  .nav-button small {
-    font-size: 9px;
-  }
-
-  .movie-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .movie-card {
-    min-width: 0;
-  }
-
-  .movie-card img {
-    height: 220px;
+  .section {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
      }
