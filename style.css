@@ -1,6 +1,7 @@
-/* =====================================================
-   VIPNETFLIX - STYLE.CSS
-===================================================== */
+/* =========================================================
+   VIPNETFLIX
+   STYLE.CSS
+========================================================= */
 
 * {
   box-sizing: border-box;
@@ -8,888 +9,1070 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-
-  background: #05080b;
-
-  color: white;
-
-  font-family: Arial, sans-serif;
-
+  background: #050505;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
-
-/* =====================================================
-   TELAS
-===================================================== */
-
-.login-screen,
-.register-screen,
-.app-screen {
-
-  display: none;
-
+button,
+input,
+select {
+  font-family: inherit;
 }
 
+button {
+  cursor: pointer;
+}
 
-/* =====================================================
-   TELA DE ABERTURA
-===================================================== */
+button:active {
+  transform: scale(.97);
+}
+
+/* =========================================================
+   WELCOME
+========================================================= */
 
 .welcome-screen {
-
-  min-height: 100vh;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  text-align: center;
-
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
   background:
-
-    radial-gradient(
-      circle at 20% 20%,
-      #a90020,
-      transparent 40%
-    ),
-
-    radial-gradient(
-      circle at 80% 80%,
-      #35006b,
-      transparent 45%
-    ),
-
-    #080808;
-
+    radial-gradient(circle at 20% 15%, rgba(230,0,20,.55), transparent 32%),
+    radial-gradient(circle at 90% 80%, rgba(90,0,255,.45), transparent 32%),
+    #020202;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
-
 
 .welcome-content {
-
   width: 90%;
-
-  max-width: 500px;
-
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
 }
-
 
 .welcome-content h1 {
-
-  font-size: 65px;
-
+  font-size: clamp(48px, 13vw, 100px);
   font-weight: 900;
-
   letter-spacing: -4px;
-
-  margin-bottom: 35px;
-
+  margin-bottom: 30px;
 }
 
-
-.welcome-content h1 span {
-
-  color: white;
-
+.welcome-content h1 span,
+.main-logo span,
+.account-logo span,
+.side-logo span {
+  color: #ed0718;
 }
-
 
 .welcome-content h1 b {
-
-  color: #e50914;
-
+  color: #ed0718;
 }
-
 
 .welcome-content p {
-
-  color: #aaa;
-
+  color: #d0d0d0;
   font-size: 20px;
-
   line-height: 1.6;
-
 }
-
-
-/* =====================================================
-   BOTÃO ENTRAR
-===================================================== */
 
 .enter-btn {
-
+  margin-top: 80px;
   width: 100%;
-
-  margin-top: 55px;
-
-  padding: 22px;
-
+  max-width: 610px;
+  height: 78px;
   border: none;
-
-  border-radius: 25px;
-
-  background:
-
-    linear-gradient(
-      90deg,
-      #ff1e2d,
-      #e50914
-    );
-
+  border-radius: 20px;
+  background: linear-gradient(90deg,#ed0718,#ff1728);
   color: white;
-
   font-size: 25px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 10px 35px rgba(229, 9, 20, .4);
-
-  position: relative;
-
-  z-index: 10;
-
+  font-weight: 800;
+  box-shadow: 0 15px 45px rgba(237,7,24,.35);
 }
-
 
 .enter-btn span {
-
   margin-left: 12px;
-
+  font-size: 35px;
 }
 
-
-.enter-btn:active {
-
-  transform: scale(.97);
-
+.welcome-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: .3;
 }
 
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-.login-screen {
-
-  min-height: 100vh;
-
-  background: #000;
-
-  padding: 30px 20px;
-
+.glow-red {
+  top: -250px;
+  left: -200px;
+  background: red;
 }
 
-
-.login-box {
-
-  width: 100%;
-
-  max-width: 560px;
-
-  margin: 60px auto;
-
-  background: #121212;
-
-  border-radius: 20px;
-
-  padding: 55px;
-
-  box-shadow:
-    0 15px 50px rgba(0,0,0,.6);
-
+.glow-purple {
+  right: -250px;
+  bottom: -200px;
+  background: #6b00ff;
 }
 
-
-.login-logo {
-
-  text-align: center;
-
-  font-size: 40px;
-
-  font-weight: 900;
-
-  margin-bottom: 45px;
-
-}
-
-
-.login-logo span {
-
-  color: #e50914;
-
-}
-
-
-.login-box h1,
-.register-box h1 {
-
-  font-size: 42px;
-
-  margin-bottom: 15px;
-
-}
-
-
-.login-subtitle {
-
-  color: #999;
-
-  font-size: 18px;
-
-  line-height: 1.5;
-
-  margin-bottom: 30px;
-
-}
-
-
-.login-box input,
-.register-box input {
-
-  width: 100%;
-
-  height: 65px;
-
-  margin-bottom: 16px;
-
-  padding: 0 20px;
-
-  border-radius: 10px;
-
-  border: 1px solid #444;
-
-  background: #292929;
-
-  color: white;
-
-  font-size: 17px;
-
-  outline: none;
-
-}
-
-
-.login-box input:focus,
-.register-box input:focus {
-
-  border-color: #e50914;
-
-}
-
-
-.login-btn {
-
-  width: 100%;
-
-  height: 65px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background: white;
-
-  color: #111;
-
-  font-size: 20px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-}
-
-
-.login-btn:active {
-
-  transform: scale(.98);
-
-}
-
-
-.forgot-btn {
-
-  display: block;
-
-  width: 100%;
-
-  margin: 25px 0;
-
-  background: none;
-
-  border: none;
-
-  color: white;
-
-  font-size: 16px;
-
-  cursor: pointer;
-
-}
-
-
-.or-line {
-
-  display: flex;
-
+/* =========================================================
+   ACCOUNT
+========================================================= */
+
+.account-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: none;
   align-items: center;
-
-  gap: 15px;
-
-  margin: 25px 0;
-
+  justify-content: center;
+  background: #050505;
+  padding: 25px;
 }
 
-
-.or-line span {
-
-  flex: 1;
-
-  height: 1px;
-
-  background: #333;
-
-}
-
-
-.or-line b {
-
-  color: #777;
-
-  font-size: 14px;
-
-}
-
-
-.new-account-btn {
-
-  width: 100%;
-
-  height: 62px;
-
-  background: #242424;
-
-  border: 1px solid #555;
-
-  border-radius: 10px;
-
-  color: white;
-
-  font-size: 18px;
-
-  cursor: pointer;
-
-}
-
-
-.simple-back-btn {
-
-  display: block;
-
-  width: 100%;
-
-  margin-top: 20px;
-
-  background: none;
-
+.back-btn {
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  background: transparent;
   border: none;
-
-  color: #aaa;
-
-  font-size: 16px;
-
-  cursor: pointer;
-
+  color: white;
+  font-size: 17px;
 }
 
+.account-box {
+  width: 100%;
+  max-width: 530px;
+  background: #151515;
+  border-radius: 22px;
+  padding: 45px;
+  box-shadow: 0 20px 70px rgba(0,0,0,.7);
+}
 
-.login-message {
-
+.account-logo {
+  font-size: 30px;
+  font-weight: 900;
   text-align: center;
-
-  margin-top: 20px;
-
-  min-height: 20px;
-
-  font-size: 15px;
-
+  margin-bottom: 55px;
 }
 
-
-/* =====================================================
-   CRIAR CONTA
-===================================================== */
-
-.register-screen {
-
-  min-height: 100vh;
-
-  background: #000;
-
-  padding: 25px 20px;
-
+.account-box h2 {
+  font-size: 38px;
+  margin-bottom: 10px;
 }
 
-
-.register-back {
-
-  background: none;
-
-  border: none;
-
-  color: white;
-
+.account-box > p {
+  color: #aaa;
   font-size: 18px;
-
-  cursor: pointer;
-
+  margin-bottom: 25px;
 }
 
-
-.register-box {
-
+.account-box input {
+  display: block;
   width: 100%;
-
-  max-width: 560px;
-
-  margin: 35px auto;
-
-  background: #121212;
-
-  border-radius: 20px;
-
-  padding: 55px;
-
+  height: 62px;
+  margin: 14px 0;
+  padding: 0 20px;
+  background: #292929;
+  border: 1px solid #444;
+  border-radius: 9px;
+  color: white;
+  font-size: 18px;
+  outline: none;
 }
 
-
-.register-box .login-logo {
-
-  margin-bottom: 35px;
-
+.account-box input:focus {
+  border-color: #ed0718;
 }
 
+.account-btn {
+  width: 100%;
+  height: 62px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 9px;
+  background: white;
+  color: #111;
+  font-size: 20px;
+  font-weight: 800;
+}
 
-/* =====================================================
-   APLICAÇÃO
-===================================================== */
+.account-message {
+  text-align: center;
+  min-height: 25px;
+  margin-top: 20px;
+}
+
+/* =========================================================
+   APP
+========================================================= */
 
 .app-screen {
-
+  display: none;
   min-height: 100vh;
-
   padding-bottom: 90px;
-
+  background: #050505;
 }
-
 
 .topbar {
-
-  height: 70px;
-
-  background: #07131d;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  position: sticky;
-
+  height: 75px;
+  width: 100%;
+  position: fixed;
   top: 0;
-
-  z-index: 20;
-
+  left: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  background: linear-gradient(#050505, transparent);
 }
 
-
-.menu-btn {
-
-  position: absolute;
-
-  left: 20px;
-
-  background: none;
-
-  border: none;
-
-  color: white;
-
-  font-size: 35px;
-
-  cursor: pointer;
-
-}
-
-
-.logo {
-
-  font-size: 34px;
-
+.main-logo {
+  font-size: 28px;
   font-weight: 900;
-
 }
 
-
-.logo span {
-
+.icon-btn {
+  border: none;
+  background: transparent;
   color: white;
-
+  font-size: 31px;
+  width: 48px;
+  height: 48px;
 }
 
+/* =========================================================
+   PAGES
+========================================================= */
 
-/* =====================================================
+.page {
+  display: none;
+  min-height: 100vh;
+}
+
+.active-page {
+  display: block;
+}
+
+.page-title {
+  padding: 105px 20px 30px;
+}
+
+.page-title h1 {
+  font-size: 34px;
+}
+
+.page-title p {
+  color: #999;
+  margin-top: 8px;
+}
+
+/* =========================================================
    HERO
-===================================================== */
+========================================================= */
 
 .hero {
-
-  height: 420px;
-
-  background:
-
-    linear-gradient(
-      to bottom,
-      rgba(0,0,0,.1),
-      #05080b
-    ),
-
-    radial-gradient(
-      circle at center,
-      #7d0718,
-      #07131d 70%
-    );
-
+  min-height: 700px;
+  position: relative;
+  overflow: hidden;
   display: flex;
-
   align-items: flex-end;
-
 }
 
+.hero-background {
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("https://images.unsplash.com/photo-1542206395-9feb3edaa68d?auto=format&fit=crop&w=1600&q=85");
+  background-size: cover;
+  background-position: center;
+}
 
 .hero-overlay {
-
-  padding: 30px;
-
-}
-
-
-.hero h2 {
-
-  font-size: 38px;
-
-  margin-bottom: 15px;
-
-}
-
-
-.hero p {
-
-  color: #bbb;
-
-  font-size: 18px;
-
-  margin-bottom: 25px;
-
-}
-
-
-.watch-btn {
-
-  background: #ff8a00;
-
-  color: white;
-
-  border: none;
-
-  border-radius: 15px;
-
-  padding: 18px 35px;
-
-  font-size: 18px;
-
-  font-weight: bold;
-
-}
-
-
-/* =====================================================
-   SEÇÕES
-===================================================== */
-
-.section {
-
-  padding: 25px 20px;
-
-}
-
-
-.section h2 {
-
-  font-size: 21px;
-
-  margin-bottom: 20px;
-
-}
-
-
-.cards {
-
-  display: flex;
-
-  gap: 15px;
-
-  overflow-x: auto;
-
-}
-
-
-.card {
-
-  min-width: 145px;
-
-}
-
-
-.poster {
-
-  height: 210px;
-
-  border-radius: 12px;
-
+  position: absolute;
+  inset: 0;
   background:
-
-    linear-gradient(
-      135deg,
-      #3a0a10,
-      #101820
-    );
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 55px;
-
+    linear-gradient(90deg,rgba(0,0,0,.95),rgba(0,0,0,.4),rgba(0,0,0,.05)),
+    linear-gradient(0deg,#050505 0%,transparent 55%);
 }
 
-
-.card h3 {
-
-  font-size: 15px;
-
-  margin-top: 10px;
-
-}
-
-
-/* =====================================================
-   DOWNLOADS
-===================================================== */
-
-.download-box {
-
-  background: #11171d;
-
-  border: 1px solid #222b32;
-
-  border-radius: 20px;
-
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   padding: 30px;
-
-  text-align: center;
-
+  padding-top: 150px;
 }
 
-
-.download-icon {
-
-  font-size: 45px;
-
+.hero-title {
+  font-size: clamp(45px, 12vw, 85px);
+  font-weight: 900;
+  letter-spacing: -3px;
 }
 
-
-.download-box h3 {
-
-  margin: 15px 0 10px;
-
+.hero-info {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #ddd;
 }
 
-
-.download-box p {
-
-  color: #aaa;
-
-  line-height: 1.5;
-
+.hero-info strong {
+  background: #ed0718;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
+.rating {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  margin: 15px 0;
+}
 
-.download-page-btn {
-
-  margin-top: 20px;
-
-  padding: 13px 20px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background: #ff8a00;
-
+.rating span {
   color: white;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
+  font-size: 22px;
 }
 
+.rating small {
+  color: #aaa;
+  margin-left: 10px;
+}
 
-/* =====================================================
-   MENU INFERIOR
-===================================================== */
+.hero-description {
+  max-width: 550px;
+  color: #ddd;
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+  min-height: 52px;
+  border-radius: 7px;
+  padding: 0 18px;
+  border: none;
+  font-weight: bold;
+  color: white;
+}
+
+.primary-btn {
+  background: #ed0718;
+}
+
+.secondary-btn {
+  background: #252525;
+  border: 1px solid #444;
+}
+
+.hero-details {
+  display: flex;
+  gap: 30px;
+  color: #aaa;
+  font-size: 13px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.content-section {
+  padding: 20px 15px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.section-header h2 {
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-header h2 i {
+  width: 3px;
+  height: 22px;
+  display: block;
+  background: #ed0718;
+}
+
+.section-header button {
+  border: none;
+  background: transparent;
+  color: #aaa;
+}
+
+/* =========================================================
+   POSTERS
+========================================================= */
+
+.poster-row {
+  display: flex;
+  gap: 13px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.poster-row::-webkit-scrollbar {
+  display: none;
+}
+
+.poster-card {
+  flex: 0 0 145px;
+}
+
+.poster-image {
+  height: 215px;
+  border-radius: 7px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.poster-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background: rgba(0,0,0,.45);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 60%;
+  background: #ed0718;
+}
+
+.poster-card h3 {
+  font-size: 14px;
+  margin-top: 8px;
+  line-height: 1.3;
+}
+
+.poster-card p {
+  color: #999;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* =========================================================
+   CATALOG
+========================================================= */
+
+.catalog-grid {
+  padding: 0 15px 30px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+}
+
+.catalog-card {
+  min-width: 0;
+}
+
+.catalog-poster {
+  height: 220px;
+  border-radius: 7px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.catalog-card h3 {
+  font-size: 13px;
+  margin-top: 7px;
+}
+
+.catalog-card p {
+  color: #888;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.card-menu {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  border: none;
+  background: rgba(0,0,0,.7);
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+.storage-box,
+.large-storage {
+  border: 1px solid #5b3c80;
+  background: #0d0b12;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.storage-icon,
+.large-download-icon {
+  font-size: 35px;
+}
+
+.storage-info {
+  flex: 1;
+}
+
+.storage-info h3 {
+  font-size: 15px;
+}
+
+.storage-info p,
+.large-storage p {
+  color: #999;
+  margin-top: 5px;
+}
+
+.storage-bar {
+  width: 100%;
+  height: 7px;
+  background: #292929;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.storage-bar div {
+  height: 100%;
+  width: 0%;
+  background: #8e5de7;
+  transition: .4s;
+}
+
+/* =========================================================
+   DOWNLOADS
+========================================================= */
+
+.large-storage {
+  margin: 0 15px 25px;
+}
+
+.download-item {
+  margin: 12px 15px;
+  padding: 10px;
+  background: #111;
+  border-radius: 9px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.download-image {
+  width: 105px;
+  height: 65px;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.download-info {
+  flex: 1;
+}
+
+.download-info h3 {
+  font-size: 14px;
+}
+
+.download-info p {
+  color: #999;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.download-status {
+  color: #63d63d !important;
+}
+
+.download-watch {
+  background: transparent;
+  color: white;
+  border: 1px solid #aaa;
+  padding: 9px;
+  border-radius: 6px;
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-downloads {
+  text-align: center;
+  padding: 70px 25px;
+  color: #777;
+}
+
+.empty-downloads div {
+  font-size: 45px;
+  margin-bottom: 15px;
+}
+
+.empty-downloads h3 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
 
 .bottom-nav {
-
   position: fixed;
-
   bottom: 0;
-
   left: 0;
-
   width: 100%;
-
-  height: 78px;
-
-  background: #061521;
-
+  height: 76px;
+  z-index: 4000;
   display: flex;
-
-  justify-content: space-around;
-
-  z-index: 50;
-
+  background: rgba(8,8,8,.97);
+  border-top: 1px solid #252525;
+  backdrop-filter: blur(15px);
 }
 
-
-.nav-btn {
-
-  background: none;
-
+.nav-item {
+  flex: 1;
   border: none;
+  background: transparent;
+  color: #bbb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
 
-  color: white;
-
+.nav-item span {
   font-size: 22px;
-
-  cursor: pointer;
-
 }
 
+.nav-item small {
+  font-size: 10px;
+}
 
-.nav-btn small {
+.nav-item.active {
+  color: #ed0718;
+}
 
+/* =========================================================
+   SIDE MENU
+========================================================= */
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -310px;
+  width: 290px;
+  height: 100%;
+  z-index: 7000;
+  background: #111;
+  padding: 25px;
+  transition: .3s;
+  box-shadow: 10px 0 30px rgba(0,0,0,.5);
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+.side-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.side-logo {
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.side-header button {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 30px;
+}
+
+.profile-mini {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #333;
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 45px;
+  height: 45px;
+  background: #ed0718;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.profile-mini small {
   display: block;
-
-  font-size: 8px;
-
-  margin-top: 5px;
-
+  color: #777;
+  margin-top: 4px;
 }
 
+.side-menu > button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 16px 5px;
+  font-size: 16px;
+}
 
-/* =====================================================
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 6000;
+  display: none;
+  background: rgba(0,0,0,.65);
+}
+
+.menu-overlay.show {
+  display: block;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  display: none;
+  background: rgba(0,0,0,.92);
+  padding: 80px 20px;
+}
+
+.search-modal.open {
+  display: block;
+}
+
+.search-box {
+  max-width: 700px;
+  margin: auto;
+}
+
+.search-box h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 100%;
+  height: 58px;
+  background: #202020;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 0 18px;
+  color: white;
+  font-size: 17px;
+  outline: none;
+}
+
+.search-result {
+  padding: 15px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-result-image {
+  width: 55px;
+  height: 75px;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 8500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.88);
+  padding: 20px;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-content,
+.player-content {
+  width: 100%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #151515;
+  border-radius: 14px;
+  padding: 25px;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #292929;
+  color: white;
+  font-size: 25px;
+  z-index: 2;
+}
+
+.modal-poster {
+  height: 250px;
+  margin: -25px -25px 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+.modal-content h2 {
+  font-size: 28px;
+}
+
+.modal-content > p {
+  color: #aaa;
+  line-height: 1.5;
+  margin: 12px 0 20px;
+}
+
+.season-selector label {
+  display: block;
+  color: #aaa;
+  margin-bottom: 7px;
+}
+
+.season-selector select {
+  width: 100%;
+  height: 50px;
+  background: #292929;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 0 12px;
+}
+
+.episode {
+  margin-top: 12px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #242424;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.episode-info h3 {
+  font-size: 15px;
+}
+
+.episode-info p {
+  color: #999;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.episode-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.episode-buttons button {
+  border: none;
+  background: #ed0718;
+  color: white;
+  padding: 9px;
+  border-radius: 5px;
+}
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+.player-content {
+  max-width: 850px;
+}
+
+.video-box {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.demo-player {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #888;
+}
+
+.play-circle {
+  width: 75px;
+  height: 75px;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.player-note {
+  color: #888;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+/* =========================================================
    RESPONSIVO
-===================================================== */
+========================================================= */
 
-@media (max-width: 600px) {
+@media (min-width: 700px) {
 
-  .welcome-content h1 {
-
-    font-size: 52px;
-
+  .catalog-grid {
+    grid-template-columns: repeat(5,1fr);
   }
 
-
-  .welcome-content p {
-
-    font-size: 17px;
-
+  .poster-card {
+    flex-basis: 180px;
   }
 
-
-  .enter-btn {
-
-    font-size: 21px;
-
+  .poster-image {
+    height: 270px;
   }
-
-
-  .login-box,
-  .register-box {
-
-    margin-top: 35px;
-
-    padding: 30px 25px;
-
-    border-radius: 16px;
-
-  }
-
-
-  .login-logo {
-
-    font-size: 31px;
-
-  }
-
-
-  .login-box h1,
-  .register-box h1 {
-
-    font-size: 34px;
-
-  }
-
-
-  .login-box input,
-  .register-box input {
-
-    height: 60px;
-
-    font-size: 16px;
-
-  }
-
-
-  .login-btn {
-
-    height: 60px;
-
-  }
-
 
   .hero {
-
-    height: 360px;
-
+    min-height: 850px;
   }
 
-
-  .hero h2 {
-
-    font-size: 30px;
-
+  .hero-content {
+    padding-left: 6%;
+    padding-bottom: 60px;
   }
 
 }
+
+@media (max-width: 500px) {
+
+  .account-box {
+    padding: 30px 22px;
+  }
+
+  .account-box h2 {
+    font-size: 30px;
+  }
+
+  .hero {
+    min-height: 680px;
+  }
+
+  .hero-content {
+    padding: 20px;
+    padding-top: 180px;
+  }
+
+  .hero-title {
+    font-size: 50px;
+  }
+
+  .hero-description {
+    font-size: 14px;
+  }
+
+  .hero-buttons button {
+    flex: 1;
+    min-width: 105px;
+    padding: 0 8px;
+    font-size: 11px;
+  }
+
+  .hero-details {
+    gap: 12px;
+    font-size: 11px;
+  }
+
+   }
