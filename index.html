@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="theme-color" content="#050505">
   <title>VipNetflix</title>
-
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,9 +18,7 @@
 
     <div class="welcome-content">
 
-      <h1>
-        VIP<span>NETFLIX</span><b>.</b>
-      </h1>
+      <h1>VIP<span>NETFLIX</span><b>.</b></h1>
 
       <p>Todo o seu catálogo em um só lugar.</p>
       <p>Sem limites, sem interrupções.</p>
@@ -36,157 +33,51 @@
 
 
   <!-- =====================================================
-       TELA DE LOGIN
+       TELA DE CONTA
   ====================================================== -->
 
-  <section id="loginScreen" class="login-screen">
+  <section id="accountScreen" class="account-screen">
 
-    <div class="login-box">
-
-      <div class="login-logo">
-        VIP<span>NETFLIX</span>
-      </div>
-
-      <h1>Entrar</h1>
-
-      <p class="login-subtitle">
-        Entre na sua conta VipNetflix.
-      </p>
-
-
-      <input
-        id="loginEmail"
-        type="email"
-        placeholder="Email"
-        autocomplete="email"
-      >
-
-
-      <input
-        id="loginPassword"
-        type="password"
-        placeholder="Palavra-passe"
-        autocomplete="current-password"
-      >
-
-
-      <button id="loginBtn" class="login-btn">
-        ENTRAR
-      </button>
-
-
-      <button
-        id="forgotPasswordBtn"
-        class="forgot-btn"
-      >
-        Esqueci a palavra-passe
-      </button>
-
-
-      <div class="or-line">
-
-        <span></span>
-
-        <b>OU</b>
-
-        <span></span>
-
-      </div>
-
-
-      <button
-        id="newAccountBtn"
-        class="new-account-btn"
-      >
-        CRIAR NOVA CONTA
-      </button>
-
-
-      <button
-        id="loginBackBtn"
-        class="simple-back-btn"
-      >
-        ← Voltar
-      </button>
-
-
-      <p
-        id="loginMessage"
-        class="login-message"
-      ></p>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       TELA DE CRIAR CONTA
-  ====================================================== -->
-
-  <section id="registerScreen" class="register-screen">
-
-    <button
-      id="registerBackBtn"
-      class="register-back"
-    >
+    <button id="backBtn" class="back-btn">
       ← Voltar
     </button>
 
+    <div class="account-box">
 
-    <div class="register-box">
-
-      <div class="login-logo">
-        VIP<span>NETFLIX</span>
+      <div class="account-logo">
+        <span>VIP</span>NETFLIX
       </div>
 
-      <h1>Criar conta</h1>
+      <h2>Criar sua conta</h2>
 
-      <p class="login-subtitle">
-        Crie sua conta para começar a assistir.
-      </p>
-
+      <p>Entre para começar a assistir.</p>
 
       <input
-        id="registerName"
+        id="nameInput"
         type="text"
-        placeholder="Nome completo"
+        placeholder="Seu nome"
+        autocomplete="name"
       >
 
-
       <input
-        id="registerEmail"
+        id="emailInput"
         type="email"
-        placeholder="Email"
+        placeholder="Seu email"
+        autocomplete="email"
       >
-
 
       <input
-        id="registerPassword"
+        id="passwordInput"
         type="password"
-        placeholder="Palavra-passe"
+        placeholder="Sua senha"
+        autocomplete="new-password"
       >
 
-
-      <input
-        id="registerPassword2"
-        type="password"
-        placeholder="Confirmar palavra-passe"
-      >
-
-
-      <button
-        id="registerBtn"
-        class="login-btn"
-      >
+      <button id="createAccountBtn" class="account-btn">
         CRIAR CONTA
       </button>
 
-
-      <p
-        id="registerMessage"
-        class="login-message"
-      ></p>
+      <p id="accountMessage" class="account-message"></p>
 
     </div>
 
@@ -203,17 +94,17 @@
 
     <header class="topbar">
 
-      <button
-        id="menuBtn"
-        class="menu-btn"
-      >
+      <button id="menuBtn" class="icon-btn">
         ☰
       </button>
 
-
-      <div class="logo">
-        VIP<span>NETFLIX</span>
+      <div class="main-logo">
+        <span>VIP</span>NETFLIX
       </div>
+
+      <button id="searchBtn" class="icon-btn search-icon">
+        ⌕
+      </button>
 
     </header>
 
@@ -222,130 +113,286 @@
          HOME
     ================================================== -->
 
-    <main id="homePage">
-
+    <main id="homePage" class="page active-page">
 
       <!-- HERO -->
 
-      <div class="hero">
+      <section class="hero">
 
-        <div class="hero-overlay">
+        <div class="hero-background"></div>
 
-          <h2>
-            Bem-vindo ao VipNetflix
-          </h2>
+        <div class="hero-content">
 
-          <p>
-            Filmes, séries e conteúdos autorizados
-            em um só lugar.
+          <div class="hero-title">
+            REACHER
+          </div>
+
+          <div class="hero-info">
+            2022
+            <span>•</span>
+            2 Temporadas
+            <span>•</span>
+            Ação
+            <strong>16</strong>
+          </div>
+
+          <div class="rating">
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span class="empty-star">★</span>
+
+            <small>3.012 votos</small>
+          </div>
+
+          <p class="hero-description">
+            Quando reformado, o investigador militar Jack
+            Reacher viaja pelo país sem rumo fixo — até ser
+            preso por um crime que não cometeu.
           </p>
 
+          <div class="hero-buttons">
 
-          <button
-            class="watch-btn"
-            id="watchBtn"
-          >
-            ▶ ASSISTIR
+            <button
+              class="primary-btn"
+              onclick="playContent('Reacher')"
+            >
+              ▶ CONTINUAR ASSISTINDO
+            </button>
+
+            <button
+              class="secondary-btn"
+              onclick="downloadEpisode('Reacher','T2:E1','720p','850 MB')"
+            >
+              ⬇ DOWNLOAD
+            </button>
+
+            <button
+              class="secondary-btn"
+              onclick="addFavorite('Reacher')"
+            >
+              ＋ MINHA LISTA
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- CONTINUAR -->
+
+      <section class="content-section">
+
+        <div class="section-header">
+
+          <h2>
+            <i></i>
+            CONTINUAR ASSISTINDO
+          </h2>
+
+          <button onclick="showPage('downloadsPage')">
+            Ver downloads
           </button>
+
+        </div>
+
+        <div id="continueCards" class="poster-row"></div>
+
+      </section>
+
+
+      <!-- LANÇAMENTOS -->
+
+      <section class="content-section">
+
+        <div class="section-header">
+
+          <h2>
+            <i></i>
+            LANÇAMENTOS
+          </h2>
+
+          <button>
+            Ver todos
+          </button>
+
+        </div>
+
+        <div id="releaseCards" class="poster-row"></div>
+
+      </section>
+
+
+      <!-- DOWNLOADS -->
+
+      <section class="content-section">
+
+        <div class="section-header">
+
+          <h2>
+            <i></i>
+            DOWNLOADS
+          </h2>
+
+          <button onclick="showPage('downloadsPage')">
+            Abrir
+          </button>
+
+        </div>
+
+        <div class="storage-box">
+
+          <div class="storage-icon">
+            ⬇
+          </div>
+
+          <div class="storage-info">
+
+            <h3>Armazenamento de Downloads</h3>
+
+            <p id="storageText">
+              0 MB usados de 64 GB
+            </p>
+
+            <div class="storage-bar">
+              <div id="storageProgress"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TAMBÉM PODE GOSTAR -->
+
+      <section class="content-section">
+
+        <div class="section-header">
+
+          <h2>
+            <i></i>
+            TAMBÉM PODE GOSTAR
+          </h2>
+
+        </div>
+
+        <div id="recommendationCards" class="poster-row"></div>
+
+      </section>
+
+    </main>
+
+
+    <!-- =================================================
+         CATÁLOGO
+    ================================================== -->
+
+    <main id="catalogPage" class="page">
+
+      <div class="page-title">
+        <h1>CATÁLOGO</h1>
+        <p>Filmes e séries disponíveis</p>
+      </div>
+
+      <div id="catalogGrid" class="catalog-grid"></div>
+
+    </main>
+
+
+    <!-- =================================================
+         LANÇAMENTOS
+    ================================================== -->
+
+    <main id="releasesPage" class="page">
+
+      <div class="page-title">
+        <h1>LANÇAMENTOS</h1>
+        <p>Confira os conteúdos mais recentes</p>
+      </div>
+
+      <div id="allReleaseGrid" class="catalog-grid"></div>
+
+    </main>
+
+
+    <!-- =================================================
+         DOWNLOADS
+    ================================================== -->
+
+    <main id="downloadsPage" class="page">
+
+      <div class="page-title">
+
+        <h1>DOWNLOADS</h1>
+
+        <p>
+          Assista aos conteúdos disponíveis offline.
+        </p>
+
+      </div>
+
+      <div class="large-storage">
+
+        <div class="large-download-icon">
+          ⬇
+        </div>
+
+        <div>
+
+          <h2>Armazenamento</h2>
+
+          <p id="largeStorageText">
+            0 MB usados de 64 GB
+          </p>
+
+          <div class="storage-bar large">
+            <div id="largeStorageProgress"></div>
+          </div>
 
         </div>
 
       </div>
 
+      <div id="downloadsList" class="downloads-list">
 
-      <!-- =================================================
-           CONTINUAR ASSISTINDO
-      ================================================== -->
+        <div class="empty-downloads">
 
-      <section class="section">
+          <div>⬇</div>
 
-        <h2>
-          ▶ CONTINUAR ASSISTINDO
-        </h2>
-
-
-        <div class="cards">
-
-          <div class="card">
-
-            <div class="poster">
-              🎬
-            </div>
-
-            <h3>
-              Aventura VIP
-            </h3>
-
-          </div>
-
-
-          <div class="card">
-
-            <div class="poster">
-              🚀
-            </div>
-
-            <h3>
-              Além do Espaço
-            </h3>
-
-          </div>
-
-
-          <div class="card">
-
-            <div class="poster">
-              🔥
-            </div>
-
-            <h3>
-              Noite de Cinema
-            </h3>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =================================================
-           DOWNLOADS
-      ================================================== -->
-
-      <section class="section downloads">
-
-        <h2>
-          ⬇ DOWNLOADS
-        </h2>
-
-
-        <div class="download-box">
-
-          <div class="download-icon">
-            ⬇
-          </div>
-
-          <h3>
-            Assistir offline
-          </h3>
+          <h3>Nenhum download ainda</h3>
 
           <p>
-            Os conteúdos baixados ficam disponíveis
-            dentro do aplicativo para assistir offline.
+            Os episódios que você baixar aparecerão aqui
+            para acesso offline dentro do aplicativo.
           </p>
-
-
-          <button
-            id="downloadPageBtn"
-            class="download-page-btn"
-          >
-            VER DOWNLOADS
-          </button>
 
         </div>
 
-      </section>
+      </div>
+
+    </main>
+
+
+    <!-- =================================================
+         FAVORITOS
+    ================================================== -->
+
+    <main id="favoritesPage" class="page">
+
+      <div class="page-title">
+
+        <h1>FAVORITOS</h1>
+
+        <p>Os seus conteúdos favoritos.</p>
+
+      </div>
+
+      <div id="favoritesGrid" class="catalog-grid"></div>
 
     </main>
 
@@ -356,49 +403,142 @@
 
     <nav class="bottom-nav">
 
-      <button class="nav-btn active">
-        ⌂
+      <button
+        class="nav-item active"
+        data-page="homePage"
+        onclick="showPage('homePage')"
+      >
+        <span>⌂</span>
         <small>INÍCIO</small>
       </button>
 
-
-      <button class="nav-btn">
-        ★
+      <button
+        class="nav-item"
+        data-page="releasesPage"
+        onclick="showPage('releasesPage')"
+      >
+        <span>★</span>
         <small>LANÇAMENTOS</small>
       </button>
 
-
-      <button class="nav-btn">
-        ▣
+      <button
+        class="nav-item"
+        data-page="catalogPage"
+        onclick="showPage('catalogPage')"
+      >
+        <span>▣</span>
         <small>CATÁLOGO</small>
       </button>
 
-
-      <button class="nav-btn">
-        ☷
-        <small>GÊNEROS</small>
+      <button
+        class="nav-item"
+        data-page="downloadsPage"
+        onclick="showPage('downloadsPage')"
+      >
+        <span>⬇</span>
+        <small>DOWNLOADS</small>
       </button>
 
-
-      <button class="nav-btn">
-        ♥
+      <button
+        class="nav-item"
+        data-page="favoritesPage"
+        onclick="showPage('favoritesPage')"
+      >
+        <span>♥</span>
         <small>FAVORITOS</small>
-      </button>
-
-
-      <button class="nav-btn">
-        ⌕
-        <small>BUSCAR</small>
       </button>
 
     </nav>
 
+
+    <!-- =================================================
+         MODAL DE SÉRIE / TEMPORADAS / EPISÓDIOS
+    ================================================== -->
+
+    <div id="seriesModal" class="modal">
+
+      <div class="modal-content">
+
+        <button
+          class="modal-close"
+          onclick="closeSeries()"
+        >
+          ×
+        </button>
+
+        <h2 id="modalTitle">
+          Série
+        </h2>
+
+        <p id="modalDescription"></p>
+
+        <div class="season-selector">
+
+          <label>Temporada</label>
+
+          <select id="seasonSelect"></select>
+
+        </div>
+
+        <div id="episodesList"></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PLAYER
+    ================================================== -->
+
+    <div id="playerModal" class="modal">
+
+      <div class="player-content">
+
+        <button
+          class="modal-close"
+          onclick="closePlayer()"
+        >
+          ×
+        </button>
+
+        <h2 id="playerTitle">
+          VipNetflix
+        </h2>
+
+        <div class="video-box">
+
+          <div class="demo-player">
+
+            <div class="play-circle">
+              ▶
+            </div>
+
+            <p>
+              PLAYER VIPNETFLIX
+            </p>
+
+          </div>
+
+        </div>
+
+        <p class="player-note">
+          Substitua a fonte de vídeo pelos seus conteúdos
+          autorizados quando integrar o servidor de streaming.
+        </p>
+
+      </div>
+
+    </div>
+
   </section>
 
 
-  <!-- JAVASCRIPT -->
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
 
   <script src="app.js"></script>
 
 </body>
-</html>
+            </html>
