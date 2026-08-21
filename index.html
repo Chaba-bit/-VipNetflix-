@@ -2,44 +2,25 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
-  >
-
-  <meta name="theme-color" content="#070b10">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VipNetflix</title>
-
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- =====================================================
-       TELA DE ABERTURA
-  ====================================================== -->
+  <!-- TELA DE ABERTURA -->
+  <section id="welcomeScreen" class="welcome-screen">
 
-  <section id="splash" class="splash">
+    <div class="welcome-content">
 
-    <div class="splash-background"></div>
+      <h1>VIP<span>NETFLIX</span><b>.</b></h1>
 
-    <div class="splash-content">
+      <p>Todo o seu catálogo em um só lugar.</p>
+      <p>Sem limites, sem interrupções.</p>
 
-      <div class="brand-logo">
-        <span>VIP</span>NETFLIX<span class="red-dot">.</span>
-      </div>
-
-      <p class="splash-text">
-        Todo o seu catálogo em um só lugar.
-      </p>
-
-      <p class="splash-text">
-        Sem limites, sem interrupções.
-      </p>
-
-      <button id="enterButton" class="enter-button">
+      <!-- BOTÃO ENTRAR -->
+      <button id="enterBtn" class="enter-btn">
         ENTRAR <span>→</span>
       </button>
 
@@ -48,129 +29,155 @@
   </section>
 
 
-  <!-- =====================================================
-       APLICAÇÃO
-  ====================================================== -->
+  <!-- APLICAÇÃO -->
+  <section id="appScreen" class="app-screen">
 
-  <div id="app" class="hidden">
+    <header class="topbar">
 
-    <!-- HEADER -->
+      <button id="menuBtn" class="menu-btn">☰</button>
 
-    <header class="top-header">
-
-      <button
-        id="menuButton"
-        class="header-button"
-        aria-label="Abrir menu">
-        ☰
-      </button>
-
-      <div class="header-logo">
-        <span>VIP</span>NETFLIX
+      <div class="logo">
+        VIP<span>NETFLIX</span>
       </div>
-
-      <button
-        id="searchButton"
-        class="header-button"
-        aria-label="Pesquisar">
-        ⌕
-      </button>
 
     </header>
 
 
-    <!-- CONTEÚDO -->
+    <!-- HOME -->
+    <main id="homePage">
 
-    <main id="content"></main>
+      <div class="hero">
+
+        <div class="hero-overlay">
+
+          <h2>Bem-vindo ao VipNetflix</h2>
+
+          <p>
+            Filmes, séries e conteúdos autorizados
+            em um só lugar.
+          </p>
+
+          <button class="watch-btn">
+            ▶ ASSISTIR
+          </button>
+
+        </div>
+
+      </div>
 
 
-    <!-- =================================================
-         MENU INFERIOR
-    ================================================== -->
+      <!-- CONTINUAR ASSISTINDO -->
+      <section class="section">
 
-    <nav class="bottom-navigation">
+        <h2>▶ CONTINUAR ASSISTINDO</h2>
 
-      <button data-page="home">
-        <strong>⌂</strong>
-        <small>Início</small>
-      </button>
+        <div class="cards">
 
-      <button data-page="catalog">
-        <strong>🔥</strong>
-        <small>Lançamentos</small>
-      </button>
+          <div class="card">
+            <div class="poster">🎬</div>
+            <h3>Aventura VIP</h3>
+          </div>
 
-      <button data-page="catalog">
-        <strong>▣</strong>
-        <small>Catálogo</small>
-      </button>
+          <div class="card">
+            <div class="poster">🚀</div>
+            <h3>Além do Espaço</h3>
+          </div>
 
-      <button data-page="genres">
-        <strong>☷</strong>
-        <small>Gêneros</small>
-      </button>
+          <div class="card">
+            <div class="poster">🔥</div>
+            <h3>Noite de Cinema</h3>
+          </div>
 
-      <button data-page="favorites">
-        <strong>♥</strong>
-        <small>Favoritos</small>
-      </button>
+        </div>
 
-      <button data-page="downloads">
-        <strong>↓</strong>
-        <small>Downloads</small>
-      </button>
+      </section>
+
+
+      <!-- DOWNLOADS -->
+      <section class="section downloads">
+
+        <h2>⬇ DOWNLOADS</h2>
+
+        <div class="download-box">
+
+          <div class="download-icon">⬇</div>
+
+          <h3>Assistir offline</h3>
+
+          <p>
+            Os seus conteúdos baixados ficam
+            disponíveis dentro do aplicativo.
+          </p>
+
+          <button class="download-page-btn">
+            VER DOWNLOADS
+          </button>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- MENU INFERIOR -->
+    <nav class="bottom-nav">
+
+      <button>⌂<small>INÍCIO</small></button>
+      <button>★<small>LANÇAMENTOS</small></button>
+      <button>▣<small>CATÁLOGO</small></button>
+      <button>☷<small>GÊNEROS</small></button>
+      <button>♥<small>FAVORITOS</small></button>
+      <button>⌕<small>BUSCAR</small></button>
 
     </nav>
 
-  </div>
+  </section>
 
 
-  <!-- =====================================================
-       MENU LATERAL
-  ====================================================== -->
+  <!-- LOGIN / CRIAÇÃO DE CONTA -->
+  <section id="accountScreen" class="account-screen">
 
-  <div id="menuOverlay" class="menu-overlay"></div>
+    <button id="backBtn" class="back-btn">← Voltar</button>
 
-  <aside id="sideMenu" class="side-menu">
+    <div class="account-box">
 
-    <button id="closeMenu" class="close-menu">
-      ×
-    </button>
+      <h1>VIP<span>NETFLIX</span></h1>
 
-    <div class="side-logo">
-      <span>VIP</span>NETFLIX
+      <h2>Crie sua conta</h2>
+
+      <p>Entre para começar a assistir.</p>
+
+      <input
+        id="nameInput"
+        type="text"
+        placeholder="Seu nome"
+      >
+
+      <input
+        id="emailInput"
+        type="email"
+        placeholder="Seu email"
+      >
+
+      <input
+        id="passwordInput"
+        type="password"
+        placeholder="Sua senha"
+      >
+
+      <button id="createAccountBtn" class="account-btn">
+        CRIAR CONTA
+      </button>
+
+      <p id="accountMessage"></p>
+
     </div>
 
-    <button data-menu-page="home">
-      🏠 &nbsp; Início
-    </button>
+  </section>
 
-    <button data-menu-page="catalog">
-      🎬 &nbsp; Catálogo
-    </button>
-
-    <button data-menu-page="downloads">
-      ⬇️ &nbsp; Downloads
-    </button>
-
-    <button data-menu-page="favorites">
-      ❤️ &nbsp; Favoritos
-    </button>
-
-    <button data-menu-page="plans">
-      💳 &nbsp; Planos
-    </button>
-
-    <button data-menu-page="account">
-      👤 &nbsp; Minha conta
-    </button>
-
-  </aside>
-
-
-  <!-- JAVASCRIPT -->
 
   <script src="app.js"></script>
 
 </body>
-</html>
+        </html>
