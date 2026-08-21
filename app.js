@@ -1,11 +1,50 @@
 /* =========================================================
-   VIPNETFLIX
-   APP.JS
+   VIPNETFLIX — APP.JS
 ========================================================= */
 
 
 /* =========================================================
-   CATÁLOGO
+   ELEMENTOS
+========================================================= */
+
+const splashScreen = document.getElementById("splashScreen");
+const appScreen = document.getElementById("appScreen");
+
+const enterButton = document.getElementById("enterButton");
+
+const menuButton = document.getElementById("menuButton");
+const sideMenu = document.getElementById("sideMenu");
+const menuOverlay = document.getElementById("menuOverlay");
+
+const searchButton = document.getElementById("searchButton");
+const searchBox = document.getElementById("searchBox");
+const searchInput = document.getElementById("searchInput");
+const closeSearch = document.getElementById("closeSearch");
+
+const continueList = document.getElementById("continueList");
+const catalogList = document.getElementById("catalogList");
+const downloadList = document.getElementById("downloadList");
+const genresList = document.getElementById("genresList");
+const favoritesList = document.getElementById("favoritesList");
+
+const searchResultsSection =
+  document.getElementById("searchResultsSection");
+
+const searchResults =
+  document.getElementById("searchResults");
+
+const playerModal =
+  document.getElementById("playerModal");
+
+const detailsModal =
+  document.getElementById("detailsModal");
+
+const toast =
+  document.getElementById("toast");
+
+
+/* =========================================================
+   DADOS DO CATÁLOGO
 ========================================================= */
 
 const catalog = [
@@ -13,366 +52,279 @@ const catalog = [
   {
     id: 1,
     title: "Reacher",
-    type: "series",
+    type: "Série",
     genre: "Ação",
     year: 2022,
-    rating: 8.5,
-    seasons: 2,
-    image:
-      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=600&q=80",
+    rating: 8.7,
+    seasons: "2 Temporadas",
     description:
-      "Um investigador militar viaja pelo país enquanto enfrenta crimes e conspirações.",
-    episodes: 8
+      "Um investigador militar viaja pelo país e acaba envolvido numa perigosa investigação.",
+    image:
+      "https://images.unsplash.com/photo-1599685315640-4eab9f2a2a35?auto=format&fit=crop&w=600&q=80"
   },
 
   {
     id: 2,
-    title: "Percy Jackson e os Olimpianos",
-    type: "series",
-    genre: "Fantasia",
-    year: 2023,
-    rating: 8.1,
-    seasons: 2,
-    image:
-      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+    title: "Aventura VIP",
+    type: "Filme",
+    genre: "Aventura",
+    year: 2026,
+    rating: 8.8,
+    seasons: "Filme",
     description:
-      "Um jovem descobre que faz parte de um mundo cheio de deuses e criaturas.",
-    episodes: 8
+      "Uma aventura extraordinária começa quando uma equipa encontra um segredo perdido.",
+    image:
+      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80"
   },
 
   {
     id: 3,
-    title: "Homem-Aranha",
-    type: "movie",
-    genre: "Ação",
+    title: "Além do Espaço",
+    type: "Filme",
+    genre: "Ficção científica",
     year: 2026,
-    rating: 8.4,
-    seasons: 0,
-    image:
-      "https://images.unsplash.com/photo-1635805737707-575885ab0820?auto=format&fit=crop&w=600&q=80",
+    rating: 8.2,
+    seasons: "Filme",
     description:
-      "Um herói precisa enfrentar novos desafios enquanto protege sua cidade."
+      "Uma missão espacial revela um segredo inesperado.",
+    image:
+      "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=600&q=80"
   },
 
   {
     id: 4,
-    title: "The Witcher",
-    type: "series",
-    genre: "Fantasia",
-    year: 2019,
-    rating: 8.2,
-    seasons: 4,
-    image:
-      "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?auto=format&fit=crop&w=600&q=80",
+    title: "O Voto de Morte",
+    type: "Série",
+    genre: "Drama",
+    year: 2026,
+    rating: 8.4,
+    seasons: "1 Temporada",
     description:
-      "Um caçador de monstros enfrenta perigos em um mundo fantástico.",
-    episodes: 8
+      "Uma decisão muda completamente o destino de um grupo de pessoas.",
+    image:
+      "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80"
   },
 
   {
     id: 5,
-    title: "A Casa do Dragão",
-    type: "series",
-    genre: "Drama",
-    year: 2022,
-    rating: 8.4,
-    seasons: 2,
-    image:
-      "https://images.unsplash.com/photo-1518709779341-56cf4535e94b?auto=format&fit=crop&w=600&q=80",
+    title: "Percy Jackson",
+    type: "Série",
+    genre: "Fantasia",
+    year: 2026,
+    rating: 8.5,
+    seasons: "1 Temporada",
     description:
-      "Uma disputa pelo poder coloca uma poderosa família em conflito.",
-    episodes: 8
+      "Um jovem descobre um mundo de deuses, monstros e aventuras.",
+    image:
+      "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80"
   },
 
   {
     id: 6,
-    title: "Stranger Things",
-    type: "series",
-    genre: "Ficção",
-    year: 2016,
-    rating: 8.7,
-    seasons: 5,
-    image:
-      "https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80",
+    title: "Homem-Aranha",
+    type: "Filme",
+    genre: "Ação",
+    year: 2026,
+    rating: 8.9,
+    seasons: "Filme",
     description:
-      "Um grupo de jovens descobre acontecimentos misteriosos em sua cidade.",
-    episodes: 8
+      "Um novo desafio coloca o herói diante de uma ameaça inesperada.",
+    image:
+      "https://images.unsplash.com/photo-1635805737707-575885ab0820?auto=format&fit=crop&w=600&q=80"
   },
 
   {
     id: 7,
-    title: "O Voto de Morte",
-    type: "movie",
-    genre: "Drama",
+    title: "The Witcher",
+    type: "Série",
+    genre: "Fantasia",
     year: 2025,
-    rating: 8.0,
-    seasons: 0,
-    image:
-      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80",
+    rating: 8.6,
+    seasons: "4 Temporadas",
     description:
-      "Uma história de mistério, escolhas e consequências."
+      "Um caçador de monstros percorre um mundo cheio de perigos.",
+    image:
+      "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?auto=format&fit=crop&w=600&q=80"
   },
 
   {
     id: 8,
-    title: "Aventura VIP",
-    type: "movie",
-    genre: "Aventura",
-    year: 2026,
+    title: "A Casa do Dragão",
+    type: "Série",
+    genre: "Fantasia",
+    year: 2025,
     rating: 8.8,
-    seasons: 0,
-    image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80",
+    seasons: "2 Temporadas",
     description:
-      "Uma aventura começa quando uma equipe encontra um segredo inesperado."
+      "Uma guerra pelo poder coloca uma família contra outra.",
+    image:
+      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
+  },
+
+  {
+    id: 9,
+    title: "Stranger Things",
+    type: "Série",
+    genre: "Ficção científica",
+    year: 2025,
+    rating: 8.9,
+    seasons: "5 Temporadas",
+    description:
+      "Um grupo de jovens enfrenta acontecimentos misteriosos.",
+    image:
+      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80"
+  },
+
+  {
+    id: 10,
+    title: "O Conde de Monte Cristo",
+    type: "Série",
+    genre: "Drama",
+    year: 2025,
+    rating: 8.3,
+    seasons: "1 Temporada",
+    description:
+      "Uma história de injustiça, sobrevivência e vingança.",
+    image:
+      "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80"
+  },
+
+  {
+    id: 11,
+    title: "O Problema dos 3 Corpos",
+    type: "Série",
+    genre: "Ficção científica",
+    year: 2024,
+    rating: 8.1,
+    seasons: "1 Temporada",
+    description:
+      "Uma descoberta científica ameaça mudar o futuro da humanidade.",
+    image:
+      "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=600&q=80"
+  },
+
+  {
+    id: 12,
+    title: "Operação Lioness",
+    type: "Série",
+    genre: "Ação",
+    year: 2024,
+    rating: 8.2,
+    seasons: "2 Temporadas",
+    description:
+      "Uma missão secreta coloca uma equipa de agentes em perigo.",
+    image:
+      "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80"
   }
 
 ];
 
 
 /* =========================================================
-   ESTADO
+   CONTINUAR ASSISTINDO
+========================================================= */
+
+const continueWatching = [
+  {
+    id: 4,
+    progress: 64,
+    remaining: "1h 32m restantes"
+  },
+
+  {
+    id: 5,
+    progress: 42,
+    remaining: "S1:E3"
+  },
+
+  {
+    id: 6,
+    progress: 58,
+    remaining: "1h 05m restantes"
+  }
+];
+
+
+/* =========================================================
+   DOWNLOADS
+========================================================= */
+
+let downloads = [
+  {
+    id: 7,
+    title: "The Witcher",
+    episode: "T2:E4",
+    quality: "720p",
+    size: 1.2,
+    image: catalog.find(x => x.id === 7).image
+  },
+
+  {
+    id: 8,
+    title: "A Casa do Dragão",
+    episode: "S1:E6",
+    quality: "720p",
+    size: 1.1,
+    image: catalog.find(x => x.id === 8).image
+  },
+
+  {
+    id: 9,
+    title: "Stranger Things",
+    episode: "S1:E7",
+    quality: "720p",
+    size: 1.0,
+    image: catalog.find(x => x.id === 9).image
+  }
+];
+
+
+/* =========================================================
+   FAVORITOS
 ========================================================= */
 
 let favorites =
-  JSON.parse(localStorage.getItem("vipFavorites") || "[]");
-
-let downloads =
-  JSON.parse(localStorage.getItem("vipDownloads") || "[]");
-
-let continueWatching =
-  JSON.parse(localStorage.getItem("vipContinue") || "[]");
-
-let currentSeries = null;
-
-
-/* =========================================================
-   ELEMENTOS
-========================================================= */
-
-const welcomeScreen =
-  document.getElementById("welcomeScreen");
-
-const accountScreen =
-  document.getElementById("accountScreen");
-
-const appScreen =
-  document.getElementById("appScreen");
-
-
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  renderAll();
-
-  updateStorage();
-
-  setupEvents();
-
-});
-
-
-/* =========================================================
-   EVENTOS
-========================================================= */
-
-function setupEvents() {
-
-  document.getElementById("enterBtn")
-    .addEventListener("click", openAccount);
-
-  document.getElementById("backBtn")
-    .addEventListener("click", backToWelcome);
-
-  document.getElementById("createAccountBtn")
-    .addEventListener("click", createAccount);
-
-  document.getElementById("menuBtn")
-    .addEventListener("click", openMenu);
-
-  document.getElementById("searchBtn")
-    .addEventListener("click", openSearch);
-
-  document.getElementById("menuOverlay")
-    .addEventListener("click", closeMenu);
-
-  document.getElementById("searchInput")
-    .addEventListener("input", searchCatalog);
-
-  document.getElementById("seasonSelect")
-    .addEventListener("change", renderEpisodes);
-
-}
-
-
-/* =========================================================
-   CONTA
-========================================================= */
-
-function openAccount() {
-
-  welcomeScreen.style.display = "none";
-  accountScreen.style.display = "flex";
-
-}
-
-
-function backToWelcome() {
-
-  accountScreen.style.display = "none";
-  welcomeScreen.style.display = "flex";
-
-}
-
-
-function createAccount() {
-
-  const name =
-    document.getElementById("nameInput").value.trim();
-
-  const email =
-    document.getElementById("emailInput").value.trim();
-
-  const password =
-    document.getElementById("passwordInput").value;
-
-  const message =
-    document.getElementById("accountMessage");
-
-
-  if (!name || !email || !password) {
-
-    message.textContent =
-      "Preencha todos os campos.";
-
-    message.style.color = "#ff4444";
-
-    return;
-  }
-
-
-  if (password.length < 4) {
-
-    message.textContent =
-      "A senha precisa ter pelo menos 4 caracteres.";
-
-    message.style.color = "#ff4444";
-
-    return;
-  }
-
-
-  const user = {
-    name,
-    email
-  };
-
-
-  localStorage.setItem(
-    "vipUser",
-    JSON.stringify(user)
+  JSON.parse(
+    localStorage.getItem("vipnetflix_favorites") || "[]"
   );
 
 
-  message.textContent =
-    "Conta criada com sucesso!";
+/* =========================================================
+   SPLASH
+========================================================= */
 
-  message.style.color = "#5ee65e";
+enterButton.addEventListener("click", () => {
 
+  splashScreen.style.opacity = "0";
+  splashScreen.style.transition = "opacity .4s";
 
   setTimeout(() => {
 
-    accountScreen.style.display = "none";
-    appScreen.style.display = "block";
+    splashScreen.classList.add("hidden");
+    appScreen.classList.remove("hidden");
 
-    document.getElementById("profileName")
-      .textContent = name;
+  }, 400);
 
-    window.scrollTo(0,0);
-
-  }, 700);
-
-}
-
-
-/* =========================================================
-   NAVEGAÇÃO
-========================================================= */
-
-function showPage(pageId) {
-
-  document.querySelectorAll(".page")
-    .forEach(page => {
-
-      page.classList.remove("active-page");
-
-    });
-
-
-  const page =
-    document.getElementById(pageId);
-
-  if (page) {
-
-    page.classList.add("active-page");
-
-  }
-
-
-  document.querySelectorAll(".nav-item")
-    .forEach(item => {
-
-      item.classList.remove("active");
-
-      if (item.dataset.page === pageId) {
-
-        item.classList.add("active");
-
-      }
-
-    });
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-
-  renderAll();
-
-}
+});
 
 
 /* =========================================================
    MENU
 ========================================================= */
 
-function openMenu() {
+menuButton.addEventListener("click", () => {
 
-  document
-    .getElementById("sideMenu")
-    .classList.add("open");
+  sideMenu.classList.add("open");
+  menuOverlay.classList.remove("hidden");
 
-  document
-    .getElementById("menuOverlay")
-    .classList.add("show");
+});
 
-}
-
+menuOverlay.addEventListener("click", closeMenu);
 
 function closeMenu() {
 
-  document
-    .getElementById("sideMenu")
-    .classList.remove("open");
-
-  document
-    .getElementById("menuOverlay")
-    .classList.remove("show");
+  sideMenu.classList.remove("open");
+  menuOverlay.classList.add("hidden");
 
 }
 
@@ -381,300 +333,267 @@ function closeMenu() {
    PESQUISA
 ========================================================= */
 
-function openSearch() {
+searchButton.addEventListener("click", () => {
 
-  document
-    .getElementById("searchModal")
-    .classList.add("open");
+  searchBox.classList.remove("hidden");
 
-  document
-    .getElementById("searchInput")
-    .focus();
+  searchInput.focus();
 
-}
+});
 
+closeSearch.addEventListener("click", () => {
 
-function closeSearch() {
+  searchInput.value = "";
 
-  document
-    .getElementById("searchModal")
-    .classList.remove("open");
+  searchBox.classList.add("hidden");
 
-}
+  searchResultsSection.classList.add("hidden");
+
+});
 
 
-function searchCatalog() {
+searchInput.addEventListener("input", () => {
 
-  const query =
-    document
-      .getElementById("searchInput")
-      .value
-      .toLowerCase()
-      .trim();
+  const value =
+    searchInput.value
+      .trim()
+      .toLowerCase();
+
+  if (!value) {
+
+    searchResultsSection.classList.add("hidden");
+
+    return;
+  }
 
   const results =
-    document.getElementById("searchResults");
+    catalog.filter(movie =>
 
+      movie.title
+        .toLowerCase()
+        .includes(value)
 
-  if (!query) {
+      ||
 
-    results.innerHTML =
-      `<p style="color:#777;margin-top:20px">
-        Digite o nome de um filme ou série.
-       </p>`;
+      movie.genre
+        .toLowerCase()
+        .includes(value)
 
-    return;
-  }
-
-
-  const found =
-    catalog.filter(item =>
-      item.title.toLowerCase().includes(query)
     );
 
+  searchResultsSection.classList.remove("hidden");
 
-  if (!found.length) {
+  renderGrid(
+    searchResults,
+    results
+  );
 
-    results.innerHTML =
-      `<p style="color:#777;margin-top:20px">
-        Nenhum conteúdo encontrado.
-       </p>`;
-
-    return;
-  }
+});
 
 
-  results.innerHTML =
-    found.map(item => `
+/* =========================================================
+   RENDER CONTINUAR
+========================================================= */
 
-      <div
-        class="search-result"
-        onclick="openContent(${item.id})">
+function renderContinue() {
 
-        <div
-          class="search-result-image"
-          style="background-image:url('${item.image}')">
-        </div>
+  continueList.innerHTML = "";
 
-        <div>
-          <strong>${item.title}</strong>
-          <p style="color:#888">
-            ${item.genre} • ${item.year}
-          </p>
+  continueWatching.forEach(item => {
+
+    const movie =
+      catalog.find(
+        x => x.id === item.id
+      );
+
+    if (!movie) return;
+
+    const card =
+      document.createElement("article");
+
+    card.className = "continue-card";
+
+    card.innerHTML = `
+
+      <div class="poster-wrapper">
+
+        <img
+          src="${movie.image}"
+          alt="${movie.title}"
+        >
+
+        <button
+          class="poster-play"
+          data-play="${movie.id}"
+        >
+          ▶
+        </button>
+
+        <div class="progress">
+          <div style="width:${item.progress}%"></div>
         </div>
 
       </div>
 
-    `).join("");
+      <div class="card-title">
+        ${movie.title}
+      </div>
+
+      <div class="card-subtitle">
+        ${item.remaining}
+      </div>
+
+    `;
+
+    continueList.appendChild(card);
+
+  });
 
 }
 
 
 /* =========================================================
-   PLAYER
+   RENDER CATÁLOGO
 ========================================================= */
 
-function playContent(title) {
+function renderGrid(container, items) {
 
-  addContinue(title);
-
-  document
-    .getElementById("playerTitle")
-    .textContent = title;
-
-  document
-    .getElementById("playerModal")
-    .classList.add("open");
-
-}
-
-
-function closePlayer() {
-
-  document
-    .getElementById("playerModal")
-    .classList.remove("open");
-
-}
-
-
-function startDemoVideo() {
-
-  alert(
-    "Player pronto. Agora você pode conectar aqui o vídeo autorizado do seu servidor."
-  );
-
-}
-
-
-/* =========================================================
-   CONTINUAR ASSISTINDO
-========================================================= */
-
-function addContinue(title) {
-
-  if (!continueWatching.includes(title)) {
-
-    continueWatching.unshift(title);
-
-  }
-
-  continueWatching =
-    continueWatching.slice(0,10);
-
-  localStorage.setItem(
-    "vipContinue",
-    JSON.stringify(continueWatching)
-  );
-
-  renderContinue();
-
-}
-
-
-function clearContinue() {
-
-  continueWatching = [];
-
-  localStorage.removeItem("vipContinue");
-
-  renderContinue();
-
-}
-
-
-function renderContinue() {
-
-  const container =
-    document.getElementById("continueCards");
-
-  if (!container) return;
-
-
-  const items =
-    continueWatching
-      .map(title =>
-        catalog.find(item =>
-          item.title === title
-        )
-      )
-      .filter(Boolean);
-
+  container.innerHTML = "";
 
   if (!items.length) {
 
     container.innerHTML = `
-      <div style="
-        color:#777;
-        padding:20px 0;
+      <p style="
+        color:#888;
+        padding:20px;
+        grid-column:1/-1;
+        text-align:center;
       ">
-        Nenhum conteúdo em andamento.
-      </div>
+        Nenhum conteúdo encontrado.
+      </p>
     `;
 
     return;
   }
 
+  items.forEach(movie => {
 
-  container.innerHTML =
-    items.map(item =>
-      posterHTML(item,true)
-    ).join("");
+    const card =
+      document.createElement("article");
+
+    card.className = "poster-card";
+
+    card.innerHTML = `
+
+      <div class="poster-wrapper">
+
+        <img
+          src="${movie.image}"
+          alt="${movie.title}"
+          loading="lazy"
+        >
+
+        <button
+          class="poster-play"
+          data-play="${movie.id}"
+        >
+          ▶
+        </button>
+
+      </div>
+
+      <h3>${movie.title}</h3>
+
+      <p>
+        ${movie.year} • ${movie.genre}
+      </p>
+
+    `;
+
+    card.addEventListener("click", event => {
+
+      if (
+        event.target.closest(".poster-play")
+      ) {
+
+        openPlayer(movie);
+
+        return;
+      }
+
+      openDetails(movie);
+
+    });
+
+    container.appendChild(card);
+
+  });
 
 }
 
 
 /* =========================================================
-   DOWNLOAD
+   DOWNLOADS
 ========================================================= */
 
-function downloadEpisode(
-  title,
-  episode,
-  quality,
-  size
-) {
+function renderDownloads() {
 
-  const already =
-    downloads.some(
-      item =>
-        item.title === title &&
-        item.episode === episode
-    );
+  downloadList.innerHTML = "";
 
+  downloads.forEach(download => {
 
-  if (already) {
+    const item =
+      document.createElement("div");
 
-    alert("Este conteúdo já está nos downloads.");
+    item.className = "download-item";
 
-    showPage("downloadsPage");
+    item.innerHTML = `
 
-    return;
-  }
+      <img
+        class="download-image"
+        src="${download.image}"
+        alt="${download.title}"
+      >
 
+      <div class="download-info">
 
-  const numericSize =
-    parseFloat(size) || 850;
+        <strong>
+          ${download.title}
+        </strong>
 
+        <span>
+          ${download.episode} ·
+          ${download.quality} ·
+          ${download.size.toFixed(1)} GB
+        </span>
 
-  downloads.push({
+        <span class="download-status">
+          Baixado ✓
+        </span>
 
-    id: Date.now(),
+      </div>
 
-    title,
+      <button
+        class="offline-button"
+        data-offline="${download.id}"
+      >
+        ▶ ASSISTIR OFFLINE
+      </button>
 
-    episode,
+      <button
+        class="download-menu"
+        data-remove-download="${download.id}"
+      >
+        ⋮
+      </button>
 
-    quality,
+    `;
 
-    size,
-
-    numericSize,
-
-    image:
-      getImage(title),
-
-    date:
-      new Date().toLocaleDateString("pt-PT")
+    downloadList.appendChild(item);
 
   });
 
-
-  localStorage.setItem(
-    "vipDownloads",
-    JSON.stringify(downloads)
-  );
-
-
   updateStorage();
-
-  renderDownloads();
-
-
-  alert(
-    `${title} ${episode} foi adicionado aos Downloads.`
-  );
-
-}
-
-
-function removeDownload(id) {
-
-  downloads =
-    downloads.filter(
-      item => item.id !== id
-    );
-
-
-  localStorage.setItem(
-    "vipDownloads",
-    JSON.stringify(downloads)
-  );
-
-
-  updateStorage();
-
-  renderDownloads();
 
 }
 
@@ -687,109 +606,283 @@ function updateStorage() {
 
   const used =
     downloads.reduce(
-      (sum,item) =>
-        sum + Number(item.numericSize || 0),
+      (total, item) =>
+        total + item.size,
       0
     );
 
+  const totalStorage = 64;
 
-  const max =
-    64 * 1024;
+  const available =
+    totalStorage - used;
 
+  document.getElementById(
+    "storageUsed"
+  ).textContent =
+    used.toFixed(1) + " GB";
+
+  document.getElementById(
+    "storageAvailable"
+  ).textContent =
+    available.toFixed(1) + " GB";
 
   const percentage =
     Math.min(
-      100,
-      (used / max) * 100
+      (used / totalStorage) * 100,
+      100
     );
 
-
-  const text =
-    `${formatMB(used)} usados de 64 GB`;
-
-
-  const storageText =
-    document.getElementById("storageText");
-
-  const largeStorageText =
-    document.getElementById("largeStorageText");
-
-  const storageProgress =
-    document.getElementById("storageProgress");
-
-  const largeStorageProgress =
-    document.getElementById("largeStorageProgress");
-
-
-  if (storageText)
-    storageText.textContent = text;
-
-  if (largeStorageText)
-    largeStorageText.textContent = text;
-
-  if (storageProgress)
-    storageProgress.style.width =
-      percentage + "%";
-
-  if (largeStorageProgress)
-    largeStorageProgress.style.width =
-      percentage + "%";
+  document.getElementById(
+    "storageProgress"
+  ).style.width =
+    percentage + "%";
 
 }
 
 
-function formatMB(mb) {
+/* =========================================================
+   ADICIONAR DOWNLOAD
+========================================================= */
 
-  if (mb >= 1024) {
+function addDownload(movie) {
 
-    return (
-      (mb / 1024).toFixed(1) +
-      " GB"
+  const already =
+    downloads.some(
+      x => x.id === movie.id
     );
 
+  if (already) {
+
+    showToast(
+      "Este conteúdo já está nos downloads."
+    );
+
+    return;
   }
 
-  return (
-    Math.round(mb) +
-    " MB"
+  downloads.push({
+
+    id: movie.id,
+
+    title: movie.title,
+
+    episode:
+      movie.type === "Série"
+        ? "S1:E1"
+        : "Filme",
+
+    quality: "720p",
+
+    size: 1.0,
+
+    image: movie.image
+
+  });
+
+  renderDownloads();
+
+  showToast(
+    `${movie.title} adicionado aos downloads.`
   );
 
 }
 
 
 /* =========================================================
+   PLAYER
+========================================================= */
+
+function openPlayer(movie) {
+
+  document.getElementById(
+    "playerTitle"
+  ).textContent =
+    movie.title;
+
+  playerModal.classList.remove(
+    "hidden"
+  );
+
+}
+
+document.getElementById(
+  "closePlayer"
+).addEventListener("click", () => {
+
+  playerModal.classList.add(
+    "hidden"
+  );
+
+});
+
+
+document.getElementById(
+  "playVideo"
+).addEventListener("click", () => {
+
+  showToast(
+    "Player pronto para reproduzir o vídeo autorizado."
+  );
+
+});
+
+
+/* =========================================================
+   DETALHES
+========================================================= */
+
+let selectedMovie = null;
+
+function openDetails(movie) {
+
+  selectedMovie = movie;
+
+  document.getElementById(
+    "detailsImage"
+  ).src = movie.image;
+
+  document.getElementById(
+    "detailsTitle"
+  ).textContent = movie.title;
+
+  document.getElementById(
+    "detailsDescription"
+  ).textContent =
+    movie.description;
+
+  detailsModal.classList.remove(
+    "hidden"
+  );
+
+}
+
+
+document.getElementById(
+  "closeDetails"
+).addEventListener("click", () => {
+
+  detailsModal.classList.add(
+    "hidden"
+  );
+
+});
+
+
+document.getElementById(
+  "detailsPlay"
+).addEventListener("click", () => {
+
+  if (!selectedMovie) return;
+
+  detailsModal.classList.add(
+    "hidden"
+  );
+
+  openPlayer(
+    selectedMovie
+  );
+
+});
+
+
+document.getElementById(
+  "detailsDownload"
+).addEventListener("click", () => {
+
+  if (!selectedMovie) return;
+
+  addDownload(
+    selectedMovie
+  );
+
+});
+
+
+/* =========================================================
+   BOTÃO BAIXAR DO HERO
+========================================================= */
+
+document.getElementById(
+  "downloadHero"
+).addEventListener("click", () => {
+
+  const movie =
+    catalog.find(
+      x => x.title === "Reacher"
+    );
+
+  addDownload(movie);
+
+});
+
+
+/* =========================================================
+   CONTINUAR DO HERO
+========================================================= */
+
+document.getElementById(
+  "continueHero"
+).addEventListener("click", () => {
+
+  const movie =
+    catalog.find(
+      x => x.title === "Reacher"
+    );
+
+  openPlayer(movie);
+
+});
+
+
+/* =========================================================
+   FAVORITO DO HERO
+========================================================= */
+
+document.getElementById(
+  "favoriteHero"
+).addEventListener("click", () => {
+
+  const movie =
+    catalog.find(
+      x => x.title === "Reacher"
+    );
+
+  toggleFavorite(movie);
+
+});
+
+
+/* =========================================================
    FAVORITOS
 ========================================================= */
 
-function addFavorite(title) {
+function toggleFavorite(movie) {
 
-  if (favorites.includes(title)) {
+  const index =
+    favorites.indexOf(movie.id);
 
-    favorites =
-      favorites.filter(
-        item => item !== title
-      );
+  if (index >= 0) {
 
-    alert(
-      `${title} foi removido da sua lista.`
+    favorites.splice(index, 1);
+
+    showToast(
+      "Removido dos favoritos."
     );
 
   } else {
 
-    favorites.push(title);
+    favorites.push(movie.id);
 
-    alert(
-      `${title} foi adicionado à sua lista.`
+    showToast(
+      "Adicionado aos favoritos ♥"
     );
 
   }
 
-
   localStorage.setItem(
-    "vipFavorites",
+    "vipnetflix_favorites",
     JSON.stringify(favorites)
   );
-
 
   renderFavorites();
 
@@ -798,558 +891,431 @@ function addFavorite(title) {
 
 function renderFavorites() {
 
-  const container =
-    document.getElementById("favoritesGrid");
-
-  if (!container) return;
-
-
   const items =
-    favorites
-      .map(title =>
-        catalog.find(item =>
-          item.title === title
+    catalog.filter(
+      movie =>
+        favorites.includes(
+          movie.id
         )
-      )
-      .filter(Boolean);
+    );
 
-
-  if (!items.length) {
-
-    container.innerHTML = `
-      <div style="
-        grid-column:1/-1;
-        color:#777;
-        text-align:center;
-        padding:60px 20px;
-      ">
-        <div style="font-size:45px">♥</div>
-        <h3 style="color:white;margin:15px">
-          Nenhum favorito ainda
-        </h3>
-        <p>
-          Adicione conteúdos usando
-          "MINHA LISTA".
-        </p>
-      </div>
-    `;
-
-    return;
-  }
-
-
-  container.innerHTML =
+  renderGrid(
+    favoritesList,
     items
-      .map(item => catalogHTML(item))
-      .join("");
+  );
 
 }
 
 
 /* =========================================================
-   SÉRIE
+   GÉNEROS
 ========================================================= */
 
-function openContent(id) {
-
-  const item =
-    catalog.find(x => x.id === id);
-
-  if (!item) return;
-
-
-  if (item.type === "series") {
-
-    openSeries(item);
-
-  } else {
-
-    playContent(item.title);
-
-  }
-
-}
-
-
-function openSeries(item) {
-
-  currentSeries = item;
-
-
-  document
-    .getElementById("modalTitle")
-    .textContent = item.title;
-
-
-  document
-    .getElementById("modalDescription")
-    .textContent = item.description;
-
-
-  document
-    .getElementById("modalPoster")
-    .style.backgroundImage =
-      `url('${item.image}')`;
-
-
-  const select =
-    document.getElementById("seasonSelect");
-
-
-  select.innerHTML = "";
-
-
-  for (
-    let i = 1;
-    i <= item.seasons;
-    i++
-  ) {
-
-    const option =
-      document.createElement("option");
-
-    option.value = i;
-
-    option.textContent =
-      `Temporada ${i}`;
-
-    select.appendChild(option);
-
-  }
-
-
-  renderEpisodes();
-
-
-  document
-    .getElementById("seriesModal")
-    .classList.add("open");
-
-}
-
-
-function closeSeries() {
-
-  document
-    .getElementById("seriesModal")
-    .classList.remove("open");
-
-}
-
-
-function renderEpisodes() {
-
-  if (!currentSeries) return;
-
-
-  const season =
-    Number(
-      document.getElementById("seasonSelect").value
-    ) || 1;
-
-
-  const container =
-    document.getElementById("episodesList");
-
-
-  const total =
-    currentSeries.episodes || 8;
-
-
-  container.innerHTML =
-    Array.from(
-      {length: total},
-      (_,index) => {
-
-        const episode =
-          index + 1;
-
-        const ep =
-          `T${season}:E${episode}`;
-
-
-        return `
-
-          <div class="episode">
-
-            <div class="episode-info">
-
-              <h3>
-                Episódio ${episode}
-              </h3>
-
-              <p>
-                ${ep} • 45 min
-              </p>
-
-            </div>
-
-            <div class="episode-buttons">
-
-              <button
-                onclick="playContent('${escapeJS(currentSeries.title)} ${ep}')">
-                ▶
-              </button>
-
-              <button
-                onclick="downloadEpisode(
-                  '${escapeJS(currentSeries.title)}',
-                  '${ep}',
-                  '720p',
-                  '850 MB'
-                )">
-                ↓
-              </button>
-
-            </div>
-
-          </div>
-
-        `;
+function renderGenres() {
+
+  const genres = [
+    "Ação",
+    "Aventura",
+    "Drama",
+    "Comédia",
+    "Fantasia",
+    "Ficção científica",
+    "Terror",
+    "Romance",
+    "Documentário",
+    "Suspense"
+  ];
+
+  genresList.innerHTML = "";
+
+  genres.forEach(genre => {
+
+    const card =
+      document.createElement("button");
+
+    card.className =
+      "genre-card";
+
+    card.textContent =
+      genre;
+
+    card.addEventListener(
+      "click",
+      () => {
+
+        const movies =
+          catalog.filter(
+            movie =>
+              movie.genre === genre
+          );
+
+        showSection("catalog");
+
+        renderGrid(
+          catalogList,
+          movies
+        );
 
       }
-    ).join("");
+    );
+
+    genresList.appendChild(card);
+
+  });
 
 }
 
 
 /* =========================================================
-   RENDERIZAÇÃO
+   NAVEGAÇÃO
 ========================================================= */
 
-function renderAll() {
+function hideSections() {
+
+  document.getElementById(
+    "continueSection"
+  ).classList.add("hidden");
+
+  document.getElementById(
+    "downloadsSection"
+  ).classList.add("hidden");
+
+  document.getElementById(
+    "catalogSection"
+  ).classList.add("hidden");
+
+  document.getElementById(
+    "genresSection"
+  ).classList.add("hidden");
+
+  document.getElementById(
+    "favoritesSection"
+  ).classList.add("hidden");
+
+}
+
+
+function showSection(section) {
+
+  closeMenu();
+
+  hideSections();
+
+  searchResultsSection.classList.add(
+    "hidden"
+  );
+
+  if (section === "home") {
+
+    document.getElementById(
+      "continueSection"
+    ).classList.remove("hidden");
+
+    document.getElementById(
+      "downloadsSection"
+    ).classList.remove("hidden");
+
+    document.getElementById(
+      "catalogSection"
+    ).classList.remove("hidden");
+
+  }
+
+  if (section === "catalog") {
+
+    document.getElementById(
+      "catalogSection"
+    ).classList.remove("hidden");
+
+    renderGrid(
+      catalogList,
+      catalog
+    );
+
+  }
+
+  if (section === "downloads") {
+
+    document.getElementById(
+      "downloadsSection"
+    ).classList.remove("hidden");
+
+  }
+
+  if (section === "genres") {
+
+    document.getElementById(
+      "genresSection"
+    ).classList.remove("hidden");
+
+  }
+
+  if (section === "favorites") {
+
+    document.getElementById(
+      "favoritesSection"
+    ).classList.remove("hidden");
+
+    renderFavorites();
+
+  }
+
+  document
+    .querySelectorAll(".nav-item")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.section === section
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   BOTÕES DE NAVEGAÇÃO
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".nav-item, .side-menu button"
+  )
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        const section =
+          button.dataset.section;
+
+        if (!section) return;
+
+        if (
+          section === "releases"
+        ) {
+
+          showSection("catalog");
+
+          renderGrid(
+            catalogList,
+            catalog.slice(0, 6)
+          );
+
+          return;
+        }
+
+        showSection(section);
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   VER TODOS
+========================================================= */
+
+document.getElementById(
+  "showAll"
+).addEventListener("click", () => {
+
+  showSection("catalog");
+
+});
+
+
+document.getElementById(
+  "viewDownloads"
+).addEventListener("click", () => {
+
+  showSection("downloads");
+
+});
+
+
+/* =========================================================
+   LIMPAR CONTINUAR
+========================================================= */
+
+document.getElementById(
+  "clearContinue"
+).addEventListener("click", () => {
+
+  continueWatching.length = 0;
 
   renderContinue();
 
-  renderReleases();
+  showToast(
+    "Lista de continuar assistindo limpa."
+  );
 
-  renderCatalog();
-
-  renderDownloads();
-
-  renderFavorites();
-
-  renderRecommendations();
-
-  updateStorage();
-
-}
+});
 
 
 /* =========================================================
-   LANÇAMENTOS
+   DOWNLOAD — EVENTOS
 ========================================================= */
 
-function renderReleases() {
+downloadList.addEventListener(
+  "click",
+  event => {
 
-  const home =
-    document.getElementById("releaseCards");
+    const offline =
+      event.target.closest(
+        "[data-offline]"
+      );
 
-  const all =
-    document.getElementById("allReleaseGrid");
+    if (offline) {
 
+      const id =
+        Number(
+          offline.dataset.offline
+        );
 
-  const releases =
-    catalog.slice(0,6);
+      const download =
+        downloads.find(
+          x => x.id === id
+        );
 
+      if (download) {
 
-  if (home) {
+        const movie =
+          catalog.find(
+            x => x.id === id
+          ) || {
+            title: download.title
+          };
 
-    home.innerHTML =
-      releases
-        .map(item => posterHTML(item))
-        .join("");
+        openPlayer(movie);
+
+      }
+
+      return;
+    }
+
+    const remove =
+      event.target.closest(
+        "[data-remove-download]"
+      );
+
+    if (remove) {
+
+      const id =
+        Number(
+          remove.dataset.removeDownload
+        );
+
+      downloads =
+        downloads.filter(
+          x => x.id !== id
+        );
+
+      renderDownloads();
+
+      showToast(
+        "Download removido."
+      );
+
+    }
 
   }
+);
 
 
-  if (all) {
+/* =========================================================
+   TOAST
+========================================================= */
 
-    all.innerHTML =
-      catalog
-        .map(item => catalogHTML(item))
-        .join("");
+let toastTimer;
+
+function showToast(message) {
+
+  toast.textContent =
+    message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(() => {
+
+      toast.classList.remove(
+        "show"
+      );
+
+    }, 2500);
+
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+renderContinue();
+
+renderGrid(
+  catalogList,
+  catalog
+);
+
+renderDownloads();
+
+renderFavorites();
+
+renderGenres();
+
+showSection("home");
+
+
+/* =========================================================
+   VOLTAR DO ANDROID
+========================================================= */
+
+window.addEventListener(
+  "popstate",
+  () => {
+
+    if (
+      !playerModal.classList.contains(
+        "hidden"
+      )
+    ) {
+
+      playerModal.classList.add(
+        "hidden"
+      );
+
+      return;
+    }
+
+    if (
+      !detailsModal.classList.contains(
+        "hidden"
+      )
+    ) {
+
+      detailsModal.classList.add(
+        "hidden"
+      );
+
+      return;
+    }
+
+    if (
+      sideMenu.classList.contains(
+        "open"
+      )
+    ) {
+
+      closeMenu();
+
+    }
 
   }
-
-}
-
-
-/* =========================================================
-   CATÁLOGO
-========================================================= */
-
-function renderCatalog() {
-
-  const container =
-    document.getElementById("catalogGrid");
-
-  if (!container) return;
-
-
-  container.innerHTML =
-    catalog
-      .map(item => catalogHTML(item))
-      .join("");
-
-}
-
-
-/* =========================================================
-   RECOMENDAÇÕES
-========================================================= */
-
-function renderRecommendations() {
-
-  const container =
-    document.getElementById("recommendationCards");
-
-  if (!container) return;
-
-
-  container.innerHTML =
-    catalog
-      .slice(2,7)
-      .map(item => posterHTML(item))
-      .join("");
-
-}
-
-
-/* =========================================================
-   DOWNLOADS
-========================================================= */
-
-function renderDownloads() {
-
-  const container =
-    document.getElementById("downloadsList");
-
-  if (!container) return;
-
-
-  if (!downloads.length) {
-
-    container.innerHTML = `
-
-      <div class="empty-downloads">
-
-        <div>⬇</div>
-
-        <h3>
-          Nenhum download ainda
-        </h3>
-
-        <p>
-          Os episódios que você baixar
-          aparecerão aqui para acesso
-          offline dentro do aplicativo.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-
-  container.innerHTML =
-    downloads
-      .map(item => `
-
-        <div class="download-item">
-
-          <div
-            class="download-image"
-            style="
-              background-image:url('${item.image}')
-            ">
-          </div>
-
-          <div class="download-info">
-
-            <h3>
-              ${item.title}
-            </h3>
-
-            <p>
-              ${item.episode} •
-              ${item.quality} •
-              ${item.size}
-            </p>
-
-            <p class="download-status">
-              Baixado ✓
-            </p>
-
-          </div>
-
-          <button
-            class="download-watch"
-            onclick="playContent('${escapeJS(item.title)}')">
-            ▶
-          </button>
-
-          <button
-            class="card-menu"
-            onclick="removeDownload(${item.id})">
-            ×
-          </button>
-
-        </div>
-
-      `).join("");
-
-}
-
-
-/* =========================================================
-   POSTER HTML
-========================================================= */
-
-function posterHTML(item) {
-
-  return `
-
-    <div class="poster-card">
-
-      <div
-        class="poster-image"
-        style="
-          background-image:url('${item.image}')
-        "
-        onclick="openContent(${item.id})">
-
-        <div class="poster-play">
-          ▶
-        </div>
-
-        <div class="poster-progress"></div>
-
-      </div>
-
-      <h3>
-        ${item.title}
-      </h3>
-
-      <p>
-        ${item.type === "series"
-          ? "Série"
-          : "Filme"}
-      </p>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   CATALOG HTML
-========================================================= */
-
-function catalogHTML(item) {
-
-  return `
-
-    <div class="catalog-card">
-
-      <div
-        class="catalog-poster"
-        style="
-          background-image:url('${item.image}')
-        "
-        onclick="openContent(${item.id})">
-
-        <button
-          class="card-menu"
-          onclick="
-            event.stopPropagation();
-            addFavorite('${escapeJS(item.title)}')
-          ">
-          ♥
-        </button>
-
-      </div>
-
-      <h3>
-        ${item.title}
-      </h3>
-
-      <p>
-        ${item.year} •
-        ${item.genre} •
-        ★ ${item.rating}
-      </p>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   IMAGEM
-========================================================= */
-
-function getImage(title) {
-
-  const item =
-    catalog.find(
-      x => x.title === title
-    );
-
-
-  if (item) {
-
-    return item.image;
-
-  }
-
-
-  return catalog[0].image;
-
-}
-
-
-/* =========================================================
-   ESCAPE
-========================================================= */
-
-function escapeJS(text) {
-
-  return String(text)
-    .replace(/\\/g,"\\\\")
-    .replace(/'/g,"\\'")
-    .replace(/"/g,'\\"');
-
-}
-
-
-/* =========================================================
-   UTILIZADOR GUARDADO
-========================================================= */
-
-function loadUser() {
-
-  const user =
-    JSON.parse(
-      localStorage.getItem("vipUser") || "null"
-    );
-
-
-  if (user) {
-
-    document
-      .getElementById("profileName")
-      .textContent = user.name;
-
-  }
-
-}
-
-
-loadUser();
+);
