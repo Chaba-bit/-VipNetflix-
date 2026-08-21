@@ -11,54 +11,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const welcomeScreen =
     document.getElementById("welcomeScreen");
 
+  const loginScreen =
+    document.getElementById("loginScreen");
+
+  const registerScreen =
+    document.getElementById("registerScreen");
+
   const appScreen =
     document.getElementById("appScreen");
 
-  const accountScreen =
-    document.getElementById("accountScreen");
+
+  /* =====================================================
+     ABERTURA → LOGIN
+  ===================================================== */
 
   const enterBtn =
     document.getElementById("enterBtn");
 
-  const backBtn =
-    document.getElementById("backBtn");
-
-  const createAccountBtn =
-    document.getElementById("createAccountBtn");
-
-  const accountMessage =
-    document.getElementById("accountMessage");
-
-
-  /* =====================================================
-     NOVA TELA DE LOGIN
-  ===================================================== */
-
-  const loginScreen =
-    document.getElementById("loginScreen");
-
-  const loginBtn =
-    document.getElementById("loginBtn");
-
-  const newAccountBtn =
-    document.getElementById("newAccountBtn");
-
-  const registerBackBtn =
-    document.getElementById("registerBackBtn");
-
-  const registerBtn =
-    document.getElementById("registerBtn");
-
-  const loginMessage =
-    document.getElementById("loginMessage");
-
-  const registerMessage =
-    document.getElementById("registerMessage");
-
-
-  /* =====================================================
-     ENTRAR NA TELA DE LOGIN
-  ===================================================== */
 
   if (enterBtn) {
 
@@ -66,17 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       welcomeScreen.style.display = "none";
 
-      if (loginScreen) {
-        loginScreen.style.display = "block";
-      }
+      loginScreen.style.display = "block";
 
-      if (accountScreen) {
-        accountScreen.style.display = "none";
-      }
+      registerScreen.style.display = "none";
 
-      if (appScreen) {
-        appScreen.style.display = "none";
-      }
+      appScreen.style.display = "none";
 
       window.scrollTo(0, 0);
 
@@ -86,20 +49,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     CRIAR NOVA CONTA
+     LOGIN → CRIAR CONTA
   ===================================================== */
+
+  const newAccountBtn =
+    document.getElementById("newAccountBtn");
+
 
   if (newAccountBtn) {
 
     newAccountBtn.addEventListener("click", function () {
 
-      if (loginScreen) {
-        loginScreen.style.display = "none";
-      }
+      loginScreen.style.display = "none";
 
-      if (accountScreen) {
-        accountScreen.style.display = "block";
-      }
+      registerScreen.style.display = "block";
 
       window.scrollTo(0, 0);
 
@@ -109,20 +72,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     VOLTAR DO CADASTRO PARA LOGIN
+     VOLTAR DO CADASTRO → LOGIN
   ===================================================== */
+
+  const registerBackBtn =
+    document.getElementById("registerBackBtn");
+
 
   if (registerBackBtn) {
 
     registerBackBtn.addEventListener("click", function () {
 
-      if (accountScreen) {
-        accountScreen.style.display = "none";
-      }
+      registerScreen.style.display = "none";
 
-      if (loginScreen) {
-        loginScreen.style.display = "block";
-      }
+      loginScreen.style.display = "block";
 
       window.scrollTo(0, 0);
 
@@ -132,20 +95,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     VOLTAR DA CONTA ANTIGA
+     VOLTAR DO LOGIN → ABERTURA
   ===================================================== */
 
-  if (backBtn) {
+  const loginBackBtn =
+    document.getElementById("loginBackBtn");
 
-    backBtn.addEventListener("click", function () {
 
-      if (accountScreen) {
-        accountScreen.style.display = "none";
-      }
+  if (loginBackBtn) {
 
-      if (loginScreen) {
-        loginScreen.style.display = "block";
-      }
+    loginBackBtn.addEventListener("click", function () {
+
+      loginScreen.style.display = "none";
+
+      registerScreen.style.display = "none";
+
+      appScreen.style.display = "none";
+
+      welcomeScreen.style.display = "flex";
 
       window.scrollTo(0, 0);
 
@@ -158,101 +125,41 @@ document.addEventListener("DOMContentLoaded", function () {
      CRIAR CONTA
   ===================================================== */
 
-  if (createAccountBtn) {
+  const registerBtn =
+    document.getElementById("registerBtn");
 
-    createAccountBtn.addEventListener("click", function () {
-
-      const name =
-        document.getElementById("nameInput").value.trim();
-
-      const email =
-        document.getElementById("emailInput").value.trim();
-
-      const password =
-        document.getElementById("passwordInput").value.trim();
-
-
-      if (
-        name === "" ||
-        email === "" ||
-        password === ""
-      ) {
-
-        accountMessage.textContent =
-          "Preencha todos os campos.";
-
-        accountMessage.style.color = "#ff5555";
-
-        return;
-      }
-
-
-      if (password.length < 6) {
-
-        accountMessage.textContent =
-          "A palavra-passe deve ter pelo menos 6 caracteres.";
-
-        accountMessage.style.color = "#ff5555";
-
-        return;
-      }
-
-
-      const user = {
-        name: name,
-        email: email,
-        password: password
-      };
-
-
-      localStorage.setItem(
-        "vipnetflix_user",
-        JSON.stringify(user)
-      );
-
-
-      accountMessage.textContent =
-        "Conta criada com sucesso!";
-
-      accountMessage.style.color =
-        "#39d98a";
-
-
-      setTimeout(function () {
-
-        accountScreen.style.display = "none";
-
-        appScreen.style.display = "block";
-
-        window.scrollTo(0, 0);
-
-      }, 1000);
-
-    });
-
-  }
-
-
-  /* =====================================================
-     BOTÃO DA NOVA TELA DE CADASTRO
-  ===================================================== */
 
   if (registerBtn) {
 
     registerBtn.addEventListener("click", function () {
 
       const name =
-        document.getElementById("registerName").value.trim();
+        document.getElementById("registerName")
+        .value
+        .trim();
+
 
       const email =
-        document.getElementById("registerEmail").value.trim();
+        document.getElementById("registerEmail")
+        .value
+        .trim();
+
 
       const password =
-        document.getElementById("registerPassword").value;
+        document.getElementById("registerPassword")
+        .value;
+
 
       const password2 =
-        document.getElementById("registerPassword2").value;
+        document.getElementById("registerPassword2")
+        .value;
 
+
+      const message =
+        document.getElementById("registerMessage");
+
+
+      /* VALIDAR CAMPOS */
 
       if (
         name === "" ||
@@ -261,39 +168,63 @@ document.addEventListener("DOMContentLoaded", function () {
         password2 === ""
       ) {
 
-        registerMessage.textContent =
+        message.textContent =
           "Preencha todos os campos.";
 
-        registerMessage.style.color =
+        message.style.color =
           "#ff5555";
 
         return;
+
       }
 
+
+      /* VALIDAR EMAIL */
+
+      if (!email.includes("@")) {
+
+        message.textContent =
+          "Digite um email válido.";
+
+        message.style.color =
+          "#ff5555";
+
+        return;
+
+      }
+
+
+      /* VALIDAR SENHA */
 
       if (password.length < 6) {
 
-        registerMessage.textContent =
+        message.textContent =
           "A palavra-passe deve ter pelo menos 6 caracteres.";
 
-        registerMessage.style.color =
+        message.style.color =
           "#ff5555";
 
         return;
+
       }
 
+
+      /* CONFIRMAR SENHA */
 
       if (password !== password2) {
 
-        registerMessage.textContent =
+        message.textContent =
           "As palavras-passe não são iguais.";
 
-        registerMessage.style.color =
+        message.style.color =
           "#ff5555";
 
         return;
+
       }
 
+
+      /* GUARDAR CONTA PARA TESTE */
 
       const user = {
 
@@ -312,20 +243,18 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
 
-      registerMessage.textContent =
+      message.textContent =
         "Conta criada com sucesso!";
 
-      registerMessage.style.color =
+      message.style.color =
         "#39d98a";
 
 
+      /* IR PARA APLICAÇÃO */
+
       setTimeout(function () {
 
-        accountScreen.style.display = "none";
-
-        if (registerScreen) {
-          registerScreen.style.display = "none";
-        }
+        registerScreen.style.display = "none";
 
         appScreen.style.display = "block";
 
@@ -342,16 +271,30 @@ document.addEventListener("DOMContentLoaded", function () {
      LOGIN
   ===================================================== */
 
+  const loginBtn =
+    document.getElementById("loginBtn");
+
+
   if (loginBtn) {
 
     loginBtn.addEventListener("click", function () {
 
       const email =
-        document.getElementById("loginEmail").value.trim();
+        document.getElementById("loginEmail")
+        .value
+        .trim();
+
 
       const password =
-        document.getElementById("loginPassword").value;
+        document.getElementById("loginPassword")
+        .value;
 
+
+      const message =
+        document.getElementById("loginMessage");
+
+
+      /* PROCURAR CONTA */
 
       const savedUser =
         localStorage.getItem("vipnetflix_user");
@@ -359,13 +302,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (!savedUser) {
 
-        loginMessage.textContent =
-          "Você ainda não tem uma conta. Clique em CRIAR NOVA CONTA.";
+        message.textContent =
+          "Você ainda não tem uma conta.";
 
-        loginMessage.style.color =
+        message.style.color =
           "#ff5555";
 
         return;
+
       }
 
 
@@ -373,15 +317,17 @@ document.addEventListener("DOMContentLoaded", function () {
         JSON.parse(savedUser);
 
 
+      /* VERIFICAR LOGIN */
+
       if (
         email === user.email &&
         password === user.password
       ) {
 
-        loginMessage.textContent =
+        message.textContent =
           "Login realizado com sucesso!";
 
-        loginMessage.style.color =
+        message.style.color =
           "#39d98a";
 
 
@@ -398,10 +344,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       } else {
 
-        loginMessage.textContent =
+        message.textContent =
           "Email ou palavra-passe incorretos.";
 
-        loginMessage.style.color =
+        message.style.color =
           "#ff5555";
 
       }
@@ -412,25 +358,114 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     DOWNLOADS
+     ESQUECI A PALAVRA-PASSE
   ===================================================== */
 
-  const downloadButton =
-    document.querySelector(".download-page-btn");
+  const forgotPasswordBtn =
+    document.getElementById("forgotPasswordBtn");
 
-  if (downloadButton) {
 
-    downloadButton.addEventListener(
+  if (forgotPasswordBtn) {
+
+    forgotPasswordBtn.addEventListener(
       "click",
       function () {
 
+        const savedUser =
+          localStorage.getItem("vipnetflix_user");
+
+
+        if (!savedUser) {
+
+          alert(
+            "Ainda não existe uma conta VipNetflix."
+          );
+
+          return;
+
+        }
+
+
         alert(
-          "A área de Downloads ficará disponível aqui para assistir aos conteúdos offline dentro do aplicativo."
+          "A recuperação da palavra-passe será ligada a email/telefone na próxima etapa."
         );
 
       }
     );
 
   }
+
+
+  /* =====================================================
+     DOWNLOADS
+  ===================================================== */
+
+  const downloadPageBtn =
+    document.getElementById("downloadPageBtn");
+
+
+  if (downloadPageBtn) {
+
+    downloadPageBtn.addEventListener(
+      "click",
+      function () {
+
+        alert(
+          "Área de Downloads: os conteúdos autorizados baixados ficarão disponíveis para assistir offline dentro do aplicativo."
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     ASSISTIR
+  ===================================================== */
+
+  const watchBtn =
+    document.getElementById("watchBtn");
+
+
+  if (watchBtn) {
+
+    watchBtn.addEventListener(
+      "click",
+      function () {
+
+        alert(
+          "O player VipNetflix será aberto aqui."
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     MENU
+  ===================================================== */
+
+  const menuBtn =
+    document.getElementById("menuBtn");
+
+
+  if (menuBtn) {
+
+    menuBtn.addEventListener(
+      "click",
+      function () {
+
+        alert(
+          "Menu VipNetflix."
+        );
+
+      }
+    );
+
+  }
+
 
 });
