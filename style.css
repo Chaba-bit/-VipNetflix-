@@ -1,2378 +1,422 @@
-/* =========================================================
-   VIPNETFLIX
-   APP.JS
-========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+body {
+  background: #05080b;
+  color: white;
+  font-family: Arial, sans-serif;
+}
 
-/* =========================================================
-   CATÁLOGO
-========================================================= */
+/* =========================
+   TELA DE ABERTURA
+========================= */
 
-const catalog = [
+.welcome-screen {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
-  {
-    id: 1,
-    title: "Reacher",
-    type: "serie",
-    genre: "Ação",
-    year: 2022,
-    rating: 8.1,
-    seasons: 4,
+  background:
+    radial-gradient(circle at 20% 20%, #a90020, transparent 40%),
+    radial-gradient(circle at 80% 80%, #35006b, transparent 45%),
+    #080808;
+}
 
-    description:
-      "Quando o policial militar aposentado Jack Reacher é preso por um assassinato que não cometeu, ele se vê no meio de uma trama perigosa."
-  },
+.welcome-content {
+  width: 90%;
+  max-width: 500px;
+}
 
-  {
-    id: 2,
-    title: "Percy Jackson e os Olimpianos",
-    type: "serie",
-    genre: "Aventura",
-    year: 2023,
-    rating: 8.0,
-    seasons: 2,
+.welcome-content h1 {
+  font-size: 65px;
+  font-weight: 900;
+  letter-spacing: -4px;
+  margin-bottom: 35px;
+}
 
-    description:
-      "Um jovem descobre que pertence a um mundo extraordinário cheio de deuses, monstros e aventuras."
-  },
+.welcome-content h1 span {
+  color: white;
+}
 
-  {
-    id: 3,
-    title: "Homem-Aranha",
-    type: "movie",
-    genre: "Ação",
-    year: 2026,
-    rating: 8.4,
-    seasons: 0,
+.welcome-content h1 b {
+  color: #e50914;
+}
 
-    description:
-      "Um herói precisa enfrentar uma nova ameaça enquanto tenta proteger a cidade."
-  },
+.welcome-content p {
+  color: #aaa;
+  font-size: 20px;
+  line-height: 1.6;
+}
 
-  {
-    id: 4,
-    title: "O Voto de Morte",
-    type: "serie",
-    genre: "Drama",
-    year: 2025,
-    rating: 7.9,
-    seasons: 1,
+/* BOTÃO ENTRAR */
 
-    description:
-      "Um grupo de pessoas é envolvido em um mistério perigoso."
-  }
+.enter-btn {
+  width: 100%;
+  margin-top: 55px;
 
-];
+  padding: 22px;
 
+  border: none;
+  border-radius: 25px;
 
-/* =========================================================
-   EPISÓDIOS
-========================================================= */
-
-const episodes = {
-
-  1: [
-
-    {
-      id: 101,
-      season: 1,
-      number: 1,
-      title: "Sem Saída",
-      duration: "44 min"
-    },
-
-    {
-      id: 102,
-      season: 1,
-      number: 2,
-      title: "Fantasma do Passado",
-      duration: "46 min"
-    },
-
-    {
-      id: 103,
-      season: 1,
-      number: 3,
-      title: "Ponto de Ruptura",
-      duration: "42 min"
-    },
-
-    {
-      id: 104,
-      season: 1,
-      number: 4,
-      title: "Inimigos Próximos",
-      duration: "45 min"
-    },
-
-    {
-      id: 105,
-      season: 1,
-      number: 5,
-      title: "Zona de Perigo",
-      duration: "43 min"
-    }
-
-  ],
-
-  2: [
-
-    {
-      id: 201,
-      season: 1,
-      number: 1,
-      title: "O Acampamento",
-      duration: "43 min"
-    },
-
-    {
-      id: 202,
-      season: 1,
-      number: 2,
-      title: "A Profecia",
-      duration: "45 min"
-    },
-
-    {
-      id: 203,
-      season: 1,
-      number: 3,
-      title: "A Jornada",
-      duration: "44 min"
-    }
-
-  ],
-
-  4: [
-
-    {
-      id: 401,
-      season: 1,
-      number: 1,
-      title: "O Primeiro Voto",
-      duration: "47 min"
-    },
-
-    {
-      id: 402,
-      season: 1,
-      number: 2,
-      title: "O Segredo",
-      duration: "45 min"
-    }
-
-  ]
-
-};
-
-
-/* =========================================================
-   ESTADO
-========================================================= */
-
-let currentSeries = null;
-
-let selectedSeason = 1;
-
-let favorites =
-  JSON.parse(
-    localStorage.getItem("vip_favorites") || "[]"
+  background: linear-gradient(
+    90deg,
+    #ff1e2d,
+    #e50914
   );
 
-let downloads =
-  JSON.parse(
-    localStorage.getItem("vip_downloads") || "[]"
-  );
+  color: white;
 
-let account =
-  JSON.parse(
-    localStorage.getItem("vip_account") || "null"
-  );
+  font-size: 25px;
+  font-weight: bold;
 
+  cursor: pointer;
 
-/* =========================================================
-   ELEMENTOS
-========================================================= */
+  box-shadow: 0 10px 35px rgba(229, 9, 20, .4);
 
-const splash =
-  document.getElementById("splash");
+  position: relative;
+  z-index: 10;
+}
 
-const app =
-  document.getElementById("app");
+.enter-btn span {
+  margin-left: 12px;
+}
 
-const content =
-  document.getElementById("content");
-
-const enterButton =
-  document.getElementById("enterButton");
-
-const sideMenu =
-  document.getElementById("sideMenu");
-
-const menuOverlay =
-  document.getElementById("menuOverlay");
-
-
-/* =========================================================
-   INICIAR
-========================================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-
-    /* BOTÃO ENTRAR */
-
-    if (enterButton) {
-
-      enterButton.addEventListener(
-        "click",
-        function () {
-
-          splash.classList.add("hidden");
-
-          app.classList.remove("hidden");
-
-          renderHome();
-
-          window.scrollTo(0, 0);
-
-        }
-      );
-
-    }
-
-
-    /* BOTÃO MENU */
-
-    const menuButton =
-      document.getElementById("menuButton");
-
-    if (menuButton) {
-
-      menuButton.addEventListener(
-        "click",
-        openMenu
-      );
-
-    }
-
-
-    /* FECHAR MENU */
-
-    const closeMenuButton =
-      document.getElementById("closeMenu");
-
-    if (closeMenuButton) {
-
-      closeMenuButton.addEventListener(
-        "click",
-        closeMenu
-      );
-
-    }
-
-
-    if (menuOverlay) {
-
-      menuOverlay.addEventListener(
-        "click",
-        closeMenu
-      );
-
-    }
-
-
-    /* PESQUISA */
-
-    const searchButton =
-      document.getElementById("searchButton");
-
-    if (searchButton) {
-
-      searchButton.addEventListener(
-        "click",
-        showSearch
-      );
-
-    }
-
-
-    /* MENU INFERIOR */
-
-    document
-      .querySelectorAll(
-        ".bottom-navigation button"
-      )
-      .forEach(button => {
-
-        button.addEventListener(
-          "click",
-          function () {
-
-            const page =
-              button.dataset.page;
-
-            navigate(page);
-
-          }
-        );
-
-      });
-
-
-    /* MENU LATERAL */
-
-    document
-      .querySelectorAll(
-        "[data-menu-page]"
-      )
-      .forEach(button => {
-
-        button.addEventListener(
-          "click",
-          function () {
-
-            const page =
-              button.dataset.menuPage;
-
-            closeMenu();
-
-            navigate(page);
-
-          }
-        );
-
-      });
-
-  }
-);
-
-
-/* =========================================================
-   NAVEGAÇÃO
-========================================================= */
-
-function navigate(page) {
-
-  if (page === "home") {
-    renderHome();
-  }
-
-  else if (page === "catalog") {
-    showCatalog();
-  }
-
-  else if (page === "genres") {
-    showGenres();
-  }
-
-  else if (page === "favorites") {
-    showFavorites();
-  }
-
-  else if (page === "downloads") {
-    showDownloads();
-  }
-
-  else if (page === "plans") {
-    showPlans();
-  }
-
-  else if (page === "account") {
-    showAccount();
-  }
-
-  window.scrollTo(0, 0);
+.enter-btn:active {
+  transform: scale(.97);
 }
 
 
-/* =========================================================
-   HOME
-========================================================= */
+/* =========================
+   APLICAÇÃO
+========================= */
 
-function renderHome() {
+.app-screen {
+  display: none;
+  min-height: 100vh;
+  padding-bottom: 90px;
+}
 
-  content.innerHTML = `
+.topbar {
+  height: 70px;
+  background: #07131d;
 
-    <section class="hero">
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-      <button
-        class="hero-play"
-        onclick="openTitle(1)">
-        ▶
-      </button>
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
 
-      <h1>Reacher</h1>
+.menu-btn {
+  position: absolute;
+  left: 20px;
 
-      <div class="hero-meta">
-        ⭐ 8.1 &nbsp; • &nbsp; 2022
-        &nbsp; • &nbsp; 4 temporadas
-      </div>
+  background: none;
+  border: none;
 
-      <p class="hero-description">
-        Ação, investigação e mistério.
-        Descubra a história de Jack Reacher.
-      </p>
+  color: white;
+  font-size: 35px;
+}
 
-    </section>
+.logo {
+  font-size: 34px;
+  font-weight: 900;
+}
 
-
-    <section class="section">
-
-      <h2 class="section-title">
-        Continuar assistindo
-      </h2>
-
-      <div class="cards">
-
-        ${createCards(catalog)}
-
-      </div>
-
-    </section>
-
-
-    <section class="section">
-
-      <h2 class="section-title">
-        Lançamentos
-      </h2>
-
-      <div class="cards">
-
-        ${createCards(
-          [...catalog].reverse()
-        )}
-
-      </div>
-
-    </section>
-
-  `;
+.logo span {
+  color: white;
 }
 
 
-/* =========================================================
-   CRIAR CARDS
-========================================================= */
+/* =========================
+   HERO
+========================= */
 
-function createCards(list) {
+.hero {
+  height: 420px;
 
-  return list.map(movie => `
-
-    <article
-      class="card"
-      onclick="openTitle(${movie.id})">
-
-      <div
-        class="poster
-        ${movie.type === "serie" ? "series" : ""}">
-
-        ${movie.type === "serie" ? "📺" : "🎬"}
-
-      </div>
-
-      <div class="card-info">
-
-        <div class="card-title">
-          ${movie.title}
-        </div>
-
-        <div class="card-meta">
-          ⭐ ${movie.rating}
-          &nbsp; • &nbsp;
-          ${movie.year}
-        </div>
-
-      </div>
-
-    </article>
-
-  `).join("");
-
-}
-
-
-/* =========================================================
-   CATÁLOGO
-========================================================= */
-
-function showCatalog() {
-
-  content.innerHTML = `
-
-    <section class="section">
-
-      <h1>Catálogo</h1>
-
-      <br>
-
-      <div class="cards">
-
-        ${createCards(catalog)}
-
-      </div>
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   ABRIR TÍTULO
-========================================================= */
-
-function openTitle(id) {
-
-  const movie =
-    catalog.find(
-      item => item.id === id
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.1),
+      #05080b
+    ),
+    radial-gradient(
+      circle at center,
+      #7d0718,
+      #07131d 70%
     );
 
-  if (!movie) return;
-
-  currentSeries = movie;
-
-  selectedSeason = 1;
-
-  content.innerHTML = `
-
-    <section class="hero">
-
-      <button
-        class="hero-play"
-        onclick="watchTitle()">
-
-        ▶
-
-      </button>
-
-      <h1>
-        ${movie.title}
-      </h1>
-
-      <div class="hero-meta">
-
-        ⭐ ${movie.rating}
-        &nbsp; • &nbsp;
-        ${movie.year}
-        &nbsp; • &nbsp;
-
-        ${
-          movie.type === "serie"
-          ? `${movie.seasons} temporadas`
-          : "Filme"
-        }
-
-      </div>
-
-    </section>
-
-
-    <section class="details">
-
-      <h1 class="details-title">
-        ${movie.title}
-      </h1>
-
-
-      <div class="tags">
-
-        <span class="tag">
-          ${movie.genre}
-        </span>
-
-        ${
-          movie.type === "serie"
-
-          ?
-
-          `<span class="tag">
-            ${movie.seasons} temporadas
-          </span>`
-
-          :
-
-          ""
-        }
-
-      </div>
-
-
-      <div class="action-row">
-
-        <button
-          class="action-button watch-button"
-          onclick="watchTitle()">
-
-          ▶ ASSISTIR
-
-        </button>
-
-
-        ${
-          movie.type === "serie"
-
-          ?
-
-          `<button
-            class="action-button download-button"
-            onclick="downloadAllEpisodes(${movie.id})">
-
-            ↓ BAIXAR
-
-          </button>`
-
-          :
-
-          `<button
-            class="action-button download-button"
-            onclick="testDownloadMovie(${movie.id})">
-
-            ↓ BAIXAR
-
-          </button>`
-        }
-
-      </div>
-
-
-      <button
-        class="favorite-button"
-        onclick="toggleFavorite(${movie.id})">
-
-        ${
-          favorites.includes(movie.id)
-          ? "♥ Remover dos favoritos"
-          : "♡ Adicionar aos favoritos"
-        }
-
-      </button>
-
-
-      <div class="section">
-
-        <h2 class="section-title">
-          SINOPSE
-        </h2>
-
-        <p
-          style="
-          color:#bcc3ca;
-          line-height:1.8;
-          "
-        >
-
-          ${movie.description}
-
-        </p>
-
-      </div>
-
-
-      ${
-        movie.type === "serie"
-
-        ?
-
-        `
-
-        <div class="section">
-
-          <h2 class="section-title">
-            Temporadas e episódios
-          </h2>
-
-
-          <div class="seasons">
-
-            ${createSeasonButtons(movie)}
-
-          </div>
-
-
-          <div id="episodeArea"></div>
-
-        </div>
-
-        `
-
-        :
-
-        ""
-      }
-
-    </section>
-
-  `;
-
-
-  if (movie.type === "serie") {
-
-    renderEpisodes(1);
-
-  }
-
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-overlay {
+  padding: 30px;
+}
+
+.hero h2 {
+  font-size: 38px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  color: #bbb;
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.watch-btn {
+  background: #ff8a00;
+  color: white;
+
+  border: none;
+  border-radius: 15px;
+
+  padding: 18px 35px;
+
+  font-size: 18px;
+  font-weight: bold;
 }
 
 
-/* =========================================================
-   TEMPORADAS
-========================================================= */
+/* =========================
+   SEÇÕES
+========================= */
 
-function createSeasonButtons(movie) {
-
-  let html = "";
-
-  for (
-    let i = 1;
-    i <= movie.seasons;
-    i++
-  ) {
-
-    html += `
-
-      <button
-        class="
-          season-button
-          ${i === selectedSeason ? "active" : ""}
-        "
-        onclick="renderEpisodes(${i})">
-
-        Temporada ${i}
-
-      </button>
-
-    `;
-
-  }
-
-  return html;
-
+.section {
+  padding: 25px 20px;
 }
 
+.section h2 {
+  font-size: 21px;
+  margin-bottom: 20px;
+}
 
-/* =========================================================
-   EPISÓDIOS
-========================================================= */
+.cards {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+}
 
-function renderEpisodes(seasonNumber) {
+.card {
+  min-width: 145px;
+}
 
-  selectedSeason = seasonNumber;
+.poster {
+  height: 210px;
 
-  const area =
-    document.getElementById(
-      "episodeArea"
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #3a0a10,
+      #101820
     );
 
-  if (!area || !currentSeries) return;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  font-size: 55px;
+}
 
-  const list =
-    episodes[currentSeries.id] || [];
-
-
-  const seasonEpisodes =
-    list.filter(
-      episode =>
-        episode.season === seasonNumber
-    );
-
-
-  area.innerHTML = `
-
-    <h3 style="margin:15px 0">
-      Temporada ${seasonNumber}
-    </h3>
-
-    ${
-      seasonEpisodes.length
-
-      ?
-
-      seasonEpisodes
-        .map(createEpisodeHTML)
-        .join("")
-
-      :
-
-      `
-
-      <div class="empty-message">
-
-        Os episódios desta temporada
-        ainda serão adicionados.
-
-      </div>
-
-      `
-    }
-
-  `;
-
-
-  /* Atualizar botões */
-
-  document
-    .querySelectorAll(".season-button")
-    .forEach((button, index) => {
-
-      button.classList.toggle(
-        "active",
-        index + 1 === seasonNumber
-      );
-
-    });
-
+.card h3 {
+  font-size: 15px;
+  margin-top: 10px;
 }
 
 
-/* =========================================================
-   HTML DO EPISÓDIO
-========================================================= */
-
-function createEpisodeHTML(episode) {
-
-  const downloaded =
-    downloads.some(
-      item => item.id === episode.id
-    );
-
-
-  return `
-
-    <article class="episode">
-
-      <div class="episode-image">
-        ▶
-      </div>
-
-
-      <div>
-
-        <h3>
-          Episódio ${episode.number}
-          — ${episode.title}
-        </h3>
-
-        <p class="episode-info">
-
-          ${episode.duration}
-
-          <br>
-
-          Episódio disponível para
-          assistir.
-
-        </p>
-
-      </div>
-
-
-      <div class="episode-actions">
-
-        <button
-          class="small-button"
-          onclick="watchEpisode(${episode.id})">
-
-          ▶ Assistir
-
-        </button>
-
-
-        <button
-          class="small-button"
-          onclick="downloadEpisode(${episode.id})">
-
-          ${
-            downloaded
-            ? "✓ Baixado"
-            : "↓ Baixar"
-          }
-
-        </button>
-
-      </div>
-
-    </article>
-
-  `;
-
-}
-
-
-/* =========================================================
-   ASSISTIR
-========================================================= */
-
-function watchTitle() {
-
-  if (!currentSeries) return;
-
-  content.innerHTML = `
-
-    <section class="section">
-
-      <h1>
-        ${currentSeries.title}
-      </h1>
-
-      <br>
-
-      <div
-        style="
-        height:240px;
-        border-radius:15px;
-        background:#000;
-        display:grid;
-        place-items:center;
-        font-size:60px;
-        "
-      >
-
-        ▶
-
-      </div>
-
-      <br>
-
-      <p style="color:#aeb5bd">
-
-        Player de teste da VipNetflix.
-
-      </p>
-
-      <br>
-
-      <button
-        class="pay-button"
-        onclick="openTitle(${currentSeries.id})">
-
-        VOLTAR
-
-      </button>
-
-    </section>
-
-  `;
-
-}
-
-
-function watchEpisode(id) {
-
-  const episode =
-    findEpisode(id);
-
-  if (!episode) return;
-
-  content.innerHTML = `
-
-    <section class="section">
-
-      <h1>
-        ${currentSeries.title}
-      </h1>
-
-      <p style="color:#aaa;margin-top:8px">
-
-        Episódio ${episode.number} —
-        ${episode.title}
-
-      </p>
-
-      <br>
-
-      <div
-        style="
-        height:240px;
-        border-radius:15px;
-        background:#000;
-        display:grid;
-        place-items:center;
-        font-size:60px;
-        "
-      >
-
-        ▶
-
-      </div>
-
-      <br>
-
-      <button
-        class="pay-button"
-        onclick="openTitle(${currentSeries.id})">
-
-        VOLTAR PARA A SÉRIE
-
-      </button>
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   ENCONTRAR EPISÓDIO
-========================================================= */
-
-function findEpisode(id) {
-
-  for (
-    const seriesId in episodes
-  ) {
-
-    const found =
-      episodes[seriesId].find(
-        ep => ep.id === id
-      );
-
-    if (found) return found;
-
-  }
-
-  return null;
-
-}
-
-
-/* =========================================================
-   DOWNLOAD EPISÓDIO
-========================================================= */
-
-function downloadEpisode(id) {
-
-  const episode =
-    findEpisode(id);
-
-  if (!episode) return;
-
-
-  if (
-    downloads.some(
-      item => item.id === id
-    )
-  ) {
-
-    alert(
-      "Este episódio já está nos Downloads."
-    );
-
-    return;
-
-  }
-
-
-  downloads.push({
-
-    id: episode.id,
-
-    title:
-      `${currentSeries.title} — EP ${episode.number}`,
-
-    series:
-      currentSeries.title,
-
-    episode:
-      episode.title,
-
-    duration:
-      episode.duration,
-
-    status:
-      "Baixado"
-
-  });
-
-
-  saveDownloads();
-
-
-  alert(
-    "Episódio adicionado aos Downloads."
-  );
-
-
-  renderEpisodes(
-    selectedSeason
-  );
-
-}
-
-
-/* =========================================================
-   BAIXAR TODOS
-========================================================= */
-
-function downloadAllEpisodes(id) {
-
-  const list =
-    episodes[id] || [];
-
-  if (!list.length) {
-
-    alert(
-      "Não existem episódios disponíveis."
-    );
-
-    return;
-
-  }
-
-
-  list.forEach(episode => {
-
-    if (
-      !downloads.some(
-        item => item.id === episode.id
-      )
-    ) {
-
-      downloads.push({
-
-        id: episode.id,
-
-        title:
-          `${currentSeries.title} — EP ${episode.number}`,
-
-        series:
-          currentSeries.title,
-
-        episode:
-          episode.title,
-
-        duration:
-          episode.duration,
-
-        status:
-          "Baixado"
-
-      });
-
-    }
-
-  });
-
-
-  saveDownloads();
-
-
-  alert(
-    "Todos os episódios disponíveis foram adicionados aos Downloads."
-  );
-
-
-  showDownloads();
-
-}
-
-
-/* =========================================================
-   FILME — DOWNLOAD DE TESTE
-========================================================= */
-
-function testDownloadMovie(id) {
-
-  const movie =
-    catalog.find(
-      item => item.id === id
-    );
-
-  if (!movie) return;
-
-
-  if (
-    downloads.some(
-      item => item.id === "movie_" + id
-    )
-  ) {
-
-    alert(
-      "Este conteúdo já está nos Downloads."
-    );
-
-    return;
-
-  }
-
-
-  downloads.push({
-
-    id: "movie_" + id,
-
-    title: movie.title,
-
-    series: movie.title,
-
-    duration: "Filme",
-
-    status: "Baixado"
-
-  });
-
-
-  saveDownloads();
-
-
-  alert(
-    "Filme adicionado aos Downloads."
-  );
-
-}
-
-
-/* =========================================================
+/* =========================
    DOWNLOADS
-========================================================= */
+========================= */
 
-function showDownloads() {
+.download-box {
+  background: #11171d;
 
-  content.innerHTML = `
+  border: 1px solid #222b32;
 
-    <section class="section">
+  border-radius: 20px;
 
-      <h1>Downloads</h1>
+  padding: 30px;
 
-      <p
-        style="
-        color:#9da5ad;
-        margin-top:8px;
-        "
-      >
+  text-align: center;
+}
 
-        Seus conteúdos disponíveis
-        para assistir offline.
+.download-icon {
+  font-size: 45px;
+}
 
-      </p>
+.download-box h3 {
+  margin: 15px 0 10px;
+}
 
-      <br>
+.download-box p {
+  color: #aaa;
+  line-height: 1.5;
+}
 
+.download-page-btn {
+  margin-top: 20px;
 
-      <div class="download-container">
+  padding: 13px 20px;
 
-        ${
-          downloads.length === 0
+  border: none;
+  border-radius: 10px;
 
-          ?
+  background: #ff8a00;
+  color: white;
 
-          `
-
-          <div class="empty-message">
-
-            <div style="font-size:45px">
-              ↓
-            </div>
-
-            <br>
-
-            Ainda não tens conteúdos
-            baixados.
-
-            <br><br>
-
-            Abra uma série e toque
-            em <b>Baixar</b>.
-
-          </div>
-
-          `
-
-          :
-
-          downloads
-            .map(createDownloadHTML)
-            .join("")
-        }
-
-      </div>
-
-    </section>
-
-  `;
-
+  font-weight: bold;
 }
 
 
-/* =========================================================
-   DOWNLOAD ITEM
-========================================================= */
+/* =========================
+   MENU INFERIOR
+========================= */
 
-function createDownloadHTML(item) {
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
 
-  return `
+  width: 100%;
+  height: 78px;
 
-    <article class="download-item">
+  background: #061521;
 
-      <div class="download-image">
-        🎬
-      </div>
+  display: flex;
+  justify-content: space-around;
 
+  z-index: 50;
+}
 
-      <div>
+.bottom-nav button {
+  background: none;
+  border: none;
 
-        <div class="download-title">
-          ${item.title}
-        </div>
+  color: white;
 
-        <div class="download-status">
-          ✓ Disponível offline
-        </div>
+  font-size: 24px;
+}
 
-
-        <div class="download-actions">
-
-          <button
-            class="offline-button"
-            onclick="watchOffline('${item.id}')">
-
-            ▶ Assistir offline
-
-          </button>
-
-
-          <button
-            class="offline-button"
-            onclick="deleteDownload('${item.id}')">
-
-            🗑 Excluir
-
-          </button>
-
-        </div>
-
-      </div>
-
-    </article>
-
-  `;
-
+.bottom-nav small {
+  display: block;
+  font-size: 9px;
+  margin-top: 5px;
 }
 
 
-/* =========================================================
-   ASSISTIR OFFLINE
-========================================================= */
-
-function watchOffline(id) {
-
-  const item =
-    downloads.find(
-      download =>
-        String(download.id) === String(id)
-    );
-
-  if (!item) return;
-
-
-  content.innerHTML = `
-
-    <section class="section">
-
-      <h1>
-        Assistir offline
-      </h1>
-
-      <br>
-
-      <div
-        style="
-        height:260px;
-        border-radius:16px;
-        background:#000;
-        display:grid;
-        place-items:center;
-        font-size:65px;
-        "
-      >
-
-        ▶
-
-      </div>
-
-      <br>
-
-      <h2>
-        ${item.title}
-      </h2>
-
-      <p
-        style="
-        color:#36d66b;
-        margin-top:10px;
-        "
-      >
-
-        ✓ Conteúdo disponível offline
-
-      </p>
-
-      <p
-        style="
-        color:#9fa7af;
-        margin-top:10px;
-        line-height:1.6;
-        "
-      >
-
-        Modo de teste da reprodução
-        offline da VipNetflix.
-
-      </p>
-
-      <br>
-
-      <button
-        class="pay-button"
-        onclick="showDownloads()">
-
-        VOLTAR AOS DOWNLOADS
-
-      </button>
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   EXCLUIR DOWNLOAD
-========================================================= */
-
-function deleteDownload(id) {
-
-  downloads =
-    downloads.filter(
-      item =>
-        String(item.id) !== String(id)
-    );
-
-
-  saveDownloads();
-
-  showDownloads();
-
-}
-
-
-/* =========================================================
-   GUARDAR DOWNLOADS
-========================================================= */
-
-function saveDownloads() {
-
-  localStorage.setItem(
-    "vip_downloads",
-    JSON.stringify(downloads)
-  );
-
-}
-
-
-/* =========================================================
-   FAVORITOS
-========================================================= */
-
-function toggleFavorite(id) {
-
-  if (
-    favorites.includes(id)
-  ) {
-
-    favorites =
-      favorites.filter(
-        item => item !== id
-      );
-
-  } else {
-
-    favorites.push(id);
-
-  }
-
-
-  localStorage.setItem(
-    "vip_favorites",
-    JSON.stringify(favorites)
-  );
-
-
-  openTitle(id);
-
-}
-
-
-/* =========================================================
-   FAVORITOS
-========================================================= */
-
-function showFavorites() {
-
-  const list =
-    catalog.filter(
-      movie =>
-        favorites.includes(movie.id)
-    );
-
-
-  content.innerHTML = `
-
-    <section class="section">
-
-      <h1>Favoritos</h1>
-
-      <br>
-
-      ${
-        list.length
-
-        ?
-
-        `
-
-        <div class="cards">
-
-          ${createCards(list)}
-
-        </div>
-
-        `
-
-        :
-
-        `
-
-        <div class="empty-message">
-
-          ❤️
-
-          <br><br>
-
-          Ainda não tens favoritos.
-
-          <br>
-
-          Abra um filme ou série
-          e toque em Favoritar.
-
-        </div>
-
-        `
-      }
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   GÊNEROS
-========================================================= */
-
-function showGenres() {
-
-  const genres =
-    [
-      ...new Set(
-        catalog.map(
-          movie => movie.genre
-        )
-      )
-    ];
-
-
-  content.innerHTML = `
-
-    <section class="section">
-
-      <h1>Gêneros</h1>
-
-      <br>
-
-      ${genres.map(genre => `
-
-        <button
-          class="payment-option"
-          onclick="filterGenre('${genre}')">
-
-          <strong>
-            🎬 ${genre}
-          </strong>
-
-          <small>
-            Ver conteúdos
-          </small>
-
-        </button>
-
-      `).join("")}
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   FILTRAR GÊNERO
-========================================================= */
-
-function filterGenre(genre) {
-
-  const list =
-    catalog.filter(
-      movie =>
-        movie.genre === genre
-    );
-
-
-  content.innerHTML = `
-
-    <section class="section">
-
-      <h1>
-        ${genre}
-      </h1>
-
-      <br>
-
-      <div class="cards">
-
-        ${createCards(list)}
-
-      </div>
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   PESQUISA
-========================================================= */
-
-function showSearch() {
-
-  content.innerHTML = `
-
-    <section class="section">
-
-      <h1>Pesquisar</h1>
-
-      <br>
-
-      <input
-        id="searchInput"
-        class="input search-input"
-        placeholder="Pesquisar filmes e séries..."
-        autocomplete="off"
-      >
-
-      <div id="searchResults"></div>
-
-    </section>
-
-  `;
-
-
-  const input =
-    document.getElementById(
-      "searchInput"
-    );
-
-
-  input.focus();
-
-
-  input.addEventListener(
-    "input",
-    function () {
-
-      const value =
-        input.value
-          .toLowerCase()
-          .trim();
-
-
-      const result =
-        catalog.filter(
-          movie =>
-            movie.title
-              .toLowerCase()
-              .includes(value)
-        );
-
-
-      document.getElementById(
-        "searchResults"
-      ).innerHTML = `
-
-        ${
-          value
-          ?
-
-          `<div class="cards">
-             ${createCards(result)}
-           </div>`
-
-          :
-
-          `<div class="empty-message">
-             Digite o nome de um filme ou série.
-           </div>`
-        }
-
-      `;
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   PLANOS
-========================================================= */
-
-function showPlans() {
-
-  content.innerHTML = `
-
-    <section class="section">
-
-      <h1>
-        Escolha seu plano
-      </h1>
-
-      <p
-        style="
-        color:#aeb5bd;
-        margin-top:8px;
-        "
-      >
-
-        Assinatura mensal em Meticais.
-
-      </p>
-
-      <br>
-
-
-      <div class="plan">
-
-        <h2>Básico</h2>
-
-        <div class="plan-price">
-          149 MT / mês
-        </div>
-
-        <ul>
-          <li>Qualidade HD</li>
-          <li>1 tela</li>
-          <li>Downloads</li>
-        </ul>
-
-      </div>
-
-
-      <div class="plan">
-
-        <h2>Padrão</h2>
-
-        <div class="plan-price">
-          249 MT / mês
-        </div>
-
-        <ul>
-          <li>Full HD</li>
-          <li>2 telas</li>
-          <li>Downloads</li>
-          <li>Sem anúncios</li>
-        </ul>
-
-      </div>
-
-
-      <div class="plan selected">
-
-        <h2>Premium</h2>
-
-        <div class="plan-price">
-          399 MT / mês
-        </div>
-
-        <ul>
-          <li>4K Ultra HD</li>
-          <li>4 telas</li>
-          <li>Downloads</li>
-          <li>Sem anúncios</li>
-        </ul>
-
-      </div>
-
-
-      <h2 class="payment-title">
-        Forma de pagamento
-      </h2>
-
-
-      <button
-        class="payment-option active"
-        data-payment="mpesa"
-        onclick="selectPayment(this)">
-
-        <strong>
-          📱 M-Pesa
-        </strong>
-
-        <small>
-          Pagamento móvel em Moçambique
-        </small>
-
-      </button>
-
-
-      <button
-        class="payment-option"
-        data-payment="emola"
-        onclick="selectPayment(this)">
-
-        <strong>
-          📱 e-Mola
-        </strong>
-
-        <small>
-          Pagamento móvel em Moçambique
-        </small>
-
-      </button>
-
-
-      <button
-        class="payment-option"
-        data-payment="card"
-        onclick="selectPayment(this)">
-
-        <strong>
-          💳 Cartão bancário
-        </strong>
-
-        <small>
-          Visa / Mastercard
-        </small>
-
-      </button>
-
-
-      <button
-        class="pay-button"
-        onclick="simulatePayment()">
-
-        CONTINUAR PAGAMENTO
-
-      </button>
-
-
-      <p
-        style="
-        text-align:center;
-        color:#858d96;
-        margin-top:15px;
-        font-size:12px;
-        "
-      >
-
-        🇲🇿 Pagamento para utilizadores
-        em Moçambique.
-
-      </p>
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   PAGAMENTO
-========================================================= */
-
-let selectedPayment = "mpesa";
-
-
-function selectPayment(element) {
-
-  document
-    .querySelectorAll(
-      ".payment-option"
-    )
-    .forEach(
-      option =>
-        option.classList.remove(
-          "active"
-        )
-    );
-
-
-  element.classList.add("active");
-
-
-  selectedPayment =
-    element.dataset.payment;
-
-}
-
-
-function simulatePayment() {
-
-  if (!account) {
-
-    const confirmAccount =
-      confirm(
-        "Ainda não tens uma conta. Queres criar uma agora?"
-      );
-
-
-    if (confirmAccount) {
-
-      showAccount();
-
-    }
-
-    return;
-
-  }
-
-
-  let paymentName =
-    "M-Pesa";
-
-
-  if (
-    selectedPayment === "emola"
-  ) {
-
-    paymentName =
-      "e-Mola";
-
-  }
-
-
-  if (
-    selectedPayment === "card"
-  ) {
-
-    paymentName =
-      "Cartão bancário";
-
-  }
-
-
-  content.innerHTML = `
-
-    <section class="section">
-
-      <h1>
-        Pagamento
-      </h1>
-
-      <br>
-
-      <div class="plan selected">
-
-        <h2>
-          Premium
-        </h2>
-
-        <div class="plan-price">
-          399 MT / mês
-        </div>
-
-        <br>
-
-        <p style="color:#aaa">
-
-          Método selecionado:
-          <b>${paymentName}</b>
-
-        </p>
-
-      </div>
-
-
-      <br>
-
-
-      <div class="form">
-
-        ${
-          selectedPayment === "card"
-
-          ?
-
-          `
-
-          <input
-            class="input"
-            placeholder="Número do cartão"
-            inputmode="numeric"
-          >
-
-          <input
-            class="input"
-            placeholder="MM / AA"
-          >
-
-          <input
-            class="input"
-            placeholder="CVV"
-            type="password"
-          >
-
-          <input
-            class="input"
-            placeholder="Nome no cartão"
-          >
-
-          `
-
-          :
-
-          `
-
-          <input
-            id="paymentPhone"
-            class="input"
-            placeholder="+258 84 000 0000"
-            inputmode="tel"
-          >
-
-          `
-        }
-
-
-        <button
-          class="pay-button"
-          onclick="finishPayment()">
-
-          PAGAR 399 MT
-
-        </button>
-
-      </div>
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   FINALIZAR PAGAMENTO — TESTE
-========================================================= */
-
-function finishPayment() {
-
-  alert(
-    "TESTE: pagamento aprovado com sucesso!"
-  );
-
-
-  localStorage.setItem(
-    "vip_subscription",
-    JSON.stringify({
-
-      plan: "Premium",
-
-      price: 399,
-
-      payment:
-        selectedPayment,
-
-      active: true
-
-    })
-  );
-
-
-  renderHome();
-
-}
-
-
-/* =========================================================
+/* =========================
    CONTA
-========================================================= */
+========================= */
 
-function showAccount() {
+.account-screen {
+  display: none;
 
-  const currentName =
-    account
-      ? account.name
-      : "";
+  min-height: 100vh;
 
+  padding: 30px 20px;
 
-  const currentEmail =
-    account
-      ? account.email
-      : "";
+  background:
+    radial-gradient(circle at top, #45000d, #05080b 55%);
+}
 
+.back-btn {
+  background: none;
+  border: none;
 
-  content.innerHTML = `
+  color: white;
 
-    <section class="form">
+  font-size: 18px;
+}
 
-      <h1>
-        ${account
-          ? "Minha conta"
-          : "Criar conta"}
-      </h1>
+.account-box {
+  max-width: 450px;
 
-      <br>
+  margin: 80px auto;
 
+  text-align: center;
+}
 
-      ${
-        account
+.account-box h1 {
+  font-size: 42px;
+  margin-bottom: 40px;
+}
 
-        ?
+.account-box h1 span {
+  color: #e50914;
+}
 
-        `
+.account-box h2 {
+  font-size: 28px;
+}
 
-        <p
-          style="
-          color:#36d66b;
-          margin-bottom:20px;
-          "
-        >
+.account-box p {
+  color: #aaa;
+  margin: 12px 0 25px;
+}
 
-          ✓ Conta criada
+.account-box input {
+  width: 100%;
 
-        </p>
+  padding: 18px;
 
-        `
+  margin-bottom: 15px;
 
-        :
+  border-radius: 12px;
 
-        ""
-      }
+  border: 1px solid #333;
 
+  background: #15191e;
 
-      <input
-        id="accountName"
-        class="input"
-        placeholder="Nome completo"
-        value="${currentName}"
-      >
+  color: white;
 
+  font-size: 16px;
+}
 
-      <input
-        id="accountEmail"
-        class="input"
-        type="email"
-        placeholder="E-mail"
-        value="${currentEmail}"
-      >
+.account-btn {
+  width: 100%;
 
+  padding: 18px;
 
-      ${
-        !account
+  border: none;
+  border-radius: 12px;
 
-        ?
+  background: #e50914;
 
-        `
+  color: white;
 
-        <input
-          id="accountPassword"
-          class="input"
-          type="password"
-          placeholder="Senha"
-        >
-
-
-        <input
-          id="accountPassword2"
-          class="input"
-          type="password"
-          placeholder="Confirmar senha"
-        >
-
-        `
-
-        :
-
-        ""
-      }
-
-
-      <button
-        class="pay-button"
-        onclick="saveAccount()">
-
-        ${
-          account
-          ? "ATUALIZAR CONTA"
-          : "CRIAR CONTA"
-        }
-
-      </button>
-
-
-      ${
-        account
-
-        ?
-
-        `
-
-        <button
-          class="payment-option"
-          style="
-          margin-top:12px;
-          text-align:center;
-          "
-          onclick="showPlans()">
-
-          💳 VER PLANOS
-
-        </button>
-
-        `
-
-        :
-
-        ""
-      }
-
-    </section>
-
-  `;
-
+  font-size: 18px;
+  font-weight: bold;
 }
 
 
-/* =========================================================
-   SALVAR CONTA
-========================================================= */
+/* =========================
+   CELULAR
+========================= */
 
-function saveAccount() {
+@media (max-width: 600px) {
 
-  const name =
-    document.getElementById(
-      "accountName"
-    ).value.trim();
-
-
-  const email =
-    document.getElementById(
-      "accountEmail"
-    ).value.trim();
-
-
-  if (!name || !email) {
-
-    alert(
-      "Preencha o nome e o e-mail."
-    );
-
-    return;
-
+  .welcome-content h1 {
+    font-size: 55px;
   }
 
-
-  if (!account) {
-
-    const password =
-      document.getElementById(
-        "accountPassword"
-      ).value;
-
-
-    const password2 =
-      document.getElementById(
-        "accountPassword2"
-      ).value;
-
-
-    if (!password) {
-
-      alert(
-        "Digite uma senha."
-      );
-
-      return;
-
-    }
-
-
-    if (password !== password2) {
-
-      alert(
-        "As senhas não coincidem."
-      );
-
-      return;
-
-    }
-
+  .welcome-content p {
+    font-size: 18px;
   }
 
+  .enter-btn {
+    font-size: 22px;
+  }
 
-  account = {
-
-    name: name,
-
-    email: email
-
-  };
-
-
-  localStorage.setItem(
-    "vip_account",
-    JSON.stringify(account)
-  );
-
-
-  alert(
-    "Conta salva com sucesso!"
-  );
-
-
-  showPlans();
-
-}
-
-
-/* =========================================================
-   MENU
-========================================================= */
-
-function openMenu() {
-
-  sideMenu.classList.add("open");
-
-  menuOverlay.classList.add("open");
-
-}
-
-
-function closeMenu() {
-
-  sideMenu.classList.remove("open");
-
-  menuOverlay.classList.remove("open");
-
-       }
+   }
