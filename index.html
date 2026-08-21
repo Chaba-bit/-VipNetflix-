@@ -3,23 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>VipNetflix</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- TELA DE ABERTURA -->
+  <!-- =====================================================
+       TELA DE ABERTURA
+  ====================================================== -->
+
   <section id="welcomeScreen" class="welcome-screen">
 
     <div class="welcome-content">
 
-      <h1>VIP<span>NETFLIX</span><b>.</b></h1>
+      <h1>
+        VIP<span>NETFLIX</span><b>.</b>
+      </h1>
 
       <p>Todo o seu catálogo em um só lugar.</p>
       <p>Sem limites, sem interrupções.</p>
 
-      <!-- BOTÃO ENTRAR -->
       <button id="enterBtn" class="enter-btn">
         ENTRAR <span>→</span>
       </button>
@@ -29,12 +35,181 @@
   </section>
 
 
-  <!-- APLICAÇÃO -->
+  <!-- =====================================================
+       TELA DE LOGIN
+  ====================================================== -->
+
+  <section id="loginScreen" class="login-screen">
+
+    <div class="login-box">
+
+      <div class="login-logo">
+        VIP<span>NETFLIX</span>
+      </div>
+
+      <h1>Entrar</h1>
+
+      <p class="login-subtitle">
+        Entre na sua conta VipNetflix.
+      </p>
+
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Email"
+        autocomplete="email"
+      >
+
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Palavra-passe"
+        autocomplete="current-password"
+      >
+
+
+      <button id="loginBtn" class="login-btn">
+        ENTRAR
+      </button>
+
+
+      <button
+        id="forgotPasswordBtn"
+        class="forgot-btn"
+      >
+        Esqueci a palavra-passe
+      </button>
+
+
+      <div class="or-line">
+
+        <span></span>
+
+        <b>OU</b>
+
+        <span></span>
+
+      </div>
+
+
+      <button
+        id="newAccountBtn"
+        class="new-account-btn"
+      >
+        CRIAR NOVA CONTA
+      </button>
+
+
+      <button
+        id="loginBackBtn"
+        class="simple-back-btn"
+      >
+        ← Voltar
+      </button>
+
+
+      <p
+        id="loginMessage"
+        class="login-message"
+      ></p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       TELA DE CRIAR CONTA
+  ====================================================== -->
+
+  <section id="registerScreen" class="register-screen">
+
+    <button
+      id="registerBackBtn"
+      class="register-back"
+    >
+      ← Voltar
+    </button>
+
+
+    <div class="register-box">
+
+      <div class="login-logo">
+        VIP<span>NETFLIX</span>
+      </div>
+
+      <h1>Criar conta</h1>
+
+      <p class="login-subtitle">
+        Crie sua conta para começar a assistir.
+      </p>
+
+
+      <input
+        id="registerName"
+        type="text"
+        placeholder="Nome completo"
+      >
+
+
+      <input
+        id="registerEmail"
+        type="email"
+        placeholder="Email"
+      >
+
+
+      <input
+        id="registerPassword"
+        type="password"
+        placeholder="Palavra-passe"
+      >
+
+
+      <input
+        id="registerPassword2"
+        type="password"
+        placeholder="Confirmar palavra-passe"
+      >
+
+
+      <button
+        id="registerBtn"
+        class="login-btn"
+      >
+        CRIAR CONTA
+      </button>
+
+
+      <p
+        id="registerMessage"
+        class="login-message"
+      ></p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       APLICAÇÃO PRINCIPAL
+  ====================================================== -->
+
   <section id="appScreen" class="app-screen">
+
+    <!-- TOPO -->
 
     <header class="topbar">
 
-      <button id="menuBtn" class="menu-btn">☰</button>
+      <button
+        id="menuBtn"
+        class="menu-btn"
+      >
+        ☰
+      </button>
+
 
       <div class="logo">
         VIP<span>NETFLIX</span>
@@ -43,21 +218,33 @@
     </header>
 
 
-    <!-- HOME -->
+    <!-- =================================================
+         HOME
+    ================================================== -->
+
     <main id="homePage">
+
+
+      <!-- HERO -->
 
       <div class="hero">
 
         <div class="hero-overlay">
 
-          <h2>Bem-vindo ao VipNetflix</h2>
+          <h2>
+            Bem-vindo ao VipNetflix
+          </h2>
 
           <p>
             Filmes, séries e conteúdos autorizados
             em um só lugar.
           </p>
 
-          <button class="watch-btn">
+
+          <button
+            class="watch-btn"
+            id="watchBtn"
+          >
             ▶ ASSISTIR
           </button>
 
@@ -66,26 +253,55 @@
       </div>
 
 
-      <!-- CONTINUAR ASSISTINDO -->
+      <!-- =================================================
+           CONTINUAR ASSISTINDO
+      ================================================== -->
+
       <section class="section">
 
-        <h2>▶ CONTINUAR ASSISTINDO</h2>
+        <h2>
+          ▶ CONTINUAR ASSISTINDO
+        </h2>
+
 
         <div class="cards">
 
           <div class="card">
-            <div class="poster">🎬</div>
-            <h3>Aventura VIP</h3>
+
+            <div class="poster">
+              🎬
+            </div>
+
+            <h3>
+              Aventura VIP
+            </h3>
+
           </div>
 
-          <div class="card">
-            <div class="poster">🚀</div>
-            <h3>Além do Espaço</h3>
-          </div>
 
           <div class="card">
-            <div class="poster">🔥</div>
-            <h3>Noite de Cinema</h3>
+
+            <div class="poster">
+              🚀
+            </div>
+
+            <h3>
+              Além do Espaço
+            </h3>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="poster">
+              🔥
+            </div>
+
+            <h3>
+              Noite de Cinema
+            </h3>
+
           </div>
 
         </div>
@@ -93,23 +309,37 @@
       </section>
 
 
-      <!-- DOWNLOADS -->
+      <!-- =================================================
+           DOWNLOADS
+      ================================================== -->
+
       <section class="section downloads">
 
-        <h2>⬇ DOWNLOADS</h2>
+        <h2>
+          ⬇ DOWNLOADS
+        </h2>
+
 
         <div class="download-box">
 
-          <div class="download-icon">⬇</div>
+          <div class="download-icon">
+            ⬇
+          </div>
 
-          <h3>Assistir offline</h3>
+          <h3>
+            Assistir offline
+          </h3>
 
           <p>
-            Os seus conteúdos baixados ficam
-            disponíveis dentro do aplicativo.
+            Os conteúdos baixados ficam disponíveis
+            dentro do aplicativo para assistir offline.
           </p>
 
-          <button class="download-page-btn">
+
+          <button
+            id="downloadPageBtn"
+            class="download-page-btn"
+          >
             VER DOWNLOADS
           </button>
 
@@ -120,64 +350,55 @@
     </main>
 
 
-    <!-- MENU INFERIOR -->
+    <!-- =================================================
+         MENU INFERIOR
+    ================================================== -->
+
     <nav class="bottom-nav">
 
-      <button>⌂<small>INÍCIO</small></button>
-      <button>★<small>LANÇAMENTOS</small></button>
-      <button>▣<small>CATÁLOGO</small></button>
-      <button>☷<small>GÊNEROS</small></button>
-      <button>♥<small>FAVORITOS</small></button>
-      <button>⌕<small>BUSCAR</small></button>
+      <button class="nav-btn active">
+        ⌂
+        <small>INÍCIO</small>
+      </button>
+
+
+      <button class="nav-btn">
+        ★
+        <small>LANÇAMENTOS</small>
+      </button>
+
+
+      <button class="nav-btn">
+        ▣
+        <small>CATÁLOGO</small>
+      </button>
+
+
+      <button class="nav-btn">
+        ☷
+        <small>GÊNEROS</small>
+      </button>
+
+
+      <button class="nav-btn">
+        ♥
+        <small>FAVORITOS</small>
+      </button>
+
+
+      <button class="nav-btn">
+        ⌕
+        <small>BUSCAR</small>
+      </button>
 
     </nav>
 
   </section>
 
 
-  <!-- LOGIN / CRIAÇÃO DE CONTA -->
-  <section id="accountScreen" class="account-screen">
-
-    <button id="backBtn" class="back-btn">← Voltar</button>
-
-    <div class="account-box">
-
-      <h1>VIP<span>NETFLIX</span></h1>
-
-      <h2>Crie sua conta</h2>
-
-      <p>Entre para começar a assistir.</p>
-
-      <input
-        id="nameInput"
-        type="text"
-        placeholder="Seu nome"
-      >
-
-      <input
-        id="emailInput"
-        type="email"
-        placeholder="Seu email"
-      >
-
-      <input
-        id="passwordInput"
-        type="password"
-        placeholder="Sua senha"
-      >
-
-      <button id="createAccountBtn" class="account-btn">
-        CRIAR CONTA
-      </button>
-
-      <p id="accountMessage"></p>
-
-    </div>
-
-  </section>
-
+  <!-- JAVASCRIPT -->
 
   <script src="app.js"></script>
 
 </body>
-        </html>
+</html>
